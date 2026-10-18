@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
 """Owns an isolated Compose project. Assertions use live RPC/HTTP/status evidence."""
 import argparse,concurrent.futures,json,os,pathlib,socket,subprocess,time,urllib.request
+from fault_ownership import claim_project,release_lease
 parser=argparse.ArgumentParser();parser.add_argument('--project',default='kv-fault-'+str(os.getpid()));parser.add_argument('--output',default='work/fault-results.json');args=parser.parse_args()
 ROOT=pathlib.Path(__file__).resolve().parent.parent;os.chdir(ROOT)
 def free_port():
     with socket.socket() as s:s.bind(('127.0.0.1',0));return s.getsockname()[1]
 env=os.environ.copy();env['COMPOSE_PROJECT_NAME']=args.project
 for key in ['KV_HTTP_PORT','KV_GATEWAY_ADMIN','KV_CP1_PORT','KV_CP2_PORT','KV_CP3_PORT','KV_CP1_ADMIN','KV_CP2_ADMIN','KV_CP3_ADMIN']:env[key]=str(free_port())
-dc=['docker','compose','-p',args.project];events=[];disconnected=None
+dc=['docker','compose','-p',args.project];events=[];disconnected=None;owned=False;lease=None
 def run(cmd,timeout=120):
     r=subprocess.run(cmd,env=env,text=True,capture_output=True,timeout=timeout)
     if r.returncode:raise RuntimeError(f'{cmd}: {r.stderr[-4000:]} {r.stdout[-1000:]}')
@@ -31,7 +32,7 @@ def until(check,timeout=30):
 def record(name,**data):events.append({'test':name,'time':time.time(),**data});print(json.dumps(events[-1]),flush=True)
 def gateway():return http(env['KV_HTTP_PORT'],'/orders/item')
 try:
-    assert not compose('ps','-q').strip(),'project must be unused'
+    lease=claim_project(args.project);owned=True
     compose('up','-d','--wait','--wait-timeout','120')
     seed=cli('service','put','/workspace/examples/orders.json');revision=int(seed['revision']);until(lambda:len(gateway())==1024);record('initial-routing',revision=revision)
     history=scenario('history');assert history['linearizable'];record('bounded-history',**history)
@@ -64,7 +65,11 @@ try:
     fill=scenario('fill','--count','1200','--bytes','16384',timeout=180)
     survivors=[n for n in ['cp1','cp2','cp3'] if n!=follower]
     snapshots={n:json.loads(http(env['KV_'+n.upper()+'_ADMIN'],'/snapshot','POST')) for n in survivors}
-    after=until(lambda:next((status(n) for n in survivors if int(status(n)['logStartIndex'])>int(before['appliedIndex'])+1),None),30)
+    def purged_leader():
+        for n in survivors:
+            s=status(n)
+            if s['role']=='LEADER' and int(s['logStartIndex'])>int(before['appliedIndex'])+1:return s
+    after=until(purged_leader,30)
     compose('start',follower);installed=until(lambda:status(follower) if int(status(follower)['snapshotInstalls'])>int(before['snapshotInstalls']) and int(status(follower)['appliedIndex'])>=int(fill['fillRevision']) else None,60)
     record('snapshot-install',before=before,purgedLeader=after,snapshots=snapshots,installed=installed)
     saved=cli('kv','put','/fault/persist','retained');compose('stop','cp1','cp2','cp3');compose('start','cp1','cp2','cp3');restored=until(lambda:cli('kv','get','/fault/persist'));assert restored['entry']['value']=='cmV0YWluZWQ=';assert restored['entry']['modRevision']==saved['entry']['modRevision'];record('full-restart',revision=saved['revision'],restored=restored)
@@ -96,7 +101,12 @@ finally:
         n,c,leader=disconnected
         try:run(['docker','network','connect','--alias',leader+'-raft',n,c])
         except Exception:pass
-    output=pathlib.Path(args.output);output.parent.mkdir(parents=True,exist_ok=True)
-    output.write_text(json.dumps({'result':locals().get('result','FAIL'),'project':args.project,'commit':run(['git','rev-parse','HEAD']).strip(),'dirty':bool(run(['git','status','--porcelain']).strip()),'ports':{k:v for k,v in env.items() if k.startswith('KV_')},'events':events},indent=2)+'\n')
-    logs=output.with_suffix('.log');logs.write_text(compose('logs','--no-color',timeout=30))
-    compose('down','--volumes',timeout=60)
+    try:
+        output=pathlib.Path(args.output);output.parent.mkdir(parents=True,exist_ok=True)
+        output.write_text(json.dumps({'result':locals().get('result','FAIL'),'project':args.project,'commit':run(['git','rev-parse','HEAD']).strip(),'dirty':bool(run(['git','status','--porcelain']).strip()),'ports':{k:v for k,v in env.items() if k.startswith('KV_')},'events':events},indent=2)+'\n')
+        if owned:
+            logs=output.with_suffix('.log');logs.write_text(compose('logs','--no-color',timeout=30))
+    finally:
+        try:
+            if owned:compose('down','--volumes',timeout=60)
+        finally:release_lease(lease)

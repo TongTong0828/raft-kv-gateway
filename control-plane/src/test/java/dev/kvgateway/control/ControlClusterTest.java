@@ -229,4 +229,39 @@ class ControlClusterTest {
       }
     }
   }
+
+  @Test
+  @Order(6)
+  void shortDeadlinesNeverExhaustRatisClientSlots() throws Exception {
+    var node = leader();
+    var timeouts = new java.util.concurrent.atomic.AtomicInteger();
+    var executor = java.util.concurrent.Executors.newSingleThreadExecutor();
+    try {
+      var progress =
+          executor.submit(
+              () -> {
+                for (int i = 0; i < 512 && !Thread.currentThread().isInterrupted(); i++) {
+                  try {
+                    node.write(
+                            KvStoreTest.put("short-deadline", "x".repeat(60000), 0),
+                            Duration.ofMillis(1))
+                        .join();
+                  } catch (java.util.concurrent.CompletionException error) {
+                    if (error.getCause() instanceof java.util.concurrent.TimeoutException)
+                      timeouts.incrementAndGet();
+                  }
+                }
+                return node.write(
+                        KvStoreTest.put("after-short-deadlines", "alive", 0), Duration.ofSeconds(3))
+                    .get();
+              });
+      var result = progress.get(15, java.util.concurrent.TimeUnit.SECONDS);
+      assertTrue(timeouts.get() > 128, "exercise more timeouts than all configured client slots");
+      assertEquals(CommandResult.Code.OK, result.getCode());
+      assertEquals("LEADER", node.status().getRole());
+    } finally {
+      executor.shutdownNow();
+      assertTrue(executor.awaitTermination(5, java.util.concurrent.TimeUnit.SECONDS));
+    }
+  }
 }

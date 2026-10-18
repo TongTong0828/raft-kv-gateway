@@ -222,7 +222,10 @@ public final class ControlNode implements AutoCloseable {
         read
             ? client.async().sendReadOnlyUnordered(msg, RaftPeerId.valueOf(settings.id()))
             : client.async().send(msg);
-    return f.orTimeout(Math.max(1, timeout.toMillis()), TimeUnit.MILLISECONDS)
+    // Ratis owns completion callbacks on f (including request-slot release).
+    // An application deadline must never complete that future prematurely.
+    return f.copy()
+        .orTimeout(Math.max(1, timeout.toMillis()), TimeUnit.MILLISECONDS)
         .thenApply(
             reply -> {
               if (!reply.isSuccess()) throw new CompletionException(reply.getException());

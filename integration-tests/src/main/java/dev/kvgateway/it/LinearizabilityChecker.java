@@ -31,7 +31,10 @@ public final class LinearizabilityChecker {
       var op = ops.get(i);
       boolean blocked = false;
       for (int j = 0; j < ops.size(); j++)
-        if (i != j && (done & (1L << j)) == 0 && ops.get(j).end() < op.start()) {
+        if (i != j
+            && (done & (1L << j)) == 0
+            && !ops.get(j).result().equals("UNKNOWN")
+            && ops.get(j).end() < op.start()) {
           blocked = true;
           break;
         }
@@ -52,11 +55,17 @@ public final class LinearizabilityChecker {
             && search(ops, next, new State(op.value(), op.revision()), failed)) return true;
       } else if (op.result().equals("UNKNOWN")) {
         if (search(ops, next, state, failed)) return true;
-        if (expected)
-          for (var candidate : ops)
-            if (candidate.revision() > state.revision
-                && search(ops, next, new State(op.value(), candidate.revision()), failed))
-              return true;
+        if (expected) {
+          var candidates = new TreeSet<Long>();
+          if (state.revision < Long.MAX_VALUE) candidates.add(state.revision + 1);
+          for (var candidate : ops) {
+            candidates.add(candidate.revision());
+            candidates.add(candidate.expected());
+          }
+          for (long candidate : candidates)
+            if (candidate > state.revision
+                && search(ops, next, new State(op.value(), candidate), failed)) return true;
+        }
       } else throw new IllegalArgumentException("unsupported outcome " + op.result());
     }
     return false;

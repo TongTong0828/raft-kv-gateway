@@ -30,6 +30,7 @@ public final class HealthMonitor implements AutoCloseable {
   }
 
   private final ConcurrentHashMap<String, State> endpoints = new ConcurrentHashMap<>();
+  private final ArrayDeque<String> rotation = new ArrayDeque<>();
   private final Semaphore slots = new Semaphore(32);
   private final Function<String, CompletableFuture<Boolean>> probe;
   private final ScheduledExecutorService scheduler =
@@ -46,7 +47,8 @@ public final class HealthMonitor implements AutoCloseable {
     scheduler.scheduleWithFixedDelay(this::refresh, 1, 1, TimeUnit.SECONDS);
   }
 
-  public void reconcile(Set<String> wanted) {
+  public synchronized void reconcile(Set<String> wanted) {
+    if (closed) return;
     endpoints.forEach(
         (e, s) -> {
           if (!wanted.contains(e) && endpoints.remove(e, s)) {
@@ -55,38 +57,47 @@ public final class HealthMonitor implements AutoCloseable {
             if (f != null) f.cancel(true);
           }
         });
-    for (var e : wanted) endpoints.computeIfAbsent(e, k -> new State());
+    rotation.removeIf(e -> !wanted.contains(e));
+    for (var e : wanted)
+      endpoints.computeIfAbsent(
+          e,
+          k -> {
+            rotation.addLast(k);
+            return new State();
+          });
     refresh();
   }
 
-  public void refresh() {
+  public synchronized void refresh() {
     if (closed) return;
-    endpoints.forEach(
-        (e, s) -> {
-          if (!s.active || !s.probing.compareAndSet(false, true)) return;
-          if (!slots.tryAcquire()) {
-            s.probing.set(false);
-            return;
-          }
-          try {
-            var f = probe.apply(e);
-            s.future = f;
-            f.whenComplete(
-                (ok, error) -> {
-                  try {
-                    if (endpoints.get(e) == s && s.active)
-                      s.result(error == null && Boolean.TRUE.equals(ok));
-                  } finally {
-                    s.probing.set(false);
-                    slots.release();
-                  }
-                });
-          } catch (Throwable error) {
-            s.result(false);
-            s.probing.set(false);
-            slots.release();
-          }
-        });
+    for (int remaining = rotation.size(); remaining > 0; remaining--) {
+      if (!slots.tryAcquire()) break;
+      var e = rotation.removeFirst();
+      rotation.addLast(e);
+      var s = endpoints.get(e);
+      if (s == null || !s.active || !s.probing.compareAndSet(false, true)) {
+        slots.release();
+        continue;
+      }
+      try {
+        var f = probe.apply(e);
+        s.future = f;
+        f.whenComplete(
+            (ok, error) -> {
+              try {
+                if (endpoints.get(e) == s && s.active)
+                  s.result(error == null && Boolean.TRUE.equals(ok));
+              } finally {
+                s.probing.set(false);
+                slots.release();
+              }
+            });
+      } catch (Throwable error) {
+        s.result(false);
+        s.probing.set(false);
+        slots.release();
+      }
+    }
   }
 
   public boolean healthy(String endpoint) {
@@ -118,7 +129,7 @@ public final class HealthMonitor implements AutoCloseable {
     return out;
   }
 
-  public void close() {
+  public synchronized void close() {
     closed = true;
     scheduler.shutdownNow();
     endpoints.forEach(
@@ -127,5 +138,6 @@ public final class HealthMonitor implements AutoCloseable {
           if (s.future != null) s.future.cancel(true);
         });
     endpoints.clear();
+    rotation.clear();
   }
 }

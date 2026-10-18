@@ -61,8 +61,13 @@ public final class ResourceBudget {
     services.forEach(
         (id, c) -> {
           if (!ids.contains(id)) {
-            c.removed = true;
-            if (c.active.get() == 0) services.remove(id, c);
+            services.computeIfPresent(
+                id,
+                (key, current) -> {
+                  if (current != c) return current;
+                  current.removed = true;
+                  return current.active.get() == 0 ? null : current;
+                });
           }
         });
   }
@@ -90,7 +95,11 @@ public final class ResourceBudget {
     return new Permit(
         () -> {
           exchanges.decrementAndGet();
-          if (c.active.decrementAndGet() == 0 && c.removed) services.remove(service, c);
+          if (c.active.decrementAndGet() == 0)
+            services.computeIfPresent(
+                service,
+                (key, current) ->
+                    current == c && c.removed && c.active.get() == 0 ? null : current);
         });
   }
 

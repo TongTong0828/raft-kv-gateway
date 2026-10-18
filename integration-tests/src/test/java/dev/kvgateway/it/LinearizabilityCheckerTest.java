@@ -8,6 +8,40 @@ import org.junit.jupiter.api.Test;
 
 class LinearizabilityCheckerTest {
   @Test
+  void unknownWriteMayCommitAfterTimeoutAndAfterAnOlderRead() {
+    assertTrue(
+        check(
+            List.of(
+                new Op(0, 1, "put", "a", 0, "OK", 7),
+                new Op(9, 10, "put", "c", 7, "UNKNOWN", 0),
+                new Op(11, 12, "read", "a", 0, "OK", 7),
+                new Op(13, 14, "read", "c", 0, "OK", 9))));
+  }
+
+  @Test
+  void unknownRevisionCanBeLearnedFromLaterCasOrRemainUnobserved() {
+    assertTrue(
+        check(
+            List.of(
+                new Op(0, 1, "put", "a", 0, "UNKNOWN", 0), new Op(2, 3, "put", "b", 9, "OK", 10))));
+    assertTrue(
+        check(
+            List.of(
+                new Op(0, 1, "put", "a", 0, "UNKNOWN", 0),
+                new Op(2, 3, "put", "b", 0, "CONFLICT", 0))));
+  }
+
+  @Test
+  void pendingUnknownWriteStillCannotCommitBeforeItsInvocation() {
+    assertFalse(
+        check(
+            List.of(
+                new Op(0, 1, "put", "a", 0, "OK", 7),
+                new Op(9, 10, "put", "c", 7, "UNKNOWN", 0),
+                new Op(5, 6, "read", "c", 0, "OK", 9))));
+  }
+
+  @Test
   void permitsOverlappingWinnerAndCommittedUnknown() {
     assertTrue(
         check(

@@ -15,6 +15,8 @@ jobs:
           python3 scripts/audit-release.py
       - name: Build the pinned image
         run: ./scripts/dev.sh build
+      - name: Fault-runner ownership regressions
+        run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - name: Clean Compose quickstart
         run: |
           ./scripts/dev.sh up

@@ -24,7 +24,7 @@ For a short correctness check, use `--rates 100 --repeats 1 --warmup 1 --seconds
 
 Each output directory contains:
 
-- `environment.json`: source commit and dirty flag, actual image ID, pinned k6 image, Docker CPU/memory/architecture, JVM/container settings, payload and measurement durations.
+- `environment.json`: source commit and dirty flag, actual running-container image IDs and revision labels, pinned k6 image, Docker CPU/memory/architecture, JVM/container settings, payload and measurement durations. The runner rejects stale running images even when the local image tag has been rebuilt, and checks again before every run, including the recreated slow backend.
 - One unmodified k6 `handleSummary` JSON export per run, including counters and latency distributions. These are aggregated run exports, not per-request traces.
 - Per-run Docker resource samples for this project's containers and the load generator.
 - `summary.json`: successful throughput, attempted requests, failed requests, 503/502/504 and transport outcomes, generator-dropped iterations, and both all-completed-request and successful-request latency statistics.
