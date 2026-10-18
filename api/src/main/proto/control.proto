@@ -20,7 +20,7 @@ message MutationResponse { Entry entry = 1; uint64 revision = 2; }
 message StatusResponse {
   string node_id = 1; string role = 2; string leader_id = 3; string leader_target = 4;
   uint64 applied_index = 5; uint64 snapshot_index = 6; uint64 snapshot_installs = 7;
-  uint64 state_revision = 8; string group_id = 9;
+  uint64 state_revision = 8; string group_id = 9; uint64 applied_term = 10; int64 log_start_index = 11;
 }
 message Command { oneof operation { GetRequest get = 1; PutRequest put = 2; DeleteRequest delete = 3; bool get_config = 4; } }
 message CommandResult {
