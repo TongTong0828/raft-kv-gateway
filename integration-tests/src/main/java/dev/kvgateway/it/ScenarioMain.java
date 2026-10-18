@@ -100,7 +100,10 @@ public final class ScenarioMain {
 
   static void smoke() throws Exception {
     var seen = new TreeSet<String>();
-    try (var client = java.net.http.HttpClient.newHttpClient()) {
+    try (var client =
+        java.net.http.HttpClient.newBuilder()
+            .version(java.net.http.HttpClient.Version.HTTP_1_1)
+            .build()) {
       long end = System.nanoTime() + TimeUnit.SECONDS.toNanos(20);
       while (System.nanoTime() < end) {
         try {
