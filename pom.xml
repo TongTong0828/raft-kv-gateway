@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>dev.kvgateway</groupId><artifactId>raft-kv-gateway</artifactId><version>0.1.0-SNAPSHOT</version><packaging>pom</packaging>
+  <name>Raft KV and Gateway</name><description>A durable Raft control plane and bounded Netty HTTP data plane.</description>
+  <modules><module>api</module><module>control-plane</module><module>gateway</module><module>cli</module><module>demo-backend</module><module>integration-tests</module></modules>
+  <properties><maven.compiler.release>21</maven.compiler.release><project.build.sourceEncoding>UTF-8</project.build.sourceEncoding><grpc.version>1.85.0</grpc.version><protobuf.version>3.25.9</protobuf.version><netty.version>4.2.19.Final</netty.version><ratis.version>3.3.1</ratis.version><junit.version>5.14.4</junit.version></properties>
+  <dependencyManagement><dependencies>
+    <dependency><groupId>io.grpc</groupId><artifactId>grpc-bom</artifactId><version>${grpc.version}</version><type>pom</type><scope>import</scope></dependency>
+    <dependency><groupId>io.netty</groupId><artifactId>netty-bom</artifactId><version>${netty.version}</version><type>pom</type><scope>import</scope></dependency>
+    <dependency><groupId>org.junit</groupId><artifactId>junit-bom</artifactId><version>${junit.version}</version><type>pom</type><scope>import</scope></dependency>
+    <dependency><groupId>dev.kvgateway</groupId><artifactId>api</artifactId><version>${project.version}</version></dependency>
+  </dependencies></dependencyManagement>
+  <dependencies><dependency><groupId>org.junit.jupiter</groupId><artifactId>junit-jupiter</artifactId><scope>test</scope></dependency><dependency><groupId>org.slf4j</groupId><artifactId>slf4j-simple</artifactId><version>2.0.17</version><scope>runtime</scope></dependency></dependencies>
+  <build><pluginManagement><plugins>
+    <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-compiler-plugin</artifactId><version>3.14.1</version></plugin>
+    <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-surefire-plugin</artifactId><version>3.5.5</version><configuration><argLine>-Xmx512m -Dio.netty.leakDetection.level=paranoid</argLine><systemPropertyVariables><org.slf4j.simpleLogger.defaultLogLevel>warn</org.slf4j.simpleLogger.defaultLogLevel></systemPropertyVariables></configuration></plugin>
+    <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-failsafe-plugin</artifactId><version>3.5.5</version></plugin>
+    <plugin><groupId>org.apache.maven.plugins</groupId><artifactId>maven-shade-plugin</artifactId><version>3.6.1</version><configuration><createDependencyReducedPom>false</createDependencyReducedPom><filters><filter><artifact>*:*</artifact><excludes><exclude>META-INF/*.SF</exclude><exclude>META-INF/*.DSA</exclude><exclude>META-INF/*.RSA</exclude><exclude>module-info.class</exclude></excludes></filter></filters><transformers><transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/><transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer"><mainClass>${main.class}</mainClass></transformer></transformers></configuration><executions><execution><phase>package</phase><goals><goal>shade</goal></goals></execution></executions></plugin>
+  </plugins></pluginManagement></build>
+</project>

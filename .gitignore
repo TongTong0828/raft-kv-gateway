@@ -1,0 +1,10 @@
+**/target/
+work/
+.superpowers/
+.idea/
+*.iml
+.DS_Store
+*.log
+.env
+.env.*
+!.env.example
