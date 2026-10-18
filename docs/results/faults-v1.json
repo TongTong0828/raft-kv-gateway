@@ -1,40 +1,41 @@
 {
   "result": "PASS",
-  "project": "kv-fault-verified",
-  "commit": "e47cf6e48418f2864b8bcb98a459ea180397b6dc",
+  "project": "kv-release-84079ae",
+  "commit": "84079aefad7ab765ffc8efe81ac56397f662b16b",
   "dirty": false,
   "ports": {
-    "KV_HTTP_PORT": "56070",
-    "KV_GATEWAY_ADMIN": "56071",
-    "KV_CP1_PORT": "56072",
-    "KV_CP2_PORT": "56073",
-    "KV_CP3_PORT": "56074",
-    "KV_CP1_ADMIN": "56075",
-    "KV_CP2_ADMIN": "56076",
-    "KV_CP3_ADMIN": "56077"
+    "KV_HTTP_PORT": "57805",
+    "KV_GATEWAY_ADMIN": "57806",
+    "KV_CP1_PORT": "57807",
+    "KV_CP2_PORT": "57808",
+    "KV_CP3_PORT": "57809",
+    "KV_CP1_ADMIN": "57810",
+    "KV_CP2_ADMIN": "57811",
+    "KV_CP3_ADMIN": "57812"
   },
   "events": [
     {
       "test": "initial-routing",
-      "time": 1792362237.27339,
+      "time": 1792364759.994137,
       "revision": 1
     },
     {
       "test": "bounded-history",
-      "time": 1792362238.515607,
+      "time": 1792364761.1528032,
+      "linearizable": true,
       "history": [
         {
-          "start": 330648868719463,
-          "end": 330648887353963,
+          "start": 333171462604486,
+          "end": 333171474264695,
           "type": "put",
-          "value": "writer-2",
+          "value": "writer-0",
           "expected": 0,
           "result": "OK",
           "revision": 3
         },
         {
-          "start": 330648868722797,
-          "end": 330648887374630,
+          "start": 333171462618320,
+          "end": 333171475950028,
           "type": "put",
           "value": "writer-1",
           "expected": 0,
@@ -42,26 +43,26 @@
           "revision": 0
         },
         {
-          "start": 330648868715547,
-          "end": 330648891279838,
+          "start": 333171462616236,
+          "end": 333171477053028,
           "type": "put",
-          "value": "writer-0",
+          "value": "writer-2",
           "expected": 0,
           "result": "CONFLICT",
           "revision": 0
         },
         {
-          "start": 330648891354130,
-          "end": 330648898188630,
+          "start": 333171477120903,
+          "end": 333171486620778,
           "type": "read",
-          "value": "writer-2",
+          "value": "writer-0",
           "expected": 0,
           "result": "OK",
           "revision": 3
         },
         {
-          "start": 330648898201172,
-          "end": 330648899177505,
+          "start": 333171486634028,
+          "end": 333171487670070,
           "type": "put",
           "value": "uncertain",
           "expected": 3,
@@ -69,20 +70,19 @@
           "revision": 0
         },
         {
-          "start": 330648899178922,
-          "end": 330648902450172,
+          "start": 333171487671486,
+          "end": 333171490846320,
           "type": "read",
-          "value": "writer-2",
+          "value": "writer-0",
           "expected": 0,
           "result": "OK",
           "revision": 3
         }
-      ],
-      "linearizable": true
+      ]
     },
     {
       "test": "atomic-route-update",
-      "time": 1792362240.176482,
+      "time": 1792364762.803547,
       "revision": 9,
       "successfulRequests": 60,
       "observedBackends": [
@@ -92,12 +92,12 @@
     },
     {
       "test": "cached-route-outage",
-      "time": 1792362247.856363,
+      "time": 1792364770.495222,
       "revision": 9
     },
     {
       "test": "raft-only-partition",
-      "time": 1792362255.540664,
+      "time": 1792364779.3250508,
       "oldLeader": {
         "nodeId": "cp1",
         "role": "LEADER",
@@ -112,10 +112,10 @@
         "logStartIndex": "0"
       },
       "newLeader": {
-        "nodeId": "cp3",
+        "nodeId": "cp2",
         "role": "LEADER",
-        "leaderId": "cp3",
-        "leaderTarget": "cp3:50051",
+        "leaderId": "cp2",
+        "leaderTarget": "cp2:50051",
         "appliedIndex": "16",
         "snapshotIndex": "10",
         "snapshotInstalls": "0",
@@ -134,24 +134,28 @@
       },
       "proof": [
         {
+          "nodeId": "cp1",
+          "applicationRpcReachable": true
+        },
+        {
           "oldLeaderRead": "DEADLINE_EXCEEDED"
         },
         {
           "code": "UNAVAILABLE",
-          "elapsedMs": 2726,
+          "elapsedMs": 3034,
           "watchFenced": true
         }
       ],
-      "elapsedMs": 4553
+      "elapsedMs": 4730
     },
     {
       "test": "snapshot-install",
-      "time": 1792362285.816365,
+      "time": 1792364799.199645,
       "before": {
         "nodeId": "cp1",
         "role": "FOLLOWER",
-        "leaderId": "cp3",
-        "leaderTarget": "cp3:50051",
+        "leaderId": "cp2",
+        "leaderTarget": "cp2:50051",
         "appliedIndex": "16",
         "snapshotIndex": "10",
         "snapshotInstalls": "0",
@@ -162,9 +166,9 @@
       },
       "purgedLeader": {
         "nodeId": "cp2",
-        "role": "FOLLOWER",
-        "leaderId": "cp3",
-        "leaderTarget": "cp3:50051",
+        "role": "LEADER",
+        "leaderId": "cp2",
+        "leaderTarget": "cp2:50051",
         "appliedIndex": "2416",
         "snapshotIndex": "2416",
         "snapshotInstalls": "0",
@@ -184,8 +188,8 @@
       "installed": {
         "nodeId": "cp1",
         "role": "FOLLOWER",
-        "leaderId": "cp3",
-        "leaderTarget": "cp3:50051",
+        "leaderId": "cp2",
+        "leaderTarget": "cp2:50051",
         "appliedIndex": "2416",
         "snapshotIndex": "2416",
         "snapshotInstalls": "1",
@@ -197,7 +201,7 @@
     },
     {
       "test": "full-restart",
-      "time": 1792362294.244837,
+      "time": 1792364808.3351371,
       "revision": "2417",
       "restored": {
         "entry": {
@@ -210,25 +214,25 @@
     },
     {
       "test": "body-budget",
-      "time": 1792362305.056482,
-      "heldBytes": 66276264,
+      "time": 1792364819.8794281,
+      "heldBytes": 66600000,
       "rejected": 6,
       "stats": {
-        "BlockIO": "0B / 561kB",
-        "CPUPerc": "1.37%",
-        "Container": "c0858713dcfe2e3f87ac03103e95d9a5e914d0e20d2c81dd01fdad2a07d1f757",
-        "ID": "c0858713dcfe",
-        "MemPerc": "27.28%",
-        "MemUsage": "209.5MiB / 768MiB",
-        "Name": "kv-fault-verified-gateway-1",
-        "NetIO": "71.1MB / 916kB",
+        "BlockIO": "0B / 586kB",
+        "CPUPerc": "0.98%",
+        "Container": "74073b30405560781608fded0469411137ecacd487dd86cd889ba90dcdbf6776",
+        "ID": "74073b304055",
+        "MemPerc": "25.49%",
+        "MemUsage": "195.8MiB / 768MiB",
+        "Name": "kv-release-84079ae-gateway-1",
+        "NetIO": "70MB / 909kB",
         "PIDs": "26"
       },
       "oomKilled": false
     },
     {
       "test": "cleanup",
-      "time": 1792362307.524931,
+      "time": 1792364822.179845,
       "inflight": "0",
       "bodyBytes": "0"
     }

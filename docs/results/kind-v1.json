@@ -1,8 +1,8 @@
 {
   "result": "PASS",
-  "commit": "4c33993be7e16df0adf6ff9de97f296544a76245",
-  "dirty": false,
-  "cluster": "kv-verified-v1",
+  "commit": "84079aefad7ab765ffc8efe81ac56397f662b16b",
+  "dirty": true,
+  "cluster": "kv-release-84079ae",
   "nodeImage": "kindest/node:v1.37.0@sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5",
   "kubectl": {
     "clientVersion": {
@@ -21,13 +21,13 @@
   "events": [
     {
       "test": "three-controls-ready",
-      "time": 1792362517.5165598,
+      "time": 1792366166.546531,
       "controls": [
         {
           "nodeId": "cp-0",
-          "role": "FOLLOWER",
-          "leaderId": "cp-1",
-          "leaderTarget": "cp-1.control:50051",
+          "role": "LEADER",
+          "leaderId": "cp-0",
+          "leaderTarget": "cp-0.control:50051",
           "appliedIndex": "0",
           "snapshotIndex": "0",
           "snapshotInstalls": "0",
@@ -38,9 +38,9 @@
         },
         {
           "nodeId": "cp-1",
-          "role": "LEADER",
-          "leaderId": "cp-1",
-          "leaderTarget": "cp-1.control:50051",
+          "role": "FOLLOWER",
+          "leaderId": "cp-0",
+          "leaderTarget": "cp-0.control:50051",
           "appliedIndex": "0",
           "snapshotIndex": "0",
           "snapshotInstalls": "0",
@@ -52,8 +52,8 @@
         {
           "nodeId": "cp-2",
           "role": "FOLLOWER",
-          "leaderId": "cp-1",
-          "leaderTarget": "cp-1.control:50051",
+          "leaderId": "cp-0",
+          "leaderTarget": "cp-0.control:50051",
           "appliedIndex": "0",
           "snapshotIndex": "0",
           "snapshotInstalls": "0",
@@ -66,21 +66,21 @@
     },
     {
       "test": "initial-http",
-      "time": 1792362530.5681138,
+      "time": 1792366177.5185988,
       "revision": "1",
       "backend": "backend-a"
     },
     {
       "test": "pod-replacement-pvc",
-      "time": 1792362538.584547,
-      "beforeUid": "a9ab297e-8de2-4fff-ad68-98d0e7617179",
-      "afterUid": "0aeb8c78-0a36-4545-aa70-eb0628473e76",
+      "time": 1792366187.638874,
+      "beforeUid": "b79b87d6-7bee-49ff-ba90-362f9393b7ce",
+      "afterUid": "9d2c8261-844a-453c-8ac3-05339004287c",
       "revision": "3",
       "pvcCount": 3
     },
     {
       "test": "gateway-rollout",
-      "time": 1792362542.506593,
+      "time": 1792366191.4627268,
       "backend": "backend-a",
       "service": {
         "revision": "1",
@@ -99,7 +99,7 @@
     },
     {
       "test": "eks-render-only",
-      "time": 1792362542.542529,
+      "time": 1792366191.498198,
       "deployed": false
     }
   ]

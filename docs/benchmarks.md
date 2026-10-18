@@ -29,12 +29,45 @@ Each output directory contains:
 - Per-run Docker resource samples for this project's containers and the load generator.
 - `summary.json`: successful throughput, attempted requests, failed requests, 503/502/504 and transport outcomes, generator-dropped iterations, and both all-completed-request and successful-request latency statistics.
 
-Successful throughput is the successful measurement count divided by 30 seconds. The all-request latency distribution includes returned errors; the successful-request distribution requires the correct status and 1 KiB payload. Errors do not count as successful throughput. A canceled iteration may lack a completed latency sample; its attempt still appears in the failure accounting. `unaccounted` is nominal configured arrivals minus attempted and dropped counts; an occasional `-1` records the scheduler's window-boundary arrival rather than silently rounding it away.
+Successful throughput is the successful measurement count divided by 30 seconds. The all-request latency distribution includes returned errors; the successful-request distribution requires the correct status and 1 KiB payload. Errors do not count as successful throughput. A canceled iteration may lack a completed latency sample; its attempt still appears in the failure accounting. `unaccounted` is nominal configured arrivals minus attempted and dropped counts; small positive or negative boundary discrepancies are retained rather than silently rounded away.
 
 KV tests use the original protobuf schema and direct gRPC calls to the elected leader. CAS write keys are per VU and run, with the returned revision carried forward. An uncertain mutation is read for reconciliation rather than blindly retried. No durability setting is weakened for the benchmark.
 
 ## Measured results
 
-The release result table is populated from the full-run exports in `docs/results/benchmarks/`. The source commit and environment in those exports define the measured version. Consult the raw files for repeat variation, errors, and dropped arrivals rather than reading a single percentile as a universal service guarantee.
+The full matrix completed **30 runs** on clean source commit [`84079aefad7ab765ffc8efe81ac56397f662b16b`](https://github.com/TongTong0828/raft-kv-gateway/commit/84079aefad7ab765ffc8efe81ac56397f662b16b). The [environment](results/benchmarks/environment.json), [per-run summary](results/benchmarks/summary.json), and unmodified per-run exports with resource samples are checked in. Values below are **minimum–maximum across three repeats**, not percentiles computed by averaging percentiles. Failure/drop columns sum the three measurement windows (90 seconds).
+
+### HTTP gateway, fixed 1 KiB body
+
+| Scenario / offered rate | Successful requests/s | Successful P99 (ms) | Failed attempts, total | Generator drops, total |
+|---|---:|---:|---:|---:|
+| gateway / 100/s | 100.00–100.03 | 4.08–4.90 | 0 | 0 |
+| gateway / 500/s | 500.00–500.03 | 2.16–2.83 | 0 | 0 |
+| gateway / 1,000/s | 1,000.03 | 1.30–2.29 | 0 | 0 |
+| gateway / 2,000/s | 1,999.87–2,000.10 | 0.94–2.39 | 0 | 8 |
+| gateway / 4,000/s | 3,985.43–3,999.53 | 0.69–1.62 | 0 | 713 |
+| gateway / 8,000/s | 7,996.17–7,998.47 | 0.70–0.76 | 0 | 262 |
+
+All attempted gateway requests succeeded. The generator did not deliver every scheduled arrival at higher rates, so these observations do not establish server saturation or a guaranteed 8,000 requests/s capacity. The highest-rate row reports actual successes, not configured offered load.
+
+### Direct leader gRPC KV
+
+| Scenario / offered rate | Successful requests/s | Successful P99 (ms) | Failed attempts, total | Generator drops, total |
+|---|---:|---:|---:|---:|
+| kv-read / 100/s | 100.00–100.03 | 4.00–5.00 | 0 | 0 |
+| kv-write / 25/s | 25.00–25.03 | 10.00–11.00 | 0 | 0 |
+
+Direct gRPC elapsed time uses `Date.now()` and therefore has millisecond resolution. CAS writes retain the normal persistent-log and quorum settings. These deliberately moderate rates validate a measured workload; they are not KV capacity sweeps.
+
+### Slow backend and service isolation
+
+| Scenario / offered rate | Successful requests/s | Successful P99 (ms) | Failed attempts, total | Generator drops, total |
+|---|---:|---:|---:|---:|
+| slow-backend / 100/s | 3.93 | 507.17–509.95 | 8,649 | 0 |
+| isolation / 100/s | 100.03 | 2.36–3.02 | 0 | 0 |
+
+The slow-only row counts 503 overload responses as failures, as intended. In `isolation`, the main row describes only `/fast`: each 100/s paired iteration also sends one `/slow` request, for 200 offered HTTP requests/s in total. Isolation drops are dropped pairs. The slow backend remains delayed by 500 ms with only two allowed inflight exchanges.
+
+The accompanying slow traffic in the isolation runs completed 3.93 successful requests/s and returned 8,649 overload 503 responses across the three windows. Its raw `slow_latency` trend mixes successes and rejections; it is not a successful-request-only percentile.
 
 The local machine is an Apple M4 Pro with 24 GiB host memory. Docker exposes 12 CPUs and about 7.65 GiB; the six application containers are capped at 1,984 MiB in total. The gateway has a two-CPU limit and the generator competes on the same shared Docker VM. This is a local reproducibility experiment on a shared development machine, not a dedicated production capacity certification. Generator drops indicate that the offered schedule was not fully produced; they cannot be reported as server throughput.

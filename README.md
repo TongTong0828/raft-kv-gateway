@@ -1,5 +1,7 @@
 # Raft KV & Gateway
 
+[![Verify](https://github.com/TongTong0828/raft-kv-gateway/actions/workflows/ci.yml/badge.svg)](https://github.com/TongTong0828/raft-kv-gateway/actions/workflows/ci.yml)
+
 A Java 21 distributed-systems project combining a durable, three-node Raft KV store with a bounded, nonblocking HTTP gateway. Apache Ratis provides consensus. Netty handles the data plane, and gRPC distributes versioned routing configuration.
 
 The project focuses on failure behavior that can be reproduced locally: revision-checked writes, leader isolation, snapshot installation, configuration outages, connection reuse, overload rejection, and resource cleanup.
@@ -73,6 +75,8 @@ Reads print JSON; raw KV bytes are base64 encoded. To update or delete an existi
 | Three Kubernetes voters, PVC retention, pod replacement, gateway rollout | [Recorded kind validation](docs/results/kind-v1.json) |
 | EKS gp3 / LoadBalancer configuration | [Render-checked deployment example](deploy/kubernetes/README.md); **not deployed to AWS** |
 | HTTP and direct-KV performance | [Benchmark method and measured results](docs/benchmarks.md) |
+
+The full local benchmark matrix completed 30 runs. At 8,000 offered requests/s, the gateway delivered **7,996–7,998 successful requests/s** with **0.70–0.76 ms successful-request P99** and fixed 1 KiB responses across three repeats. There were zero failed requests and 262 generator-dropped arrivals across those three windows. These are measurements inside a shared Docker VM, not an AWS result or a production capacity guarantee. See the [full validation report](docs/verification.md) and [raw benchmark exports](docs/results/benchmarks/).
 
 The Docker and kind scripts create isolated resources and clean up only resources they own. Fault and Kubernetes tooling additionally require Python 3.9+ and curl.
 

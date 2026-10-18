@@ -1,0 +1,907 @@
+[
+  {
+    "error": "['docker', 'stats', '--no-stream', '--format', '{{json .}}', '62fcef9196bf8ea6553759ba2c534d5e920bb586a55a2bb511c5568f23127054', 'a5bed261349fb1ea5e347c97667c3e36ebd9d61c8ab6b1ab8f743bbc86d822f1', '41dfe7c13e16533bf7ddb9bb567ea4664e7e1035ef0abdcae31d8d69c6c2b860', '5c9cc57216c02997a4ec6c18181a75c1b9fd3d880aeb7ec2b45363cd4ed3a86d', 'a5f405582eee7f9c748d7908ff4cf0244f706fecce4a0354164e2639645824c0', 'f490be1f607d2677af2c760f2c3ea6c91d62ea2ad2b941ece72b10d3560795a2', 'kv-bench-1792365090102349000']: Error response from daemon: No such container: kv-bench-1792365090102349000\n "
+  },
+  {
+    "time": 1792365093.217865,
+    "containers": [
+      {
+        "BlockIO": "0B / 348kB",
+        "CPUPerc": "3.90%",
+        "Container": "62fcef9196bf8ea6553759ba2c534d5e920bb586a55a2bb511c5568f23127054",
+        "ID": "62fcef9196bf",
+        "MemPerc": "46.67%",
+        "MemUsage": "59.74MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-a-1",
+        "NetIO": "8.28MB / 44.6MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "0B / 352kB",
+        "CPUPerc": "2.96%",
+        "Container": "a5bed261349fb1ea5e347c97667c3e36ebd9d61c8ab6b1ab8f743bbc86d822f1",
+        "ID": "a5bed261349f",
+        "MemPerc": "44.90%",
+        "MemUsage": "57.47MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-b-1",
+        "NetIO": "8.41MB / 44.6MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "20.5kB / 4.85MB",
+        "CPUPerc": "0.79%",
+        "Container": "41dfe7c13e16533bf7ddb9bb567ea4664e7e1035ef0abdcae31d8d69c6c2b860",
+        "ID": "41dfe7c13e16",
+        "MemPerc": "40.44%",
+        "MemUsage": "129.4MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp1-1",
+        "NetIO": "308kB / 153kB",
+        "PIDs": "39"
+      },
+      {
+        "BlockIO": "20.5kB / 4.92MB",
+        "CPUPerc": "1.60%",
+        "Container": "5c9cc57216c02997a4ec6c18181a75c1b9fd3d880aeb7ec2b45363cd4ed3a86d",
+        "ID": "5c9cc57216c0",
+        "MemPerc": "44.27%",
+        "MemUsage": "141.7MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp2-1",
+        "NetIO": "306kB / 592kB",
+        "PIDs": "57"
+      },
+      {
+        "BlockIO": "20.5kB / 4.9MB",
+        "CPUPerc": "0.77%",
+        "Container": "a5f405582eee7f9c748d7908ff4cf0244f706fecce4a0354164e2639645824c0",
+        "ID": "a5f405582eee",
+        "MemPerc": "39.15%",
+        "MemUsage": "125.3MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp3-1",
+        "NetIO": "300kB / 146kB",
+        "PIDs": "32"
+      },
+      {
+        "BlockIO": "0B / 475kB",
+        "CPUPerc": "25.97%",
+        "Container": "f490be1f607d2677af2c760f2c3ea6c91d62ea2ad2b941ece72b10d3560795a2",
+        "ID": "f490be1f607d",
+        "MemPerc": "13.90%",
+        "MemUsage": "106.8MiB / 768MiB",
+        "Name": "raft-kv-gateway-gateway-1",
+        "NetIO": "106MB / 106MB",
+        "PIDs": "24"
+      },
+      {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "27.88%",
+        "Container": "kv-bench-1792365090102349000",
+        "ID": "22466a7e2bfc",
+        "MemPerc": "4.85%",
+        "MemUsage": "37.28MiB / 768MiB",
+        "Name": "kv-bench-1792365090102349000",
+        "NetIO": "5.71MB / 1.05MB",
+        "PIDs": "10"
+      }
+    ]
+  },
+  {
+    "time": 1792365096.753338,
+    "containers": [
+      {
+        "BlockIO": "0B / 348kB",
+        "CPUPerc": "2.79%",
+        "Container": "62fcef9196bf8ea6553759ba2c534d5e920bb586a55a2bb511c5568f23127054",
+        "ID": "62fcef9196bf",
+        "MemPerc": "46.48%",
+        "MemUsage": "59.5MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-a-1",
+        "NetIO": "8.5MB / 46.1MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "0B / 352kB",
+        "CPUPerc": "2.75%",
+        "Container": "a5bed261349fb1ea5e347c97667c3e36ebd9d61c8ab6b1ab8f743bbc86d822f1",
+        "ID": "a5bed261349f",
+        "MemPerc": "44.90%",
+        "MemUsage": "57.47MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-b-1",
+        "NetIO": "8.71MB / 46.6MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "20.5kB / 4.85MB",
+        "CPUPerc": "1.75%",
+        "Container": "41dfe7c13e16533bf7ddb9bb567ea4664e7e1035ef0abdcae31d8d69c6c2b860",
+        "ID": "41dfe7c13e16",
+        "MemPerc": "40.45%",
+        "MemUsage": "129.4MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp1-1",
+        "NetIO": "312kB / 155kB",
+        "PIDs": "39"
+      },
+      {
+        "BlockIO": "20.5kB / 4.92MB",
+        "CPUPerc": "3.52%",
+        "Container": "5c9cc57216c02997a4ec6c18181a75c1b9fd3d880aeb7ec2b45363cd4ed3a86d",
+        "ID": "5c9cc57216c0",
+        "MemPerc": "44.28%",
+        "MemUsage": "141.7MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp2-1",
+        "NetIO": "310kB / 600kB",
+        "PIDs": "57"
+      },
+      {
+        "BlockIO": "20.5kB / 4.9MB",
+        "CPUPerc": "2.07%",
+        "Container": "a5f405582eee7f9c748d7908ff4cf0244f706fecce4a0354164e2639645824c0",
+        "ID": "a5f405582eee",
+        "MemPerc": "39.18%",
+        "MemUsage": "125.4MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp3-1",
+        "NetIO": "304kB / 148kB",
+        "PIDs": "32"
+      },
+      {
+        "BlockIO": "0B / 475kB",
+        "CPUPerc": "25.89%",
+        "Container": "f490be1f607d2677af2c760f2c3ea6c91d62ea2ad2b941ece72b10d3560795a2",
+        "ID": "f490be1f607d",
+        "MemPerc": "13.89%",
+        "MemUsage": "106.7MiB / 768MiB",
+        "Name": "raft-kv-gateway-gateway-1",
+        "NetIO": "110MB / 110MB",
+        "PIDs": "24"
+      },
+      {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "28.86%",
+        "Container": "kv-bench-1792365090102349000",
+        "ID": "22466a7e2bfc",
+        "MemPerc": "4.87%",
+        "MemUsage": "37.38MiB / 768MiB",
+        "Name": "kv-bench-1792365090102349000",
+        "NetIO": "9.83MB / 1.8MB",
+        "PIDs": "10"
+      }
+    ]
+  },
+  {
+    "time": 1792365100.3068411,
+    "containers": [
+      {
+        "BlockIO": "0B / 348kB",
+        "CPUPerc": "3.03%",
+        "Container": "62fcef9196bf8ea6553759ba2c534d5e920bb586a55a2bb511c5568f23127054",
+        "ID": "62fcef9196bf",
+        "MemPerc": "46.49%",
+        "MemUsage": "59.51MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-a-1",
+        "NetIO": "8.88MB / 48.7MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "0B / 352kB",
+        "CPUPerc": "3.08%",
+        "Container": "a5bed261349fb1ea5e347c97667c3e36ebd9d61c8ab6b1ab8f743bbc86d822f1",
+        "ID": "a5bed261349f",
+        "MemPerc": "44.92%",
+        "MemUsage": "57.5MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-b-1",
+        "NetIO": "8.92MB / 48.1MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "20.5kB / 4.85MB",
+        "CPUPerc": "1.57%",
+        "Container": "41dfe7c13e16533bf7ddb9bb567ea4664e7e1035ef0abdcae31d8d69c6c2b860",
+        "ID": "41dfe7c13e16",
+        "MemPerc": "40.79%",
+        "MemUsage": "130.5MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp1-1",
+        "NetIO": "315kB / 157kB",
+        "PIDs": "39"
+      },
+      {
+        "BlockIO": "20.5kB / 4.92MB",
+        "CPUPerc": "3.01%",
+        "Container": "5c9cc57216c02997a4ec6c18181a75c1b9fd3d880aeb7ec2b45363cd4ed3a86d",
+        "ID": "5c9cc57216c0",
+        "MemPerc": "44.30%",
+        "MemUsage": "141.8MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp2-1",
+        "NetIO": "314kB / 608kB",
+        "PIDs": "57"
+      },
+      {
+        "BlockIO": "20.5kB / 4.9MB",
+        "CPUPerc": "1.54%",
+        "Container": "a5f405582eee7f9c748d7908ff4cf0244f706fecce4a0354164e2639645824c0",
+        "ID": "a5f405582eee",
+        "MemPerc": "39.20%",
+        "MemUsage": "125.4MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp3-1",
+        "NetIO": "308kB / 150kB",
+        "PIDs": "32"
+      },
+      {
+        "BlockIO": "0B / 475kB",
+        "CPUPerc": "25.30%",
+        "Container": "f490be1f607d2677af2c760f2c3ea6c91d62ea2ad2b941ece72b10d3560795a2",
+        "ID": "f490be1f607d",
+        "MemPerc": "13.89%",
+        "MemUsage": "106.7MiB / 768MiB",
+        "Name": "raft-kv-gateway-gateway-1",
+        "NetIO": "115MB / 115MB",
+        "PIDs": "24"
+      },
+      {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "27.80%",
+        "Container": "kv-bench-1792365090102349000",
+        "ID": "22466a7e2bfc",
+        "MemPerc": "5.14%",
+        "MemUsage": "39.48MiB / 768MiB",
+        "Name": "kv-bench-1792365090102349000",
+        "NetIO": "13.9MB / 2.55MB",
+        "PIDs": "10"
+      }
+    ]
+  },
+  {
+    "time": 1792365103.8609972,
+    "containers": [
+      {
+        "BlockIO": "0B / 348kB",
+        "CPUPerc": "3.31%",
+        "Container": "62fcef9196bf8ea6553759ba2c534d5e920bb586a55a2bb511c5568f23127054",
+        "ID": "62fcef9196bf",
+        "MemPerc": "46.90%",
+        "MemUsage": "60.03MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-a-1",
+        "NetIO": "9.13MB / 50.5MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "0B / 352kB",
+        "CPUPerc": "3.18%",
+        "Container": "a5bed261349fb1ea5e347c97667c3e36ebd9d61c8ab6b1ab8f743bbc86d822f1",
+        "ID": "a5bed261349f",
+        "MemPerc": "44.92%",
+        "MemUsage": "57.5MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-b-1",
+        "NetIO": "9.26MB / 50.5MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "20.5kB / 4.85MB",
+        "CPUPerc": "0.65%",
+        "Container": "41dfe7c13e16533bf7ddb9bb567ea4664e7e1035ef0abdcae31d8d69c6c2b860",
+        "ID": "41dfe7c13e16",
+        "MemPerc": "40.75%",
+        "MemUsage": "130.4MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp1-1",
+        "NetIO": "319kB / 159kB",
+        "PIDs": "39"
+      },
+      {
+        "BlockIO": "20.5kB / 4.92MB",
+        "CPUPerc": "1.33%",
+        "Container": "5c9cc57216c02997a4ec6c18181a75c1b9fd3d880aeb7ec2b45363cd4ed3a86d",
+        "ID": "5c9cc57216c0",
+        "MemPerc": "44.30%",
+        "MemUsage": "141.7MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp2-1",
+        "NetIO": "317kB / 614kB",
+        "PIDs": "57"
+      },
+      {
+        "BlockIO": "20.5kB / 4.9MB",
+        "CPUPerc": "0.76%",
+        "Container": "a5f405582eee7f9c748d7908ff4cf0244f706fecce4a0354164e2639645824c0",
+        "ID": "a5f405582eee",
+        "MemPerc": "39.19%",
+        "MemUsage": "125.4MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp3-1",
+        "NetIO": "311kB / 152kB",
+        "PIDs": "32"
+      },
+      {
+        "BlockIO": "0B / 475kB",
+        "CPUPerc": "30.46%",
+        "Container": "f490be1f607d2677af2c760f2c3ea6c91d62ea2ad2b941ece72b10d3560795a2",
+        "ID": "f490be1f607d",
+        "MemPerc": "13.94%",
+        "MemUsage": "107.1MiB / 768MiB",
+        "Name": "raft-kv-gateway-gateway-1",
+        "NetIO": "119MB / 119MB",
+        "PIDs": "24"
+      },
+      {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "31.47%",
+        "Container": "kv-bench-1792365090102349000",
+        "ID": "22466a7e2bfc",
+        "MemPerc": "5.15%",
+        "MemUsage": "39.54MiB / 768MiB",
+        "Name": "kv-bench-1792365090102349000",
+        "NetIO": "17.4MB / 3.19MB",
+        "PIDs": "10"
+      }
+    ]
+  },
+  {
+    "time": 1792365106.8924181,
+    "containers": [
+      {
+        "BlockIO": "0B / 348kB",
+        "CPUPerc": "3.11%",
+        "Container": "62fcef9196bf8ea6553759ba2c534d5e920bb586a55a2bb511c5568f23127054",
+        "ID": "62fcef9196bf",
+        "MemPerc": "46.90%",
+        "MemUsage": "60.03MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-a-1",
+        "NetIO": "9.43MB / 52.5MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "0B / 352kB",
+        "CPUPerc": "3.37%",
+        "Container": "a5bed261349fb1ea5e347c97667c3e36ebd9d61c8ab6b1ab8f743bbc86d822f1",
+        "ID": "a5bed261349f",
+        "MemPerc": "44.92%",
+        "MemUsage": "57.5MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-b-1",
+        "NetIO": "9.55MB / 52.5MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "20.5kB / 4.85MB",
+        "CPUPerc": "0.75%",
+        "Container": "41dfe7c13e16533bf7ddb9bb567ea4664e7e1035ef0abdcae31d8d69c6c2b860",
+        "ID": "41dfe7c13e16",
+        "MemPerc": "40.75%",
+        "MemUsage": "130.4MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp1-1",
+        "NetIO": "321kB / 160kB",
+        "PIDs": "39"
+      },
+      {
+        "BlockIO": "20.5kB / 4.92MB",
+        "CPUPerc": "2.33%",
+        "Container": "5c9cc57216c02997a4ec6c18181a75c1b9fd3d880aeb7ec2b45363cd4ed3a86d",
+        "ID": "5c9cc57216c0",
+        "MemPerc": "44.31%",
+        "MemUsage": "141.8MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp2-1",
+        "NetIO": "321kB / 622kB",
+        "PIDs": "57"
+      },
+      {
+        "BlockIO": "20.5kB / 4.9MB",
+        "CPUPerc": "1.45%",
+        "Container": "a5f405582eee7f9c748d7908ff4cf0244f706fecce4a0354164e2639645824c0",
+        "ID": "a5f405582eee",
+        "MemPerc": "39.19%",
+        "MemUsage": "125.4MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp3-1",
+        "NetIO": "315kB / 154kB",
+        "PIDs": "32"
+      },
+      {
+        "BlockIO": "0B / 475kB",
+        "CPUPerc": "25.31%",
+        "Container": "f490be1f607d2677af2c760f2c3ea6c91d62ea2ad2b941ece72b10d3560795a2",
+        "ID": "f490be1f607d",
+        "MemPerc": "13.90%",
+        "MemUsage": "106.7MiB / 768MiB",
+        "Name": "raft-kv-gateway-gateway-1",
+        "NetIO": "124MB / 124MB",
+        "PIDs": "24"
+      },
+      {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "27.68%",
+        "Container": "kv-bench-1792365090102349000",
+        "ID": "22466a7e2bfc",
+        "MemPerc": "5.42%",
+        "MemUsage": "41.61MiB / 768MiB",
+        "Name": "kv-bench-1792365090102349000",
+        "NetIO": "21.5MB / 3.94MB",
+        "PIDs": "10"
+      }
+    ]
+  },
+  {
+    "time": 1792365110.45707,
+    "containers": [
+      {
+        "BlockIO": "0B / 348kB",
+        "CPUPerc": "2.82%",
+        "Container": "62fcef9196bf8ea6553759ba2c534d5e920bb586a55a2bb511c5568f23127054",
+        "ID": "62fcef9196bf",
+        "MemPerc": "46.90%",
+        "MemUsage": "60.03MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-a-1",
+        "NetIO": "9.72MB / 54.6MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "0B / 352kB",
+        "CPUPerc": "2.57%",
+        "Container": "a5bed261349fb1ea5e347c97667c3e36ebd9d61c8ab6b1ab8f743bbc86d822f1",
+        "ID": "a5bed261349f",
+        "MemPerc": "44.95%",
+        "MemUsage": "57.54MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-b-1",
+        "NetIO": "9.85MB / 54.6MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "20.5kB / 4.85MB",
+        "CPUPerc": "0.86%",
+        "Container": "41dfe7c13e16533bf7ddb9bb567ea4664e7e1035ef0abdcae31d8d69c6c2b860",
+        "ID": "41dfe7c13e16",
+        "MemPerc": "40.75%",
+        "MemUsage": "130.4MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp1-1",
+        "NetIO": "325kB / 162kB",
+        "PIDs": "39"
+      },
+      {
+        "BlockIO": "20.5kB / 4.92MB",
+        "CPUPerc": "1.83%",
+        "Container": "5c9cc57216c02997a4ec6c18181a75c1b9fd3d880aeb7ec2b45363cd4ed3a86d",
+        "ID": "5c9cc57216c0",
+        "MemPerc": "44.32%",
+        "MemUsage": "141.8MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp2-1",
+        "NetIO": "325kB / 630kB",
+        "PIDs": "57"
+      },
+      {
+        "BlockIO": "20.5kB / 4.9MB",
+        "CPUPerc": "1.67%",
+        "Container": "a5f405582eee7f9c748d7908ff4cf0244f706fecce4a0354164e2639645824c0",
+        "ID": "a5f405582eee",
+        "MemPerc": "39.22%",
+        "MemUsage": "125.5MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp3-1",
+        "NetIO": "319kB / 155kB",
+        "PIDs": "32"
+      },
+      {
+        "BlockIO": "0B / 475kB",
+        "CPUPerc": "26.64%",
+        "Container": "f490be1f607d2677af2c760f2c3ea6c91d62ea2ad2b941ece72b10d3560795a2",
+        "ID": "f490be1f607d",
+        "MemPerc": "13.90%",
+        "MemUsage": "106.8MiB / 768MiB",
+        "Name": "raft-kv-gateway-gateway-1",
+        "NetIO": "129MB / 129MB",
+        "PIDs": "24"
+      },
+      {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "28.05%",
+        "Container": "kv-bench-1792365090102349000",
+        "ID": "22466a7e2bfc",
+        "MemPerc": "5.63%",
+        "MemUsage": "43.24MiB / 768MiB",
+        "Name": "kv-bench-1792365090102349000",
+        "NetIO": "25.7MB / 4.69MB",
+        "PIDs": "10"
+      }
+    ]
+  },
+  {
+    "time": 1792365114.005301,
+    "containers": [
+      {
+        "BlockIO": "0B / 348kB",
+        "CPUPerc": "3.21%",
+        "Container": "62fcef9196bf8ea6553759ba2c534d5e920bb586a55a2bb511c5568f23127054",
+        "ID": "62fcef9196bf",
+        "MemPerc": "46.90%",
+        "MemUsage": "60.03MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-a-1",
+        "NetIO": "10MB / 56.6MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "0B / 352kB",
+        "CPUPerc": "2.99%",
+        "Container": "a5bed261349fb1ea5e347c97667c3e36ebd9d61c8ab6b1ab8f743bbc86d822f1",
+        "ID": "a5bed261349f",
+        "MemPerc": "44.95%",
+        "MemUsage": "57.54MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-b-1",
+        "NetIO": "10.1MB / 56.6MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "20.5kB / 4.85MB",
+        "CPUPerc": "0.78%",
+        "Container": "41dfe7c13e16533bf7ddb9bb567ea4664e7e1035ef0abdcae31d8d69c6c2b860",
+        "ID": "41dfe7c13e16",
+        "MemPerc": "40.75%",
+        "MemUsage": "130.4MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp1-1",
+        "NetIO": "330kB / 164kB",
+        "PIDs": "39"
+      },
+      {
+        "BlockIO": "20.5kB / 4.92MB",
+        "CPUPerc": "1.47%",
+        "Container": "5c9cc57216c02997a4ec6c18181a75c1b9fd3d880aeb7ec2b45363cd4ed3a86d",
+        "ID": "5c9cc57216c0",
+        "MemPerc": "44.31%",
+        "MemUsage": "141.8MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp2-1",
+        "NetIO": "329kB / 638kB",
+        "PIDs": "57"
+      },
+      {
+        "BlockIO": "20.5kB / 4.9MB",
+        "CPUPerc": "0.81%",
+        "Container": "a5f405582eee7f9c748d7908ff4cf0244f706fecce4a0354164e2639645824c0",
+        "ID": "a5f405582eee",
+        "MemPerc": "39.19%",
+        "MemUsage": "125.4MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp3-1",
+        "NetIO": "323kB / 157kB",
+        "PIDs": "32"
+      },
+      {
+        "BlockIO": "0B / 475kB",
+        "CPUPerc": "28.22%",
+        "Container": "f490be1f607d2677af2c760f2c3ea6c91d62ea2ad2b941ece72b10d3560795a2",
+        "ID": "f490be1f607d",
+        "MemPerc": "13.92%",
+        "MemUsage": "106.9MiB / 768MiB",
+        "Name": "raft-kv-gateway-gateway-1",
+        "NetIO": "134MB / 133MB",
+        "PIDs": "24"
+      },
+      {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "30.86%",
+        "Container": "kv-bench-1792365090102349000",
+        "ID": "22466a7e2bfc",
+        "MemPerc": "5.69%",
+        "MemUsage": "43.67MiB / 768MiB",
+        "Name": "kv-bench-1792365090102349000",
+        "NetIO": "28.6MB / 5.23MB",
+        "PIDs": "10"
+      }
+    ]
+  },
+  {
+    "time": 1792365117.57077,
+    "containers": [
+      {
+        "BlockIO": "0B / 348kB",
+        "CPUPerc": "3.20%",
+        "Container": "62fcef9196bf8ea6553759ba2c534d5e920bb586a55a2bb511c5568f23127054",
+        "ID": "62fcef9196bf",
+        "MemPerc": "46.90%",
+        "MemUsage": "60.03MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-a-1",
+        "NetIO": "10.3MB / 58.7MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "0B / 352kB",
+        "CPUPerc": "3.17%",
+        "Container": "a5bed261349fb1ea5e347c97667c3e36ebd9d61c8ab6b1ab8f743bbc86d822f1",
+        "ID": "a5bed261349f",
+        "MemPerc": "44.95%",
+        "MemUsage": "57.54MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-b-1",
+        "NetIO": "10.4MB / 58.7MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "20.5kB / 4.85MB",
+        "CPUPerc": "1.55%",
+        "Container": "41dfe7c13e16533bf7ddb9bb567ea4664e7e1035ef0abdcae31d8d69c6c2b860",
+        "ID": "41dfe7c13e16",
+        "MemPerc": "40.76%",
+        "MemUsage": "130.4MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp1-1",
+        "NetIO": "334kB / 166kB",
+        "PIDs": "39"
+      },
+      {
+        "BlockIO": "20.5kB / 4.92MB",
+        "CPUPerc": "2.14%",
+        "Container": "5c9cc57216c02997a4ec6c18181a75c1b9fd3d880aeb7ec2b45363cd4ed3a86d",
+        "ID": "5c9cc57216c0",
+        "MemPerc": "44.31%",
+        "MemUsage": "141.8MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp2-1",
+        "NetIO": "333kB / 645kB",
+        "PIDs": "57"
+      },
+      {
+        "BlockIO": "20.5kB / 4.9MB",
+        "CPUPerc": "1.55%",
+        "Container": "a5f405582eee7f9c748d7908ff4cf0244f706fecce4a0354164e2639645824c0",
+        "ID": "a5f405582eee",
+        "MemPerc": "39.19%",
+        "MemUsage": "125.4MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp3-1",
+        "NetIO": "327kB / 159kB",
+        "PIDs": "32"
+      },
+      {
+        "BlockIO": "0B / 475kB",
+        "CPUPerc": "27.98%",
+        "Container": "f490be1f607d2677af2c760f2c3ea6c91d62ea2ad2b941ece72b10d3560795a2",
+        "ID": "f490be1f607d",
+        "MemPerc": "13.94%",
+        "MemUsage": "107.1MiB / 768MiB",
+        "Name": "raft-kv-gateway-gateway-1",
+        "NetIO": "137MB / 137MB",
+        "PIDs": "24"
+      },
+      {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "30.02%",
+        "Container": "kv-bench-1792365090102349000",
+        "ID": "22466a7e2bfc",
+        "MemPerc": "5.95%",
+        "MemUsage": "45.71MiB / 768MiB",
+        "Name": "kv-bench-1792365090102349000",
+        "NetIO": "33.9MB / 6.19MB",
+        "PIDs": "10"
+      }
+    ]
+  },
+  {
+    "time": 1792365121.119436,
+    "containers": [
+      {
+        "BlockIO": "0B / 360kB",
+        "CPUPerc": "2.47%",
+        "Container": "62fcef9196bf8ea6553759ba2c534d5e920bb586a55a2bb511c5568f23127054",
+        "ID": "62fcef9196bf",
+        "MemPerc": "46.90%",
+        "MemUsage": "60.04MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-a-1",
+        "NetIO": "10.6MB / 60.7MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "0B / 365kB",
+        "CPUPerc": "2.60%",
+        "Container": "a5bed261349fb1ea5e347c97667c3e36ebd9d61c8ab6b1ab8f743bbc86d822f1",
+        "ID": "a5bed261349f",
+        "MemPerc": "44.95%",
+        "MemUsage": "57.54MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-b-1",
+        "NetIO": "10.7MB / 60.7MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "20.5kB / 4.86MB",
+        "CPUPerc": "1.45%",
+        "Container": "41dfe7c13e16533bf7ddb9bb567ea4664e7e1035ef0abdcae31d8d69c6c2b860",
+        "ID": "41dfe7c13e16",
+        "MemPerc": "40.82%",
+        "MemUsage": "130.6MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp1-1",
+        "NetIO": "338kB / 168kB",
+        "PIDs": "39"
+      },
+      {
+        "BlockIO": "20.5kB / 4.94MB",
+        "CPUPerc": "1.83%",
+        "Container": "5c9cc57216c02997a4ec6c18181a75c1b9fd3d880aeb7ec2b45363cd4ed3a86d",
+        "ID": "5c9cc57216c0",
+        "MemPerc": "44.33%",
+        "MemUsage": "141.8MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp2-1",
+        "NetIO": "337kB / 654kB",
+        "PIDs": "57"
+      },
+      {
+        "BlockIO": "20.5kB / 4.92MB",
+        "CPUPerc": "1.42%",
+        "Container": "a5f405582eee7f9c748d7908ff4cf0244f706fecce4a0354164e2639645824c0",
+        "ID": "a5f405582eee",
+        "MemPerc": "39.22%",
+        "MemUsage": "125.5MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp3-1",
+        "NetIO": "331kB / 161kB",
+        "PIDs": "32"
+      },
+      {
+        "BlockIO": "0B / 487kB",
+        "CPUPerc": "24.73%",
+        "Container": "f490be1f607d2677af2c760f2c3ea6c91d62ea2ad2b941ece72b10d3560795a2",
+        "ID": "f490be1f607d",
+        "MemPerc": "13.88%",
+        "MemUsage": "106.6MiB / 768MiB",
+        "Name": "raft-kv-gateway-gateway-1",
+        "NetIO": "142MB / 141MB",
+        "PIDs": "24"
+      },
+      {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "24.77%",
+        "Container": "kv-bench-1792365090102349000",
+        "ID": "22466a7e2bfc",
+        "MemPerc": "5.95%",
+        "MemUsage": "45.72MiB / 768MiB",
+        "Name": "kv-bench-1792365090102349000",
+        "NetIO": "38MB / 6.94MB",
+        "PIDs": "10"
+      }
+    ]
+  },
+  {
+    "time": 1792365124.6846468,
+    "containers": [
+      {
+        "BlockIO": "0B / 360kB",
+        "CPUPerc": "3.21%",
+        "Container": "62fcef9196bf8ea6553759ba2c534d5e920bb586a55a2bb511c5568f23127054",
+        "ID": "62fcef9196bf",
+        "MemPerc": "46.90%",
+        "MemUsage": "60.04MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-a-1",
+        "NetIO": "10.9MB / 62.8MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "0B / 365kB",
+        "CPUPerc": "3.23%",
+        "Container": "a5bed261349fb1ea5e347c97667c3e36ebd9d61c8ab6b1ab8f743bbc86d822f1",
+        "ID": "a5bed261349f",
+        "MemPerc": "44.95%",
+        "MemUsage": "57.54MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-b-1",
+        "NetIO": "11MB / 62.8MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "20.5kB / 4.86MB",
+        "CPUPerc": "0.74%",
+        "Container": "41dfe7c13e16533bf7ddb9bb567ea4664e7e1035ef0abdcae31d8d69c6c2b860",
+        "ID": "41dfe7c13e16",
+        "MemPerc": "40.82%",
+        "MemUsage": "130.6MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp1-1",
+        "NetIO": "342kB / 170kB",
+        "PIDs": "39"
+      },
+      {
+        "BlockIO": "20.5kB / 4.94MB",
+        "CPUPerc": "1.83%",
+        "Container": "5c9cc57216c02997a4ec6c18181a75c1b9fd3d880aeb7ec2b45363cd4ed3a86d",
+        "ID": "5c9cc57216c0",
+        "MemPerc": "44.33%",
+        "MemUsage": "141.9MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp2-1",
+        "NetIO": "339kB / 659kB",
+        "PIDs": "57"
+      },
+      {
+        "BlockIO": "20.5kB / 4.92MB",
+        "CPUPerc": "0.78%",
+        "Container": "a5f405582eee7f9c748d7908ff4cf0244f706fecce4a0354164e2639645824c0",
+        "ID": "a5f405582eee",
+        "MemPerc": "39.21%",
+        "MemUsage": "125.5MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp3-1",
+        "NetIO": "335kB / 163kB",
+        "PIDs": "32"
+      },
+      {
+        "BlockIO": "0B / 487kB",
+        "CPUPerc": "30.44%",
+        "Container": "f490be1f607d2677af2c760f2c3ea6c91d62ea2ad2b941ece72b10d3560795a2",
+        "ID": "f490be1f607d",
+        "MemPerc": "13.95%",
+        "MemUsage": "107.1MiB / 768MiB",
+        "Name": "raft-kv-gateway-gateway-1",
+        "NetIO": "149MB / 147MB",
+        "PIDs": "24"
+      },
+      {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "32.54%",
+        "Container": "kv-bench-1792365090102349000",
+        "ID": "22466a7e2bfc",
+        "MemPerc": "6.22%",
+        "MemUsage": "47.77MiB / 768MiB",
+        "Name": "kv-bench-1792365090102349000",
+        "NetIO": "42.1MB / 7.69MB",
+        "PIDs": "10"
+      }
+    ]
+  },
+  {
+    "time": 1792365128.237282,
+    "containers": [
+      {
+        "BlockIO": "0B / 360kB",
+        "CPUPerc": "3.19%",
+        "Container": "62fcef9196bf8ea6553759ba2c534d5e920bb586a55a2bb511c5568f23127054",
+        "ID": "62fcef9196bf",
+        "MemPerc": "46.90%",
+        "MemUsage": "60.04MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-a-1",
+        "NetIO": "11.1MB / 64.3MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "0B / 365kB",
+        "CPUPerc": "3.92%",
+        "Container": "a5bed261349fb1ea5e347c97667c3e36ebd9d61c8ab6b1ab8f743bbc86d822f1",
+        "ID": "a5bed261349f",
+        "MemPerc": "45.15%",
+        "MemUsage": "57.79MiB / 128MiB",
+        "Name": "raft-kv-gateway-backend-b-1",
+        "NetIO": "11.3MB / 64.9MB",
+        "PIDs": "16"
+      },
+      {
+        "BlockIO": "20.5kB / 4.86MB",
+        "CPUPerc": "0.86%",
+        "Container": "41dfe7c13e16533bf7ddb9bb567ea4664e7e1035ef0abdcae31d8d69c6c2b860",
+        "ID": "41dfe7c13e16",
+        "MemPerc": "40.83%",
+        "MemUsage": "130.7MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp1-1",
+        "NetIO": "346kB / 172kB",
+        "PIDs": "39"
+      },
+      {
+        "BlockIO": "20.5kB / 4.94MB",
+        "CPUPerc": "1.20%",
+        "Container": "5c9cc57216c02997a4ec6c18181a75c1b9fd3d880aeb7ec2b45363cd4ed3a86d",
+        "ID": "5c9cc57216c0",
+        "MemPerc": "44.34%",
+        "MemUsage": "141.9MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp2-1",
+        "NetIO": "344kB / 669kB",
+        "PIDs": "57"
+      },
+      {
+        "BlockIO": "20.5kB / 4.92MB",
+        "CPUPerc": "0.95%",
+        "Container": "a5f405582eee7f9c748d7908ff4cf0244f706fecce4a0354164e2639645824c0",
+        "ID": "a5f405582eee",
+        "MemPerc": "39.22%",
+        "MemUsage": "125.5MiB / 320MiB",
+        "Name": "raft-kv-gateway-cp3-1",
+        "NetIO": "338kB / 165kB",
+        "PIDs": "32"
+      },
+      {
+        "BlockIO": "0B / 487kB",
+        "CPUPerc": "28.15%",
+        "Container": "f490be1f607d2677af2c760f2c3ea6c91d62ea2ad2b941ece72b10d3560795a2",
+        "ID": "f490be1f607d",
+        "MemPerc": "13.89%",
+        "MemUsage": "106.7MiB / 768MiB",
+        "Name": "raft-kv-gateway-gateway-1",
+        "NetIO": "153MB / 152MB",
+        "PIDs": "24"
+      },
+      {
+        "BlockIO": "0B / 0B",
+        "CPUPerc": "30.01%",
+        "Container": "kv-bench-1792365090102349000",
+        "ID": "22466a7e2bfc",
+        "MemPerc": "6.22%",
+        "MemUsage": "47.78MiB / 768MiB",
+        "Name": "kv-bench-1792365090102349000",
+        "NetIO": "46.2MB / 8.44MB",
+        "PIDs": "10"
+      }
+    ]
+  }
+]

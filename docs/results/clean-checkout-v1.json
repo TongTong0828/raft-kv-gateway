@@ -1,0 +1,13 @@
+{
+  "result": "PASS",
+  "commit": "fc20e630ad293fc459f1e98b6806f3cccdec14f1",
+  "timestamp": "2026-10-18T22:58:59.758057+00:00",
+  "mode": "clean local git clone",
+  "checks": [
+    "Docker build",
+    "Compose up",
+    "smoke twice",
+    "KV create/read exact value and revision"
+  ],
+  "cleanup": "owned project and volumes removed"
+}

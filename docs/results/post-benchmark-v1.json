@@ -1,0 +1,44 @@
+{
+  "result": "PASS",
+  "commit": "84079aefad7ab765ffc8efe81ac56397f662b16b",
+  "gatewayInflight": "0",
+  "heldBodyBytes": "0",
+  "containers": [
+    {
+      "service": "backend-a",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "service": "backend-b",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "service": "cp1",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "service": "cp2",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "service": "cp3",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "service": "gateway",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    }
+  ]
+}
