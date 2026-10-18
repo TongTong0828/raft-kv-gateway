@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata: {name: kv-config}
+data:
+  KV_RAFT_PEERS: cp-0=cp-0.control:6000,cp-1=cp-1.control:6000,cp-2=cp-2.control:6000
+  KV_GRPC_PEERS: cp-0=cp-0.control:50051,cp-1=cp-1.control:50051,cp-2=cp-2.control:50051
+  KV_CONTROL_SEEDS: cp-0.control:50051,cp-1.control:50051,cp-2.control:50051
+  orders.json: |
+    {"serviceId":"orders","pathPrefix":"/orders","endpoints":["backend-a:8081","backend-b:8081"]}
