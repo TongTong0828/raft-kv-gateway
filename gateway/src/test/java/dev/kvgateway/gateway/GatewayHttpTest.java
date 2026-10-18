@@ -1,56 +1,227 @@
 package dev.kvgateway.gateway;
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import dev.kvgateway.api.*;
-import org.junit.jupiter.api.*;
 import java.net.*;
 import java.net.http.*;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.*;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.*;
+
 class GatewayHttpTest {
-  BackendFixture backend;GatewayServer gateway;HttpClient client;
-  @BeforeEach void start()throws Exception {
-    backend=new BackendFixture();gateway=assertDoesNotThrow(()->GatewayServer.start(new Settings.Gateway(Settings.DEFAULT_GROUP,List.of("127.0.0.1:1"),0,0)));
-    var service=ServiceSpec.newBuilder().setServiceId("orders").setPathPrefix("/orders").addEndpoints(backend.endpoint()).setMaxConnectionsPerEndpoint(1).setMaxInflight(1).build();
-    long generation=gateway.routes.beginSubscription();gateway.routes.install(RouteManagerTest.config(1,service,service.toBuilder().setServiceId("other").setPathPrefix("/other").build()),generation);
-    client=HttpClient.newBuilder().version(HttpClient.Version.HTTP_1_1).connectTimeout(Duration.ofSeconds(2)).build();
-    long end=System.nanoTime()+TimeUnit.SECONDS.toNanos(4);while(System.nanoTime()<end){if(get("/orders/ready").statusCode()==200)return;Thread.sleep(20);}fail("backend not healthy through gateway");
-  }
-  @AfterEach void stop()throws Exception {if(gateway!=null)gateway.close();if(backend!=null)backend.close();if(client!=null)client.close();}
-  HttpResponse<String> get(String path)throws Exception{return client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+gateway.port()+path)).timeout(Duration.ofSeconds(4)).GET().build(),HttpResponse.BodyHandlers.ofString());}
-  String raw(String text)throws Exception{try(var socket=new Socket("127.0.0.1",gateway.port())){socket.setSoTimeout(4000);socket.getOutputStream().write(text.getBytes(StandardCharsets.US_ASCII));socket.getOutputStream().flush();return new String(socket.getInputStream().readAllBytes(),StandardCharsets.US_ASCII);}}
-  @Test void keepAliveReusesUpstreamAndHeadHasNoBody()throws Exception {
-    backend.businessPorts.clear();assertEquals("payload",get("/orders/a").body());assertEquals("payload",get("/orders/b").body());assertEquals(1,backend.businessPorts.size());
-    var head=client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+gateway.port()+"/orders/head")).method("HEAD",HttpRequest.BodyPublishers.noBody()).build(),HttpResponse.BodyHandlers.ofString());assertEquals(200,head.statusCode());assertEquals("",head.body());assertEquals("7",head.headers().firstValue("content-length").orElseThrow());assertEquals("payload",get("/orders/after-head").body());
-  }
-  @Test void rejectsAmbiguousFramingAndOversizedBodyBeforeReceivingIt()throws Exception {
-    assertTrue(raw("POST /orders HTTP/1.1\r\nHost: test\r\nContent-Length: 0\r\nTransfer-Encoding: chunked\r\nConnection: close\r\n\r\n0\r\n\r\n").startsWith("HTTP/1.1 400"));
-    assertTrue(raw("POST /orders HTTP/1.1\r\nHost: test\r\nContent-Length: 0\r\nContent-Length: 0\r\nConnection: close\r\n\r\n").startsWith("HTTP/1.1 400"));
-    assertTrue(raw("POST /orders HTTP/1.1\r\nHost: test\r\nContent-Length: 1048577\r\n\r\n").startsWith("HTTP/1.1 413"));
-    assertTrue(raw("POST /orders HTTP/1.1\r\nHost: test\r\nContent-Length: 1\r\nExpect: 100-continue\r\n\r\n").startsWith("HTTP/1.1 417"));
-  }
-  @Test void chunkedInputAndHopHeadersAreHandledCorrectly()throws Exception {
-    var response=raw("POST /orders HTTP/1.1\r\nHost: test\r\nTransfer-Encoding: chunked\r\nConnection: close, X-Remove\r\nX-Remove: secret\r\n\r\n3\r\nabc\r\n0\r\n\r\n");assertTrue(response.startsWith("HTTP/1.1 200"));assertTrue(response.endsWith("payload"));assertEquals("abc",backend.lastBody);assertNull(backend.lastRemoved);assertFalse(response.toLowerCase(Locale.ROOT).contains("x-backend-hop"));
-  }
-  @Test void saturationIsIsolatedAndPermitsReturnAfterCancellation()throws Exception {
-    int before=backend.requests.get();var request=HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+gateway.port()+"/orders/slow")).GET().build();var pending=client.sendAsync(request,HttpResponse.BodyHandlers.ofString());
-    long end=System.nanoTime()+TimeUnit.SECONDS.toNanos(2);while(backend.requests.get()==before&&System.nanoTime()<end)Thread.sleep(5);
-    assertEquals(503,get("/orders/overloaded").statusCode());assertEquals(200,get("/other/ok").statusCode());pending.cancel(true);
-    end=System.nanoTime()+TimeUnit.SECONDS.toNanos(3);while(gateway.budget.inflight()!=0&&System.nanoTime()<end)Thread.sleep(10);assertEquals(0,gateway.budget.inflight());assertEquals(0,gateway.budget.bodyBytes());assertEquals(200,get("/orders/after-cancel").statusCode());
-  }
-  @Test void onePostAttemptAndPipeliningCannotMixResponses()throws Exception {
-    int before=backend.requests.get();var response=client.send(HttpRequest.newBuilder(URI.create("http://127.0.0.1:"+gateway.port()+"/orders/drop")).POST(HttpRequest.BodyPublishers.ofString("write")).build(),HttpResponse.BodyHandlers.ofString());assertEquals(502,response.statusCode());assertEquals(before+1,backend.requests.get());
-    String pipelined=raw("GET /orders/slow HTTP/1.1\r\nHost: test\r\n\r\nGET /orders/other HTTP/1.1\r\nHost: test\r\n\r\n");assertFalse(pipelined.contains("payloadpayload"));
-  }
-  @Test void partialBodyCancellationAndLocalTimeoutDoNotPoisonEndpoint()throws Exception {
-    try(var socket=new Socket("127.0.0.1",gateway.port())){
-      socket.getOutputStream().write("POST /orders/body HTTP/1.1\r\nHost: test\r\nContent-Length: 1048576\r\n\r\n".getBytes(StandardCharsets.US_ASCII));socket.getOutputStream().write(new byte[65536]);socket.getOutputStream().flush();
-      long end=System.nanoTime()+TimeUnit.SECONDS.toNanos(2);while(gateway.budget.bodyBytes()==0&&System.nanoTime()<end)Thread.sleep(5);assertTrue(gateway.budget.bodyBytes()>0);
+  BackendFixture backend;
+  GatewayServer gateway;
+  HttpClient client;
+
+  @BeforeEach
+  void start() throws Exception {
+    backend = new BackendFixture();
+    gateway =
+        assertDoesNotThrow(
+            () ->
+                GatewayServer.start(
+                    new Settings.Gateway(Settings.DEFAULT_GROUP, List.of("127.0.0.1:1"), 0, 0)));
+    var service =
+        ServiceSpec.newBuilder()
+            .setServiceId("orders")
+            .setPathPrefix("/orders")
+            .addEndpoints(backend.endpoint())
+            .setMaxConnectionsPerEndpoint(1)
+            .setMaxInflight(1)
+            .build();
+    long generation = gateway.routes.beginSubscription();
+    gateway.routes.install(
+        RouteManagerTest.config(
+            1, service, service.toBuilder().setServiceId("other").setPathPrefix("/other").build()),
+        generation);
+    client =
+        HttpClient.newBuilder()
+            .version(HttpClient.Version.HTTP_1_1)
+            .connectTimeout(Duration.ofSeconds(2))
+            .build();
+    long end = System.nanoTime() + TimeUnit.SECONDS.toNanos(4);
+    while (System.nanoTime() < end) {
+      if (get("/orders/ready").statusCode() == 200) return;
+      Thread.sleep(20);
     }
-    ControlWatcherTest.await(()->gateway.budget.inflight()==0);assertEquals(0,gateway.budget.bodyBytes());assertTrue(gateway.health.healthy(backend.endpoint()));
-    var service=gateway.routes.current().snapshot().getServices(0).toBuilder().setRequestTimeoutMs(50).build();long generation=gateway.routes.beginSubscription();gateway.routes.install(RouteManagerTest.config(2,service),generation);
-    assertEquals(504,get("/orders/slow").statusCode());assertTrue(gateway.health.healthy(backend.endpoint()));assertEquals(0,gateway.budget.inflight());
-    gateway.routes.install(RouteManagerTest.config(3,service.toBuilder().setRequestTimeoutMs(2000).build()),generation);assertEquals(200,get("/orders/slow").statusCode());
+    fail("backend not healthy through gateway");
+  }
+
+  @AfterEach
+  void stop() throws Exception {
+    if (gateway != null) gateway.close();
+    if (backend != null) backend.close();
+    if (client != null) client.close();
+  }
+
+  HttpResponse<String> get(String path) throws Exception {
+    return client.send(
+        HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + gateway.port() + path))
+            .timeout(Duration.ofSeconds(4))
+            .GET()
+            .build(),
+        HttpResponse.BodyHandlers.ofString());
+  }
+
+  String raw(String text) throws Exception {
+    try (var socket = new Socket("127.0.0.1", gateway.port())) {
+      socket.setSoTimeout(4000);
+      socket.getOutputStream().write(text.getBytes(StandardCharsets.US_ASCII));
+      socket.getOutputStream().flush();
+      return new String(socket.getInputStream().readAllBytes(), StandardCharsets.US_ASCII);
+    }
+  }
+
+  @Test
+  void keepAliveReusesUpstreamAndHeadHasNoBody() throws Exception {
+    backend.businessPorts.clear();
+    assertEquals("payload", get("/orders/a").body());
+    assertEquals("payload", get("/orders/b").body());
+    assertEquals(1, backend.businessPorts.size());
+    var head =
+        client.send(
+            HttpRequest.newBuilder(
+                    URI.create("http://127.0.0.1:" + gateway.port() + "/orders/head"))
+                .method("HEAD", HttpRequest.BodyPublishers.noBody())
+                .build(),
+            HttpResponse.BodyHandlers.ofString());
+    assertEquals(200, head.statusCode());
+    assertEquals("", head.body());
+    assertEquals("7", head.headers().firstValue("content-length").orElseThrow());
+    assertEquals("payload", get("/orders/after-head").body());
+  }
+
+  @Test
+  void rejectsAmbiguousFramingAndOversizedBodyBeforeReceivingIt() throws Exception {
+    assertTrue(
+        raw("POST /orders HTTP/1.1\r\n"
+                + "Host: test\r\n"
+                + "Content-Length: 0\r\n"
+                + "Transfer-Encoding: chunked\r\n"
+                + "Connection: close\r\n\r\n"
+                + "0\r\n\r\n")
+            .startsWith("HTTP/1.1 400"));
+    assertTrue(
+        raw("POST /orders HTTP/1.1\r\n"
+                + "Host: test\r\n"
+                + "Content-Length: 0\r\n"
+                + "Content-Length: 0\r\n"
+                + "Connection: close\r\n\r\n")
+            .startsWith("HTTP/1.1 400"));
+    assertTrue(
+        raw("POST /orders HTTP/1.1\r\nHost: test\r\nContent-Length: 1048577\r\n\r\n")
+            .startsWith("HTTP/1.1 413"));
+    assertTrue(
+        raw("POST /orders HTTP/1.1\r\n"
+                + "Host: test\r\n"
+                + "Content-Length: 1\r\n"
+                + "Expect: 100-continue\r\n\r\n")
+            .startsWith("HTTP/1.1 417"));
+  }
+
+  @Test
+  void chunkedInputAndHopHeadersAreHandledCorrectly() throws Exception {
+    var response =
+        raw(
+            "POST /orders HTTP/1.1\r\n"
+                + "Host: test\r\n"
+                + "Transfer-Encoding: chunked\r\n"
+                + "Connection: close, X-Remove\r\n"
+                + "X-Remove: secret\r\n\r\n"
+                + "3\r\n"
+                + "abc\r\n"
+                + "0\r\n\r\n");
+    assertTrue(response.startsWith("HTTP/1.1 200"));
+    assertTrue(response.endsWith("payload"));
+    assertEquals("abc", backend.lastBody);
+    assertNull(backend.lastRemoved);
+    assertFalse(response.toLowerCase(Locale.ROOT).contains("x-backend-hop"));
+  }
+
+  @Test
+  void saturationIsIsolatedAndPermitsReturnAfterCancellation() throws Exception {
+    int before = backend.requests.get();
+    var request =
+        HttpRequest.newBuilder(URI.create("http://127.0.0.1:" + gateway.port() + "/orders/slow"))
+            .GET()
+            .build();
+    var pending = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
+    long end = System.nanoTime() + TimeUnit.SECONDS.toNanos(2);
+    while (backend.requests.get() == before && System.nanoTime() < end) Thread.sleep(5);
+    assertEquals(503, get("/orders/overloaded").statusCode());
+    assertEquals(200, get("/other/ok").statusCode());
+    pending.cancel(true);
+    end = System.nanoTime() + TimeUnit.SECONDS.toNanos(3);
+    while (gateway.budget.inflight() != 0 && System.nanoTime() < end) Thread.sleep(10);
+    assertEquals(0, gateway.budget.inflight());
+    assertEquals(0, gateway.budget.bodyBytes());
+    assertEquals(200, get("/orders/after-cancel").statusCode());
+  }
+
+  @Test
+  void onePostAttemptAndPipeliningCannotMixResponses() throws Exception {
+    int before = backend.requests.get();
+    var response =
+        client.send(
+            HttpRequest.newBuilder(
+                    URI.create("http://127.0.0.1:" + gateway.port() + "/orders/drop"))
+                .POST(HttpRequest.BodyPublishers.ofString("write"))
+                .build(),
+            HttpResponse.BodyHandlers.ofString());
+    assertEquals(502, response.statusCode());
+    assertEquals(before + 1, backend.requests.get());
+    String pipelined =
+        raw(
+            "GET /orders/slow HTTP/1.1\r\n"
+                + "Host: test\r\n\r\n"
+                + "GET /orders/other HTTP/1.1\r\n"
+                + "Host: test\r\n\r\n");
+    assertFalse(pipelined.contains("payloadpayload"));
+  }
+
+  @Test
+  void partialBodyCancellationAndLocalTimeoutDoNotPoisonEndpoint() throws Exception {
+    try (var socket = new Socket("127.0.0.1", gateway.port())) {
+      socket
+          .getOutputStream()
+          .write(
+              "POST /orders/body HTTP/1.1\r\nHost: test\r\nContent-Length: 1048576\r\n\r\n"
+                  .getBytes(StandardCharsets.US_ASCII));
+      socket.getOutputStream().write(new byte[65536]);
+      socket.getOutputStream().flush();
+      long end = System.nanoTime() + TimeUnit.SECONDS.toNanos(2);
+      while (gateway.budget.bodyBytes() == 0 && System.nanoTime() < end) Thread.sleep(5);
+      assertTrue(gateway.budget.bodyBytes() > 0);
+    }
+    ControlWatcherTest.await(() -> gateway.budget.inflight() == 0);
+    assertEquals(0, gateway.budget.bodyBytes());
+    assertTrue(gateway.health.healthy(backend.endpoint()));
+    var service =
+        gateway.routes.current().snapshot().getServices(0).toBuilder()
+            .setRequestTimeoutMs(50)
+            .build();
+    long generation = gateway.routes.beginSubscription();
+    gateway.routes.install(RouteManagerTest.config(2, service), generation);
+    assertEquals(504, get("/orders/slow").statusCode());
+    assertTrue(gateway.health.healthy(backend.endpoint()));
+    assertEquals(0, gateway.budget.inflight());
+    gateway.routes.install(
+        RouteManagerTest.config(3, service.toBuilder().setRequestTimeoutMs(2000).build()),
+        generation);
+    assertEquals(200, get("/orders/slow").statusCode());
+  }
+
+  @Test
+  void actualUpstreamResponseTimeoutsCountAsEndpointFailures() throws Exception {
+    var service =
+        gateway.routes.current().snapshot().getServices(0).toBuilder()
+            .setRequestTimeoutMs(30)
+            .build();
+    gateway.routes.install(RouteManagerTest.config(2, service), gateway.routes.beginSubscription());
+    for (int i = 0; i < 3; i++) assertEquals(504, get("/orders/slow").statusCode());
+    assertFalse(gateway.health.healthy(backend.endpoint()));
   }
 }

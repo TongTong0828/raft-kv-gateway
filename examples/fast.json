@@ -1,0 +1,1 @@
+{"serviceId":"fast","pathPrefix":"/fast","endpoints":["backend-b:8081"],"requestTimeoutMs":2000,"maxInflight":100,"maxConnectionsPerEndpoint":16}

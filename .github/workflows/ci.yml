@@ -1,0 +1,38 @@
+name: Verify
+on: [push, pull_request]
+permissions: {contents: read}
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Java tests and packages
+        run: ./scripts/mvn.sh verify
+      - name: Benchmark parser and distribution audit
+        run: |
+          python3 -m unittest discover -s benchmarks -p 'test_*.py'
+          python3 scripts/audit-release.py
+      - name: Build the pinned image
+        run: ./scripts/dev.sh build
+      - name: Clean Compose quickstart
+        run: |
+          ./scripts/dev.sh up
+          ./scripts/dev.sh smoke
+          ./scripts/dev.sh down
+      - name: Consensus, recovery and resource fault suite
+        run: python3 scripts/faults.py --project kv-ci-${{ github.run_id }}-${{ github.run_attempt }} --output work/ci-faults.json
+      - name: Render Kubernetes overlays
+        run: |
+          ./scripts/k8s-tools.sh
+          work/tools/kubectl kustomize deploy/kubernetes/overlays/kind > work/kind.yaml
+          work/tools/kubectl kustomize deploy/kubernetes/overlays/eks > work/eks.yaml
+      - name: Save verification evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: verification-${{ github.run_id }}
+          path: |
+            work/ci-faults.*
+            **/target/surefire-reports/*.xml
+          if-no-files-found: ignore

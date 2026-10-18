@@ -1,0 +1,106 @@
+{
+  "result": "PASS",
+  "commit": "4c33993be7e16df0adf6ff9de97f296544a76245",
+  "dirty": false,
+  "cluster": "kv-verified-v1",
+  "nodeImage": "kindest/node:v1.37.0@sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5",
+  "kubectl": {
+    "clientVersion": {
+      "major": "1",
+      "minor": "37",
+      "gitVersion": "v1.37.0",
+      "gitCommit": "f54c212e3a2f75d674b717a9b29052b20b60aefc",
+      "gitTreeState": "clean",
+      "buildDate": "2026-08-26T10:48:06Z",
+      "goVersion": "go1.26.6",
+      "compiler": "gc",
+      "platform": "darwin/arm64"
+    },
+    "kustomizeVersion": "v5.8.1"
+  },
+  "events": [
+    {
+      "test": "three-controls-ready",
+      "time": 1792362517.5165598,
+      "controls": [
+        {
+          "nodeId": "cp-0",
+          "role": "FOLLOWER",
+          "leaderId": "cp-1",
+          "leaderTarget": "cp-1.control:50051",
+          "appliedIndex": "0",
+          "snapshotIndex": "0",
+          "snapshotInstalls": "0",
+          "stateRevision": "0",
+          "groupId": "11111111-1111-1111-1111-111111111111",
+          "appliedTerm": "1",
+          "logStartIndex": "0"
+        },
+        {
+          "nodeId": "cp-1",
+          "role": "LEADER",
+          "leaderId": "cp-1",
+          "leaderTarget": "cp-1.control:50051",
+          "appliedIndex": "0",
+          "snapshotIndex": "0",
+          "snapshotInstalls": "0",
+          "stateRevision": "0",
+          "groupId": "11111111-1111-1111-1111-111111111111",
+          "appliedTerm": "1",
+          "logStartIndex": "0"
+        },
+        {
+          "nodeId": "cp-2",
+          "role": "FOLLOWER",
+          "leaderId": "cp-1",
+          "leaderTarget": "cp-1.control:50051",
+          "appliedIndex": "0",
+          "snapshotIndex": "0",
+          "snapshotInstalls": "0",
+          "stateRevision": "0",
+          "groupId": "11111111-1111-1111-1111-111111111111",
+          "appliedTerm": "1",
+          "logStartIndex": "0"
+        }
+      ]
+    },
+    {
+      "test": "initial-http",
+      "time": 1792362530.5681138,
+      "revision": "1",
+      "backend": "backend-a"
+    },
+    {
+      "test": "pod-replacement-pvc",
+      "time": 1792362538.584547,
+      "beforeUid": "a9ab297e-8de2-4fff-ad68-98d0e7617179",
+      "afterUid": "0aeb8c78-0a36-4545-aa70-eb0628473e76",
+      "revision": "3",
+      "pvcCount": 3
+    },
+    {
+      "test": "gateway-rollout",
+      "time": 1792362542.506593,
+      "backend": "backend-a",
+      "service": {
+        "revision": "1",
+        "service": {
+          "serviceId": "orders",
+          "pathPrefix": "/orders",
+          "endpoints": [
+            "backend-a:8081",
+            "backend-b:8081"
+          ],
+          "requestTimeoutMs": 2000,
+          "maxInflight": 100,
+          "maxConnectionsPerEndpoint": 16
+        }
+      }
+    },
+    {
+      "test": "eks-render-only",
+      "time": 1792362542.542529,
+      "deployed": false
+    }
+  ]
+}

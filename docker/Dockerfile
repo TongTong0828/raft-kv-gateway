@@ -4,6 +4,9 @@ WORKDIR /src
 COPY . .
 RUN --mount=type=cache,target=/root/.m2 mvn -B -ntp -DskipTests package
 FROM eclipse-temurin:21-jre-noble@sha256:35501d3f93173b420ac9001658eb68157e813316b865087e345c187fca422c4c
+ARG VCS_REF=unknown
+LABEL org.opencontainers.image.revision=$VCS_REF
+LABEL org.opencontainers.image.source=https://github.com/TongTong0828/raft-kv-gateway
 RUN groupadd --gid 10001 kv && useradd --uid 10001 --gid 10001 --no-create-home kv && mkdir /data && chown kv:kv /data
 WORKDIR /app
 COPY --from=build /src/control-plane/target/control-plane.jar /src/gateway/target/gateway.jar /src/cli/target/cli.jar /src/demo-backend/target/demo-backend.jar /src/integration-tests/target/integration-tests.jar /app/

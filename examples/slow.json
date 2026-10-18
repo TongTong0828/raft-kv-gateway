@@ -1,0 +1,1 @@
+{"serviceId":"slow","pathPrefix":"/slow","endpoints":["backend-a:8081"],"requestTimeoutMs":2000,"maxInflight":2,"maxConnectionsPerEndpoint":2}

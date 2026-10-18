@@ -1,0 +1,96 @@
+{
+  "retrieved_date_utc": "2026-10-18T22:29:12.686591+00:00",
+  "scope": "Exact upstream release-tag texts for the requested components. Coordinates were read from current gateway.jar pom.properties. These texts do not constitute a complete audit of every embedded component.",
+  "files": [
+    {
+      "file": "netty-4.2.19.Final-LICENSE.txt",
+      "source_url": "https://raw.githubusercontent.com/netty/netty/netty-4.2.19.Final/LICENSE.txt",
+      "resolved_url": "https://raw.githubusercontent.com/netty/netty/netty-4.2.19.Final/LICENSE.txt",
+      "sha256": "aac73b3148f6d1d7111dbca32099f68d26c644c6813ae1e4f05f6579aa2663fe",
+      "bytes": 11360,
+      "artifact_coordinates": "io.netty:*:4.2.19.Final",
+      "notes": "Netty project license"
+    },
+    {
+      "file": "netty-4.2.19.Final-NOTICE.txt",
+      "source_url": "https://raw.githubusercontent.com/netty/netty/netty-4.2.19.Final/NOTICE.txt",
+      "resolved_url": "https://raw.githubusercontent.com/netty/netty/netty-4.2.19.Final/NOTICE.txt",
+      "sha256": "1775b0d91666fcb82493a5198f761b59a6d4d050bae6a4d26ecc377354068571",
+      "bytes": 9387,
+      "artifact_coordinates": "io.netty:*:4.2.19.Final",
+      "notes": "Netty project notice; references upstream third-party license files"
+    },
+    {
+      "file": "protobuf-v25.9-LICENSE.txt",
+      "source_url": "https://raw.githubusercontent.com/protocolbuffers/protobuf/v25.9/LICENSE",
+      "resolved_url": "https://raw.githubusercontent.com/protocolbuffers/protobuf/v25.9/LICENSE",
+      "sha256": "6e5e117324afd944dcf67f36cf329843bc1a92229a8cd9bb573d7a83130fea7d",
+      "bytes": 1732,
+      "artifact_coordinates": "com.google.protobuf:protobuf-java:3.25.9; com.google.protobuf:protobuf-java-util:3.25.9",
+      "notes": "BSD three-clause terms and generated-code statement"
+    },
+    {
+      "file": "slf4j-v_2.0.17-LICENSE.txt",
+      "source_url": "https://raw.githubusercontent.com/qos-ch/slf4j/v_2.0.17/LICENSE.txt",
+      "resolved_url": "https://raw.githubusercontent.com/qos-ch/slf4j/v_2.0.17/LICENSE.txt",
+      "sha256": "6fbe2eaf44b193b8a40eed9208f52848572224ad8d7672dd09418aa174847e73",
+      "bytes": 1154,
+      "artifact_coordinates": "org.slf4j:slf4j-api:2.0.17; org.slf4j:slf4j-simple:2.0.17",
+      "notes": "MIT license"
+    },
+    {
+      "file": "Apache-2.0-LICENSE.txt",
+      "source_url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "resolved_url": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358,
+      "artifact_coordinates": null,
+      "notes": "Canonical Apache License 2.0 text; does not relicense third-party code"
+    },
+    {
+      "file": "guava-v33.6.0-LICENSE.txt",
+      "source_url": "https://raw.githubusercontent.com/google/guava/v33.6.0/LICENSE",
+      "resolved_url": "https://raw.githubusercontent.com/google/guava/v33.6.0/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358,
+      "artifact_coordinates": "com.google.guava:guava:33.6.0-android",
+      "notes": "Matching Guava release Apache license"
+    },
+    {
+      "file": "gson-gson-parent-2.8.9-LICENSE.txt",
+      "source_url": "https://raw.githubusercontent.com/google/gson/gson-parent-2.8.9/LICENSE",
+      "resolved_url": "https://raw.githubusercontent.com/google/gson/gson-parent-2.8.9/LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358,
+      "artifact_coordinates": "com.google.code.gson:gson:2.8.9",
+      "notes": "Matching Gson release Apache license"
+    },
+    {
+      "file": "error-prone-v2.50.0-COPYING.txt",
+      "source_url": "https://raw.githubusercontent.com/google/error-prone/v2.50.0/COPYING",
+      "resolved_url": "https://raw.githubusercontent.com/google/error-prone/v2.50.0/COPYING",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358,
+      "artifact_coordinates": "com.google.errorprone:error_prone_annotations:2.50.0",
+      "notes": "Matching Error Prone release Apache license"
+    },
+    {
+      "file": "j2objc-2.8-LICENSE.txt",
+      "source_url": "https://raw.githubusercontent.com/google/j2objc/2.8/LICENSE",
+      "resolved_url": "https://raw.githubusercontent.com/google/j2objc/2.8/LICENSE",
+      "sha256": "f93fac82dc22bed7ccc04bef47c3313b7db8ea350eadd85f3672acbdae3cfad1",
+      "bytes": 13064,
+      "artifact_coordinates": "com.google.j2objc:j2objc-annotations:2.8",
+      "notes": "Matching J2ObjC release license"
+    },
+    {
+      "file": "animal-sniffer-1.27-LICENSE.txt",
+      "source_url": "https://raw.githubusercontent.com/mojohaus/animal-sniffer/animal-sniffer-1.27/LICENSE",
+      "resolved_url": "https://raw.githubusercontent.com/mojohaus/animal-sniffer/animal-sniffer-1.27/LICENSE",
+      "sha256": "0d17e86dbd1f3504cfa311e67827e1569ad27bbfff29cc405194e4a2549e9df8",
+      "bytes": 1075,
+      "artifact_coordinates": "org.codehaus.mojo:animal-sniffer-annotations:1.27",
+      "notes": "Matching Animal Sniffer release MIT license"
+    }
+  ]
+}

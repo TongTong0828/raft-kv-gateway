@@ -1,0 +1,4 @@
+services:
+  backend-a:
+    environment:
+      KV_DELAY_MS: '500'

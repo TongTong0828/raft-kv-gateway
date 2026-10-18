@@ -1,0 +1,15 @@
+Raft KV & Gateway
+Copyright 2026 TongTong0828 and contributors
+
+This project's original source is licensed under the Apache License, Version 2.0.
+Apache Ratis implements the Raft consensus protocol used by this project.
+
+Third-party dependencies retain their own copyright notices and licenses.
+The runnable JARs preserve original dependency notices in per-artifact ZIPs
+under META-INF/third-party/originals, append overlapping top-level notices,
+and include runtime dependency inventories under META-INF/dependencies.
+Additional matching upstream license texts and their source/hash index are
+in distribution/resources/META-INF/third-party. This includes BSD, MIT,
+CDDL/GPL-with-Classpath-Exception, Apache, and native-library notices.
+The project Apache license does not relicense third-party components or
+the JRE and operating-system software in the container base image.

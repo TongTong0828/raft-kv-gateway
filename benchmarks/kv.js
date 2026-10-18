@@ -1,0 +1,6 @@
+import grpc from 'k6/net/grpc';
+import { options as configuration,begin,record,summary } from './common.js';
+const client=new grpc.Client();client.load(['/workspace/api/src/main/proto'],'control.proto');let connected=false,revision='0';
+export const options=configuration();
+export default function(){begin();const start=Date.now();try{if(!connected){client.connect(__ENV.KV_TARGET,{plaintext:true,timeout:'2s'});connected=true;}}catch(error){record(0,false,Date.now()-start);return;}const write=__ENV.KV_MODE==='write',key=write?'/bench/'+__ENV.RUN_ID+'/'+__VU:'/bench/read';const method='kvgateway.v1.Control/'+(write?'Put':'Get');const request=write?{key,value:__ENV.VALUE_BASE64,expectedRevision:revision}:{key};let result;try{result=client.invoke(method,request,{timeout:'3s'});}catch(error){record(0,false,Date.now()-start);return;}const ok=result.status===grpc.StatusOK&&result.message.entry.value===__ENV.VALUE_BASE64;record(result.status===grpc.StatusOK?200:500,ok,Date.now()-start);if(write&&ok)revision=result.message.revision;else if(write){const read=client.invoke('kvgateway.v1.Control/Get',{key},{timeout:'3s'});if(read.status===grpc.StatusOK)revision=read.message.entry.modRevision;}}
+export const handleSummary=summary;
