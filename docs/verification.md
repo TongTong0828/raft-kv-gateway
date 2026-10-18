@@ -25,6 +25,8 @@ The body-budget test held 66,600,000 bytes across 80 routes, rejected six furthe
 
 One earlier acceptance attempt timed out on the host-published management port immediately after a Docker network detach. A smaller networking probe did not reproduce it. The application network now has explicit gateway priority, and partition acceptance additionally requires positive application gRPC reachability. The published run passed these stronger assertions; the original timeout's precise cause remains unconfirmed.
 
+The first Linux CI run also exposed a test sampling race: the host had finished its socket writes while the gateway had recorded only 27 active uploads and about 15 MiB of held data. The body-pressure assertion now uses a bounded observation window, retains the same 32–64 MiB acceptance range, and requires actual 503 responses rather than crediting socket write failures. Runtime gateway code and the measured benchmark implementation are unchanged.
+
 ## Review and boundaries
 
 A fresh whole-branch review found six release blockers, all reproduced and corrected with regression tests. See [review and fixes](review.md). There are no deferred minor review findings.

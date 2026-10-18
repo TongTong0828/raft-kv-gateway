@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Owns an isolated Compose project. Assertions use live RPC/HTTP/status evidence."""
-import argparse,concurrent.futures,json,os,pathlib,socket,subprocess,time,urllib.request
+import argparse,concurrent.futures,json,os,pathlib,select,socket,subprocess,time,urllib.request
 from fault_ownership import claim_project,release_lease
 parser=argparse.ArgumentParser();parser.add_argument('--project',default='kv-fault-'+str(os.getpid()));parser.add_argument('--output',default='work/fault-results.json');args=parser.parse_args()
 ROOT=pathlib.Path(__file__).resolve().parent.parent;os.chdir(ROOT)
@@ -75,20 +75,35 @@ try:
     saved=cli('kv','put','/fault/persist','retained');compose('stop','cp1','cp2','cp3');compose('start','cp1','cp2','cp3');restored=until(lambda:cli('kv','get','/fault/persist'));assert restored['entry']['value']=='cmV0YWluZWQ=';assert restored['entry']['modRevision']==saved['entry']['modRevision'];record('full-restart',revision=saved['revision'],restored=restored)
     # Hold partial request bodies across many routes; budget applies before aggregation.
     scenario('seed-many');until(lambda:int(float(metrics()['gateway_config_revision']))>=int(cli('service','get','bulk79')['revision']))
-    sockets=[];rejected=0
+    sockets=[];send_failures=0
     try:
         for i in range(80):
             s=socket.create_connection(('127.0.0.1',int(env['KV_HTTP_PORT'])),timeout=2);s.settimeout(2);sockets.append(s)
             try:s.sendall(f'POST /bulk{i}/body HTTP/1.1\r\nHost: test\r\nContent-Length: 1048576\r\n\r\n'.encode()+b'x'*900000)
-            except OSError:rejected+=1
-        held=metrics();assert 32*1024*1024<float(held['gateway_body_bytes'])<=64*1024*1024,held
-        for s in sockets:
-            s.settimeout(.01)
-            try:
-                if b'503' in s.recv(1024):rejected+=1
-            except OSError:pass
-        assert rejected>0,'expected global body budget rejection'
-        memory=json.loads(run(['docker','inspect',compose('ps','-q','gateway').strip()]))[0]['State'];assert not memory['OOMKilled'];stats=run(['docker','stats','--no-stream','--format','{{json .}}',compose('ps','-q','gateway').strip()]).strip();record('body-budget',heldBytes=int(held['gateway_body_bytes']),rejected=rejected,stats=json.loads(stats),oomKilled=memory['OOMKilled'])
+            except OSError:send_failures+=1
+        # sendall may finish in the host TCP buffer before Netty consumes the bytes.
+        # Observe actual held bytes and actual 503 responses before crediting pressure.
+        pending=set(sockets);responses={s:b'' for s in sockets};overloaded=set();held={};peak=0;samples=0;first_size=None;started=time.monotonic();end=started+5
+        for s in sockets:s.setblocking(False)
+        while time.monotonic()<end:
+            sample=metrics();size=int(float(sample['gateway_body_bytes']))
+            samples+=1
+            if first_size is None:first_size=size
+            assert size<=64*1024*1024,sample
+            if size>peak:peak=size;held=sample
+            readable=select.select(list(pending),[],[],.05)[0] if pending else []
+            for s in readable:
+                try:data=s.recv(1024-len(responses[s]))
+                except OSError:data=b''
+                responses[s]+=data
+                if b' 503 ' in responses[s].split(b'\r\n',1)[0]:overloaded.add(s)
+                if not data or b'\r\n' in responses[s] or len(responses[s])==1024:pending.discard(s)
+            if peak>32*1024*1024 and overloaded:break
+            if not pending:time.sleep(.05)
+        assert 32*1024*1024<peak<=64*1024*1024,held
+        assert overloaded,'expected actual HTTP 503 global body budget rejection'
+        observed_ms=round((time.monotonic()-started)*1000)
+        memory=json.loads(run(['docker','inspect',compose('ps','-q','gateway').strip()]))[0]['State'];assert not memory['OOMKilled'];stats=run(['docker','stats','--no-stream','--format','{{json .}}',compose('ps','-q','gateway').strip()]).strip();record('body-budget',heldBytes=peak,firstObservedBytes=first_size,sampleCount=samples,observationMs=observed_ms,rejected=len(overloaded),sendFailures=send_failures,stats=json.loads(stats),oomKilled=memory['OOMKilled'])
     finally:
         for s in sockets:s.close()
     until(lambda:float(metrics()['gateway_inflight'])==0 and float(metrics()['gateway_body_bytes'])==0)
