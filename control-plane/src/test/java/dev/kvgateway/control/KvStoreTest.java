@@ -5,6 +5,11 @@ import org.junit.jupiter.api.Test;
 import java.util.concurrent.*;
 import static org.junit.jupiter.api.Assertions.*;
 class KvStoreTest {
+  @org.junit.jupiter.api.Test void notificationFailureCannotChangeCommittedOutcome(){
+    var store=new KvStore();store.onChange(()->{throw new IllegalArgumentException("subscriber failed");});
+    var command=Command.newBuilder().setPut(PutRequest.newBuilder().setKey("x").setValue(com.google.protobuf.ByteString.copyFromUtf8("v"))).build();
+    assertEquals(CommandResult.Code.OK,store.apply(command,10).getCode());assertEquals(10,store.query(Command.newBuilder().setGet(GetRequest.newBuilder().setKey("x")).build()).getEntry().getModRevision());
+  }
   static Command put(String key,String value,long expected) {return Command.newBuilder().setPut(PutRequest.newBuilder().setKey(key).setValue(ByteString.copyFromUtf8(value)).setExpectedRevision(expected)).build();}
   static Command get(String key) {return Command.newBuilder().setGet(GetRequest.newBuilder().setKey(key)).build();}
   @Test void concurrentCasHasOneWinner() throws Exception {

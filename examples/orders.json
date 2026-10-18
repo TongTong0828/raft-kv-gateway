@@ -1,0 +1,1 @@
+{"serviceId":"orders","pathPrefix":"/orders","endpoints":["backend-a:8081","backend-b:8081"],"requestTimeoutMs":2000,"maxInflight":100,"maxConnectionsPerEndpoint":16}

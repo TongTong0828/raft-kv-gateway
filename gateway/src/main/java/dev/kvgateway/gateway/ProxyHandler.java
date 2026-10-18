@@ -26,7 +26,7 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
       long length;try{length=HttpUtil.getContentLength(request,0);}catch(RuntimeException e){reject(400);return;}
       if(length>MAX_BODY){reject(413);return;}
       var table=server.routes.current();if(table==null){reject(503);return;}var service=table.match(request.uri());if(service==null){reject(404);return;}
-      var permit=server.budget.admit(service.getServiceId());if(permit==null){reject(503);return;}
+      var permit=server.budget.admit(service.getServiceId());if(permit==null){server.metrics.rejected(service.getServiceId());reject(503);return;}
       active=new Exchange(request,service,permit);
     }
     if(msg instanceof HttpContent content&&active!=null){var e=active;if(!content.decoderResult().isSuccess()){e.fail(400,false);return;}
@@ -40,13 +40,13 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
   public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause){if(active!=null)active.abort();ctx.close();}
   private final class Exchange {
     final ServiceSpec service;final ResourceBudget.Permit permit;final HttpMethod method;final String uri;final HttpHeaders requestHeaders;final boolean keepAlive;final long started=System.nanoTime();
-    ByteBuf request=Unpooled.buffer(0),response=Unpooled.buffer(0);int reserved;boolean requestComplete,responding;volatile boolean ended;ScheduledFuture<?> deadline;Future<EndpointPool.Lease> acquiring;EndpointPool.Lease lease;String endpoint;HttpResponse responseHead;
+    ByteBuf request=Unpooled.buffer(0),response=Unpooled.buffer(0);int reserved;boolean requestComplete,responding;volatile boolean ended;ScheduledFuture<?> deadline;Future<EndpointPool.Lease> acquiring;EndpointPool.Lease lease;String endpoint;Object healthGeneration;HttpResponse responseHead;
     Exchange(HttpRequest head,ServiceSpec service,ResourceBudget.Permit permit){this.service=service;this.permit=permit;method=head.method();uri=head.uri();requestHeaders=new DefaultHttpHeaders().set(head.headers());keepAlive=HttpUtil.isKeepAlive(head);deadline=ctx.executor().schedule(()->{if(!ended&&!responding)fail(504,false);else if(!ended){abort();ctx.close();}},service.getRequestTimeoutMs(),TimeUnit.MILLISECONDS);}
     boolean append(ByteBuf source,boolean inbound){var target=inbound?request:response;int n=source.readableBytes();if(n>MAX_BODY-target.readableBytes()){fail(inbound?413:502,!inbound);return false;}
       if(!server.budget.reserveBytes(n)){fail(503,false);return false;}reserved+=n;target.writeBytes(source,source.readerIndex(),n);return true;}
     void forward(){var available=service.getEndpointsList().stream().filter(server.health::healthy).toList();if(available.isEmpty()){fail(503,false);return;}
       var counter=server.roundRobin.computeIfAbsent(service.getServiceId(),s->new AtomicInteger());endpoint=available.get(Math.floorMod(counter.getAndIncrement(),available.size()));var pool=server.pools.get(service.getServiceId(),endpoint);if(pool==null){fail(503,false);return;}
-      acquiring=pool.acquire();acquiring.addListener(f->{EndpointPool.Lease obtained=f.isSuccess()?acquiring.getNow():null;ctx.executor().execute(()->{
+      healthGeneration=server.health.generation(endpoint);acquiring=pool.acquire();acquiring.addListener(f->{EndpointPool.Lease obtained=f.isSuccess()?acquiring.getNow():null;ctx.executor().execute(()->{
         if(ended||responding){if(obtained!=null)obtained.release(false);return;}
         if(!f.isSuccess()){var cause=f.cause();boolean local=cause instanceof java.util.concurrent.TimeoutException||cause instanceof IllegalStateException||cause instanceof java.util.concurrent.CancellationException;fail(local?503:502,!local);return;}
         lease=obtained;var channel=obtained.channel;
@@ -74,7 +74,7 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
       if(method.equals(HttpMethod.HEAD)){var value=responseHead.headers().get(HttpHeaderNames.CONTENT_LENGTH);if(value!=null)out.headers().set(HttpHeaderNames.CONTENT_LENGTH,value);}else if(responseHead.status().code()!=204&&responseHead.status().code()!=304)out.headers().setInt(HttpHeaderNames.CONTENT_LENGTH,out.content().readableBytes());
       HttpUtil.setKeepAlive(out,keepAlive);int status=out.status().code();ctx.writeAndFlush(out).addListener(f->{finish(status);if(!keepAlive||!f.isSuccess())ctx.close();else armHeaders();});
     }
-    void fail(int status,boolean endpointFault){if(ended||responding)return;if(endpointFault&&endpoint!=null)server.health.failure(endpoint);responding=true;releaseUpstream();var out=new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.valueOf(status));out.headers().setInt(HttpHeaderNames.CONTENT_LENGTH,0).set(HttpHeaderNames.CONNECTION,HttpHeaderValues.CLOSE);ctx.writeAndFlush(out).addListener(f->{finish(status);ctx.close();});}
+    void fail(int status,boolean endpointFault){if(ended||responding)return;if(endpointFault&&endpoint!=null)server.health.failure(endpoint,healthGeneration);responding=true;releaseUpstream();var out=new DefaultFullHttpResponse(HttpVersion.HTTP_1_1,HttpResponseStatus.valueOf(status));out.headers().setInt(HttpHeaderNames.CONTENT_LENGTH,0).set(HttpHeaderNames.CONNECTION,HttpHeaderValues.CLOSE);ctx.writeAndFlush(out).addListener(f->{finish(status);ctx.close();});}
     void releaseUpstream(){if(acquiring!=null&&!acquiring.isDone())acquiring.cancel(false);if(lease!=null){lease.release(false);lease=null;}}
     void abort(){finish(499);}
     void finish(int status){if(ended)return;ended=true;deadline.cancel(false);releaseUpstream();request.release();response.release();server.budget.releaseBytes(reserved);permit.close();server.metrics.record(status,System.nanoTime()-started);if(active==this)active=null;}

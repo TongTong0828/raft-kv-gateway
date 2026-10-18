@@ -1,0 +1,67 @@
+name: raft-kv-gateway
+x-control: &control
+  image: raft-kv-gateway:local
+  build: {context: ., dockerfile: docker/Dockerfile}
+  mem_limit: 320m
+  cpus: 1
+  command: ["-jar", "/app/control-plane.jar"]
+  environment: &control-env
+    JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+    KV_RAFT_PEERS: cp1=cp1-raft:6000,cp2=cp2-raft:6000,cp3=cp3-raft:6000
+    KV_GRPC_PEERS: cp1=cp1:50051,cp2=cp2:50051,cp3=cp3:50051
+    KV_DATA_DIR: /data
+  healthcheck: {test: [CMD, bash, -c, "exec 3<>/dev/tcp/127.0.0.1/9101"], interval: 2s, timeout: 1s, retries: 30, start_period: 10s}
+  stop_grace_period: 15s
+services:
+  cp1:
+    <<: *control
+    environment: {<<: *control-env, KV_NODE_ID: cp1}
+    ports: ["127.0.0.1:${KV_CP1_PORT:-15051}:50051", "127.0.0.1:${KV_CP1_ADMIN:-19101}:9101"]
+    volumes: [cp1-data:/data]
+    networks: {app: {}, raft: {aliases: [cp1-raft]}}
+  cp2:
+    <<: *control
+    environment: {<<: *control-env, KV_NODE_ID: cp2}
+    ports: ["127.0.0.1:${KV_CP2_PORT:-15052}:50051", "127.0.0.1:${KV_CP2_ADMIN:-19102}:9101"]
+    volumes: [cp2-data:/data]
+    networks: {app: {}, raft: {aliases: [cp2-raft]}}
+  cp3:
+    <<: *control
+    environment: {<<: *control-env, KV_NODE_ID: cp3}
+    ports: ["127.0.0.1:${KV_CP3_PORT:-15053}:50051", "127.0.0.1:${KV_CP3_ADMIN:-19103}:9101"]
+    volumes: [cp3-data:/data]
+    networks: {app: {}, raft: {aliases: [cp3-raft]}}
+  gateway:
+    image: raft-kv-gateway:local
+    mem_limit: 768m
+    cpus: 2
+    command: ["-jar", "/app/gateway.jar"]
+    environment:
+      JAVA_TOOL_OPTIONS: -Xmx256m -XX:MaxDirectMemorySize=128m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dio.netty.leakDetection.level=advanced -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+      KV_CONTROL_SEEDS: cp1:50051,cp2:50051,cp3:50051
+    ports: ["127.0.0.1:${KV_HTTP_PORT:-8080}:8080", "127.0.0.1:${KV_GATEWAY_ADMIN:-9090}:9090"]
+    networks: [app]
+    healthcheck: {test: [CMD, bash, -c, "exec 3<>/dev/tcp/127.0.0.1/9090"], interval: 2s, timeout: 1s, retries: 20}
+  backend-a: &backend
+    image: raft-kv-gateway:local
+    mem_limit: 128m
+    cpus: 0.5
+    command: ["-jar", "/app/demo-backend.jar"]
+    environment: &backend-env
+      JAVA_TOOL_OPTIONS: -Xmx32m -XX:MaxDirectMemorySize=16m -XX:ReservedCodeCacheSize=16m -XX:ActiveProcessorCount=1
+      KV_BACKEND_ID: backend-a
+    networks: [app]
+  backend-b:
+    <<: *backend
+    environment: {<<: *backend-env, KV_BACKEND_ID: backend-b}
+  cli:
+    image: raft-kv-gateway:local
+    profiles: [tools]
+    command: ["-jar", "/app/cli.jar"]
+    environment:
+      JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=error
+      KV_CONTROL_SEEDS: cp1:50051,cp2:50051,cp3:50051
+    volumes: [".:/workspace:ro"]
+    networks: [app]
+networks: {app: {}, raft: {}}
+volumes: {cp1-data: {}, cp2-data: {}, cp3-data: {}}

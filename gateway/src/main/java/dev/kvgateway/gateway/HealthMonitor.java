@@ -23,6 +23,8 @@ public final class HealthMonitor implements AutoCloseable {
   });}
   public boolean healthy(String endpoint){var s=endpoints.get(endpoint);return s!=null&&s.active&&s.healthy;}
   public void failure(String endpoint){var s=endpoints.get(endpoint);if(s!=null)s.result(false);}
+  Object generation(String endpoint){return endpoints.get(endpoint);}
+  void failure(String endpoint,Object generation){var state=endpoints.get(endpoint);if(state!=null&&state==generation)state.result(false);}
   public int healthyCount(){return (int)endpoints.values().stream().filter(s->s.healthy&&s.active).count();}
   public Map<String,Boolean> statuses(){var out=new TreeMap<String,Boolean>();endpoints.forEach((e,s)->out.put(e,s.healthy));return out;}
   public void close(){closed=true;scheduler.shutdownNow();endpoints.forEach((e,s)->{s.active=false;if(s.future!=null)s.future.cancel(true);});endpoints.clear();}

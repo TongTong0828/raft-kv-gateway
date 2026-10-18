@@ -1,0 +1,6 @@
+.git
+.superpowers
+work
+**/target
+.env
+docs/results

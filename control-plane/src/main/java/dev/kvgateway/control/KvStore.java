@@ -7,6 +7,7 @@ public final class KvStore {
   private long revision;
   private Runnable onChange=()->{};
   public synchronized void onChange(Runnable listener) {onChange=Objects.requireNonNull(listener);}
+  private void notifyChange(){try{onChange.run();}catch(RuntimeException e){org.slf4j.LoggerFactory.getLogger(KvStore.class).warn("Configuration notification failed after state publication",e);}}
   private CommandResult.Builder result(CommandResult.Code code) {return CommandResult.newBuilder().setCode(code).setStateRevision(revision);}
   private static void key(String key) {if(key.isEmpty()||key.getBytes(StandardCharsets.UTF_8).length>256)throw new IllegalArgumentException("key must have 1..256 UTF-8 bytes");}
   private static List<ServiceSpec> services(Map<String,Entry> map) {
@@ -40,7 +41,7 @@ public final class KvStore {
       }else candidate.remove(k);
       capacity(candidate);var specs=services(candidate);
       if(ConfigSnapshot.newBuilder().setGroupId(Settings.DEFAULT_GROUP).setRevision(index).addAllServices(specs).build().getSerializedSize()>4*1024*1024)throw new CapacityException();
-      entries=candidate;revision=index;onChange.run();
+      entries=candidate;revision=index;notifyChange();
       var out=result(CommandResult.Code.OK);if(changed!=null)out.setEntry(changed);return out.build();
     }catch(CapacityException e){return result(CommandResult.Code.CAPACITY).setMessage("KV capacity exceeded").build();}
     catch(IllegalArgumentException e){return result(CommandResult.Code.INVALID).setMessage(e.getMessage()).build();}
@@ -56,7 +57,7 @@ public final class KvStore {
     if(s.getFormatVersion()!=1||s.getLastIndex()<0||s.getStateRevision()<0||s.getStateRevision()>s.getLastIndex())throw new IllegalArgumentException("invalid snapshot metadata");
     var map=new TreeMap<String,Entry>();
     for(var e:s.getEntriesList()) {key(e.getKey());if(e.getValue().size()>65536||e.getModRevision()<=0||e.getModRevision()>s.getStateRevision()||map.put(e.getKey(),e)!=null)throw new IllegalArgumentException("invalid snapshot entry");}
-    capacity(map);services(map);entries=map;revision=s.getStateRevision();onChange.run();
+    capacity(map);services(map);entries=map;revision=s.getStateRevision();notifyChange();
   }
   public synchronized ConfigSnapshot configuration(String group) {return ConfigSnapshot.newBuilder().setGroupId(group).setRevision(revision).addAllServices(services(entries)).build();}
 }
