@@ -36,7 +36,7 @@ See [architecture and consistency](docs/architecture.md), [commands and protocol
 
 ## Quickstart
 
-Requirements: Docker with Compose v2 and a Bash-compatible shell. No host JDK or cloud account is required. The six application containers have a combined memory limit of **1,984 MiB**; the image builder and temporary tools run separately.
+Requirements: Docker Engine 28+ with Compose 2.33.1+ and a Bash-compatible shell. No host JDK or cloud account is required. The six application containers have a combined memory limit of **1,984 MiB**; the image builder and temporary tools run separately.
 
 ```bash
 git clone https://github.com/TongTong0828/raft-kv-gateway.git

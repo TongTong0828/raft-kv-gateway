@@ -229,6 +229,8 @@ public final class ScenarioMain {
   }
 
   static void fence(ManagedChannel channel) throws Exception {
+    String nodeId =
+        rpc(ControlGrpc.newBlockingStub(channel)).getStatus(Empty.getDefaultInstance()).getNodeId();
     var ready = new CountDownLatch(1);
     var closed = new CountDownLatch(1);
     var error = new AtomicReference<String>();
@@ -259,6 +261,11 @@ public final class ScenarioMain {
       if (!ready.await(5, TimeUnit.SECONDS)) throw new AssertionError("watch not initialized");
       print(Map.of("watchReady", true));
       Thread.sleep(1000);
+      var reachable =
+          rpc(ControlGrpc.newBlockingStub(channel)).getStatus(Empty.getDefaultInstance());
+      if (!nodeId.equals(reachable.getNodeId()))
+        throw new AssertionError("application RPC changed node");
+      print(Map.of("applicationRpcReachable", true, "nodeId", nodeId));
       try {
         ControlGrpc.newBlockingStub(channel)
             .withDeadlineAfter(2, TimeUnit.SECONDS)

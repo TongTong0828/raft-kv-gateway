@@ -18,19 +18,19 @@ services:
     environment: {<<: *control-env, KV_NODE_ID: cp1}
     ports: ["127.0.0.1:${KV_CP1_PORT:-15051}:50051", "127.0.0.1:${KV_CP1_ADMIN:-19101}:9101"]
     volumes: [cp1-data:/data]
-    networks: {app: {}, raft: {aliases: [cp1-raft]}}
+    networks: {app: {gw_priority: 1}, raft: {aliases: [cp1-raft]}}
   cp2:
     <<: *control
     environment: {<<: *control-env, KV_NODE_ID: cp2}
     ports: ["127.0.0.1:${KV_CP2_PORT:-15052}:50051", "127.0.0.1:${KV_CP2_ADMIN:-19102}:9101"]
     volumes: [cp2-data:/data]
-    networks: {app: {}, raft: {aliases: [cp2-raft]}}
+    networks: {app: {gw_priority: 1}, raft: {aliases: [cp2-raft]}}
   cp3:
     <<: *control
     environment: {<<: *control-env, KV_NODE_ID: cp3}
     ports: ["127.0.0.1:${KV_CP3_PORT:-15053}:50051", "127.0.0.1:${KV_CP3_ADMIN:-19103}:9101"]
     volumes: [cp3-data:/data]
-    networks: {app: {}, raft: {aliases: [cp3-raft]}}
+    networks: {app: {gw_priority: 1}, raft: {aliases: [cp3-raft]}}
   gateway:
     image: raft-kv-gateway:local
     mem_limit: 768m

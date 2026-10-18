@@ -56,7 +56,7 @@ try:
     watching=subprocess.Popen(dc+['run','--rm','-T','cli','-jar','/app/integration-tests.jar','fence','--target',leader+':50051'],env=env,text=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
     ready=json.loads(watching.stdout.readline());assert ready['watchReady'];cut=time.monotonic();run(['docker','network','disconnect',network,container]);disconnected=(network,container,leader)
     assert status(leader)['nodeId']==leader,'application port must remain reachable'
-    out,err=watching.communicate(timeout=12);assert watching.returncode==0,(out,err);proof=[json.loads(line) for line in out.splitlines()];assert any(p.get('watchFenced') for p in proof);assert any('oldLeaderRead' in p for p in proof)
+    out,err=watching.communicate(timeout=12);assert watching.returncode==0,(out,err);proof=[json.loads(line) for line in out.splitlines()];assert any(p.get('applicationRpcReachable') and p.get('nodeId')==leader for p in proof);assert any(p.get('watchFenced') for p in proof);assert any('oldLeaderRead' in p for p in proof)
     new=until(lambda:next((n for n in ['cp1','cp2','cp3'] if n!=leader and status(n)['role']=='LEADER'),None));assert len(gateway())==1024
     majority=cli('kv','put','/fault/majority','committed');record('raft-only-partition',oldLeader=old,newLeader=status(new),majorityMutation=majority,proof=proof,elapsedMs=round((time.monotonic()-cut)*1000))
     run(['docker','network','connect','--alias',leader+'-raft',network,container]);disconnected=None
