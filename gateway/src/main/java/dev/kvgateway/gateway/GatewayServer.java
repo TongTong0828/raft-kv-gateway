@@ -109,6 +109,10 @@ public final class GatewayServer implements AutoCloseable {
                       + Math.max(0, budget.connections() - pools.borrowed())
                       + "\ngateway_pool_waiting "
                       + pools.waiting()
+                      + "\ngateway_pool_acquired_slots "
+                      + pools.acquiredSlots()
+                      + "\ngateway_pool_releasing "
+                      + pools.releasing()
                       + "\n";
             else if (path.equals("/status"))
               body =

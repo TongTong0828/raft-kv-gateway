@@ -9,6 +9,85 @@ import org.junit.jupiter.api.Test;
 
 class EndpointPoolTest {
   @Test
+  void overflowAndCancelledWaitersDrainWithoutClosingThePoolAndARealLeaseCanBeReused()
+      throws Exception {
+    var group = new NioEventLoopGroup(1);
+    var budget = new ResourceBudget(128, 1, 1024);
+    var observations = new ConcurrentLinkedQueue<EndpointPool.Failure>();
+    try (var backend = new BackendFixture();
+        var pool =
+            new EndpointPool(
+                backend.endpoint(),
+                1,
+                group,
+                DefaultAddressResolverGroup.INSTANCE,
+                budget,
+                observations::add)) {
+      var held = pool.acquire().get(2, TimeUnit.SECONDS);
+      var waiting = new java.util.ArrayList<io.netty.util.concurrent.Future<EndpointPool.Lease>>();
+      group
+          .next()
+          .submit(
+              () -> {
+                try {
+                  for (int i = 0; i < 32; i++) waiting.add(pool.acquire());
+                  var rejected = pool.acquire();
+                  assertTrue(rejected.isDone());
+                  assertEquals(
+                      RejectionReason.POOL_QUEUE_FULL,
+                      RejectionReason.acquisition(rejected.cause()));
+                  var snapshot =
+                      observations.stream()
+                          .filter(
+                              f ->
+                                  RejectionReason.acquisition(f.cause())
+                                      == RejectionReason.POOL_QUEUE_FULL)
+                          .findFirst()
+                          .orElseThrow();
+                  assertEquals(1, snapshot.acquired());
+                  assertEquals(1, snapshot.borrowed());
+                  assertEquals(32, snapshot.waiting());
+                  assertEquals(0, snapshot.releasing());
+                } finally {
+                  for (var future : waiting) {
+                    future.addListener(
+                        done -> {
+                          if (done.isSuccess()) future.getNow().release(false);
+                        });
+                    if (!future.isDone()) future.cancel(false);
+                  }
+                  held.release(true);
+                }
+              })
+          .get(2, TimeUnit.SECONDS);
+      ControlWatcherTest.await(
+          () ->
+              pool.acquiredSlots() == 0
+                  && pool.borrowed.get() == 0
+                  && pool.waiting.get() == 0
+                  && pool.releasing.get() == 0);
+      assertTrue(waiting.stream().allMatch(io.netty.util.concurrent.Future::isDone));
+      var recovered = pool.acquire().get(2, TimeUnit.SECONDS);
+      assertTrue(recovered.channel.isActive());
+      recovered.release(true);
+      ControlWatcherTest.await(
+          () ->
+              pool.acquiredSlots() == 0
+                  && pool.borrowed.get() == 0
+                  && pool.waiting.get() == 0
+                  && pool.releasing.get() == 0);
+      assertEquals(1, budget.connections());
+    } finally {
+      try {
+        ControlWatcherTest.await(() -> budget.connections() == 0);
+      } finally {
+        group.shutdownGracefully(0, 1, TimeUnit.SECONDS).sync();
+      }
+    }
+    assertEquals(0, budget.connections());
+  }
+
+  @Test
   void idleConnectionsExpireWithoutAnotherAcquireAndBorrowedConnectionsDrain() throws Exception {
     var group = new NioEventLoopGroup(1);
     var budget = new ResourceBudget(2, 2, 1024);

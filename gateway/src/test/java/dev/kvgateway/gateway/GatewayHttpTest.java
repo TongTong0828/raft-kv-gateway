@@ -225,6 +225,40 @@ class GatewayHttpTest {
     assertTrue(get("/orders/spoof").headers().firstValue("X-Gateway-Rejection").isEmpty());
   }
 
+  private String adminMetrics() throws Exception {
+    var field = GatewayServer.class.getDeclaredField("admin");
+    field.setAccessible(true);
+    var admin = (com.sun.net.httpserver.HttpServer) field.get(gateway);
+    return client
+        .send(
+            HttpRequest.newBuilder(
+                    URI.create("http://127.0.0.1:" + admin.getAddress().getPort() + "/metrics"))
+                .GET()
+                .build(),
+            HttpResponse.BodyHandlers.ofString())
+        .body();
+  }
+
+  @Test
+  void metricsExposeNativeSlotsUntilAnUpstreamLeaseActuallyReturns() throws Exception {
+    ControlWatcherTest.await(() -> gateway.budget.inflight() == 0);
+    var lease = gateway.pools.get("orders", backend.endpoint()).acquire().get(2, TimeUnit.SECONDS);
+    try {
+      assertTrue(adminMetrics().contains("gateway_pool_acquired_slots 1\n"));
+      assertTrue(adminMetrics().contains("gateway_pool_releasing 0\n"));
+    } finally {
+      lease.release(true);
+    }
+    ControlWatcherTest.await(
+        () -> {
+          try {
+            return adminMetrics().contains("gateway_pool_acquired_slots 0\n");
+          } catch (Exception e) {
+            return false;
+          }
+        });
+  }
+
   @Test
   void onePostAttemptAndPipeliningCannotMixResponses() throws Exception {
     int before = backend.requests.get();

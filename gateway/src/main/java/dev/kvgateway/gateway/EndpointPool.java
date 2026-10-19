@@ -237,6 +237,10 @@ final class EndpointPool implements AutoCloseable {
             System.nanoTime() - began));
   }
 
+  int acquiredSlots() {
+    return pool.acquiredChannelCount();
+  }
+
   final class Lease {
     final Channel channel;
     private final AtomicBoolean released = new AtomicBoolean();

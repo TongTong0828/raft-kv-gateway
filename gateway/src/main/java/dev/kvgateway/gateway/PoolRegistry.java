@@ -66,6 +66,14 @@ final class PoolRegistry implements AutoCloseable {
     return pools.values().stream().mapToInt(p -> p.waiting.get()).sum();
   }
 
+  int acquiredSlots() {
+    return pools.values().stream().mapToInt(EndpointPool::acquiredSlots).sum();
+  }
+
+  int releasing() {
+    return pools.values().stream().mapToInt(p -> p.releasing.get()).sum();
+  }
+
   public void close() {
     pools.values().forEach(EndpointPool::close);
     pools.clear();
