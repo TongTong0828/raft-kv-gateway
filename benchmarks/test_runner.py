@@ -1,6 +1,10 @@
 import os,pathlib,subprocess,sys,tempfile,unittest
 ROOT=pathlib.Path(__file__).resolve().parent.parent
 class RunnerTest(unittest.TestCase):
+    def test_duplicate_rates_rejected_before_external_tools(self):
+        r=subprocess.run([sys.executable,str(ROOT/'benchmarks/run.py'),'--suite','acceptance','--rates','8400,08400'],env={**os.environ,'PATH':''},text=True,capture_output=True)
+        self.assertEqual(2,r.returncode)
+        self.assertIn('duplicate rates',r.stderr.lower())
     def test_previous_results_are_rejected_before_external_tools(self):
         with tempfile.TemporaryDirectory() as d:
             previous=pathlib.Path(d)/'previous.json';previous.write_text('previous-evidence')

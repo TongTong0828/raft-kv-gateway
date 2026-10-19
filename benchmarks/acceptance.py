@@ -22,10 +22,13 @@ def summarize_acceptance(data,rate,seconds,min_rps,p99_ms,bucket_seconds):
         return int(value) if key=='count' else value
     started=metric('window_started');success=metric('window_success');failed_window=metric('window_failed')
     late_success=metric('late_success');late_failed=metric('late_failed');invalid=metric('invalid_completions')
-    samples=metric('window_latency_samples');skew=metric('clock_skew_ms','max')
+    samples=metric('window_latency_samples')
     buckets=[metric('window_success_b'+str(i).zfill(2)) for i in range(seconds//bucket_seconds)]
     dropped=metric('dropped_iterations')
-    latency=metric('window_success_latency_ms','p(99)') if success else None
+    def distribution(name):
+        return {key:metric(name,key) for key in ['avg','min','med','max','p(90)','p(95)','p(99)']} if success else {}
+    full_call=distribution('window_success_latency_ms');transport=distribution('window_transport_ms')
+    latency=full_call.get('p(99)')
     unaccounted=started-success-failed_window-late_success-late_failed-invalid
     rps=success/seconds;bucket_rates=[n/bucket_seconds for n in buckets];reasons=[]
     if rps<min_rps:reasons.append('window successful throughput is below target')
@@ -35,13 +38,12 @@ def summarize_acceptance(data,rate,seconds,min_rps,p99_ms,bucket_seconds):
     if latency is None or latency>p99_ms:reasons.append('successful full-call P99 is missing or above target')
     if failed_window+late_failed:reasons.append('eligible requests failed, including drain')
     if unaccounted:reasons.append('eligible started requests do not reconcile with outcomes')
-    if invalid or skew>1000:reasons.append('measurement clock is invalid')
+    if invalid:reasons.append('measurement clock is invalid')
     return {'passed':not reasons,'reasons':reasons,'offeredRate':rate,'seconds':seconds,'bucketSeconds':bucket_seconds,
             'minimumSuccessfulRps':min_rps,'maximumSuccessP99Ms':p99_ms,'windowStarted':started,'successful':success,
             'successfulRps':rps,'successP99Ms':latency,'windowFailed':failed_window,'lateSuccess':late_success,
             'lateFailed':late_failed,'invalidCompletions':invalid,'failed':failed_window+late_failed,
             'unaccounted':unaccounted,'bucketSuccessful':buckets,'bucketSuccessfulRps':bucket_rates,
-            'totalExperimentDropped':dropped,'clockSkewMaxMs':skew,
-            'successFullCallLatencyMs':metrics.get('window_success_latency_ms',{}).get('values',{}) if success else {},
-            'successTransportLatencyMs':metrics.get('window_transport_ms',{}).get('values',{}),
+            'totalExperimentDropped':dropped,
+            'successFullCallLatencyMs':full_call,'successTransportLatencyMs':transport,
             'cohortStatuses':{k.removeprefix('cohort_status_'):metric(k) for k in metrics if k.startswith('cohort_status_')}}

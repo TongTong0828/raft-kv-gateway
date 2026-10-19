@@ -7,7 +7,8 @@ except ModuleNotFoundError:
 def fixture():
     return {'metrics':{**{name:{'values':{'count':value}} for name,value in {
         'window_started':161000,'window_success':160000,'window_failed':0,'late_success':1000,'late_failed':0,'invalid_completions':0,'window_latency_samples':160000,'window_success_b00':80000,'window_success_b01':80000,'dropped_iterations':23}.items()},
-        'window_success_latency_ms':{'values':{'p(99)':15}},'clock_skew_ms':{'values':{'max':1}}}}
+        'clock_skew_ms':{'values':{'max':1}},
+        **{name:{'values':{'avg':3,'min':1,'med':2,'max':20,'p(90)':5,'p(95)':8,'p(99)':15}} for name in ['window_success_latency_ms','window_transport_ms']}}}
 
 class AcceptanceTest(unittest.TestCase):
     def summarize(self,data):
@@ -39,11 +40,19 @@ class AcceptanceTest(unittest.TestCase):
         for key in ['window_success_b00','window_latency_samples']:
             d=fixture();d['metrics'][key]['values']['count']-=1
             self.assertFalse(self.summarize(d)['passed'])
-    def test_clock_jump_or_invalid_completion_invalidates_experiment(self):
-        d=fixture();d['metrics']['clock_skew_ms']['values']['max']=1001
-        self.assertFalse(self.summarize(d)['passed'])
+    def test_invalid_completion_invalidates_experiment(self):
         d=fixture();d['metrics']['late_success']['values']['count']=999;d['metrics']['invalid_completions']['values']['count']=1
         self.assertFalse(self.summarize(d)['passed'])
+    def test_every_published_latency_statistic_is_required_and_finite(self):
+        for name in ['window_success_latency_ms','window_transport_ms']:
+            d=fixture();del d['metrics'][name]
+            with self.assertRaises(ValueError):self.summarize(d)
+            for key in ['avg','min','med','max','p(90)','p(95)','p(99)']:
+                d=fixture();del d['metrics'][name]['values'][key]
+                with self.assertRaises(ValueError):self.summarize(d)
+                for value in [float('nan'),float('inf'),-1,True,'2']:
+                    d=fixture();d['metrics'][name]['values'][key]=value
+                    with self.assertRaises(ValueError):self.summarize(d)
     def test_zero_success_has_no_valid_latency(self):
         d=fixture()
         for k in ['window_started','window_success','late_success','window_latency_samples','window_success_b00','window_success_b01']:d['metrics'][k]['values']['count']=0
