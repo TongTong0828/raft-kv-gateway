@@ -25,7 +25,7 @@ class AcceptanceTest(unittest.TestCase):
         d=fixture();d['metrics']['window_success_b00']['values']['count']=79999;d['metrics']['window_success_b01']['values']['count']=80001
         self.assertFalse(self.summarize(d)['passed'])
     def test_missing_bucket_and_missing_latency_fail_closed(self):
-        for key in ['window_success_b01','window_success_latency_ms']:
+        for key in ['window_success_b01','window_success_latency_ms','dropped_iterations']:
             d=fixture();del d['metrics'][key]
             with self.assertRaises(ValueError):self.summarize(d)
     def test_malformed_counts_and_percentiles_fail_closed(self):

@@ -24,7 +24,7 @@ def summarize_acceptance(data,rate,seconds,min_rps,p99_ms,bucket_seconds):
     late_success=metric('late_success');late_failed=metric('late_failed');invalid=metric('invalid_completions')
     samples=metric('window_latency_samples');skew=metric('clock_skew_ms','max')
     buckets=[metric('window_success_b'+str(i).zfill(2)) for i in range(seconds//bucket_seconds)]
-    dropped=metric('dropped_iterations',optional=True)
+    dropped=metric('dropped_iterations')
     latency=metric('window_success_latency_ms','p(99)') if success else None
     unaccounted=started-success-failed_window-late_success-late_failed-invalid
     rps=success/seconds;bucket_rates=[n/bucket_seconds for n in buckets];reasons=[]
