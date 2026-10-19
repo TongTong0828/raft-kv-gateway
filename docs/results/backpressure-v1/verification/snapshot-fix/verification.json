@@ -1,0 +1,16 @@
+{
+  "testCorrectionCommit": "beeece6200cf9c1a7de650651b2cdff2a92736df",
+  "runtimeMeasurementCommit": "afde91c06369298398aae8f1aa6db1d396bbb242",
+  "changeScope": "test-only; consistent single-event-loop snapshot including native pending; no production or measurement changes",
+  "stress": {
+    "repetitions": 50,
+    "failures": 0,
+    "errors": 0
+  },
+  "finalJava": {
+    "tests": 53,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+}

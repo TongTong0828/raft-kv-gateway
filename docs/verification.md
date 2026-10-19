@@ -1,6 +1,6 @@
 # Release verification
 
-The release includes executable verification scripts and recorded observations. Historical runtime measurements use source commit `84079aefad7ab765ffc8efe81ac56397f662b16b`; strict sustained measurements use `3c1f5f659512b08f44d4f418136ad6326268e2dd`. The 503-diagnostics code is verified at `afde91c06369298398aae8f1aa6db1d396bbb242`; subsequent release commits add documentation and evidence. Each exported run identifies its own source commit. The results describe this implementation on the recorded local environment.
+The release includes executable verification scripts and recorded observations. Historical runtime measurements use source commit `84079aefad7ab765ffc8efe81ac56397f662b16b`; strict sustained measurements use `3c1f5f659512b08f44d4f418136ad6326268e2dd`. The 503-diagnostics runtime is measured at `afde91c06369298398aae8f1aa6db1d396bbb242`; final test-only sampling corrections are verified at `beeece6200cf9c1a7de650651b2cdff2a92736df`; subsequent release commits add documentation and evidence. Each exported run identifies its own source commit. The results describe this implementation on the recorded local environment.
 
 | Check | Result | Evidence |
 |---|---|---|
@@ -17,6 +17,7 @@ The release includes executable verification scripts and recorded observations. 
 | Strict sustained local load | Three passes, 30 s warmup + 300 s measurement each; 8,386.03–8,392.89 successful/s, full-call P99 0.64–0.88 ms, zero eligible failures | [Raw exports and all ten-second buckets](results/strict-local-v1/summary.json) |
 | 64/256-VU 503 diagnosis | Configured admission/queue saturation attributed; no pool-accounting defect reproduced; failed/invalid runs retained | [Report and fresh reruns](backpressure.md) |
 | 32-VU diagnostic replays | Two runs with zero eligible request failures; native transport timing invalid, so neither adds a new accepted performance pass | [Invalid records retained](results/backpressure-v1/README.md) |
+| Pool-drain observer regression | Test-only consistent event-loop snapshot; native pending included; 50 repetitions and final 53-test reactor passed | [Red/green evidence](results/backpressure-v1/verification/snapshot-fix/) |
 | Diagnostics post-load cleanup | Native acquired/borrowed/waiting/releasing, inflight and body bytes all zero after each rerun; six processes without OOM/restarts | [Per-case records](results/backpressure-v1/README.md) |
 | Strict post-load cleanup | Zero held bytes/inflight; six current processes running without OOM/restarts | [Current process state](results/strict-local-v1/post-load.json) |
 | Historical post-load cleanup | Zero inflight/body bytes; current processes have no OOM/restart flag | [Recorded process state](results/post-benchmark-v1.json) |
