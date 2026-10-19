@@ -7,10 +7,13 @@ from metadata import SERVICES,validate_actual
 p=argparse.ArgumentParser();p.add_argument('--suite',choices=['gateway','kv','isolation','all','acceptance'],default='gateway');p.add_argument('--rates');p.add_argument('--repeats',type=int,default=3);p.add_argument('--warmup',type=int);p.add_argument('--seconds',type=int);p.add_argument('--output',default='work/benchmark-results');p.add_argument('--vus',type=int,default=256);p.add_argument('--bucket-seconds',type=int,default=10);p.add_argument('--min-success-rps',type=float,default=8000);p.add_argument('--max-p99-ms',type=float,default=15);args=p.parse_args()
 args.rates=args.rates or ('8400' if args.suite=='acceptance' else '100,500,1000,2000,4000,8000');args.warmup=args.warmup if args.warmup is not None else (30 if args.suite=='acceptance' else 10);args.seconds=args.seconds if args.seconds is not None else (300 if args.suite=='acceptance' else 30)
 if args.repeats<1 or args.warmup<0 or args.seconds<1:p.error('repeats/duration must be positive and warmup nonnegative')
-try:rates=[int(r) for r in args.rates.split(',')];assert rates and all(r>0 for r in rates)
-except (ValueError,AssertionError):p.error('rates must be positive integers')
+try:rates=[int(r) for r in args.rates.split(',')]
+except ValueError:p.error('rates must be positive integers')
+if not rates or not all(r>0 for r in rates):p.error('rates must be positive integers')
 if args.suite=='acceptance' and (not 1<=args.vus<=512 or args.bucket_seconds<1 or args.seconds%args.bucket_seconds or args.seconds//args.bucket_seconds>120 or not 0<args.min_success_rps<1000000 or not 0<args.max_p99_ms<1000000):p.error('invalid acceptance VUs, bucket, throughput or latency settings')
-root=pathlib.Path(__file__).resolve().parent.parent;os.chdir(root);out=pathlib.Path(args.output).resolve();out.mkdir(parents=True,exist_ok=True)
+root=pathlib.Path(__file__).resolve().parent.parent;os.chdir(root);out=pathlib.Path(args.output).resolve()
+if args.suite=='acceptance' and out.exists() and any(out.iterdir()):p.error('acceptance output directory must be empty; choose a new directory to preserve previous evidence')
+out.mkdir(parents=True,exist_ok=True)
 project=os.getenv('COMPOSE_PROJECT_NAME','raft-kv-gateway');dc=['docker','compose'];image='grafana/k6:2.3.0@sha256:9c2dee7f8ed74d317e4027c06a10f169b625638189de8d4555d0b3486a5aeb34'
 def run(cmd,timeout=180):
     r=subprocess.run(cmd,text=True,capture_output=True,timeout=timeout)
