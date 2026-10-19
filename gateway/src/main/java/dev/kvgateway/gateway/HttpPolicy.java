@@ -20,6 +20,7 @@ final class HttpPolicy {
     for (var v : from.getAll(HttpHeaderNames.CONNECTION))
       for (var token : v.split(",")) excluded.add(token.trim().toLowerCase(Locale.ROOT));
     excluded.add("content-length");
+    excluded.add("x-gateway-rejection");
     if (request)
       excluded.addAll(
           Set.of("host", "forwarded", "x-forwarded-for", "x-forwarded-host", "x-forwarded-proto"));

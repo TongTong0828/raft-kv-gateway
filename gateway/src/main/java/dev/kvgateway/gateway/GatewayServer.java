@@ -37,7 +37,7 @@ public final class GatewayServer implements AutoCloseable {
 
   private GatewayServer(Settings.Gateway settings) throws Exception {
     routes = new RouteManager(settings.groupId());
-    pools = new PoolRegistry(workers, resolver, budget);
+    pools = new PoolRegistry(workers, resolver, budget, metrics);
     health = new HealthMonitor(new HealthProbe(workers, resolver)::probe);
     routes.onInstall(
         table -> {

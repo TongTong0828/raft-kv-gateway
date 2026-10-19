@@ -151,7 +151,16 @@ class GatewayHttpTest {
     var pending = client.sendAsync(request, HttpResponse.BodyHandlers.ofString());
     long end = System.nanoTime() + TimeUnit.SECONDS.toNanos(2);
     while (backend.requests.get() == before && System.nanoTime() < end) Thread.sleep(5);
-    assertEquals(503, get("/orders/overloaded").statusCode());
+    var overloaded = get("/orders/overloaded");
+    assertEquals(503, overloaded.statusCode());
+    assertEquals(
+        "admission_limit",
+        overloaded.headers().firstValue("X-Gateway-Rejection").orElse("missing"));
+    assertTrue(
+        gateway
+            .metrics
+            .render(gateway.budget, gateway.routes, gateway.health)
+            .contains("gateway_rejections_total{reason=\"admission_limit\"} 1\n"));
     assertEquals(200, get("/other/ok").statusCode());
     pending.cancel(true);
     end = System.nanoTime() + TimeUnit.SECONDS.toNanos(3);
@@ -159,6 +168,61 @@ class GatewayHttpTest {
     assertEquals(0, gateway.budget.inflight());
     assertEquals(0, gateway.budget.bodyBytes());
     assertEquals(200, get("/orders/after-cancel").statusCode());
+  }
+
+  @Test
+  void distinguishesNoHealthyEndpointMissingPoolAndRetiredPool() throws Exception {
+    var pool = gateway.pools.get("orders", backend.endpoint());
+    pool.close();
+    var retired = get("/orders/retired");
+    assertEquals(503, retired.statusCode());
+    assertEquals(
+        "pool_retired", retired.headers().firstValue("X-Gateway-Rejection").orElse("missing"));
+    var diagnostics = gateway.metrics.render(gateway.budget, gateway.routes, gateway.health);
+    assertTrue(diagnostics.contains("causeMessage=endpoint retired"));
+    assertTrue(diagnostics.contains("retired=true"));
+    gateway.pools.close();
+    var missing = get("/orders/missing-pool");
+    assertEquals(
+        "pool_unavailable", missing.headers().firstValue("X-Gateway-Rejection").orElse("missing"));
+    gateway.health.reconcile(Set.of());
+    var unhealthy = get("/orders/unhealthy");
+    assertEquals(
+        "no_healthy_endpoint",
+        unhealthy.headers().firstValue("X-Gateway-Rejection").orElse("missing"));
+  }
+
+  @Test
+  void repeatedPoolFailuresKeepOnlyBoundedRecentDiagnosticSamples() throws Exception {
+    gateway.pools.get("orders", backend.endpoint()).close();
+    for (int i = 0; i < 70; i++) {
+      assertEquals(
+          "pool_retired",
+          get("/orders/retired").headers().firstValue("X-Gateway-Rejection").orElse("missing"));
+      ControlWatcherTest.await(() -> gateway.budget.inflight() == 0);
+    }
+    String diagnostics = gateway.metrics.render(gateway.budget, gateway.routes, gateway.health);
+    assertEquals(
+        64, diagnostics.lines().filter(line -> line.startsWith("# pool_failure ")).count());
+    assertTrue(diagnostics.contains("gateway_rejections_total{reason=\"pool_retired\"} 70\n"));
+  }
+
+  @Test
+  void bodyBudgetRejectionHasItsOwnReason() throws Exception {
+    assertTrue(gateway.budget.reserveBytes(64 * 1024 * 1024));
+    try {
+      var response = get("/orders/no-body-space");
+      assertEquals(503, response.statusCode());
+      assertEquals(
+          "body_budget", response.headers().firstValue("X-Gateway-Rejection").orElse("missing"));
+    } finally {
+      gateway.budget.releaseBytes(64 * 1024 * 1024);
+    }
+  }
+
+  @Test
+  void backendCannotSpoofGatewayRejectionHeader() throws Exception {
+    assertTrue(get("/orders/spoof").headers().firstValue("X-Gateway-Rejection").isEmpty());
   }
 
   @Test

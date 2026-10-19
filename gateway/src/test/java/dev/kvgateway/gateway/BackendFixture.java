@@ -39,6 +39,7 @@ final class BackendFixture implements AutoCloseable {
               }
             byte[] body = "payload".getBytes(StandardCharsets.US_ASCII);
             e.getResponseHeaders().set("X-Backend-Id", "test");
+            e.getResponseHeaders().set("X-Gateway-Rejection", "backend-spoof");
             e.getResponseHeaders().set("Connection", "keep-alive, X-Backend-Hop");
             e.getResponseHeaders().set("X-Backend-Hop", "remove");
             if (e.getRequestMethod().equals("HEAD")) {

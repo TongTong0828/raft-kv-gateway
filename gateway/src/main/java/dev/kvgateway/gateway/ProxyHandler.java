@@ -81,7 +81,7 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
         }
         var table = server.routes.current();
         if (table == null) {
-          reject(503);
+          reject(RejectionReason.NO_CONFIGURATION);
           return;
         }
         var service = table.match(request.uri());
@@ -92,7 +92,7 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
         var permit = server.budget.admit(service.getServiceId());
         if (permit == null) {
           server.metrics.rejected(service.getServiceId());
-          reject(503);
+          reject(RejectionReason.ADMISSION_LIMIT);
           return;
         }
         active = new Exchange(request, service, permit);
@@ -124,11 +124,23 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
   }
 
   private void reject(int status) {
+    reject(status, null);
+  }
+
+  private void reject(RejectionReason reason) {
+    reject(503, reason);
+  }
+
+  private void reject(int status, RejectionReason reason) {
     server.metrics.record(status, 0);
     var out = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.valueOf(status));
     out.headers()
         .setInt(HttpHeaderNames.CONTENT_LENGTH, 0)
         .set(HttpHeaderNames.CONNECTION, HttpHeaderValues.CLOSE);
+    if (reason != null) {
+      server.metrics.rejected(reason);
+      out.headers().set("X-Gateway-Rejection", reason.label());
+    }
     ctx.writeAndFlush(out).addListener(ChannelFutureListener.CLOSE);
   }
 
@@ -160,6 +172,7 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
     String endpoint;
     Object healthGeneration;
     HttpResponse responseHead;
+    RejectionReason rejection;
 
     Exchange(HttpRequest head, ServiceSpec service, ResourceBudget.Permit permit) {
       this.service = service;
@@ -191,7 +204,7 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
         return false;
       }
       if (!server.budget.reserveBytes(n)) {
-        fail(503, false);
+        reject(RejectionReason.BODY_BUDGET);
         return false;
       }
       reserved += n;
@@ -202,7 +215,7 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
     void forward() {
       var available = service.getEndpointsList().stream().filter(server.health::healthy).toList();
       if (available.isEmpty()) {
-        fail(503, false);
+        reject(RejectionReason.NO_HEALTHY_ENDPOINT);
         return;
       }
       var counter =
@@ -210,7 +223,7 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
       endpoint = available.get(Math.floorMod(counter.getAndIncrement(), available.size()));
       var pool = server.pools.get(service.getServiceId(), endpoint);
       if (pool == null) {
-        fail(503, false);
+        reject(RejectionReason.POOL_UNAVAILABLE);
         return;
       }
       healthGeneration = server.health.generation(endpoint);
@@ -231,6 +244,7 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
                             cause instanceof java.util.concurrent.TimeoutException
                                 || cause instanceof IllegalStateException
                                 || cause instanceof java.util.concurrent.CancellationException;
+                        if (local) rejection = RejectionReason.acquisition(cause);
                         fail(local ? 503 : 502, !local);
                         return;
                       }
@@ -395,12 +409,21 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
       out.headers()
           .setInt(HttpHeaderNames.CONTENT_LENGTH, 0)
           .set(HttpHeaderNames.CONNECTION, HttpHeaderValues.CLOSE);
+      if (rejection != null && status == 503) {
+        server.metrics.rejected(rejection);
+        out.headers().set("X-Gateway-Rejection", rejection.label());
+      }
       ctx.writeAndFlush(out)
           .addListener(
               f -> {
                 finish(status);
                 ctx.close();
               });
+    }
+
+    void reject(RejectionReason reason) {
+      rejection = reason;
+      fail(503, false);
     }
 
     void releaseUpstream() {

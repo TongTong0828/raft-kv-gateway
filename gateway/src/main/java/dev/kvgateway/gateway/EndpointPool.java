@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.*;
+import java.util.function.Consumer;
 
 final class EndpointPool implements AutoCloseable {
   private static final AttributeKey<Long> CREATED = AttributeKey.valueOf("kv.created"),
@@ -24,7 +25,29 @@ final class EndpointPool implements AutoCloseable {
   private final FixedChannelPool pool;
   private final EventLoopGroup group;
   final AtomicInteger borrowed = new AtomicInteger(), waiting = new AtomicInteger();
+  final AtomicInteger releasing = new AtomicInteger();
+  private final Consumer<Failure> failures;
   private volatile boolean retired;
+
+  record Failure(
+      Throwable cause,
+      int acquired,
+      int borrowed,
+      int waiting,
+      int releasing,
+      int limit,
+      boolean retired,
+      long elapsedNanos) {}
+
+  EndpointPool(
+      String endpoint,
+      int limit,
+      EventLoopGroup group,
+      AddressResolverGroup<?> resolver,
+      ResourceBudget budget,
+      Consumer<Failure> failures) {
+    this(endpoint, limit, group, resolver, budget, 30000, 300000, failures);
+  }
 
   EndpointPool(
       String endpoint,
@@ -43,7 +66,20 @@ final class EndpointPool implements AutoCloseable {
       ResourceBudget budget,
       long idleMs,
       long lifeMs) {
+    this(endpoint, limit, group, resolver, budget, idleMs, lifeMs, failure -> {});
+  }
+
+  private EndpointPool(
+      String endpoint,
+      int limit,
+      EventLoopGroup group,
+      AddressResolverGroup<?> resolver,
+      ResourceBudget budget,
+      long idleMs,
+      long lifeMs,
+      Consumer<Failure> failures) {
     this.endpoint = endpoint;
+    this.failures = failures;
     this.limit = limit;
     this.group = group;
     var parts = endpoint.split(":");
@@ -153,9 +189,12 @@ final class EndpointPool implements AutoCloseable {
   }
 
   Future<Lease> acquire() {
+    long began = System.nanoTime();
     Promise<Lease> result = group.next().newPromise();
     if (retired) {
-      result.setFailure(new IllegalStateException("endpoint retired"));
+      var cause = new IllegalStateException("endpoint retired");
+      reportFailure(cause, began);
+      result.setFailure(cause);
       return result;
     }
     waiting.incrementAndGet();
@@ -174,11 +213,28 @@ final class EndpointPool implements AutoCloseable {
               lease.release(false);
               result.tryFailure(new IllegalStateException("endpoint retired"));
             } else if (!result.trySuccess(lease)) lease.release(false);
-          } else
+          } else {
+            reportFailure(
+                f.cause() == null ? new java.util.concurrent.CancellationException() : f.cause(),
+                began);
             result.tryFailure(
                 f.cause() == null ? new java.util.concurrent.CancellationException() : f.cause());
+          }
         });
     return result;
+  }
+
+  private void reportFailure(Throwable cause, long began) {
+    failures.accept(
+        new Failure(
+            cause,
+            pool.acquiredChannelCount(),
+            borrowed.get(),
+            waiting.get(),
+            releasing.get(),
+            limit,
+            retired,
+            System.nanoTime() - began));
   }
 
   final class Lease {
@@ -191,6 +247,7 @@ final class EndpointPool implements AutoCloseable {
 
     void release(boolean reusable) {
       if (!released.compareAndSet(false, true)) return;
+      releasing.incrementAndGet();
       channel
           .eventLoop()
           .execute(
@@ -202,6 +259,7 @@ final class EndpointPool implements AutoCloseable {
                 pool.release(channel)
                     .addListener(
                         f -> {
+                          releasing.decrementAndGet();
                           if (!f.isSuccess()) channel.close();
                         });
               });

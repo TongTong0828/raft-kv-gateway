@@ -1,7 +1,7 @@
 """Fail-closed validation of fixed-window completion counters, not offered rate."""
 import math
 
-def summarize_acceptance(data,rate,seconds,min_rps,p99_ms,bucket_seconds):
+def summarize_acceptance(data,rate,seconds,min_rps,p99_ms,bucket_seconds,require_reasons=False):
     def number(value,name):
         if type(value) not in (int,float) or not math.isfinite(value) or value<0:
             raise ValueError('invalid '+name)
@@ -39,7 +39,13 @@ def summarize_acceptance(data,rate,seconds,min_rps,p99_ms,bucket_seconds):
     if failed_window+late_failed:reasons.append('eligible requests failed, including drain')
     if unaccounted:reasons.append('eligible started requests do not reconcile with outcomes')
     if invalid:reasons.append('measurement clock is invalid')
-    return {'passed':not reasons,'reasons':reasons,'offeredRate':rate,'seconds':seconds,'bucketSeconds':bucket_seconds,
+    extra={}
+    if require_reasons or any(k.startswith('cohort_rejection_') for k in metrics):
+        names=['no_configuration','admission_limit','body_budget','no_healthy_endpoint','pool_unavailable','pool_queue_full','pool_timeout','pool_retired','pool_cancelled','connection_budget','pool_acquire_error','unclassified']
+        extra['cohortRejections']={name:metric('cohort_rejection_'+name) for name in names}
+        if sum(extra['cohortRejections'].values())!=metric('cohort_status_503',optional=True):
+            reasons.append('503 rejection reasons do not reconcile with eligible status counts')
+    return {**extra,'passed':not reasons,'reasons':reasons,'offeredRate':rate,'seconds':seconds,'bucketSeconds':bucket_seconds,
             'minimumSuccessfulRps':min_rps,'maximumSuccessP99Ms':p99_ms,'windowStarted':started,'successful':success,
             'successfulRps':rps,'successP99Ms':latency,'windowFailed':failed_window,'lateSuccess':late_success,
             'lateFailed':late_failed,'invalidCompletions':invalid,'failed':failed_window+late_failed,

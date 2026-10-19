@@ -66,7 +66,7 @@ def one(name,rate,repeat,extra=None):
     (out/(filename+'.log')).write_text(log);(out/(filename+'.stats.json')).write_text(json.dumps(stats,indent=2)+'\n')
     if name=='acceptance':require_clean(root,source_commit)
     raw=json.loads((out/filename).read_text())
-    try:parsed=summarize_acceptance(raw,rate,args.seconds,args.min_success_rps,args.max_p99_ms,args.bucket_seconds) if name=='acceptance' else summarize(raw,rate,args.seconds)
+    try:parsed=summarize_acceptance(raw,rate,args.seconds,args.min_success_rps,args.max_p99_ms,args.bucket_seconds,require_reasons=True) if name=='acceptance' else summarize(raw,rate,args.seconds)
     except ValueError as error:
         if name!='acceptance':raise
         parsed={'passed':False,'reasons':['invalid export: '+str(error)]}

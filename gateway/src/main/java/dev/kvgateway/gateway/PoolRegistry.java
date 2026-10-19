@@ -11,11 +11,17 @@ final class PoolRegistry implements AutoCloseable {
   private final EventLoopGroup group;
   private final AddressResolverGroup<?> resolver;
   private final ResourceBudget budget;
+  private final GatewayMetrics metrics;
 
-  PoolRegistry(EventLoopGroup group, AddressResolverGroup<?> resolver, ResourceBudget budget) {
+  PoolRegistry(
+      EventLoopGroup group,
+      AddressResolverGroup<?> resolver,
+      ResourceBudget budget,
+      GatewayMetrics metrics) {
     this.group = group;
     this.resolver = resolver;
     this.budget = budget;
+    this.metrics = metrics;
   }
 
   private static String key(String service, String endpoint) {
@@ -33,7 +39,13 @@ final class PoolRegistry implements AutoCloseable {
             (k, old) -> {
               if (old != null && old.limit == s.getMaxConnectionsPerEndpoint()) return old;
               if (old != null) old.close();
-              return new EndpointPool(e, s.getMaxConnectionsPerEndpoint(), group, resolver, budget);
+              return new EndpointPool(
+                  e,
+                  s.getMaxConnectionsPerEndpoint(),
+                  group,
+                  resolver,
+                  budget,
+                  failure -> metrics.poolFailure(e, failure));
             });
       }
     pools.forEach(

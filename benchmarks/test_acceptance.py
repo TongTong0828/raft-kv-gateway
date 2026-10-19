@@ -11,6 +11,16 @@ def fixture():
         **{name:{'values':{'avg':3,'min':1,'med':2,'max':20,'p(90)':5,'p(95)':8,'p(99)':15}} for name in ['window_success_latency_ms','window_transport_ms']}}}
 
 class AcceptanceTest(unittest.TestCase):
+    def test_rejection_categories_are_preserved_and_reconcile_with503(self):
+        d=fixture();d['metrics']['cohort_status_503']={'values':{'count':2}}
+        for name in ['no_configuration','admission_limit','body_budget','no_healthy_endpoint','pool_unavailable','pool_queue_full','pool_timeout','pool_retired','pool_cancelled','connection_budget','pool_acquire_error','unclassified']:
+            d['metrics']['cohort_rejection_'+name]={'values':{'count':2 if name=='pool_queue_full' else 0}}
+        r=self.summarize(d)
+        self.assertEqual({'pool_queue_full':2}, {k:v for k,v in r.get('cohortRejections',{}).items() if v})
+        d['metrics']['cohort_rejection_pool_queue_full']['values']['count']=1
+        self.assertFalse(self.summarize(d)['passed'])
+        del d['metrics']['cohort_rejection_pool_timeout']
+        with self.assertRaises(ValueError):self.summarize(d)
     def summarize(self,data):
         self.assertIsNotNone(summarize_acceptance,'strict acceptance validator must exist')
         return summarize_acceptance(data,8400,20,8000,15,10)

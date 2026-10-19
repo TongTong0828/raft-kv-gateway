@@ -2,6 +2,7 @@ package dev.kvgateway.gateway;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.LongAdder;
 
 final class GatewayMetrics {
@@ -12,10 +13,56 @@ final class GatewayMetrics {
   private final ConcurrentHashMap<String, LongAdder> rejects = new ConcurrentHashMap<>();
   private final LongAdder[] codes = new LongAdder[6];
   private final LongAdder requests = new LongAdder(), nanos = new LongAdder();
+  private final LongAdder[] reasons = new LongAdder[RejectionReason.values().length];
+  private final AtomicInteger[] diagnosticSlots = new AtomicInteger[reasons.length];
+  private final ArrayDeque<String> recentFailures = new ArrayDeque<>();
 
   GatewayMetrics() {
     for (int i = 0; i < codes.length; i++) codes[i] = new LongAdder();
     for (int i = 0; i < buckets.length; i++) buckets[i] = new LongAdder();
+    for (int i = 0; i < reasons.length; i++) {
+      reasons[i] = new LongAdder();
+      diagnosticSlots[i] = new AtomicInteger(4);
+    }
+  }
+
+  void rejected(RejectionReason reason) {
+    reasons[reason.ordinal()].increment();
+  }
+
+  void poolFailure(String endpoint, EndpointPool.Failure failure) {
+    var reason = RejectionReason.acquisition(failure.cause());
+    String sample =
+        ("time="
+                + System.currentTimeMillis()
+                + " reason="
+                + reason.label()
+                + " endpoint="
+                + endpoint
+                + " causeClass="
+                + failure.cause().getClass().getName()
+                + " causeMessage="
+                + failure.cause().getMessage()
+                + " state="
+                + failure)
+            .replace('\n', ' ')
+            .replace('\r', ' ');
+    if (sample.length() > 2048) sample = sample.substring(0, 2048);
+    synchronized (recentFailures) {
+      if (recentFailures.size() == 64) recentFailures.removeFirst();
+      recentFailures.addLast(sample);
+    }
+    if (diagnosticSlots[reason.ordinal()].getAndUpdate(n -> Math.max(0, n - 1)) > 0)
+      System.getLogger(GatewayMetrics.class.getName())
+          .log(
+              System.Logger.Level.WARNING,
+              "pool_acquire_failure reason={0} endpoint={1} causeClass={2} causeMessage={3}"
+                  + " state={4}",
+              reason.label(),
+              endpoint,
+              failure.cause().getClass().getName(),
+              failure.cause().getMessage(),
+              failure);
   }
 
   void rejected(String service) {
@@ -42,6 +89,17 @@ final class GatewayMetrics {
                 + "\ngateway_request_seconds_sum "
                 + nanos.sum() / 1e9
                 + "\n");
+    for (var reason : RejectionReason.values())
+      s.append("gateway_rejections_total{reason=\"")
+          .append(reason.label())
+          .append("\"} ")
+          .append(reasons[reason.ordinal()].sum())
+          .append('\n');
+    List<String> samples;
+    synchronized (recentFailures) {
+      samples = List.copyOf(recentFailures);
+    }
+    for (String sample : samples) s.append("# pool_failure ").append(sample).append('\n');
     for (int i = 1; i < 6; i++)
       s.append("gateway_responses_total{class=\"")
           .append(i)
