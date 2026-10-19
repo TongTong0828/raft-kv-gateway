@@ -40,7 +40,7 @@ class ControlClusterTest {
               dir.resolve("n" + i),
               Integer.parseInt(grpc.get("n" + i).split(":")[1]),
               Integer.parseInt(raft.get("n" + i).split(":")[1]),
-              port()));
+              0));
     for (var s : settings) nodes.add(assertDoesNotThrow(() -> ControlNode.start(s)));
   }
 

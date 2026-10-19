@@ -210,8 +210,12 @@ final class EndpointPool implements AutoCloseable {
             var lease = new Lease(acquiring.getNow());
             borrowed.incrementAndGet();
             if (retired) {
+              var cause = new IllegalStateException("endpoint retired");
+              // A successful native acquisition still owns its slot until this late lease returns.
+              // Publish failure only after cleanup so dispatcher reservations retain that
+              // ownership.
+              lease.returned().addListener(returned -> result.tryFailure(cause));
               lease.release(false);
-              result.tryFailure(new IllegalStateException("endpoint retired"));
             } else if (!result.trySuccess(lease)) lease.release(false);
           } else {
             reportFailure(
@@ -241,12 +245,22 @@ final class EndpointPool implements AutoCloseable {
     return pool.acquiredChannelCount();
   }
 
+  boolean retired() {
+    return retired;
+  }
+
   final class Lease {
     final Channel channel;
     private final AtomicBoolean released = new AtomicBoolean();
+    private final Promise<Void> returned;
 
     Lease(Channel channel) {
       this.channel = channel;
+      returned = channel.eventLoop().newPromise();
+    }
+
+    Future<Void> returned() {
+      return returned;
     }
 
     void release(boolean reusable) {
@@ -264,7 +278,11 @@ final class EndpointPool implements AutoCloseable {
                     .addListener(
                         f -> {
                           releasing.decrementAndGet();
-                          if (!f.isSuccess()) channel.close();
+                          if (f.isSuccess()) returned.trySuccess(null);
+                          else {
+                            channel.close();
+                            returned.tryFailure(f.cause());
+                          }
                         });
               });
     }

@@ -1,0 +1,108 @@
+--- /dev/null
++++ b/lib/netext/httpext/tracer_monotonic_test.go
+@@ -0,0 +1,105 @@
++package httpext
++
++import (
++	"net/http/httptrace"
++	"sync/atomic"
++	"testing"
++	"time"
++
++	"github.com/stretchr/testify/require"
++)
++
++// These are physical event offsets, in nanoseconds. Wall time happens to agree
++// with ticks initially, then moves independently; elapsed durations must not.
++func monotonicFixture() *Tracer {
++	const b = int64(time.Second) + 1
++	const m = int64(time.Millisecond)
++	return &Tracer{getConn: b, connectStart: b + m, connectDone: b + 2*m,
++		tlsHandshakeStart: b + 2*m, tlsHandshakeDone: b + 3*m,
++		gotConn: b + 4*m, wroteRequest: b + 5*m, gotFirstResponseByte: b + 7*m}
++}
++
++func TestTracerMonotonicWallClockJump(t *testing.T) {
++	t.Parallel()
++	const endTick = int64(time.Second+10*time.Millisecond) + 1
++	for _, jump := range []time.Duration{0, -time.Hour, time.Hour} {
++		t.Run(jump.String(), func(t *testing.T) {
++			wall := time.Unix(0, endTick).Add(jump)
++			trail := monotonicFixture().done(func() (time.Time, int64) { return wall, endTick })
++			require.Equal(t, wall, trail.EndTime)
++			require.Equal(t, 4*time.Millisecond, trail.Blocked)
++			require.Equal(t, time.Millisecond, trail.Connecting)
++			require.Equal(t, time.Millisecond, trail.TLSHandshaking)
++			require.Equal(t, time.Millisecond, trail.Sending)
++			require.Equal(t, 2*time.Millisecond, trail.Waiting)
++			require.Equal(t, 3*time.Millisecond, trail.Receiving)
++			require.Equal(t, 6*time.Millisecond, trail.Duration)
++		})
++	}
++}
++
++func TestTracerMonotonicLateFirstByte(t *testing.T) {
++	t.Parallel()
++	const b = int64(time.Second) + 1
++	const m = int64(time.Millisecond)
++	tracer := &Tracer{getConn: b, gotConn: b, wroteRequest: b + 2*m}
++	// The end clock captures t=10ms, then a late callback records t=11ms.
++	// A completed trail must use the callback snapshot taken before this clock.
++	trail := tracer.done(func() (time.Time, int64) {
++		atomic.StoreInt64(&tracer.gotFirstResponseByte, b+11*m)
++		return time.Unix(0, b+10*m), b + 10*m
++	})
++	require.Equal(t, 2*time.Millisecond, trail.Sending)
++	require.Equal(t, 8*time.Millisecond, trail.Waiting)
++	require.Zero(t, trail.Receiving)
++	require.Equal(t, 10*time.Millisecond, trail.Duration)
++}
++
++func TestTracerMonotonicCallbackOrders(t *testing.T) {
++	t.Parallel()
++	const b = int64(time.Second) + 1
++	const m = int64(time.Millisecond)
++	cases := []struct {
++		name                        string
++		first, wrote                int64
++		sending, waiting, receiving time.Duration
++	}{
++		{"response before write callback", b + 4*m, b + 5*m, time.Millisecond, 0, 6 * time.Millisecond},
++		{"no response", 0, b + 5*m, time.Millisecond, 5 * time.Millisecond, 0},
++		{"same tick", b + 4*m, b + 4*m, 0, 0, 6 * time.Millisecond},
++	}
++	for _, c := range cases {
++		t.Run(c.name, func(t *testing.T) {
++			tracer := &Tracer{getConn: b, gotConn: b + 4*m, wroteRequest: c.wrote, gotFirstResponseByte: c.first,
++				connectStart: b + 4*m, connectDone: b + 4*m, tlsHandshakeStart: b + 4*m, tlsHandshakeDone: b + 4*m, connReused: true}
++			trail := tracer.done(func() (time.Time, int64) { return time.Unix(0, b+10*m), b + 10*m })
++			require.Zero(t, trail.Connecting)
++			require.Zero(t, trail.TLSHandshaking)
++			require.Equal(t, c.sending, trail.Sending)
++			require.Equal(t, c.waiting, trail.Waiting)
++			require.Equal(t, c.receiving, trail.Receiving)
++			require.Equal(t, c.sending+c.waiting+c.receiving, trail.Duration)
++			require.True(t, trail.ConnReused)
++		})
++	}
++}
++
++func TestTracerMonotonicConcurrentLateCallbacks(t *testing.T) {
++	t.Parallel()
++	for range 1000 {
++		tick := now()
++		tracer := &Tracer{getConn: tick, gotConn: tick}
++		finished := make(chan struct{})
++		go func() {
++			tracer.WroteRequest(httptrace.WroteRequestInfo{})
++			tracer.GotFirstResponseByte()
++			close(finished)
++		}()
++		trail := tracer.Done()
++		<-finished
++		for _, d := range []time.Duration{trail.Blocked, trail.Connecting, trail.TLSHandshaking,
++			trail.Sending, trail.Waiting, trail.Receiving, trail.Duration} {
++			require.GreaterOrEqual(t, d, time.Duration(0))
++		}
++	}
++}

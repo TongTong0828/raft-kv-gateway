@@ -23,6 +23,7 @@ public final class GatewayServer implements AutoCloseable {
   final ConcurrentHashMap<String, AtomicInteger> roundRobin = new ConcurrentHashMap<>();
   final PoolRegistry pools;
   final HealthMonitor health;
+  final UpstreamDispatcher dispatcher;
   private final EventLoopGroup boss = new NioEventLoopGroup(1), workers = new NioEventLoopGroup(2);
   private final DnsAddressResolverGroup resolver =
       new DnsAddressResolverGroup(
@@ -39,11 +40,13 @@ public final class GatewayServer implements AutoCloseable {
     routes = new RouteManager(settings.groupId());
     pools = new PoolRegistry(workers, resolver, budget, metrics);
     health = new HealthMonitor(new HealthProbe(workers, resolver)::probe);
+    dispatcher = new UpstreamDispatcher(workers.next(), pools, health, roundRobin);
     routes.onInstall(
         table -> {
           var specs = table.snapshot().getServicesList();
           budget.reconcile(specs);
           pools.reconcile(specs);
+          dispatcher.reconcile();
           var endpoints = new HashSet<String>();
           var ids = new HashSet<String>();
           for (var s : specs) {
@@ -113,6 +116,10 @@ public final class GatewayServer implements AutoCloseable {
                       + pools.acquiredSlots()
                       + "\ngateway_pool_releasing "
                       + pools.releasing()
+                      + "\ngateway_dispatch_queued "
+                      + dispatcher.queued()
+                      + "\ngateway_dispatch_reserved "
+                      + dispatcher.reserved()
                       + "\n";
             else if (path.equals("/status"))
               body =
@@ -157,10 +164,11 @@ public final class GatewayServer implements AutoCloseable {
     clients.close().awaitUninterruptibly();
     if (admin != null) admin.stop(0);
     adminExecutor.shutdownNow();
+    dispatcher.close();
     health.close();
     pools.close();
+    resolver.close();
     boss.shutdownGracefully(0, 2, TimeUnit.SECONDS).awaitUninterruptibly();
     workers.shutdownGracefully(0, 2, TimeUnit.SECONDS).awaitUninterruptibly();
-    resolver.close();
   }
 }

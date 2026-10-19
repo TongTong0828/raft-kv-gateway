@@ -43,7 +43,7 @@ class ControlClientTest {
                     dir.resolve("n" + i),
                     Integer.parseInt(grpc.get("n" + i).split(":")[1]),
                     Integer.parseInt(raft.get("n" + i).split(":")[1]),
-                    port())));
+                    0)));
       try (var client = new ControlClient(new ArrayList<>(grpc.values()), Duration.ofSeconds(5))) {
         assertEquals(3, client.status().size());
         var result =

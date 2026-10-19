@@ -8,7 +8,7 @@ The project focuses on failure behavior that can be reproduced locally: revision
 
 **Local sustained performance passed:** three five-minute windows at source `3c1f5f6` delivered **8,386.03–8,392.89 successful requests/s**, successful full-call **P99 0.64–0.88 ms**, and exact 1 KiB bodies. **Actual AWS EKS acceptance remains pending**: the owner has no AWS account and has declined paid resources. See [acceptance status](docs/acceptance-targets.md).
 
-**High-concurrency 503s diagnosed:** instrumented 64/256-VU runs identify configured service admission and per-endpoint pool queue limits. Recovery checks found no pool leak. Read the [root-cause report, fresh reruns and limits](docs/backpressure.md).
+**Historical high-concurrency 503s diagnosed:** instrumented 64/256-VU runs identified configured service admission and per-endpoint pool queue limits. Recovery checks found no pool leak. Read the [baseline root-cause report and retained evidence](docs/backpressure.md). The current gateway uses a shared service FIFO and available-slot dispatch; see the [current lifecycle contract](docs/architecture.md#http-request-lifecycle).
 
 ## Architecture
 
@@ -95,7 +95,7 @@ python3 scripts/faults.py --output work/fault-results.json
 - Create with expected revision `0`; update/delete with the current modification revision. Successful revisions are Raft log indices. A timed-out submitted mutation has an **unknown outcome**: read and reconcile it before deciding on another operation. The application client does not automatically retry mutations.
 - The gateway keeps the latest valid configuration in memory during an outage. A restarted gateway needs the control plane again. Empty valid configuration returns 404; no initial configuration returns 503.
 - HTTP/1.1 sequential keep-alive, bounded bodies up to 1 MiB, segment-prefix routing without path rewriting. No HTTP/2 proxying, WebSocket, CONNECT, pipelining, trailers, streaming, or `Expect: 100-continue` support.
-- Per service, per gateway process: default 100 inflight exchanges and 16 connections per endpoint. Each endpoint additionally permits 32 pending pool acquisitions with a 100 ms acquire timeout. Global limits: 256 exchanges, 512 business connections, 2,048 downstream connections, and 64 MiB of held aggregate body bytes. Saturation returns 503; upstream failure returns 502; total deadline returns 504.
+- Per service, per gateway process: default 100 inflight exchanges and 16 connections per endpoint. Admitted requests share a bounded service FIFO under their original total deadline; dispatch selects a healthy endpoint with a free slot. The explicit burst example uses service inflight 256. Endpoint pools retain a separate 32-pending-acquisition / 100 ms native guard. Global limits: 256 exchanges, 512 business connections, 2,048 downstream connections, and 64 MiB of held aggregate body bytes. Saturation returns 503; upstream failure returns 502; total deadline returns 504.
 - Health probes use separate connections. Endpoints require a successful initial probe; three failures mark unhealthy and two probe successes recover them. No request is retried against another endpoint.
 
 This is a personal learning project, not a production database or an internet-facing security boundary. It has no dynamic Raft membership, sharding, TTL, authentication, or TLS. Configuration and management interfaces assume a trusted network. Read [security and deployment boundaries](SECURITY.md).
@@ -109,6 +109,6 @@ node --test benchmarks/test_*.mjs
 python3 scripts/audit-release.py
 ```
 
-Versions and container digests are pinned. CI runs Java tests, distribution checks, Compose smoke/fault tests, and Kubernetes rendering. Hardware-dependent throughput is reported separately. See [CONTRIBUTING](CONTRIBUTING.md).
+Versions and container digests are pinned. Benchmarks use a [locally patched monotonic k6 generator](benchmarks/k6/README.md), built with `./scripts/k6.sh build` (Python 3.12+, Git and Docker); the runner verifies and executes its immutable image ID. CI runs Java and generator tests, distribution checks, Compose smoke/fault tests, and Kubernetes rendering. Hardware-dependent throughput is reported separately. See [CONTRIBUTING](CONTRIBUTING.md).
 
 Original source is [Apache-2.0](LICENSE). Dependencies retain their own licenses; see [NOTICE](NOTICE) and [distribution notices](distribution/README.md).

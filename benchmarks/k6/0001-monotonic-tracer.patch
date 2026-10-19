@@ -1,0 +1,80 @@
+--- a/lib/netext/httpext/tracer.go
++++ b/lib/netext/httpext/tracer.go
+@@ -172,8 +172,12 @@
+ 	}
+ }
+ 
++// Local monotonic-clock patch; upstream source and license: benchmarks/k6/README.md.
++// Zero remains the unset sentinel, including when the first clock tick is zero.
++var tracerClockOrigin = time.Now() //nolint:gochecknoglobals
++
+ func now() int64 {
+-	return time.Now().UnixNano()
++	return time.Since(tracerClockOrigin).Nanoseconds() + 1
+ }
+ 
+ // GetConn is called before a connection is created or
+@@ -313,8 +317,15 @@
+ 
+ // Done calculates all metrics and should be called when the request is finished.
+ func (t *Tracer) Done() *Trail {
+-	done := time.Now()
+-
++	return t.done(func() (time.Time, int64) {
++		done := time.Now()
++		return done, done.Sub(tracerClockOrigin).Nanoseconds() + 1
++	})
++}
++
++// done accepts an end clock so clock-domain and callback-order regressions can
++// be tested without changing the host clock or sharing mutable test clocks.
++func (t *Tracer) done(endClock func() (time.Time, int64)) *Trail {
+ 	trail := Trail{
+ 		ConnReused:     t.connReused,
+ 		ConnRemoteAddr: t.connRemoteAddr,
+@@ -337,6 +348,11 @@
+ 	wroteRequest := atomic.LoadInt64(&t.wroteRequest)
+ 	gotFirstResponseByte := atomic.LoadInt64(&t.gotFirstResponseByte)
+ 
++	// Snapshot callbacks before capturing the endpoint. A callback that races
++	// finalization is either included before this endpoint, or absent from this
++	// finalized trail; it cannot introduce a timestamp after the endpoint.
++	done, doneTick := endClock()
++
+ 	if connectDone != 0 && connectStart != 0 {
+ 		trail.Connecting = time.Duration(connectDone - connectStart)
+ 	}
+@@ -359,11 +375,11 @@
+ 			}
+ 		} else {
+ 			// The server never responded to our request
+-			trail.Waiting = done.Sub(time.Unix(0, wroteRequest))
++			trail.Waiting = time.Duration(doneTick - wroteRequest)
+ 		}
+ 	}
+ 	if gotFirstResponseByte != 0 {
+-		trail.Receiving = done.Sub(time.Unix(0, gotFirstResponseByte))
++		trail.Receiving = time.Duration(doneTick - gotFirstResponseByte)
+ 	}
+ 
+ 	// Calculate total times using adjusted values.
+--- a/lib/netext/httpext/tracer_test.go
++++ b/lib/netext/httpext/tracer_test.go
+@@ -244,7 +244,7 @@
+ 	t.Parallel()
+ 
+ 	const interval = time.Millisecond
+-	getConn := time.Now().Add(-5 * interval).UnixNano()
++	getConn := now() - int64(5*interval)
+ 	// With an HTTPS proxy and target, k6 keeps the first TLS handshake completion,
+ 	// which occurs before the target connection is available and GotConn() is called.
+ 	firstTLSHandshakeDone := getConn + int64(interval)
+@@ -259,7 +259,7 @@
+ 	trail := tracer.Done()
+ 	assert.Equal(t, 3*interval, trail.Blocked)
+ 	assert.Equal(t, interval, trail.Sending)
+-	assert.Equal(t, trail.EndTime.Sub(time.Unix(0, getConn)), trail.Blocked+trail.Duration)
++	assert.Equal(t, time.Duration(trail.EndTime.Sub(tracerClockOrigin).Nanoseconds()+1-getConn), trail.Blocked+trail.Duration)
+ }
+ 
+ func TestTracerError(t *testing.T) {

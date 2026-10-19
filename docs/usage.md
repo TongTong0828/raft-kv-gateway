@@ -48,6 +48,8 @@ CLI tools mount the repository read-only at `/workspace`; a JSON path must be in
 
 Optional fields receive defaults only when omitted; explicit zero is invalid. IDs match `[a-z][a-z0-9-]{0,62}`. Endpoints are plain HTTP DNS/IPv4 `host:port`; IPv6 targets are outside v1. At most 128 services and 32 endpoints per service are accepted. Routes match complete raw path segments and never strip the configured prefix.
 
+The default service inflight limit is 100. `examples/orders-burst.json` explicitly sets the orders limit to 256 for burst experiments. It keeps the same two endpoints, 2,000 ms total deadline, and 16 connections per endpoint as `examples/orders.json`. The gateway's global inflight limit remains 256, so selecting this service profile does not increase process-wide admission capacity.
+
 ## HTTP behavior
 
 Allowed methods: GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS. HTTP/1.1 sequential keep-alive and bounded chunked bodies are supported. Requests and responses are aggregated up to 1 MiB each; the initial line is limited to 4 KiB and headers to 8 KiB. Informational upstream responses, trailers, streaming, Upgrade/WebSocket, CONNECT, and HTTP/2 forwarding are outside v1. Pipelining closes the connection and cancels its current exchange. TE+CL and duplicate CL are rejected with 400. Oversized request bodies return 413. `Expect` returns 417 and closes.
@@ -57,12 +59,33 @@ Allowed methods: GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS. HTTP/1.1 sequenti
 | 404 | Valid configuration, no matching route |
 | 503 | No initial configuration, no healthy endpoint, or a local admission/pool/body budget is exhausted |
 | 502 | Upstream connection, malformed response, or response-size failure |
-| 504 | The service's total request deadline expired |
+| 504 | The service's original total request deadline expired, including time in the dispatch FIFO |
 | 501 | Unsupported proxy mode or method |
 
 Gateway-generated business HTTP 503 responses include `X-Gateway-Rejection` with a fixed reason such as `admission_limit`, `pool_queue_full` or `pool_timeout`. The header is reserved and stripped from inbound/upstream copies to prevent spoofing. A forwarded backend 503 has no fabricated gateway reason. See [all reason labels, counter scopes and diagnosis](backpressure.md#response-header-and-metric-contract).
 
-No automatic upstream retry occurs, including POST. A total deadline covers request body, acquisition, connection, response, and downstream write. If a response has already started when the deadline expires, the connection closes.
+Requests waiting for capacity share a bounded FIFO per service. At dispatch, the gateway chooses a healthy endpoint with an available slot and holds that reservation until Netty completes the native channel return. The FIFO uses the original total request deadline; ordinary capacity waiting does not use the pool's 100 ms native acquisition guard. The pool still retains that guard, its 32-pending-acquire bound, and a 250 ms connection timeout after dispatch.
+
+No automatic upstream retry or second endpoint attempt occurs after dispatch, including POST. A total deadline covers request body, dispatch queue, acquisition, connection, response, and downstream write. If a response has already started when the deadline expires, the connection closes.
+
+## Benchmark generator
+
+Building the local generator requires Python 3.12+, Git and Docker. It patches pinned k6 v2.3.0 to use monotonic HTTP timing; it is a separate executable under GNU AGPLv3. The Java application remains Apache-2.0. Source, license, checksums and rebuild instructions are in [benchmarks/k6](../benchmarks/k6/README.md).
+
+```bash
+./scripts/k6.sh build
+./scripts/k6.sh provenance
+```
+
+The build selects the Docker server's native `linux/arm64` or `linux/amd64` platform. `provenance` verifies the actual binary, platform, source and patch checksums, then returns an immutable `imageId`. The benchmark runner performs this verification and runs that ID; a mutable image tag alone is insufficient.
+
+After rebuilding and starting the Compose application from a clean checkout, select the burst workload explicitly:
+
+```bash
+python3 benchmarks/run.py --suite acceptance --profile burst --vus 256 --output work/benchmark-results/burst
+```
+
+The output directory must be new or empty. `--profile standard` is the default and seeds `examples/orders.json`; `--profile burst` seeds `examples/orders-burst.json`. The runner records and checks the applied service configuration and revision around measurements. These profiles apply to the gateway and acceptance suites. See [benchmark methodology](benchmarks.md) for acceptance criteria and reporting requirements; selecting a profile does not establish a performance result.
 
 ## Management
 
@@ -78,3 +101,5 @@ Both processes provide `/live`, `/ready`, and `/metrics`. Control status include
 Metrics expose bounded labels, request latency buckets, outcomes, inflight/body/connection budgets, configured-pool active/idle/waiting gauges, health count, and configuration/Watch state. Pool gauges describe currently configured pools; the global connection budget also includes retired channels draining existing exchanges. No metric labels contain arbitrary KV keys or full request URLs.
 
 `gateway_rejections_total{reason="..."}` counts local rejection decisions over process lifetime; it does not equal received client responses under every cancellation/write failure. `/metrics` also includes at most 64 bounded `# pool_failure` diagnostic comments and native `gateway_pool_acquired_slots` / `gateway_pool_releasing` gauges. Registered-pool gauges exclude removed pools that still drain. Wrapper `gateway_pool_waiting` is not Netty's native pending-queue length; `gateway_pool_idle` is an approximation. See [gauge interpretation](backpressure.md#resource-gauges-and-their-limits).
+
+`gateway_dispatch_queued` and `gateway_dispatch_reserved` are aggregate dispatcher gauges across services. The former counts tickets awaiting dispatch; the latter includes native acquisition, borrowed channels and asynchronous returns, including reservations in retired pools until they drain. A reservation can therefore outlive the borrowed-channel gauge. These gauges must not be substituted for the global inflight count or interpreted as Netty's pending-acquire queue length.

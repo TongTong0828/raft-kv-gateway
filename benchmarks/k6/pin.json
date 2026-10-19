@@ -1,0 +1,16 @@
+{
+  "version": "2.3.0",
+  "upstreamCommit": "e0887846143ab176d4b5483c9d52cf3b3e009f1a",
+  "sourceUrl": "https://codeload.github.com/grafana/k6/tar.gz/e0887846143ab176d4b5483c9d52cf3b3e009f1a",
+  "sourceSha256": "30b6421805f00c63b046a48219ced8fd3c8e47dcc099ee7e6b060e8f9e7ec146",
+  "builderImage": "golang:1.27.1-alpine@sha256:4cb7ac979db5fcc41cae44b2227ba5ab8a51e8807f40d9ba4dee20a0ad960b5b",
+  "runtimeImage": "grafana/k6:2.3.0@sha256:9c2dee7f8ed74d317e4027c06a10f169b625638189de8d4555d0b3486a5aeb34",
+  "platforms": ["linux/arm64", "linux/amd64"],
+  "clock": "process-monotonic-v1",
+  "buildOrigin": "raft-kv-gateway-monotonic.1",
+  "imageTag": "raft-kv-k6:monotonic",
+  "patches": [
+    "0001-monotonic-tracer.patch",
+    "0002-monotonic-tracer-tests.patch"
+  ]
+}

@@ -1,5 +1,7 @@
 # Diagnosing HTTP 503 under bounded gateway concurrency
 
+This report describes the historical endpoint-first implementation and its recorded runs. The current shared FIFO/available-slot design is specified in [architecture](architecture.md#http-request-lifecycle); these historical exports are preserved unchanged.
+
 All experiments below use local Docker. AWS work remains deferred at the owner's request.
 
 ## Finding

@@ -8,7 +8,6 @@ import io.netty.util.ReferenceCountUtil;
 import io.netty.util.concurrent.*;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.atomic.AtomicInteger;
 
 final class ProxyHandler extends ChannelInboundHandlerAdapter {
   private static final int MAX_BODY = 1024 * 1024;
@@ -162,12 +161,14 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
     final HttpHeaders requestHeaders;
     final boolean keepAlive;
     final long started = System.nanoTime();
+    final long deadlineNanos;
     ByteBuf request = Unpooled.buffer(0), response = Unpooled.buffer(0);
     int reserved;
     boolean requestComplete, responding, upstreamSent;
     volatile boolean ended;
     ScheduledFuture<?> deadline;
     Future<EndpointPool.Lease> acquiring;
+    UpstreamDispatcher.Ticket dispatch;
     EndpointPool.Lease lease;
     String endpoint;
     Object healthGeneration;
@@ -181,6 +182,7 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
       uri = head.uri();
       requestHeaders = new DefaultHttpHeaders().set(head.headers());
       keepAlive = HttpUtil.isKeepAlive(head);
+      deadlineNanos = started + TimeUnit.MILLISECONDS.toNanos(service.getRequestTimeoutMs());
       deadline =
           ctx.executor()
               .schedule(
@@ -213,21 +215,8 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
     }
 
     void forward() {
-      var available = service.getEndpointsList().stream().filter(server.health::healthy).toList();
-      if (available.isEmpty()) {
-        reject(RejectionReason.NO_HEALTHY_ENDPOINT);
-        return;
-      }
-      var counter =
-          server.roundRobin.computeIfAbsent(service.getServiceId(), s -> new AtomicInteger());
-      endpoint = available.get(Math.floorMod(counter.getAndIncrement(), available.size()));
-      var pool = server.pools.get(service.getServiceId(), endpoint);
-      if (pool == null) {
-        reject(RejectionReason.POOL_UNAVAILABLE);
-        return;
-      }
-      healthGeneration = server.health.generation(endpoint);
-      acquiring = pool.acquire();
+      dispatch = server.dispatcher.acquire(service, deadlineNanos);
+      acquiring = dispatch.future();
       acquiring.addListener(
           f -> {
             EndpointPool.Lease obtained = f.isSuccess() ? acquiring.getNow() : null;
@@ -238,8 +227,18 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
                         if (obtained != null) obtained.release(false);
                         return;
                       }
+                      endpoint = dispatch.endpoint;
+                      healthGeneration = dispatch.healthGeneration;
                       if (!f.isSuccess()) {
                         var cause = f.cause();
+                        if (cause instanceof UpstreamDispatcher.RequestDeadlineExceeded) {
+                          fail(504, false);
+                          return;
+                        }
+                        if (cause instanceof UpstreamDispatcher.Rejected rejected) {
+                          reject(rejected.reason);
+                          return;
+                        }
                         boolean local =
                             cause instanceof java.util.concurrent.TimeoutException
                                 || cause instanceof IllegalStateException
@@ -249,6 +248,10 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
                         return;
                       }
                       lease = obtained;
+                      if (System.nanoTime() - deadlineNanos >= 0) {
+                        fail(504, false);
+                        return;
+                      }
                       var channel = obtained.channel;
                       var out =
                           new DefaultFullHttpRequest(
@@ -265,6 +268,12 @@ final class ProxyHandler extends ChannelInboundHandlerAdapter {
                                 if (ended) {
                                   out.release();
                                   obtained.release(false);
+                                  return;
+                                }
+                                if (System.nanoTime() - deadlineNanos >= 0) {
+                                  out.release();
+                                  obtained.release(false);
+                                  ctx.executor().execute(() -> fail(504, false));
                                   return;
                                 }
                                 channel

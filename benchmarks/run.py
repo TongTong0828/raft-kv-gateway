@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Bounded k6 runs; every raw summary is retained and tied to the built image."""
-import argparse,base64,json,os,pathlib,platform,subprocess,threading,time
+import argparse,base64,json,os,pathlib,platform,subprocess,threading,time,urllib.request
 from summary import summarize
 from acceptance import summarize_acceptance
 from source_state import require_clean
-from metadata import SERVICES,validate_actual
-p=argparse.ArgumentParser();p.add_argument('--suite',choices=['gateway','kv','isolation','all','acceptance'],default='gateway');p.add_argument('--rates');p.add_argument('--repeats',type=int,default=3);p.add_argument('--warmup',type=int);p.add_argument('--seconds',type=int);p.add_argument('--output',default='work/benchmark-results');p.add_argument('--vus',type=int,default=256);p.add_argument('--bucket-seconds',type=int,default=10);p.add_argument('--min-success-rps',type=float,default=8000);p.add_argument('--max-p99-ms',type=float,default=15);args=p.parse_args()
+from metadata import SERVICES,validate_actual,validate_workload_profile
+p=argparse.ArgumentParser();p.add_argument('--suite',choices=['gateway','kv','isolation','all','acceptance'],default='gateway');p.add_argument('--profile',choices=['standard','burst'],default='standard');p.add_argument('--rates');p.add_argument('--repeats',type=int,default=3);p.add_argument('--warmup',type=int);p.add_argument('--seconds',type=int);p.add_argument('--output',default='work/benchmark-results');p.add_argument('--vus',type=int,default=256);p.add_argument('--bucket-seconds',type=int,default=10);p.add_argument('--min-success-rps',type=float,default=8000);p.add_argument('--max-p99-ms',type=float,default=15);args=p.parse_args()
 args.rates=args.rates or ('8400' if args.suite=='acceptance' else '100,500,1000,2000,4000,8000');args.warmup=args.warmup if args.warmup is not None else (30 if args.suite=='acceptance' else 10);args.seconds=args.seconds if args.seconds is not None else (300 if args.suite=='acceptance' else 30)
+if args.profile=='burst' and args.suite not in ['gateway','acceptance']:p.error('burst profile applies only to gateway and acceptance suites')
 if args.repeats<1 or args.warmup<0 or args.seconds<1:p.error('repeats/duration must be positive and warmup nonnegative')
 try:rates=[int(r) for r in args.rates.split(',')]
 except ValueError:p.error('rates must be positive integers')
@@ -17,18 +18,21 @@ root=pathlib.Path(__file__).resolve().parent.parent;os.chdir(root);out=pathlib.P
 if args.suite=='acceptance' and out.exists() and any(out.iterdir()):p.error('acceptance output directory must be empty; choose a new directory to preserve previous evidence')
 source_commit=require_clean(root) if args.suite=='acceptance' else None
 out.mkdir(parents=True,exist_ok=True)
-project=os.getenv('COMPOSE_PROJECT_NAME','raft-kv-gateway');dc=['docker','compose'];image='grafana/k6:2.3.0@sha256:9c2dee7f8ed74d317e4027c06a10f169b625638189de8d4555d0b3486a5aeb34'
+project=os.getenv('COMPOSE_PROJECT_NAME','raft-kv-gateway');dc=['docker','compose']
 def run(cmd,timeout=180):
     r=subprocess.run(cmd,text=True,capture_output=True,timeout=timeout)
     if r.returncode:raise RuntimeError(f'{cmd}: {r.stderr[-3000:]} {r.stdout[-1000:]}')
     return r.stdout.strip()
+# Verify the actual locally patched generator; execute its immutable image ID.
+generator_info=json.loads(run([str(root/'scripts/k6.sh'),'provenance']))
+image=generator_info['imageId']
 def cli(*cmd):return json.loads(run(dc+['run','--rm','-T','cli','-jar','/app/cli.jar',*cmd]))
 def seed(service,file):
     try:revision=cli('service','get',service)['revision']
     except RuntimeError:revision='0'
     return cli('service','put','/workspace/'+file,'--expected-revision',revision)
 image_info=json.loads(run(['docker','image','inspect','raft-kv-gateway:local']))[0]
-metadata={'commit':run(['git','rev-parse','HEAD']),'dirty':bool(run(['git','status','--porcelain'])),'platform':platform.platform(),'machine':platform.machine(),'processor':run(['sysctl','-n','machdep.cpu.brand_string']) if platform.system()=='Darwin' else platform.processor(),'docker':json.loads(run(['docker','info','--format','{{json .}}'])),'image':image_info['Id'],'imageRevision':image_info.get('Config',{}).get('Labels',{}).get('org.opencontainers.image.revision','unknown'),'k6Image':image,'generatorLimits':{'cpus':4,'memoryMiB':768,'preallocatedVUsPerScenario':args.vus if args.suite=='acceptance' else 64,'maxVUsPerScenario':args.vus if args.suite=='acceptance' else 256},'warmupSeconds':args.warmup,'measurementSeconds':args.seconds,'payloadBytes':1024,'compose':json.loads(run(dc+['config','--format','json']))}
+metadata={'commit':run(['git','rev-parse','HEAD']),'dirty':bool(run(['git','status','--porcelain'])),'platform':platform.platform(),'machine':platform.machine(),'processor':run(['sysctl','-n','machdep.cpu.brand_string']) if platform.system()=='Darwin' else platform.processor(),'docker':json.loads(run(['docker','info','--format','{{json .}}'])),'image':image_info['Id'],'imageRevision':image_info.get('Config',{}).get('Labels',{}).get('org.opencontainers.image.revision','unknown'),'k6Image':image,'generator':generator_info,'generatorLimits':{'cpus':4,'memoryMiB':768,'preallocatedVUsPerScenario':args.vus if args.suite=='acceptance' else 64,'maxVUsPerScenario':args.vus if args.suite=='acceptance' else 256},'warmupSeconds':args.warmup,'measurementSeconds':args.seconds,'payloadBytes':1024,'compose':json.loads(run(dc+['config','--format','json']))}
 if metadata['imageRevision'] not in ['unknown',metadata['commit']]:raise ValueError('Image revision differs from HEAD; rebuild with scripts/dev.sh build')
 def actual_containers():
     ids=run(dc+['ps','-q',*sorted(SERVICES)]).splitlines()
@@ -42,13 +46,34 @@ for service in metadata['compose']['services'].values():
     if 'build' in service:service['build']['context']='<repository>'
     for volume in service.get('volumes',[]):
         if volume.get('type')=='bind':volume['source']='<repository>'
-(out/'environment.json').write_text(json.dumps(metadata,indent=2)+'\n');results=[]
+def write_environment():
+    (out/'environment.json').write_text(json.dumps(metadata,indent=2)+'\n')
+profile_file='examples/orders-burst.json' if args.profile=='burst' else 'examples/orders.json'
+profile_spec=json.loads((root/profile_file).read_text())
+def applied_profile():
+    return validate_workload_profile(cli('service','get','orders'),profile_spec)
+def seed_profile():
+    seed('orders',profile_file)
+    actual=applied_profile()
+    admin=next(p['published'] for p in metadata['compose']['services']['gateway']['ports'] if p['target']==9090)
+    deadline=time.monotonic()+10
+    while True:
+        text=urllib.request.urlopen('http://127.0.0.1:'+str(admin)+'/metrics',timeout=2).read().decode()
+        revision=next(int(line.split()[1]) for line in text.splitlines() if line.startswith('gateway_config_revision '))
+        if revision>=int(actual['revision']):break
+        if time.monotonic()>=deadline:raise ValueError('gateway did not apply the requested service profile')
+        time.sleep(.05)
+    metadata['workloadProfile']={'name':args.profile,'file':profile_file,'applied':actual}
+    write_environment()
+write_environment();results=[]
 def one(name,rate,repeat,extra=None):
     if name=='acceptance':require_clean(root,source_commit)
     actual=actual_containers()
+    profile_before=applied_profile() if name in ['acceptance','gateway'] else None
+    if profile_before is not None and profile_before!=metadata['workloadProfile']['applied']:raise ValueError('workload profile revision changed before measurement')
     filename=f'{name}-{rate}-r{repeat}.json';env={'RATE':str(rate),'WARMUP_SECONDS':str(args.warmup),'MEASURE_SECONDS':str(args.seconds),'OUTPUT':filename,'RUN_ID':str(time.time_ns()),**({'FIXED_VUS':str(args.vus),'BUCKET_SECONDS':str(args.bucket_seconds),'MIN_SUCCESS_RPS':str(args.min_success_rps),'MAX_P99_MS':str(args.max_p99_ms)} if name=='acceptance' else {}),**(extra or {})}
     generator='kv-bench-'+env['RUN_ID'];containers=run(dc+['ps','-q']).splitlines()
-    command=['docker','run','--rm','--name',generator,'--user','0','--memory','768m','--cpus','4','--network',project+'_app','-v',str(root)+':/workspace:ro','-v',str(out)+':/results']
+    command=['docker','run','--rm','--pull=never','--name',generator,'--user','0','--memory','768m','--cpus','4','--network',project+'_app','-v',str(root)+':/workspace:ro','-v',str(out)+':/results']
     for key,value in env.items():command+=['-e',key+'='+value]
     command+=[image,'run','--quiet','/workspace/benchmarks/'+('kv.js' if name.startswith('kv-') else name+'.js')]
     stop=threading.Event();stats=[]
@@ -65,6 +90,7 @@ def one(name,rate,repeat,extra=None):
     finally:stop.set();thread.join(12)
     (out/(filename+'.log')).write_text(log);(out/(filename+'.stats.json')).write_text(json.dumps(stats,indent=2)+'\n')
     if name=='acceptance':require_clean(root,source_commit)
+    if profile_before is not None and applied_profile()!=profile_before:raise ValueError('workload profile changed during measurement; raw evidence retained')
     raw=json.loads((out/filename).read_text())
     try:parsed=summarize_acceptance(raw,rate,args.seconds,args.min_success_rps,args.max_p99_ms,args.bucket_seconds,require_reasons=True) if name=='acceptance' else summarize(raw,rate,args.seconds)
     except ValueError as error:
@@ -74,7 +100,7 @@ def one(name,rate,repeat,extra=None):
     if name=='acceptance' and process.returncode!=0:result['passed']=False;result['reasons'].append('k6 acceptance thresholds failed')
     results.append(result);(out/'summary.json').write_text(json.dumps(results,indent=2)+'\n');print(json.dumps(result),flush=True)
 if args.suite in ['gateway','all']:
-    seed('orders','examples/orders.json')
+    seed_profile()
     for rate in map(int,args.rates.split(',')):
         for repeat in range(1,args.repeats+1):one('gateway',rate,repeat)
 if args.suite in ['kv','all']:
@@ -93,7 +119,7 @@ if args.suite in ['isolation','all']:
     finally:run(dc+['up','-d','backend-a'])
 
 if args.suite=='acceptance':
-    seed('orders','examples/orders.json')
+    seed_profile()
     for rate in rates:
         for repeat in range(1,args.repeats+1):one('acceptance',rate,repeat)
     if not all(r['passed'] for r in results):raise SystemExit(1)

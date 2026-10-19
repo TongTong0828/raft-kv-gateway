@@ -14,6 +14,8 @@ jobs:
           python3 -m unittest discover -s benchmarks -p 'test_*.py'
           node --test benchmarks/test_*.mjs
           python3 scripts/audit-release.py
+      - name: Build and test the pinned monotonic load generator
+        run: ./scripts/k6.sh build
       - name: Build the pinned image
         run: ./scripts/dev.sh build
       - name: Fault-runner ownership regressions
@@ -37,5 +39,7 @@ jobs:
           name: verification-${{ github.run_id }}
           path: |
             work/ci-faults.*
+            work/k6/httpext-tests.jsonl
+            work/k6/image.json
             **/target/surefire-reports/*.xml
           if-no-files-found: ignore

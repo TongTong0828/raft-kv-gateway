@@ -13,8 +13,9 @@ public final class HealthMonitor implements AutoCloseable {
     final AtomicBoolean probing = new AtomicBoolean();
     volatile CompletableFuture<Boolean> future;
 
-    synchronized void result(boolean success) {
-      if (!active) return;
+    synchronized boolean result(boolean success) {
+      if (!active) return false;
+      boolean before = healthy;
       if (success) {
         failures = 0;
         if (!seen || ++successes >= 2) healthy = true;
@@ -26,6 +27,7 @@ public final class HealthMonitor implements AutoCloseable {
           seen = true;
         }
       }
+      return before != healthy;
     }
   }
 
@@ -41,6 +43,7 @@ public final class HealthMonitor implements AutoCloseable {
             return t;
           });
   private volatile boolean closed;
+  private volatile Runnable onChange = () -> {};
 
   public HealthMonitor(Function<String, CompletableFuture<Boolean>> probe) {
     this.probe = probe;
@@ -86,18 +89,27 @@ public final class HealthMonitor implements AutoCloseable {
             (ok, error) -> {
               try {
                 if (endpoints.get(e) == s && s.active)
-                  s.result(error == null && Boolean.TRUE.equals(ok));
+                  result(s, error == null && Boolean.TRUE.equals(ok));
               } finally {
                 s.probing.set(false);
                 slots.release();
               }
             });
       } catch (Throwable error) {
-        s.result(false);
+        result(s, false);
         s.probing.set(false);
         slots.release();
       }
     }
+  }
+
+  void onChange(Runnable listener) {
+    onChange = Objects.requireNonNull(listener);
+  }
+
+  private void result(State state, boolean success) {
+    // Publish transitions only after releasing the individual health-state lock.
+    if (state.result(success)) onChange.run();
   }
 
   public boolean healthy(String endpoint) {
@@ -107,7 +119,7 @@ public final class HealthMonitor implements AutoCloseable {
 
   public void failure(String endpoint) {
     var s = endpoints.get(endpoint);
-    if (s != null) s.result(false);
+    if (s != null) result(s, false);
   }
 
   Object generation(String endpoint) {
@@ -116,7 +128,7 @@ public final class HealthMonitor implements AutoCloseable {
 
   void failure(String endpoint, Object generation) {
     var state = endpoints.get(endpoint);
-    if (state != null && state == generation) state.result(false);
+    if (state != null && state == generation) result(state, false);
   }
 
   public int healthyCount() {

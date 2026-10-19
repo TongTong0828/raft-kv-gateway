@@ -12,6 +12,8 @@ final class BackendFixture implements AutoCloseable {
   final ExecutorService executor = Executors.newCachedThreadPool();
   final AtomicInteger requests = new AtomicInteger();
   final Set<Integer> businessPorts = ConcurrentHashMap.newKeySet();
+  final Queue<String> businessPaths = new ConcurrentLinkedQueue<>();
+  volatile CountDownLatch businessGate;
   volatile String lastBody, lastRemoved;
 
   BackendFixture() throws Exception {
@@ -27,9 +29,13 @@ final class BackendFixture implements AutoCloseable {
               return;
             }
             requests.incrementAndGet();
+            businessPaths.add(e.getRequestURI().getPath());
             businessPorts.add(e.getRemoteAddress().getPort());
             lastBody = new String(e.getRequestBody().readAllBytes(), StandardCharsets.UTF_8);
             lastRemoved = e.getRequestHeaders().getFirst("X-Remove");
+            var gate = businessGate;
+            if (gate != null && !gate.await(10, TimeUnit.SECONDS))
+              throw new IllegalStateException("test backend gate was not released");
             if (e.getRequestURI().getPath().contains("drop")) return;
             if (e.getRequestURI().getPath().contains("slow"))
               try {
@@ -49,6 +55,8 @@ final class BackendFixture implements AutoCloseable {
               e.sendResponseHeaders(200, body.length);
               e.getResponseBody().write(body);
             }
+          } catch (InterruptedException interrupted) {
+            Thread.currentThread().interrupt();
           } finally {
             e.close();
           }
@@ -61,6 +69,8 @@ final class BackendFixture implements AutoCloseable {
   }
 
   public void close() {
+    var gate = businessGate;
+    if (gate != null) gate.countDown();
     server.stop(0);
     executor.shutdownNow();
   }
