@@ -1,5 +1,7 @@
 # Raft KV & Gateway v1 设计规格
 
+> Scope amendment, 2026-10-18: the owner clarified that all supplied project bullets are required goals. Actual AWS EKS deployment and sustained ≥8,000 successful requests/s at P99 ≤15 ms now supersede the initial render-only/non-gating scope below. See [required acceptance and the AWS experiment proposal](../../acceptance-targets.md). The historical local results are retained; final acceptance is pending.
+
 日期：2026-10-18。状态：用户已批准规格，并授权编写实施计划后继续实现。
 
 ## 1. 目标与完成标准

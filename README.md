@@ -6,6 +6,8 @@ A Java 21 distributed-systems project combining a durable, three-node Raft KV st
 
 The project focuses on failure behavior that can be reproduced locally: revision-checked writes, leader isolation, snapshot installation, configuration outages, connection reuse, overload rejection, and resource cleanup.
 
+**Required next acceptance:** actual AWS EKS deployment and at least 8,000 successful requests/s at P99 ≤15 ms in sustained runs. These remain pending; the evidence below describes the verified local milestone. See the [acceptance targets and AWS experiment proposal](docs/acceptance-targets.md).
+
 ## Architecture
 
 ```mermaid

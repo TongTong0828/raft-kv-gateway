@@ -1,10 +1,10 @@
 # Benchmark method and results
 
-The benchmark code measures this project's actual implementation. It does not adopt the earlier proposed resume claim of 8,000 successful requests/s at 15 ms P99. The offered-load sequence is an experiment, not a guaranteed throughput target.
+The benchmark code measures this project's actual implementation. The required next acceptance target is at least 8,000 successful requests/s with successful-call P99 ≤15 ms in sustained runs; see the [fixed-window performance and real EKS acceptance proposal](acceptance-targets.md). The existing exports below are historical local measurements and do not yet satisfy that gate. Configured offered load is not successful throughput.
 
 ## Reproduction
 
-Requirements: the running Compose stack, Python 3.9+, and Docker. The runner uses pinned k6 **2.3.0** in a separate container, limited to four CPUs and 768 MiB. Each scenario preallocates 64 VUs and permits at most 256. Warmup and measurement are separate constant-arrival-rate scenarios; metrics prefixed `measured_` include only the measurement window.
+Requirements: the running Compose stack, Python 3.9+, and Docker. The runner uses pinned k6 **2.3.0** in a separate container, limited to four CPUs and 768 MiB. Each scenario preallocates 64 VUs and permits at most 256. Warmup and measurement are separate constant-arrival-rate scenarios. Metrics prefixed `measured_` belong to the measurement scenario; responses completing during its graceful drain are also included. They are not strict fixed-window completion counters.
 
 ```bash
 ./scripts/dev.sh build
@@ -29,7 +29,7 @@ Each output directory contains:
 - Per-run Docker resource samples for this project's containers and the load generator.
 - `summary.json`: successful throughput, attempted requests, failed requests, 503/502/504 and transport outcomes, generator-dropped iterations, and both all-completed-request and successful-request latency statistics.
 
-Successful throughput is the successful measurement count divided by 30 seconds. The all-request latency distribution includes returned errors; the successful-request distribution requires the correct status and 1 KiB payload. Errors do not count as successful throughput. A canceled iteration may lack a completed latency sample; its attempt still appears in the failure accounting. `unaccounted` is nominal configured arrivals minus attempted and dropped counts; small positive or negative boundary discrepancies are retained rather than silently rounded away.
+The historical `successfulRps` field is the successful measurement-scenario count divided by its configured 30 seconds, including successful completion during graceful drain. It describes that request cohort rather than strict response completion inside a fixed wall-clock window. The new acceptance gate separately requires fixed-window completion accounting. Historical HTTP latency uses k6 `response.timings.duration` (sending, waiting and receiving); it excludes blocked/DNS/connection setup time. The all-request latency distribution includes returned errors; the successful-request distribution requires the correct status and 1 KiB payload. Errors do not count as successful throughput. A canceled iteration may lack a completed latency sample; its attempt still appears in the failure accounting. `unaccounted` is nominal configured arrivals minus attempted and dropped counts; small positive or negative boundary discrepancies are retained rather than silently rounded away.
 
 KV tests use the original protobuf schema and direct gRPC calls to the elected leader. CAS write keys are per VU and run, with the returned revision carried forward. An uncertain mutation is read for reconciliation rather than blindly retried. No durability setting is weakened for the benchmark.
 
