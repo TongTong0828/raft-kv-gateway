@@ -1,0 +1,13 @@
+{
+  "sourceCommit": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+  "imageId": "sha256:b23821c1986f0f4bcaf85441a3e3cde73b9d60e0a69cd70c5e048adea2adf11f",
+  "script": "diagnostic.js",
+  "scriptSha256": "323683e25096c6b9fbf1b55f255489b2cbd94025278437e472f7f83101bf17ab",
+  "purpose": "diagnosis only; copy of acceptance.js with failure console logging, adjusted relative import;64VU and32VU130s experiments;32VU includesGoGCtrace",
+  "rate": 8400,
+  "warmupSeconds": 30,
+  "measurementSeconds": 100,
+  "bucketSeconds": 10,
+  "generatorCpus": 4,
+  "generatorMemoryMiB": 768
+}

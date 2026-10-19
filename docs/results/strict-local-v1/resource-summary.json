@@ -1,0 +1,146 @@
+[
+  {
+    "raw": "acceptance-8400-r1.json.stats.json",
+    "samplingErrors": 2,
+    "containers": {
+      "raft-kv-gateway-backend-a-1": {
+        "samples": 97,
+        "cpuPercentMax": 11.52,
+        "memoryPercentMax": 47.63,
+        "memoryUsageAtPeak": "60.96MiB / 128MiB"
+      },
+      "raft-kv-gateway-backend-b-1": {
+        "samples": 97,
+        "cpuPercentMax": 13.27,
+        "memoryPercentMax": 51.79,
+        "memoryUsageAtPeak": "66.29MiB / 128MiB"
+      },
+      "raft-kv-gateway-cp1-1": {
+        "samples": 97,
+        "cpuPercentMax": 2.07,
+        "memoryPercentMax": 43.39,
+        "memoryUsageAtPeak": "138.8MiB / 320MiB"
+      },
+      "raft-kv-gateway-cp2-1": {
+        "samples": 97,
+        "cpuPercentMax": 1.95,
+        "memoryPercentMax": 41.8,
+        "memoryUsageAtPeak": "133.7MiB / 320MiB"
+      },
+      "raft-kv-gateway-cp3-1": {
+        "samples": 97,
+        "cpuPercentMax": 2.23,
+        "memoryPercentMax": 49.67,
+        "memoryUsageAtPeak": "159MiB / 320MiB"
+      },
+      "raft-kv-gateway-gateway-1": {
+        "samples": 97,
+        "cpuPercentMax": 69.55,
+        "memoryPercentMax": 14.87,
+        "memoryUsageAtPeak": "114.2MiB / 768MiB"
+      },
+      "generator": {
+        "samples": 97,
+        "cpuPercentMax": 106.39,
+        "memoryPercentMax": 91.26,
+        "memoryUsageAtPeak": "700.9MiB / 768MiB"
+      }
+    }
+  },
+  {
+    "raw": "acceptance-8400-r2.json.stats.json",
+    "samplingErrors": 2,
+    "containers": {
+      "raft-kv-gateway-backend-a-1": {
+        "samples": 97,
+        "cpuPercentMax": 13.25,
+        "memoryPercentMax": 47.44,
+        "memoryUsageAtPeak": "60.72MiB / 128MiB"
+      },
+      "raft-kv-gateway-backend-b-1": {
+        "samples": 97,
+        "cpuPercentMax": 14.02,
+        "memoryPercentMax": 51.97,
+        "memoryUsageAtPeak": "66.52MiB / 128MiB"
+      },
+      "raft-kv-gateway-cp1-1": {
+        "samples": 97,
+        "cpuPercentMax": 7.45,
+        "memoryPercentMax": 44.12,
+        "memoryUsageAtPeak": "141.2MiB / 320MiB"
+      },
+      "raft-kv-gateway-cp2-1": {
+        "samples": 97,
+        "cpuPercentMax": 6.66,
+        "memoryPercentMax": 44.83,
+        "memoryUsageAtPeak": "143.4MiB / 320MiB"
+      },
+      "raft-kv-gateway-cp3-1": {
+        "samples": 97,
+        "cpuPercentMax": 7.21,
+        "memoryPercentMax": 49.8,
+        "memoryUsageAtPeak": "159.4MiB / 320MiB"
+      },
+      "raft-kv-gateway-gateway-1": {
+        "samples": 97,
+        "cpuPercentMax": 68.94,
+        "memoryPercentMax": 14.91,
+        "memoryUsageAtPeak": "114.5MiB / 768MiB"
+      },
+      "generator": {
+        "samples": 97,
+        "cpuPercentMax": 165.54,
+        "memoryPercentMax": 93.03,
+        "memoryUsageAtPeak": "714.4MiB / 768MiB"
+      }
+    }
+  },
+  {
+    "raw": "acceptance-8400-r3.json.stats.json",
+    "samplingErrors": 2,
+    "containers": {
+      "raft-kv-gateway-backend-a-1": {
+        "samples": 97,
+        "cpuPercentMax": 11.4,
+        "memoryPercentMax": 48.33,
+        "memoryUsageAtPeak": "61.87MiB / 128MiB"
+      },
+      "raft-kv-gateway-backend-b-1": {
+        "samples": 97,
+        "cpuPercentMax": 13.13,
+        "memoryPercentMax": 51.79,
+        "memoryUsageAtPeak": "66.29MiB / 128MiB"
+      },
+      "raft-kv-gateway-cp1-1": {
+        "samples": 97,
+        "cpuPercentMax": 4.57,
+        "memoryPercentMax": 43.8,
+        "memoryUsageAtPeak": "140.2MiB / 320MiB"
+      },
+      "raft-kv-gateway-cp2-1": {
+        "samples": 97,
+        "cpuPercentMax": 3.81,
+        "memoryPercentMax": 42.81,
+        "memoryUsageAtPeak": "137MiB / 320MiB"
+      },
+      "raft-kv-gateway-cp3-1": {
+        "samples": 97,
+        "cpuPercentMax": 4.19,
+        "memoryPercentMax": 49.82,
+        "memoryUsageAtPeak": "159.4MiB / 320MiB"
+      },
+      "raft-kv-gateway-gateway-1": {
+        "samples": 97,
+        "cpuPercentMax": 72.43,
+        "memoryPercentMax": 14.96,
+        "memoryUsageAtPeak": "114.9MiB / 768MiB"
+      },
+      "generator": {
+        "samples": 97,
+        "cpuPercentMax": 92.04,
+        "memoryPercentMax": 91.4,
+        "memoryUsageAtPeak": "701.9MiB / 768MiB"
+      }
+    }
+  }
+]

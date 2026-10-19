@@ -14,3 +14,15 @@ A fresh whole-branch review examined the implementation through commit `94f3c11`
 The container smoke driver also needed an explicit HTTP/1.1 JDK client; its default HTTP/2 upgrade was correctly rejected by the gateway. The real smoke command reproduced that failure and passed after correction.
 
 The reviewer raised no deferred minor findings. Live EKS behavior, production security features, and dynamic membership were outside the approved v1 scope. Throughput measurements and public GitHub/CI completion occurred after the source review and are supported by their own recorded evidence.
+
+
+## Strict measurement review
+
+A separate fresh whole-branch review of `9d9fb24..8d9c875` identified four Important findings before formal measurement. All were fixed in `3c1f5f6` after targeted tests failed, then passed; no second independent review was requested. The final regression suites pass 19 Python tests and 11 Node tests.
+
+- Wall-clock correction could move both apparent clocks and count a drain response inside the window. Actual-iteration replay tests cover backward/forward wall corrections and reversed progress; the pinned executor's monotonic progress now determines both boundaries and call latency.
+- Duplicate normalized rates could overwrite raw exports. CLI preflight rejects them before external tools run.
+- Dirty benchmark source could run against a committed image label. Actual temporary Git repository tests cover tracked/untracked modifications and changed HEAD; strict runs require clean source before Docker and around each measurement.
+- Published latency comparisons could be missing or non-finite. Every published full-call and transport statistic is now required and validated when successes exist.
+
+The review scoped formal numeric results, English tables, checksums, remote publication and CI to the author's subsequent evidence verification. No minor findings were deferred. Higher-concurrency 503 diagnostics remain an explicit [measurement limitation](results/strict-calibration-v1/README.md); workload calibration is not presented as a runtime bug fix. AWS execution remains deferred by the owner.

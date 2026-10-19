@@ -1,0 +1,124 @@
+[
+  {
+    "scenario": "acceptance",
+    "repeat": 1,
+    "raw": "acceptance-8400-r1.json",
+    "actualContainers": [
+      {
+        "service": "backend-a",
+        "containerId": "0cef4fb42a082cac396ab042f43ae3b1d3e1cc6d2aa8f24cb7eeb17000547c53",
+        "name": "raft-kv-gateway-backend-a-1",
+        "imageId": "sha256:b23821c1986f0f4bcaf85441a3e3cde73b9d60e0a69cd70c5e048adea2adf11f",
+        "revision": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+        "memoryLimitBytes": 134217728,
+        "nanoCpus": 500000000
+      },
+      {
+        "service": "backend-b",
+        "containerId": "0b13cbf6dfc3a16fc78823095c3bbcf38586f81e1334996a991768ffaa9dd5e3",
+        "name": "raft-kv-gateway-backend-b-1",
+        "imageId": "sha256:b23821c1986f0f4bcaf85441a3e3cde73b9d60e0a69cd70c5e048adea2adf11f",
+        "revision": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+        "memoryLimitBytes": 134217728,
+        "nanoCpus": 500000000
+      },
+      {
+        "service": "cp1",
+        "containerId": "2ff6031bdd1f267d91603d831d4016b7580b392da4574ee1885a7f54b5bbdd49",
+        "name": "raft-kv-gateway-cp1-1",
+        "imageId": "sha256:b23821c1986f0f4bcaf85441a3e3cde73b9d60e0a69cd70c5e048adea2adf11f",
+        "revision": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+        "memoryLimitBytes": 335544320,
+        "nanoCpus": 1000000000
+      },
+      {
+        "service": "cp2",
+        "containerId": "9f3a9c049a321818aa6fceefff4d10eb70915fc5df2a4618ea8ebab9f64bc9f4",
+        "name": "raft-kv-gateway-cp2-1",
+        "imageId": "sha256:b23821c1986f0f4bcaf85441a3e3cde73b9d60e0a69cd70c5e048adea2adf11f",
+        "revision": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+        "memoryLimitBytes": 335544320,
+        "nanoCpus": 1000000000
+      },
+      {
+        "service": "cp3",
+        "containerId": "923283f3f49f048355c38e473a495acb8b8e606160eaf6eae953144573d68206",
+        "name": "raft-kv-gateway-cp3-1",
+        "imageId": "sha256:b23821c1986f0f4bcaf85441a3e3cde73b9d60e0a69cd70c5e048adea2adf11f",
+        "revision": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+        "memoryLimitBytes": 335544320,
+        "nanoCpus": 1000000000
+      },
+      {
+        "service": "gateway",
+        "containerId": "65ccf87f7282e2fa703a25c69a3bc14fca70568ef86f48bd05aa8c613786dc5d",
+        "name": "raft-kv-gateway-gateway-1",
+        "imageId": "sha256:b23821c1986f0f4bcaf85441a3e3cde73b9d60e0a69cd70c5e048adea2adf11f",
+        "revision": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+        "memoryLimitBytes": 805306368,
+        "nanoCpus": 2000000000
+      }
+    ],
+    "k6ExitCode": 99,
+    "passed": false,
+    "reasons": [
+      "a completion bucket is below target",
+      "eligible requests failed, including drain",
+      "k6 acceptance thresholds failed"
+    ],
+    "offeredRate": 8400,
+    "seconds": 60,
+    "bucketSeconds": 10,
+    "minimumSuccessfulRps": 8000,
+    "maximumSuccessP99Ms": 15,
+    "windowStarted": 497367,
+    "successful": 497292,
+    "successfulRps": 8288.2,
+    "successP99Ms": 1.4805074700043765,
+    "windowFailed": 75,
+    "lateSuccess": 0,
+    "lateFailed": 0,
+    "invalidCompletions": 0,
+    "failed": 75,
+    "unaccounted": 0,
+    "bucketSuccessful": [
+      83999,
+      83984,
+      83965,
+      83984,
+      77355,
+      84005
+    ],
+    "bucketSuccessfulRps": [
+      8399.9,
+      8398.4,
+      8396.5,
+      8398.4,
+      7735.5,
+      8400.5
+    ],
+    "totalExperimentDropped": 6710,
+    "successFullCallLatencyMs": {
+      "avg": 0.3860783785200687,
+      "min": 0.07658300001639873,
+      "med": 0.260958999991999,
+      "max": 235.30924999999115,
+      "p(90)": 0.37762500000098953,
+      "p(95)": 0.48999999999396093,
+      "p(99)": 1.4805074700043765
+    },
+    "successTransportLatencyMs": {
+      "avg": 0.35705745267971734,
+      "min": 0.0585,
+      "med": 0.238583,
+      "max": 225.450209,
+      "p(90)": 0.350792,
+      "p(95)": 0.4535,
+      "p(99)": 1.4019655599999996
+    },
+    "cohortStatuses": {
+      "503": 75,
+      "200": 497292
+    }
+  }
+]

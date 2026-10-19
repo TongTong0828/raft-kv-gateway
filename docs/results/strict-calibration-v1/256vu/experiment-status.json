@@ -1,0 +1,8 @@
+{
+  "status": "failed and stopped",
+  "completedRun": 1,
+  "completedRunPassed": false,
+  "interruptedRun": 2,
+  "notStartedRun": 3,
+  "reason": "Run1 had22eligible503 despite passing throughput/P99; operator stopped further256VU measurements for diagnosis. Partial run2 is not acceptance evidence."
+}

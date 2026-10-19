@@ -1,18 +1,20 @@
 # Required project acceptance targets
 
-On 2026-10-18 the project owner clarified that all three supplied project bullets are required outcomes. This supersedes the initial v1 decision to treat 8,000 successful requests/s as an optional experiment and EKS as a render-only example. The current implementation is a verified milestone; final acceptance is still pending the performance gate and real AWS execution described here. Existing results remain unchanged historical evidence.
+On 2026-10-18 the project owner clarified that all three supplied project bullets are required outcomes. This supersedes the initial v1 decision to treat 8,000 successful requests/s as an optional experiment and EKS as a render-only example. Strict local performance now passes; final cloud acceptance still requires the real AWS execution described here. The owner has no AWS account and explicitly declined paid AWS resources on 2026-10-18. No AWS resources have been created, and the proposal below is deferred and unapproved. Earlier results remain unchanged historical evidence.
 
 ## Acceptance matrix
 
 | Required outcome | Current evidence | Remaining acceptance |
 |---|---|---|
 | Three-node Apache Ratis KV, revision checks, persistent logs and snapshots; recovery under leader failure, restart and network partition | Implemented; real Docker fault suite, snapshot installation and recovery passed | Preserve these guarantees in the cloud deployment; record EKS recovery evidence |
-| Nonblocking Netty HTTP gateway, pooled connections, health-aware balancing and per-service concurrency limits | Implemented; HTTP/lifecycle tests, overload and isolation experiments passed | Formal sustained successful-throughput and latency gate below |
+| Nonblocking Netty HTTP gateway, pooled connections, health-aware balancing and per-service concurrency limits | Implemented; HTTP/lifecycle tests, overload and isolation experiments passed | Repeat the sustained gate through the actual NLB when cloud work is authorized; [three local 32-VU runs passed](benchmarks.md#strict-sustained-local-acceptance) |
 | StatefulSets and Deployments running on AWS EKS; versioned gRPC configuration, atomic route replacement and cached forwarding during control outages | Kubernetes kind validation and local configuration-outage tests passed; EKS overlay renders | Provision actual EKS infrastructure, deploy the committed image, exercise the real load balancer and cloud recovery cases |
 
 The previous highest-load runs delivered 7,996.17–7,998.47 successful requests/s over 30-second measurement scenarios. They do not establish at least 8,000 successful requests/s for a sustained acceptance interval. Their HTTP timing also excludes connection establishment, and their scenario summaries can include completion during graceful drain. These runs remain useful local observations, not final cloud acceptance.
 
 ## Performance gate
+
+The [local implementation of this gate](benchmarks.md#strict-sustained-local-acceptance) passed three consecutive 300-second runs with 32 fixed VUs, unchanged durability and all ninety ten-second completion buckets above target. This does not establish EKS/NLB performance or zero failures under higher-concurrency bursts.
 
 Use a dedicated load-generator EC2 instance in the same AWS Region/VPC, separate from the EKS worker nodes, and address the actual gateway Network Load Balancer DNS name. Record its instance type, architecture, client location, network path, HTTP/TLS mode, connection reuse, Pod limits and image digests. Same-VPC latency must not be presented as Internet-client latency.
 
@@ -48,7 +50,7 @@ Official prices checked on 2026-10-18: standard-support EKS is $0.10/cluster-hou
 
 For the proposed internal NLB, three worker IPv4 addresses and 63 GiB of gp3, the fixed cluster portion is approximately $0.362/hour, or $2.17 for six hours. One hour of a `c7g.large` generator plus its IPv4/root disk adds about $0.08. NLCUs, cross-AZ transfer, ECR, logs, results storage and any generator resizing are additional. These are estimates, not a bill guarantee.
 
-Proposed authorization: a **$10 operating budget**, a **six-hour experiment deadline**, and deletion of resources created specifically for this experiment after evidence collection. The budget is not an AWS-enforced spending cap. Obtain the account access and budget/lifetime decision before creating paid resources.
+Deferred, unapproved planning envelope: a **$10 operating budget**, a **six-hour experiment deadline**, and deletion of resources created specifically for this experiment after evidence collection. The budget is not an AWS-enforced spending cap. The owner declined this proposal; do not execute it without a future explicit change of authorization and configured account access.
 
 ## Cloud evidence and cleanup
 
@@ -58,7 +60,7 @@ Keep Kubernetes/EKS control-plane availability distinct from this application's 
 
 Delete the owned LoadBalancer Service first and wait for AWS load-balancer/target resources to disappear. Then remove the owned application and cluster resources. The current StorageClass uses `Retain`: deleting a PVC or cluster alone does not establish EBS deletion. Explicitly check the recorded EBS volume IDs, load balancers, EC2 instances, ENIs, ECR repository, temporary result storage, log groups and experiment-specific IAM resources. Touch only resources owned by this experiment and record the cleanup outcome.
 
-## Execution order
+## Deferred cloud execution order
 
 1. Authenticate and verify the selected AWS account/profile; confirm the experiment budget, lifetime and cleanup scope.
 2. Prepare and validate reproducible infrastructure/bootstrap, deployment, strict benchmark and owned-cleanup scripts against this acceptance document.

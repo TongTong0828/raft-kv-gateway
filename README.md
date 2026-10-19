@@ -6,7 +6,7 @@ A Java 21 distributed-systems project combining a durable, three-node Raft KV st
 
 The project focuses on failure behavior that can be reproduced locally: revision-checked writes, leader isolation, snapshot installation, configuration outages, connection reuse, overload rejection, and resource cleanup.
 
-**Required next acceptance:** actual AWS EKS deployment and at least 8,000 successful requests/s at P99 ≤15 ms in sustained runs. These remain pending; the evidence below describes the verified local milestone. See the [acceptance targets and AWS experiment proposal](docs/acceptance-targets.md).
+**Local sustained performance passed:** three five-minute windows delivered **8,386.03–8,392.89 successful requests/s**, successful full-call **P99 0.64–0.88 ms**, and exact 1 KiB bodies. **Actual AWS EKS acceptance remains pending**: the owner has no AWS account and has declined paid resources. See [acceptance status](docs/acceptance-targets.md).
 
 ## Architecture
 
@@ -78,7 +78,7 @@ Reads print JSON; raw KV bytes are base64 encoded. To update or delete an existi
 | EKS gp3 / LoadBalancer configuration | [Render-checked deployment example](deploy/kubernetes/README.md); **not deployed to AWS** |
 | HTTP and direct-KV performance | [Benchmark method and measured results](docs/benchmarks.md) |
 
-The full local benchmark matrix completed 30 runs. At 8,000 offered requests/s, the gateway delivered **7,996–7,998 successful requests/s** with **0.70–0.76 ms successful-request P99** and fixed 1 KiB responses across three repeats. There were zero failed requests and 262 generator-dropped arrivals across those three windows. These are measurements inside a shared Docker VM, not an AWS result or a production capacity guarantee. See the [full validation report](docs/verification.md) and [raw benchmark exports](docs/results/benchmarks/).
+The strict local gate used 32 fixed VUs, 8,400 offered requests/s, 30 seconds warmup and 300 seconds measurement, repeated three times. Every ten-second bucket exceeded 8,000 successful requests/s (lowest: 8,308.50/s), with zero eligible failures or unaccounted requests. The generator dropped 11,423 scheduled arrivals across the full experiments, including warmup; these are excluded from success counts. This is a shared local Docker VM result. Higher-concurrency failed experiments remain public. See the [method, per-run results and raw evidence](docs/benchmarks.md). The earlier 30-run gateway/KV/isolation matrix is retained separately as historical evidence.
 
 The Docker and kind scripts create isolated resources and clean up only resources they own. Fault and Kubernetes tooling additionally require Python 3.9+ and curl.
 
@@ -93,7 +93,7 @@ python3 scripts/faults.py --output work/fault-results.json
 - Create with expected revision `0`; update/delete with the current modification revision. Successful revisions are Raft log indices. A timed-out submitted mutation has an **unknown outcome**: read and reconcile it before deciding on another operation. The application client does not automatically retry mutations.
 - The gateway keeps the latest valid configuration in memory during an outage. A restarted gateway needs the control plane again. Empty valid configuration returns 404; no initial configuration returns 503.
 - HTTP/1.1 sequential keep-alive, bounded bodies up to 1 MiB, segment-prefix routing without path rewriting. No HTTP/2 proxying, WebSocket, CONNECT, pipelining, trailers, streaming, or `Expect: 100-continue` support.
-- Per service, per gateway process: default 100 inflight exchanges and 16 connections per endpoint. Global limits: 256 exchanges, 512 business connections, 2,048 downstream connections, and 64 MiB of held aggregate body bytes. Saturation returns 503; upstream failure returns 502; total deadline returns 504.
+- Per service, per gateway process: default 100 inflight exchanges and 16 connections per endpoint. Each endpoint additionally permits 32 pending pool acquisitions with a 100 ms acquire timeout. Global limits: 256 exchanges, 512 business connections, 2,048 downstream connections, and 64 MiB of held aggregate body bytes. Saturation returns 503; upstream failure returns 502; total deadline returns 504.
 - Health probes use separate connections. Endpoints require a successful initial probe; three failures mark unhealthy and two probe successes recover them. No request is retried against another endpoint.
 
 This is a personal learning project, not a production database or an internet-facing security boundary. It has no dynamic Raft membership, sharding, TTL, authentication, or TLS. Configuration and management interfaces assume a trusted network. Read [security and deployment boundaries](SECURITY.md).
@@ -103,6 +103,7 @@ This is a personal learning project, not a production database or an internet-fa
 ```bash
 ./scripts/mvn.sh verify
 python3 -m unittest discover -s benchmarks -p 'test_*.py'
+node --test benchmarks/test_*.mjs
 python3 scripts/audit-release.py
 ```
 

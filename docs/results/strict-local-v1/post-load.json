@@ -1,0 +1,59 @@
+{
+  "recordedAt": "2026-10-19T04:00:22.276683+00:00",
+  "commit": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+  "dirty": false,
+  "metrics": {
+    "gateway_inflight": 0.0,
+    "gateway_body_bytes": 0.0
+  },
+  "containers": [
+    {
+      "name": "raft-kv-gateway-backend-a-1",
+      "imageId": "sha256:b23821c1986f0f4bcaf85441a3e3cde73b9d60e0a69cd70c5e048adea2adf11f",
+      "revision": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "name": "raft-kv-gateway-backend-b-1",
+      "imageId": "sha256:b23821c1986f0f4bcaf85441a3e3cde73b9d60e0a69cd70c5e048adea2adf11f",
+      "revision": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "name": "raft-kv-gateway-cp1-1",
+      "imageId": "sha256:b23821c1986f0f4bcaf85441a3e3cde73b9d60e0a69cd70c5e048adea2adf11f",
+      "revision": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "name": "raft-kv-gateway-cp2-1",
+      "imageId": "sha256:b23821c1986f0f4bcaf85441a3e3cde73b9d60e0a69cd70c5e048adea2adf11f",
+      "revision": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "name": "raft-kv-gateway-cp3-1",
+      "imageId": "sha256:b23821c1986f0f4bcaf85441a3e3cde73b9d60e0a69cd70c5e048adea2adf11f",
+      "revision": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "name": "raft-kv-gateway-gateway-1",
+      "imageId": "sha256:b23821c1986f0f4bcaf85441a3e3cde73b9d60e0a69cd70c5e048adea2adf11f",
+      "revision": "3c1f5f659512b08f44d4f418136ad6326268e2dd",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    }
+  ]
+}

@@ -1,8 +1,57 @@
 # Benchmark method and results
 
-The benchmark code measures this project's actual implementation. The required next acceptance target is at least 8,000 successful requests/s with successful-call P99 ≤15 ms in sustained runs; see the [fixed-window performance and real EKS acceptance proposal](acceptance-targets.md). The existing exports below are historical local measurements and do not yet satisfy that gate. Configured offered load is not successful throughput.
+Three strict local sustained runs passed the 8,000 successful requests/s and full-call P99 ≤15 ms gate below. Actual AWS EKS/NLB acceptance remains pending because the owner has no AWS account and declined paid resources. Configured offered load is never reported as successful throughput.
 
-## Reproduction
+## Strict sustained local acceptance
+
+The strict acceptance experiment uses source commit `3c1f5f659512b08f44d4f418136ad6326268e2dd` and pinned k6 **2.3.0**. One constant-arrival-rate scenario offers **8,400 requests/s**, with **32 fixed VUs**, **30 seconds of warmup**, **300 seconds of measurement**, and a separate five-second graceful drain. The full experiment is repeated three times on the same recorded local Docker topology. Offered load is configuration; successful throughput is calculated from validated response counts.
+
+A request is eligible only if it starts inside the half-open measurement window `[30s,330s)`. It contributes to successful throughput only if it also completes inside that window with HTTP 200, the exact 1,024-byte ASCII `x` body, and an expected backend identity header. Warmup-started requests are excluded even if they finish after warmup. Redirects and application retries are disabled. Successes are assigned by completion time to thirty fixed ten-second buckets. Each repeat must achieve at least **8,000 successful requests/s overall and in every bucket**, with successful full-call **P99 ≤15 ms**, no eligible failures including drain, and complete outcome/sample accounting. Empty or missing buckets cannot silently disappear.
+
+The measurement clock is derived from the pinned executor implementation: `scenario.progress × 330,000 ms`. Its shared scenario origin and elapsed calculation use Go `time.Since` ([clock path, lines 216–239](https://github.com/grafana/k6/blob/v2.3.0/lib/executor/constant_arrival_rate.go#L216-L239)); progress is capped at the regular-duration deadline. Every JavaScript progress read calls the callback directly ([getter](https://github.com/grafana/k6/blob/v2.3.0/internal/js/modules/k6/execution/execution.go#L101-L104)). Full-call latency is the elapsed difference immediately around `http.get`, including connection/setup work and client-observed completion, rather than only k6's HTTP transport duration. These semantics are tied to this executor and version and must be rechecked before an upgrade.
+
+Eligible requests completing at or after the deadline are recorded separately as `lateSuccess` or `lateFailed`; they never increase window throughput. Progress has saturated by then, so no truncated drain latency is published. P99 describes successful eligible completions inside the measurement window, not late drain or all attempted requests. All eligible starts must reconcile with window outcomes, late outcomes, and invalid completions; successful bucket and latency-sample counts must reconcile with window successes. Generator drops are reported for the **whole experiment, including warmup**, because this single scenario does not supply a separate measurement-only drop count. They are neither server errors nor successful requests.
+
+The checked-in historical matrix remains separate: it used scenario-cohort counts and HTTP transport latency. Strict results must be published per repeat with the full-call and transport distributions, minimum bucket throughput, failures, late outcomes, whole-experiment drops, resource samples, and source/image provenance. This is local shared-Docker evidence. It establishes no AWS or EKS deployment or performance result.
+
+### Recorded results
+
+| Repeat | Window successes | Successful requests/s | Full-call P99 (ms) | Lowest 10s successful rate | Late successes | Failed / unaccounted | Whole-experiment drops |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| 1 | 2,515,808 | 8,386.03 | 0.877288 | 8,315.30 | 2 | 0 / 0 | 4279 |
+| 2 | 2,516,345 | 8,387.82 | 0.83244 | 8,308.50 | 4 | 0 / 0 | 3775 |
+| 3 | 2,517,867 | 8,392.89 | 0.637667 | 8,356.10 | 0 | 0 / 0 | 3369 |
+
+All three consecutive repeats passed. Every repeat has thirty completion buckets; every bucket exceeded 8,000 successful completions/s. The [environment](results/strict-local-v1/environment.json), [summary](results/strict-local-v1/summary.json), unmodified k6 exports, resource samples, and [checksums](results/strict-local-v1/SHA256SUMS) are checked in. No percentiles were averaged. Late successes never increase window throughput or enter the gated percentile.
+
+| Repeat | Generator peak CPU (cores) | Generator peak memory usage | Valid generator samples | Sampling errors |
+|---|---:|---|---:|---:|
+| 1 | 1.06 / 4 | 700.9MiB / 768MiB | 97 | 2 |
+| 2 | 1.66 / 4 | 714.4MiB / 768MiB | 97 | 2 |
+| 3 | 0.92 / 4 | 701.9MiB / 768MiB | 97 | 2 |
+
+CPU percentages use 100% per core. These are sampled peaks, not continuous maximums. The generator approached its memory limit in long runs; successful exit codes and actual successful completion counts establish these observations, not unlimited generator headroom. Sampling can miss brief peaks. Two sampler errors per run (container startup and a Docker stats EOF) are retained in the raw files. After load, [all six application processes](results/strict-local-v1/post-load.json) were running without OOM/restart flags, and held body bytes/inflight requests were zero.
+
+The 32-VU setting was selected after 256/64-VU experiments produced eligible 503s, even though their average throughput/P99 looked favorable. Those [failed and interrupted records, diagnostics and interpretation limits](results/strict-calibration-v1/README.md) remain public. The observed fast failures fit a local pool-acquisition rejection; the concrete exception was not captured. This result does not establish zero failures at higher concurrency. Application runtime code and durability settings were unchanged.
+
+### Reproduce the formal workload
+
+```bash
+./scripts/dev.sh build
+./scripts/dev.sh up
+python3 benchmarks/run.py --suite acceptance --vus 32 --output work/strict-local-new
+```
+
+Start from clean committed source, use an empty ignored output directory, and leave source/images unchanged until all three runs finish. The command uses the formal defaults: 8,400 offered/s, 30-second warmup, 300-second measurement, ten-second buckets and three repeats. It exits nonzero on a missed gate while retaining completed raw evidence. No AWS account is needed for this local workload. Node 20+ is needed only for measurement regression tests: `node --test benchmarks/test_*.mjs`.
+
+### Measurement review fixes
+
+Before the formal experiment, the measurement implementation was corrected to use the executor's monotonic elapsed calculation. `Date.now()` and `exec.instance.currentTestRunDuration` are not independent clock checks in this k6 version: wall-clock correction can move both. Regression cases cover forward/backward wall-clock changes, reversed executor progress, and exact completion boundaries.
+
+Evidence validation now rejects missing or non-finite published latency statistics, inconsistent bucket/sample totals, and unreconciled eligible outcomes. The runner rejects duplicate normalized rates that would overwrite run filenames, requires clean committed source, checks that the source commit stays unchanged around measurements, and verifies actual running image identities. Results are retained as unmodified raw exports with derived summaries; the presence of an export alone is not a passing acceptance result.
+
+
+## Historical reproduction
 
 Requirements: the running Compose stack, Python 3.9+, and Docker. The runner uses pinned k6 **2.3.0** in a separate container, limited to four CPUs and 768 MiB. Each scenario preallocates 64 VUs and permits at most 256. Warmup and measurement are separate constant-arrival-rate scenarios. Metrics prefixed `measured_` belong to the measurement scenario; responses completing during its graceful drain are also included. They are not strict fixed-window completion counters.
 
@@ -33,7 +82,7 @@ The historical `successfulRps` field is the successful measurement-scenario coun
 
 KV tests use the original protobuf schema and direct gRPC calls to the elected leader. CAS write keys are per VU and run, with the returned revision carried forward. An uncertain mutation is read for reconciliation rather than blindly retried. No durability setting is weakened for the benchmark.
 
-## Measured results
+## Historical measured results
 
 The full matrix completed **30 runs** on clean source commit [`84079aefad7ab765ffc8efe81ac56397f662b16b`](https://github.com/TongTong0828/raft-kv-gateway/commit/84079aefad7ab765ffc8efe81ac56397f662b16b). The [environment](results/benchmarks/environment.json), [per-run summary](results/benchmarks/summary.json), and unmodified per-run exports with resource samples are checked in. Values below are **minimum–maximum across three repeats**, not percentiles computed by averaging percentiles. Failure/drop columns sum the three measurement windows (90 seconds).
 
