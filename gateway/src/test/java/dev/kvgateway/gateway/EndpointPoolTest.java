@@ -8,6 +8,42 @@ import java.util.concurrent.*;
 import org.junit.jupiter.api.Test;
 
 class EndpointPoolTest {
+  private record PoolState(int acquired, int pending, int borrowed, int waiting, int releasing) {
+    boolean drained() {
+      return acquired == 0 && pending == 0 && borrowed == 0 && waiting == 0 && releasing == 0;
+    }
+  }
+
+  private static void awaitPoolDrained(EndpointPool pool, NioEventLoopGroup group)
+      throws Exception {
+    var nativeField = EndpointPool.class.getDeclaredField("pool");
+    nativeField.setAccessible(true);
+    var nativePool = (io.netty.channel.pool.FixedChannelPool) nativeField.get(pool);
+    var pendingField =
+        io.netty.channel.pool.FixedChannelPool.class.getDeclaredField("pendingAcquireCount");
+    pendingField.setAccessible(true);
+    long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(4);
+    PoolState state;
+    do {
+      // This test uses one event loop: take one consistent snapshot between callbacks.
+      state =
+          group
+              .next()
+              .submit(
+                  () ->
+                      new PoolState(
+                          pool.acquiredSlots(),
+                          pendingField.getInt(nativePool),
+                          pool.borrowed.get(),
+                          pool.waiting.get(),
+                          pool.releasing.get()))
+              .get(2, TimeUnit.SECONDS);
+      if (state.drained()) return;
+      Thread.sleep(10);
+    } while (System.nanoTime() < deadline);
+    fail("pool did not drain: " + state);
+  }
+
   @Test
   void overflowAndCancelledWaitersDrainWithoutClosingThePoolAndARealLeaseCanBeReused()
       throws Exception {
@@ -60,22 +96,12 @@ class EndpointPoolTest {
                 }
               })
           .get(2, TimeUnit.SECONDS);
-      ControlWatcherTest.await(
-          () ->
-              pool.acquiredSlots() == 0
-                  && pool.borrowed.get() == 0
-                  && pool.waiting.get() == 0
-                  && pool.releasing.get() == 0);
+      awaitPoolDrained(pool, group);
       assertTrue(waiting.stream().allMatch(io.netty.util.concurrent.Future::isDone));
       var recovered = pool.acquire().get(2, TimeUnit.SECONDS);
       assertTrue(recovered.channel.isActive());
       recovered.release(true);
-      ControlWatcherTest.await(
-          () ->
-              pool.acquiredSlots() == 0
-                  && pool.borrowed.get() == 0
-                  && pool.waiting.get() == 0
-                  && pool.releasing.get() == 0);
+      awaitPoolDrained(pool, group);
       assertEquals(1, budget.connections());
     } finally {
       try {
