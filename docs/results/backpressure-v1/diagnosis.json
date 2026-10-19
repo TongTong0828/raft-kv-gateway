@@ -1,0 +1,206 @@
+{
+  "sourceCommit": "afde91c06369298398aae8f1aa6db1d396bbb242",
+  "java": {
+    "tests": 53,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "pythonTests": 20,
+  "nodeTests": 13,
+  "aws": "Not run; owner explicitly deferred AWS work",
+  "cases": [
+    {
+      "label": "baseline-64vu",
+      "sourceCommit": "88194de6ac5fd2c4a91097a288a7fbf759b4652b",
+      "fixedVUs": 64,
+      "passed": false,
+      "reasons": [
+        "a completion bucket is below target",
+        "eligible requests failed, including drain",
+        "k6 acceptance thresholds failed"
+      ],
+      "validPerformanceExport": true,
+      "rawEligibleFailures": 132,
+      "rawRejections": {
+        "connection_budget": 0,
+        "no_configuration": 0,
+        "unclassified": 0,
+        "pool_cancelled": 0,
+        "pool_acquire_error": 0,
+        "body_budget": 0,
+        "admission_limit": 0,
+        "pool_retired": 0,
+        "pool_queue_full": 132,
+        "pool_unavailable": 0,
+        "no_healthy_endpoint": 0,
+        "pool_timeout": 0
+      },
+      "raw503s": 132,
+      "rawUnaccounted": 0,
+      "successfulRps": 8374.34,
+      "successP99Ms": 0.8282919899912667,
+      "lateSuccess": 2,
+      "lateFailed": 0,
+      "totalExperimentDropped": 10239,
+      "unaccounted": 0,
+      "minimumBucketSuccessfulRps": 7967.8
+    },
+    {
+      "label": "baseline-256vu",
+      "sourceCommit": "88194de6ac5fd2c4a91097a288a7fbf759b4652b",
+      "fixedVUs": 256,
+      "passed": false,
+      "reasons": [
+        "invalid export: invalid window_transport_ms.min",
+        "k6 acceptance thresholds failed"
+      ],
+      "validPerformanceExport": false,
+      "rawEligibleFailures": 7132,
+      "rawRejections": {
+        "pool_cancelled": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "admission_limit": 5444,
+        "pool_acquire_error": 0,
+        "unclassified": 0,
+        "pool_retired": 0,
+        "no_configuration": 0,
+        "pool_timeout": 0,
+        "connection_budget": 0,
+        "body_budget": 0,
+        "pool_queue_full": 1688
+      },
+      "raw503s": 7132,
+      "rawUnaccounted": 0
+    },
+    {
+      "label": "final-64vu",
+      "sourceCommit": "afde91c06369298398aae8f1aa6db1d396bbb242",
+      "fixedVUs": 64,
+      "passed": false,
+      "reasons": [
+        "eligible requests failed, including drain",
+        "k6 acceptance thresholds failed"
+      ],
+      "validPerformanceExport": true,
+      "rawEligibleFailures": 44,
+      "rawRejections": {
+        "pool_cancelled": 0,
+        "pool_retired": 0,
+        "pool_queue_full": 44,
+        "body_budget": 0,
+        "unclassified": 0,
+        "pool_unavailable": 0,
+        "no_healthy_endpoint": 0,
+        "admission_limit": 0,
+        "pool_acquire_error": 0,
+        "connection_budget": 0,
+        "pool_timeout": 0,
+        "no_configuration": 0
+      },
+      "raw503s": 44,
+      "rawUnaccounted": 0,
+      "successfulRps": 8373.726666666667,
+      "successP99Ms": 1.6574090300031812,
+      "lateSuccess": 2,
+      "lateFailed": 0,
+      "totalExperimentDropped": 9609,
+      "unaccounted": 0,
+      "minimumBucketSuccessfulRps": 8272.3,
+      "postLoadQuiescent": true
+    },
+    {
+      "label": "final-256vu",
+      "sourceCommit": "afde91c06369298398aae8f1aa6db1d396bbb242",
+      "fixedVUs": 256,
+      "passed": false,
+      "reasons": [
+        "eligible requests failed, including drain",
+        "k6 acceptance thresholds failed"
+      ],
+      "validPerformanceExport": true,
+      "rawEligibleFailures": 4011,
+      "rawRejections": {
+        "no_configuration": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0,
+        "pool_queue_full": 800,
+        "no_healthy_endpoint": 0,
+        "connection_budget": 0,
+        "admission_limit": 3211,
+        "pool_unavailable": 0,
+        "pool_timeout": 0,
+        "pool_cancelled": 0,
+        "body_budget": 0,
+        "pool_retired": 0
+      },
+      "raw503s": 4011,
+      "rawUnaccounted": 0,
+      "successfulRps": 8380.093333333334,
+      "successP99Ms": 1.8312389299983616,
+      "lateSuccess": 3,
+      "lateFailed": 0,
+      "totalExperimentDropped": 1982,
+      "unaccounted": 0,
+      "minimumBucketSuccessfulRps": 8254.0,
+      "postLoadQuiescent": true
+    },
+    {
+      "label": "final-32vu",
+      "sourceCommit": "afde91c06369298398aae8f1aa6db1d396bbb242",
+      "fixedVUs": 32,
+      "passed": false,
+      "reasons": [
+        "invalid export: invalid window_transport_ms.min"
+      ],
+      "validPerformanceExport": false,
+      "rawEligibleFailures": 0,
+      "rawRejections": {
+        "pool_timeout": 0,
+        "pool_acquire_error": 0,
+        "no_configuration": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_unavailable": 0,
+        "pool_retired": 0,
+        "pool_queue_full": 0,
+        "unclassified": 0,
+        "admission_limit": 0
+      },
+      "raw503s": 0,
+      "rawUnaccounted": 0,
+      "postLoadQuiescent": true
+    },
+    {
+      "label": "final-32vu-retry",
+      "sourceCommit": "afde91c06369298398aae8f1aa6db1d396bbb242",
+      "fixedVUs": 32,
+      "passed": false,
+      "reasons": [
+        "invalid export: invalid window_transport_ms.min"
+      ],
+      "validPerformanceExport": false,
+      "rawEligibleFailures": 0,
+      "rawRejections": {
+        "admission_limit": 0,
+        "connection_budget": 0,
+        "unclassified": 0,
+        "no_healthy_endpoint": 0,
+        "pool_timeout": 0,
+        "pool_acquire_error": 0,
+        "pool_unavailable": 0,
+        "no_configuration": 0,
+        "pool_retired": 0,
+        "body_budget": 0,
+        "pool_cancelled": 0,
+        "pool_queue_full": 0
+      },
+      "raw503s": 0,
+      "rawUnaccounted": 0,
+      "postLoadQuiescent": true
+    }
+  ]
+}

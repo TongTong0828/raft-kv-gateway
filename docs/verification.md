@@ -1,12 +1,12 @@
 # Release verification
 
-The release includes executable verification scripts and recorded observations. Historical runtime measurements use source commit `84079aefad7ab765ffc8efe81ac56397f662b16b`; strict sustained measurements use `3c1f5f659512b08f44d4f418136ad6326268e2dd`. Subsequent release commits add documentation and evidence. Each exported run identifies its own source commit. The results describe this implementation on the recorded local environment.
+The release includes executable verification scripts and recorded observations. Historical runtime measurements use source commit `84079aefad7ab765ffc8efe81ac56397f662b16b`; strict sustained measurements use `3c1f5f659512b08f44d4f418136ad6326268e2dd`. The 503-diagnostics code is verified at `afde91c06369298398aae8f1aa6db1d396bbb242`; subsequent release commits add documentation and evidence. Each exported run identifies its own source commit. The results describe this implementation on the recorded local environment.
 
 | Check | Result | Evidence |
 |---|---|---|
-| Java reactor | 47 tests, zero failures/errors/skips | `./scripts/mvn.sh verify`; CI publishes JUnit XML |
-| Benchmark accounting/source/image attribution | 19 tests passed | `python3 -m unittest discover -s benchmarks -p 'test_*.py'` |
-| Measurement clock/window | 11 Node tests passed, including wall-clock correction replay | `node --test benchmarks/test_*.mjs` |
+| Java reactor | 53 tests, zero failures/errors/skips | `./scripts/mvn.sh verify`; CI publishes JUnit XML |
+| Benchmark accounting/source/image attribution | 20 tests passed | `python3 -m unittest discover -s benchmarks -p 'test_*.py'` |
+| Measurement clock/window | 13 Node tests passed, including wall-clock correction replay | `node --test benchmarks/test_*.mjs` |
 | Fault-runner ownership | 4 real Docker fixture tests passed | `python3 -m unittest discover -s scripts -p 'test_*.py'` |
 | Dependency notices | Audit passed for all five executable JARs | `python3 scripts/audit-release.py` |
 | Clean-checkout quickstart | Build, two consecutive smoke runs, exact KV create/read passed | [Clean-checkout record](results/clean-checkout-v1.json) |
@@ -15,6 +15,9 @@ The release includes executable verification scripts and recorded observations. 
 | EKS | Both overlays render; no AWS account or paid-resource authorization; no AWS resources provisioned | [Deployment prerequisites](../deploy/kubernetes/README.md) |
 | Historical load tests | 30 runs, 10 s warmup + 30 s measurement each | [Method, repeat ranges and raw exports](benchmarks.md) |
 | Strict sustained local load | Three passes, 30 s warmup + 300 s measurement each; 8,386.03–8,392.89 successful/s, full-call P99 0.64–0.88 ms, zero eligible failures | [Raw exports and all ten-second buckets](results/strict-local-v1/summary.json) |
+| 64/256-VU 503 diagnosis | Configured admission/queue saturation attributed; no pool-accounting defect reproduced; failed/invalid runs retained | [Report and fresh reruns](backpressure.md) |
+| 32-VU diagnostic replays | Two runs with zero eligible request failures; native transport timing invalid, so neither adds a new accepted performance pass | [Invalid records retained](results/backpressure-v1/README.md) |
+| Diagnostics post-load cleanup | Native acquired/borrowed/waiting/releasing, inflight and body bytes all zero after each rerun; six processes without OOM/restarts | [Per-case records](results/backpressure-v1/README.md) |
 | Strict post-load cleanup | Zero held bytes/inflight; six current processes running without OOM/restarts | [Current process state](results/strict-local-v1/post-load.json) |
 | Historical post-load cleanup | Zero inflight/body bytes; current processes have no OOM/restart flag | [Recorded process state](results/post-benchmark-v1.json) |
 
@@ -32,6 +35,6 @@ The first Linux CI run also exposed a test sampling race: the host had finished 
 
 ## Review and boundaries
 
-A fresh whole-branch review found six release blockers, all reproduced and corrected with regression tests. See [review and fixes](review.md). There are no deferred minor review findings. A subsequent fresh review found four strict-measurement issues (clock independence, duplicate filenames, dirty source, and incomplete latency validation); all were reproduced and fixed with regressions before the formal runs. The measurement change leaves runtime Java code unchanged.
+A fresh whole-branch review found six release blockers, all reproduced and corrected with regression tests. See [review and fixes](review.md). That initial review has no deferred minor findings. The next review found four strict-measurement issues (clock independence, duplicate filenames, dirty source, and incomplete latency validation); all were reproduced and fixed with regressions before the formal runs. That measurement change left runtime Java code unchanged. The later independent review of the 503 diagnostics found no Critical or Important code issue; a minor retirement-race history coverage gap is retained and explicitly documented in the [diagnostic contract](backpressure.md#response-header-and-metric-contract).
 
 The bounded single-key history checker is not an exhaustive consistency proof. The Kubernetes run uses a local, single-host kind cluster; the three-zone EKS configuration was rendered only. Benchmark percentiles are per-run observations on a shared Docker VM, not a production latency guarantee. Authentication, TLS, dynamic membership, sharding, and disaster recovery from permanent volume loss remain outside v1.

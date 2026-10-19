@@ -1,0 +1,10 @@
+Note: work/ReleaseOrderProbe.java uses or overrides a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+BEFORE_RELEASE nativeAcquired=1 nativePending=0 borrowed=1 waiting=0 releasing=0 physicalConnections=1
+AFTER_RELEASE_INVOKED nativeAcquired=1 nativePending=0 borrowed=1 waiting=0 releasing=1 physicalConnections=1
+CHARACTERIZATION_FAILURE type=java.lang.IllegalStateException message=Too many outstanding acquire operations nativeAcquired=1 borrowed=1 waiting=32 releasing=1 elapsedMicros=43.666
+IMMEDIATE_REJECTION request=33 type=java.lang.IllegalStateException message=Too many outstanding acquire operations
+AFTER_33_ACQUIRES nativeAcquired=1 nativePending=32 borrowed=1 waiting=32 releasing=1 physicalConnections=1 futuresSucceeded=0 futuresFailed=1 futuresPending=32
+RELEASE_WAS_INVOKED_BEFORE_ALL_NEW_ACQUIRES=true observedFailures=1
+AFTER_CLEANUP nativeAcquired=0 nativePending=0 borrowed=0 waiting=0 releasing=0 physicalConnections=0
+ALL_WRAPPER_FUTURES_DONE=true BACKEND_BUSINESS_REQUESTS=0

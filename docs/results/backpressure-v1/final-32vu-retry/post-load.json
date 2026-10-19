@@ -1,0 +1,63 @@
+{
+  "recordedAt": "2026-10-19T06:51:41.939609+00:00",
+  "commit": "afde91c06369298398aae8f1aa6db1d396bbb242",
+  "dirty": false,
+  "quiescentGauges": {
+    "gateway_inflight": 0.0,
+    "gateway_body_bytes": 0.0,
+    "gateway_pool_active": 0.0,
+    "gateway_pool_waiting": 0.0,
+    "gateway_pool_acquired_slots": 0.0,
+    "gateway_pool_releasing": 0.0
+  },
+  "containers": [
+    {
+      "name": "raft-kv-gateway-backend-a-1",
+      "imageId": "sha256:191dde482295f9ad4b5ecb9ff0b00d714da346f5c9b790f7603d13824d358835",
+      "revision": "afde91c06369298398aae8f1aa6db1d396bbb242",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "name": "raft-kv-gateway-backend-b-1",
+      "imageId": "sha256:191dde482295f9ad4b5ecb9ff0b00d714da346f5c9b790f7603d13824d358835",
+      "revision": "afde91c06369298398aae8f1aa6db1d396bbb242",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "name": "raft-kv-gateway-cp1-1",
+      "imageId": "sha256:191dde482295f9ad4b5ecb9ff0b00d714da346f5c9b790f7603d13824d358835",
+      "revision": "afde91c06369298398aae8f1aa6db1d396bbb242",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "name": "raft-kv-gateway-cp2-1",
+      "imageId": "sha256:191dde482295f9ad4b5ecb9ff0b00d714da346f5c9b790f7603d13824d358835",
+      "revision": "afde91c06369298398aae8f1aa6db1d396bbb242",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "name": "raft-kv-gateway-cp3-1",
+      "imageId": "sha256:191dde482295f9ad4b5ecb9ff0b00d714da346f5c9b790f7603d13824d358835",
+      "revision": "afde91c06369298398aae8f1aa6db1d396bbb242",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "name": "raft-kv-gateway-gateway-1",
+      "imageId": "sha256:191dde482295f9ad4b5ecb9ff0b00d714da346f5c9b790f7603d13824d358835",
+      "revision": "afde91c06369298398aae8f1aa6db1d396bbb242",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    }
+  ]
+}

@@ -60,6 +60,8 @@ Allowed methods: GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS. HTTP/1.1 sequenti
 | 504 | The service's total request deadline expired |
 | 501 | Unsupported proxy mode or method |
 
+Gateway-generated business HTTP 503 responses include `X-Gateway-Rejection` with a fixed reason such as `admission_limit`, `pool_queue_full` or `pool_timeout`. The header is reserved and stripped from inbound/upstream copies to prevent spoofing. A forwarded backend 503 has no fabricated gateway reason. See [all reason labels, counter scopes and diagnosis](backpressure.md#response-header-and-metric-contract).
+
 No automatic upstream retry occurs, including POST. A total deadline covers request body, acquisition, connection, response, and downstream write. If a response has already started when the deadline expires, the connection closes.
 
 ## Management
@@ -74,3 +76,5 @@ curl -X POST http://localhost:19101/snapshot
 Both processes provide `/live`, `/ready`, and `/metrics`. Control status includes role, leader, applied term/index, snapshot index, install count, and log start index. Gateway status distinguishes configured state from control connectivity. Snapshot requests are internal operational tools, not a substitute for a tested backup procedure.
 
 Metrics expose bounded labels, request latency buckets, outcomes, inflight/body/connection budgets, configured-pool active/idle/waiting gauges, health count, and configuration/Watch state. Pool gauges describe currently configured pools; the global connection budget also includes retired channels draining existing exchanges. No metric labels contain arbitrary KV keys or full request URLs.
+
+`gateway_rejections_total{reason="..."}` counts local rejection decisions over process lifetime; it does not equal received client responses under every cancellation/write failure. `/metrics` also includes at most 64 bounded `# pool_failure` diagnostic comments and native `gateway_pool_acquired_slots` / `gateway_pool_releasing` gauges. Registered-pool gauges exclude removed pools that still drain. Wrapper `gateway_pool_waiting` is not Netty's native pending-queue length; `gateway_pool_idle` is an approximation. See [gauge interpretation](backpressure.md#resource-gauges-and-their-limits).

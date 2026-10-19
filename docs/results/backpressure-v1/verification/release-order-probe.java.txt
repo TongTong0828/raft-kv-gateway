@@ -1,0 +1,153 @@
+package dev.kvgateway.gateway;
+
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.pool.FixedChannelPool;
+import io.netty.resolver.DefaultAddressResolverGroup;
+import io.netty.util.concurrent.Future;
+import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+/** Throwaway characterization of release invocation versus completed pool release. */
+public final class ReleaseOrderProbe {
+  private static final Field NATIVE_POOL;
+  private static final Field NATIVE_PENDING;
+
+  static {
+    try {
+      NATIVE_POOL = EndpointPool.class.getDeclaredField("pool");
+      NATIVE_POOL.setAccessible(true);
+      NATIVE_PENDING = FixedChannelPool.class.getDeclaredField("pendingAcquireCount");
+      NATIVE_PENDING.setAccessible(true);
+    } catch (ReflectiveOperationException error) {
+      throw new ExceptionInInitializerError(error);
+    }
+  }
+
+  private static FixedChannelPool nativePool(EndpointPool pool) {
+    try {
+      return (FixedChannelPool) NATIVE_POOL.get(pool);
+    } catch (IllegalAccessException error) {
+      throw new AssertionError(error);
+    }
+  }
+
+  private static int nativePending(EndpointPool pool) {
+    try {
+      return NATIVE_PENDING.getInt(nativePool(pool));
+    } catch (IllegalAccessException error) {
+      throw new AssertionError(error);
+    }
+  }
+
+  private static String state(EndpointPool pool, ResourceBudget budget) {
+    return "nativeAcquired=" + nativePool(pool).acquiredChannelCount()
+        + " nativePending=" + nativePending(pool)
+        + " borrowed=" + pool.borrowed.get()
+        + " waiting=" + pool.waiting.get()
+        + " releasing=" + pool.releasing.get()
+        + " physicalConnections=" + budget.connections();
+  }
+
+  public static void main(String[] args) throws Exception {
+    var group = new NioEventLoopGroup(1);
+    var budget = new ResourceBudget(128, 4, 64 * 1024);
+    var characterizing = new AtomicBoolean();
+    var requested = new ArrayList<Future<EndpointPool.Lease>>();
+    var observed = new ArrayList<EndpointPool.Failure>();
+    EndpointPool pool = null;
+    EndpointPool.Lease first = null;
+    try (var backend = new BackendFixture()) {
+      pool = new EndpointPool(backend.endpoint(), 1, group,
+          DefaultAddressResolverGroup.INSTANCE, budget, failure -> {
+            if (characterizing.get()) {
+              observed.add(failure);
+              System.out.println("CHARACTERIZATION_FAILURE type="
+                  + failure.cause().getClass().getName()
+                  + " message=" + failure.cause().getMessage()
+                  + " nativeAcquired=" + failure.acquired()
+                  + " borrowed=" + failure.borrowed()
+                  + " waiting=" + failure.waiting()
+                  + " releasing=" + failure.releasing()
+                  + " elapsedMicros=" + failure.elapsedNanos() / 1000.0);
+            }
+          });
+      first = pool.acquire().get(5, TimeUnit.SECONDS);
+      final EndpointPool target = pool;
+      final EndpointPool.Lease held = first;
+
+      group.next().submit(() -> {
+        characterizing.set(true);
+        try {
+          System.out.println("BEFORE_RELEASE " + state(target, budget));
+          held.release(true);
+          System.out.println("AFTER_RELEASE_INVOKED " + state(target, budget));
+          for (int index = 1; index <= 33; index++) {
+            var acquisition = target.acquire();
+            requested.add(acquisition);
+            if (acquisition.isDone() && !acquisition.isSuccess()) {
+              var cause = acquisition.cause();
+              System.out.println("IMMEDIATE_REJECTION request=" + index
+                  + " type=" + (cause == null ? "null" : cause.getClass().getName())
+                  + " message=" + (cause == null ? "null" : cause.getMessage()));
+            }
+          }
+          long succeeded = requested.stream().filter(Future::isSuccess).count();
+          long failed = requested.stream().filter(f -> f.isDone() && !f.isSuccess()).count();
+          long pending = requested.stream().filter(f -> !f.isDone()).count();
+          System.out.println("AFTER_33_ACQUIRES " + state(target, budget)
+              + " futuresSucceeded=" + succeeded
+              + " futuresFailed=" + failed
+              + " futuresPending=" + pending);
+          System.out.println("RELEASE_WAS_INVOKED_BEFORE_ALL_NEW_ACQUIRES=true"
+              + " observedFailures=" + observed.size());
+        } finally {
+          characterizing.set(false);
+        }
+      }).get(5, TimeUnit.SECONDS);
+
+      // Cancellation can leave native pending tasks until release/close; drain both layers.
+      for (Future<EndpointPool.Lease> acquisition : requested) {
+        acquisition.addListener(done -> {
+          if (done.isSuccess()) acquisition.getNow().release(false);
+        });
+        if (!acquisition.isDone()) acquisition.cancel(false);
+      }
+      pool.close();
+      long deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5);
+      boolean drained = false;
+      while (System.nanoTime() < deadline) {
+        drained = group.next().submit(() ->
+            target.borrowed.get() == 0 && target.waiting.get() == 0
+                && target.releasing.get() == 0 && budget.connections() == 0
+                && nativePool(target).acquiredChannelCount() == 0
+                && nativePending(target) == 0).get(2, TimeUnit.SECONDS);
+        if (drained) break;
+        Thread.sleep(5);
+      }
+      System.out.println("AFTER_CLEANUP "
+          + group.next().submit(() -> state(target, budget)).get(2, TimeUnit.SECONDS));
+      System.out.println("ALL_WRAPPER_FUTURES_DONE="
+          + requested.stream().allMatch(Future::isDone)
+          + " BACKEND_BUSINESS_REQUESTS=" + backend.requests.get());
+      if (!drained || !requested.stream().allMatch(Future::isDone)) {
+        throw new AssertionError("Probe failed to drain all futures, leases, or connections");
+      }
+    } finally {
+      characterizing.set(false);
+      if (first != null) first.release(false);
+      if (pool != null) {
+        for (Future<EndpointPool.Lease> acquisition : requested) {
+          acquisition.addListener(done -> {
+            if (done.isSuccess()) acquisition.getNow().release(false);
+          });
+          if (!acquisition.isDone()) acquisition.cancel(false);
+        }
+        pool.close();
+      }
+      group.shutdownGracefully(0, 1, TimeUnit.SECONDS).sync();
+    }
+  }
+}

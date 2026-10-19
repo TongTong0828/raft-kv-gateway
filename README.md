@@ -6,7 +6,9 @@ A Java 21 distributed-systems project combining a durable, three-node Raft KV st
 
 The project focuses on failure behavior that can be reproduced locally: revision-checked writes, leader isolation, snapshot installation, configuration outages, connection reuse, overload rejection, and resource cleanup.
 
-**Local sustained performance passed:** three five-minute windows delivered **8,386.03–8,392.89 successful requests/s**, successful full-call **P99 0.64–0.88 ms**, and exact 1 KiB bodies. **Actual AWS EKS acceptance remains pending**: the owner has no AWS account and has declined paid resources. See [acceptance status](docs/acceptance-targets.md).
+**Local sustained performance passed:** three five-minute windows at source `3c1f5f6` delivered **8,386.03–8,392.89 successful requests/s**, successful full-call **P99 0.64–0.88 ms**, and exact 1 KiB bodies. **Actual AWS EKS acceptance remains pending**: the owner has no AWS account and has declined paid resources. See [acceptance status](docs/acceptance-targets.md).
+
+**High-concurrency 503s diagnosed:** instrumented 64/256-VU runs identify configured service admission and per-endpoint pool queue limits. Recovery checks found no pool leak. Read the [root-cause report, fresh reruns and limits](docs/backpressure.md).
 
 ## Architecture
 

@@ -1,0 +1,69 @@
+[
+  {
+    "scenario": "acceptance",
+    "repeat": 1,
+    "raw": "acceptance-8400-r1.json",
+    "actualContainers": [
+      {
+        "service": "backend-a",
+        "containerId": "8303d2cc5a6eed4e2b475643fad2f8701b5267e179dca47d6bfc93a5c43a6424",
+        "name": "raft-kv-gateway-backend-a-1",
+        "imageId": "sha256:49e53ea915d2f7903ebd94d7b05c8de78de2dea40b0a478194ff451cec9b6b84",
+        "revision": "88194de6ac5fd2c4a91097a288a7fbf759b4652b",
+        "memoryLimitBytes": 134217728,
+        "nanoCpus": 500000000
+      },
+      {
+        "service": "backend-b",
+        "containerId": "babd1e7505a8c1a4a9715d84f93b58b5ad9398cff92aedff2c79d6c63af511de",
+        "name": "raft-kv-gateway-backend-b-1",
+        "imageId": "sha256:49e53ea915d2f7903ebd94d7b05c8de78de2dea40b0a478194ff451cec9b6b84",
+        "revision": "88194de6ac5fd2c4a91097a288a7fbf759b4652b",
+        "memoryLimitBytes": 134217728,
+        "nanoCpus": 500000000
+      },
+      {
+        "service": "cp1",
+        "containerId": "49b6b66a306fa4a07a1a108eed2635288ad64ba00d0dd071363fba1b4e019904",
+        "name": "raft-kv-gateway-cp1-1",
+        "imageId": "sha256:49e53ea915d2f7903ebd94d7b05c8de78de2dea40b0a478194ff451cec9b6b84",
+        "revision": "88194de6ac5fd2c4a91097a288a7fbf759b4652b",
+        "memoryLimitBytes": 335544320,
+        "nanoCpus": 1000000000
+      },
+      {
+        "service": "cp2",
+        "containerId": "d7d99fad42a9bbdcd171674510665f0b17f7f8165b57b0b311859adddd3a1c13",
+        "name": "raft-kv-gateway-cp2-1",
+        "imageId": "sha256:49e53ea915d2f7903ebd94d7b05c8de78de2dea40b0a478194ff451cec9b6b84",
+        "revision": "88194de6ac5fd2c4a91097a288a7fbf759b4652b",
+        "memoryLimitBytes": 335544320,
+        "nanoCpus": 1000000000
+      },
+      {
+        "service": "cp3",
+        "containerId": "e007be28b7e00974c04605133ea18d782450ecbdf04daca12929a2ebe157b38c",
+        "name": "raft-kv-gateway-cp3-1",
+        "imageId": "sha256:49e53ea915d2f7903ebd94d7b05c8de78de2dea40b0a478194ff451cec9b6b84",
+        "revision": "88194de6ac5fd2c4a91097a288a7fbf759b4652b",
+        "memoryLimitBytes": 335544320,
+        "nanoCpus": 1000000000
+      },
+      {
+        "service": "gateway",
+        "containerId": "b936f0bc6dc29ebcfe99d12ceccfed0ab0b1ca4f5ca50eee33f2a5d36d64b8ca",
+        "name": "raft-kv-gateway-gateway-1",
+        "imageId": "sha256:49e53ea915d2f7903ebd94d7b05c8de78de2dea40b0a478194ff451cec9b6b84",
+        "revision": "88194de6ac5fd2c4a91097a288a7fbf759b4652b",
+        "memoryLimitBytes": 805306368,
+        "nanoCpus": 2000000000
+      }
+    ],
+    "k6ExitCode": 99,
+    "passed": false,
+    "reasons": [
+      "invalid export: invalid window_transport_ms.min",
+      "k6 acceptance thresholds failed"
+    ]
+  }
+]

@@ -1,0 +1,4 @@
+Picked up JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=error
+{"entry":{"key":"/services/orders","value":"CgZvcmRlcnMSBy9vcmRlcnMaDmJhY2tlbmQtYTo4MDgxGg5iYWNrZW5kLWI6ODA4MSDQDyhkMBA=","modRevision":"6049"},"revision":"6049"}
+Picked up JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=error
+{"smoke":"PASS","responseBytes":1024,"backends":["backend-a","backend-b"]}

@@ -1,0 +1,5 @@
+control-plane: inventory and supplemental licenses present; 66 original licensing resources archived
+gateway: inventory and supplemental licenses present; 42 original licensing resources archived
+cli: inventory and supplemental licenses present; 42 original licensing resources archived
+demo-backend: inventory and supplemental licenses present; 42 original licensing resources archived
+integration-tests: inventory and supplemental licenses present; 42 original licensing resources archived

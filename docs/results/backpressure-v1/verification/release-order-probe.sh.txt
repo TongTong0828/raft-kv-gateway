@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+TASK_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+TASK_IMAGE='maven:3.9.16-eclipse-temurin-21-noble@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320'
+mkdir -p "$TASK_ROOT/work/probe-classes" "$TASK_ROOT/work/verification"
+docker run --rm --memory=256m --cpus=1 \
+  -v "$TASK_ROOT:/workspace" -w /workspace "$TASK_IMAGE" bash -c '
+    set -euo pipefail
+    shopt -s globstar nullglob
+    TASK_CP="gateway/target/classes:gateway/target/test-classes:api/target/classes"
+    for TASK_JAR in gateway/target/original-dependencies/**/*.jar; do
+      TASK_CP="$TASK_CP:$TASK_JAR"
+    done
+    javac -cp "$TASK_CP" -d work/probe-classes work/ReleaseOrderProbe.java
+    java -Dio.netty.leakDetection.level=paranoid \
+      -cp "work/probe-classes:$TASK_CP" dev.kvgateway.gateway.ReleaseOrderProbe
+  ' 2>&1 | tee "$TASK_ROOT/work/verification/release-order-probe.log"
