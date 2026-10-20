@@ -1,0 +1,7 @@
+{
+  "id": "58af3c15ad5e8f86591b60ce48b363ed2ff4379c2e1f99763ea24c0f7ac6f615",
+  "name": "/kv-bench-1792455017179734000",
+  "image": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+  "memoryBytes": 1610612736,
+  "nanoCpus": 4000000000
+}

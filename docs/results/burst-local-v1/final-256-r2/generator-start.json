@@ -1,0 +1,42 @@
+{
+  "timeUtc": "2026-10-20T00:17:11.862389+00:00",
+  "monotonicNs": 2175353216894541,
+  "observerElapsedSeconds": 7.021733666304499,
+  "Id": "af95d05bb55fd734effae4aa21d1f320378d90ff23aa40587e04f5669409af90",
+  "Image": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+  "Name": "/kv-bench-1792455431437784000",
+  "State": {
+    "Status": "running",
+    "Running": true,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 727475,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-10-20T00:17:11.573199916Z",
+    "FinishedAt": "0001-01-01T00:00:00Z"
+  },
+  "HostConfig": {
+    "Memory": 1610612736,
+    "MemorySwap": 3221225472,
+    "NanoCpus": 4000000000
+  },
+  "resultsBind": [
+    {
+      "Type": "bind",
+      "Source": "/Users/at/.codex/worktrees/burst-timing/\u5206\u5e03\u5f0f\u9879\u76ee/work/burst-results/final-256-r2",
+      "Destination": "/results",
+      "Mode": "",
+      "RW": true,
+      "Propagation": "rprivate"
+    }
+  ],
+  "Cmd": [
+    "run",
+    "--quiet",
+    "/workspace/benchmarks/acceptance.js"
+  ],
+  "GoRuntimeOverrides": []
+}

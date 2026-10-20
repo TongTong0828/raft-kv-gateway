@@ -1,0 +1,1 @@
+{"schemaVersion":2,"mediaType":"application/vnd.oci.image.index.v1+json","manifests":[{"mediaType":"application/vnd.oci.image.index.v1+json","digest":"sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9","size":856,"annotations":{"io.containerd.image.name":"docker.io/library/raft-kv-gateway:local","org.opencontainers.image.ref.name":"local"}}]}

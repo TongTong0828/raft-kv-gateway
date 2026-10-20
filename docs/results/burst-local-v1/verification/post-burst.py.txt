@@ -1,0 +1,25 @@
+import datetime,json,pathlib,subprocess,sys,time,urllib.request
+out=pathlib.Path(sys.argv[1]); run=lambda args:subprocess.check_output(args,text=True).strip()
+names=['gateway_inflight','gateway_body_bytes','gateway_pool_active','gateway_pool_waiting','gateway_pool_acquired_slots','gateway_pool_releasing','gateway_dispatch_queued','gateway_dispatch_reserved']
+deadline=time.monotonic()+10
+while True:
+ text=urllib.request.urlopen('http://127.0.0.1:9090/metrics',timeout=2).read().decode()
+ gauges={line.split()[0]:float(line.split()[1]) for line in text.splitlines() if line.split() and line.split()[0] in names}
+ if set(gauges)==set(names) and all(value==0 for value in gauges.values()):break
+ if time.monotonic()>=deadline:raise RuntimeError('resources did not drain: '+str(gauges))
+ time.sleep(.1)
+(out/'gateway-after.prom').write_text(text)
+containers=json.loads(run(['docker','inspect',*run(['docker','compose','ps','-q']).splitlines()]))
+expected=json.loads((out/'environment.json').read_text())
+rows=[]
+for c in containers:
+ row={'service':c['Config']['Labels'].get('com.docker.compose.service'),'name':c['Name'].lstrip('/'),'imageId':c['Image'],'revision':c['Config']['Labels'].get('org.opencontainers.image.revision'),'running':c['State']['Running'],'oomKilled':c['State']['OOMKilled'],'restartCount':c['RestartCount']}
+ if row['service'] in {'cp1','cp2','cp3','gateway','backend-a','backend-b'}:
+  assert row['imageId']==expected['image'] and row['revision']==expected['commit'],row
+  assert row['running'] and not row['oomKilled'] and row['restartCount']==0,row
+  rows.append(row)
+assert len(rows)==6,rows
+result={'recordedAt':datetime.datetime.now(datetime.timezone.utc).isoformat(),'commit':run(['git','rev-parse','HEAD']),'dirty':bool(run(['git','status','--porcelain'])),'quiescentGauges':gauges,'containers':rows}
+assert result['commit']==expected['commit'] and not result['dirty']
+(out/'post-load.json').write_text(json.dumps(result,indent=2)+'\n')
+print(json.dumps({'gauges':gauges,'containersHealthy':len(rows)}))

@@ -1,10 +1,18 @@
 # Benchmark method and results
 
-Three strict local sustained runs passed the 8,000 successful requests/s and full-call P99 ≤15 ms gate below. Actual AWS EKS/NLB acceptance remains pending because the owner has no AWS account and declined paid resources. Configured offered load is never reported as successful throughput.
+Local records cover several implementations and measurement versions. The [current burst report](burst-handling.md) separates the 64-VU standard-profile series (service limit 100, generator 768 MiB) from the 256-VU burst series (service limit 256, generator 1,536 MiB), retaining every repeat and failed trial. Historical 32-VU strict passes and the original 30-run matrix remain below at their recorded source revisions. AWS EKS/NLB acceptance remains deferred. Configured offered load never establishes successful throughput.
+
+## Current burst verification
+
+Three 300-second runs per cohort passed the unchanged gate: at least 8,000 successful completions/s overall and in every ten-second bucket, successful full-call P99 ≤15 ms, zero eligible failures including drain, and reconciled outcomes. The 64-VU standard series delivered 8,390.65–8,395.59 successful/s with P99 0.82–1.05 ms; the 256-VU burst series delivered 8,363.66–8,381.35/s with P99 3.81–6.71 ms. See [per-repeat results, provenance and resource observations](burst-handling.md). These cohorts use different service admission and generator memory limits; their results are not attributed solely to the dispatch algorithm.
+
+The earlier 256-VU/768 MiB series remains PASS/PASS/FAIL: its last repeat missed the bucket gate at 7,576.6/s despite zero eligible failures. A later diagnostic observed generator memory pressure but passed the gate, so that pressure does not prove the failed bucket's cause. Providing generator headroom was an explicit measurement change, followed by a fresh complete three-repeat series. All earlier attempts remain retained.
+
+The four-CPU generator defaults to 1,536 MiB. `--generator-memory-mib` accepts an integer from 256 through 4096 MiB; metadata and Docker use the same selected value. Record this budget separately from the applied service profile and application budgets. The option changes no acceptance gate or gateway admission, connection or body limit.
 
 ## Strict sustained local acceptance
 
-The strict acceptance experiment uses source commit `3c1f5f659512b08f44d4f418136ad6326268e2dd` and pinned k6 **2.3.0**. One constant-arrival-rate scenario offers **8,400 requests/s**, with **32 fixed VUs**, **30 seconds of warmup**, **300 seconds of measurement**, and a separate five-second graceful drain. The full experiment is repeated three times on the same recorded local Docker topology. Offered load is configuration; successful throughput is calculated from validated response counts.
+The historical 32-VU strict acceptance experiment uses source commit `3c1f5f659512b08f44d4f418136ad6326268e2dd` and pinned k6 **2.3.0**. One constant-arrival-rate scenario offers **8,400 requests/s**, with **32 fixed VUs**, **30 seconds of warmup**, **300 seconds of measurement**, and a separate five-second graceful drain. The full experiment is repeated three times on the same recorded local Docker topology. Offered load is configuration; successful throughput is calculated from validated response counts.
 
 A request is eligible only if it starts inside the half-open measurement window `[30s,330s)`. It contributes to successful throughput only if it also completes inside that window with HTTP 200, the exact 1,024-byte ASCII `x` body, and an expected backend identity header. Warmup-started requests are excluded even if they finish after warmup. Redirects and application retries are disabled. Successes are assigned by completion time to thirty fixed ten-second buckets. Each repeat must achieve at least **8,000 successful requests/s overall and in every bucket**, with successful full-call **P99 ≤15 ms**, no eligible failures including drain, and complete outcome/sample accounting. Empty or missing buckets cannot silently disappear.
 
@@ -32,17 +40,19 @@ All three consecutive repeats passed. Every repeat has thirty completion buckets
 
 CPU percentages use 100% per core. These are sampled peaks, not continuous maximums. The generator approached its memory limit in long runs; successful exit codes and actual successful completion counts establish these observations, not unlimited generator headroom. Sampling can miss brief peaks. Two sampler errors per run (container startup and a Docker stats EOF) are retained in the raw files. After load, [all six application processes](results/strict-local-v1/post-load.json) were running without OOM/restart flags, and held body bytes/inflight requests were zero.
 
-The 32-VU setting was selected after 256/64-VU experiments produced eligible 503s, even though their average throughput/P99 looked favorable. Those [failed and interrupted records, diagnostics and interpretation limits](results/strict-calibration-v1/README.md) remain public. Their concrete exceptions were not captured, so those historical errors remain unclassified. Subsequent [instrumented 64/256-VU reruns](backpressure.md) captured exact queue-full exceptions and admission-limit reasons, with cancellation/reuse and post-load resource checks. The instrumented results do not retrospectively prove the historical causes or establish zero failures at higher concurrency. Runtime limits, release order and durability remain unchanged.
+The 32-VU setting was selected after 256/64-VU experiments produced eligible 503s, even though their average throughput/P99 looked favorable. Those [failed and interrupted records, diagnostics and interpretation limits](results/strict-calibration-v1/README.md) remain public. Their concrete exceptions were not captured, so those historical errors remain unclassified. Subsequent [instrumented 64/256-VU reruns](backpressure.md) captured exact queue-full exceptions and admission-limit reasons, with cancellation/reuse and post-load resource checks. The instrumented results do not retrospectively prove the historical causes or establish zero failures at higher concurrency. Those diagnostic releases did not change admission, routing or asynchronous release behavior. The later [shared FIFO and monotonic generator](burst-handling.md) are separate changes with separately recorded outcomes; they do not retrospectively classify historical uninstrumented failures or validate negative timing exports.
 
 ### Reproduce the formal workload
 
 ```bash
+./scripts/k6.sh build
+./scripts/k6.sh provenance
 ./scripts/dev.sh build
 ./scripts/dev.sh up
-python3 benchmarks/run.py --suite acceptance --vus 32 --output work/strict-local-new
+python3 benchmarks/run.py --suite acceptance --profile standard --vus 32 --generator-memory-mib 768 --output work/strict-local-new
 ```
 
-Start from clean committed source, use an empty ignored output directory, and leave source/images unchanged until all three runs finish. The command uses the formal defaults: 8,400 offered/s, 30-second warmup, 300-second measurement, ten-second buckets and three repeats. It exits nonzero on a missed gate while retaining completed raw evidence. No AWS account is needed for this local workload. Node 20+ is needed only for measurement regression tests: `node --test benchmarks/test_*.mjs`.
+This reruns the historical workload on current source and the verified local generator; it does not reproduce the historical binary. Use the [current 64/256-VU commands](burst-handling.md#reproduce) for the new cohorts. Start from clean committed source, use an empty ignored output directory, and leave source/images unchanged until all three runs finish. The command uses the formal defaults: 8,400 offered/s, 30-second warmup, 300-second measurement, ten-second buckets and three repeats. It exits nonzero on a missed gate while retaining completed raw evidence. No AWS account is needed for this local workload. Node 20+ is needed only for measurement regression tests: `node --test benchmarks/test_*.mjs`.
 
 ### Measurement review fixes
 
@@ -53,14 +63,16 @@ Evidence validation now rejects missing or non-finite published latency statisti
 
 ## Historical reproduction
 
-Requirements: the running Compose stack, Python 3.9+, and Docker. The runner uses pinned k6 **2.3.0** in a separate container, limited to four CPUs and 768 MiB. Each scenario preallocates 64 VUs and permits at most 256. Warmup and measurement are separate constant-arrival-rate scenarios. Metrics prefixed `measured_` belong to the measurement scenario; responses completing during its graceful drain are also included. They are not strict fixed-window completion counters.
+The recorded historical matrix used pinned k6 **2.3.0**, four generator CPUs and 768 MiB. Each scenario preallocated 64 VUs and permitted at most 256. Warmup and measurement were separate constant-arrival-rate scenarios. Metrics prefixed `measured_` include their scenario's graceful-drain completions and are not strict fixed-window counters. The current runner uses the verified local generator and defaults to 1,536 MiB; explicitly select `--generator-memory-mib 768` to retain the historical memory budget. New exports do not replace the recorded matrix. Building the current generator requires Python 3.12+, Git and Docker.
 
 ```bash
+./scripts/k6.sh build
+./scripts/k6.sh provenance
 ./scripts/dev.sh build
 ./scripts/dev.sh up
-python3 benchmarks/run.py --suite gateway --output work/benchmarks/gateway
-python3 benchmarks/run.py --suite kv --output work/benchmarks/kv
-python3 benchmarks/run.py --suite isolation --output work/benchmarks/isolation
+python3 benchmarks/run.py --suite gateway --generator-memory-mib 768 --output work/benchmarks/gateway
+python3 benchmarks/run.py --suite kv --generator-memory-mib 768 --output work/benchmarks/kv
+python3 benchmarks/run.py --suite isolation --generator-memory-mib 768 --output work/benchmarks/isolation
 ```
 
 The gateway defaults are 100, 500, 1,000, 2,000, 4,000, and 8,000 offered requests/s, with **10 seconds warmup + 30 seconds measurement**, repeated three times at each level. Direct KV reads run at 100 operations/s, and CAS writes at 25 operations/s, also with three repeats. Payloads are exactly 1,024 bytes. The backend ID is a response header, so the body remains fixed size.
@@ -73,7 +85,7 @@ For a short correctness check, use `--rates 100 --repeats 1 --warmup 1 --seconds
 
 Each output directory contains:
 
-- `environment.json`: source commit and dirty flag, actual running-container image IDs and revision labels, pinned k6 image, Docker CPU/memory/architecture, JVM/container settings, payload and measurement durations. The runner rejects stale running images even when the local image tag has been rebuilt, and checks again before every run, including the recreated slow backend.
+- `environment.json`: source commit and dirty flag, actual running-container image IDs and revision labels, pinned k6 image, Docker CPU/memory/architecture, JVM/container settings, payload and measurement durations. The runner rejects stale running images even when the local image tag has been rebuilt, and checks again before every run, including the recreated slow backend. The selected generator CPU/memory limits and applied service profile/revision are recorded separately from application budgets. Generator binary/source/patch checksums and immutable image identity identify the local timing implementation.
 - One unmodified k6 `handleSummary` JSON export per run, including counters and latency distributions. These are aggregated run exports, not per-request traces.
 - Per-run Docker resource samples for this project's containers and the load generator.
 - `summary.json`: successful throughput, attempted requests, failed requests, 503/502/504 and transport outcomes, generator-dropped iterations, and both all-completed-request and successful-request latency statistics.

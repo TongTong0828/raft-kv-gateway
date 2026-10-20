@@ -1,0 +1,244 @@
+{
+  "result": "PASS",
+  "project": "kv-burst-20261020",
+  "commit": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+  "dirty": false,
+  "ports": {
+    "KV_HTTP_PORT": "60630",
+    "KV_GATEWAY_ADMIN": "60631",
+    "KV_CP1_PORT": "60632",
+    "KV_CP2_PORT": "60633",
+    "KV_CP3_PORT": "60634",
+    "KV_CP1_ADMIN": "60635",
+    "KV_CP2_ADMIN": "60636",
+    "KV_CP3_ADMIN": "60637"
+  },
+  "events": [
+    {
+      "test": "initial-routing",
+      "time": 1792456131.075637,
+      "revision": 1
+    },
+    {
+      "test": "bounded-history",
+      "time": 1792456132.249253,
+      "history": [
+        {
+          "start": 370786341282383,
+          "end": 370786357900466,
+          "type": "put",
+          "value": "writer-0",
+          "expected": 0,
+          "result": "OK",
+          "revision": 3
+        },
+        {
+          "start": 370786341282299,
+          "end": 370786357909966,
+          "type": "put",
+          "value": "writer-2",
+          "expected": 0,
+          "result": "CONFLICT",
+          "revision": 0
+        },
+        {
+          "start": 370786341295008,
+          "end": 370786360207508,
+          "type": "put",
+          "value": "writer-1",
+          "expected": 0,
+          "result": "CONFLICT",
+          "revision": 0
+        },
+        {
+          "start": 370786360284383,
+          "end": 370786399421341,
+          "type": "read",
+          "value": "writer-0",
+          "expected": 0,
+          "result": "OK",
+          "revision": 3
+        },
+        {
+          "start": 370786399433799,
+          "end": 370786400408299,
+          "type": "put",
+          "value": "uncertain",
+          "expected": 3,
+          "result": "UNKNOWN",
+          "revision": 0
+        },
+        {
+          "start": 370786400409799,
+          "end": 370786403148966,
+          "type": "read",
+          "value": "writer-0",
+          "expected": 0,
+          "result": "OK",
+          "revision": 3
+        }
+      ],
+      "linearizable": true
+    },
+    {
+      "test": "atomic-route-update",
+      "time": 1792456133.8960798,
+      "revision": 9,
+      "successfulRequests": 60,
+      "observedBackends": [
+        "backend-a",
+        "backend-b"
+      ]
+    },
+    {
+      "test": "cached-route-outage",
+      "time": 1792456141.5445728,
+      "revision": 9
+    },
+    {
+      "test": "raft-only-partition",
+      "time": 1792456150.146108,
+      "oldLeader": {
+        "nodeId": "cp2",
+        "role": "LEADER",
+        "leaderId": "cp2",
+        "leaderTarget": "cp2:50051",
+        "appliedIndex": "12",
+        "snapshotIndex": "10",
+        "snapshotInstalls": "0",
+        "stateRevision": "9",
+        "groupId": "11111111-1111-1111-1111-111111111111",
+        "appliedTerm": "2",
+        "logStartIndex": "0"
+      },
+      "newLeader": {
+        "nodeId": "cp1",
+        "role": "LEADER",
+        "leaderId": "cp1",
+        "leaderTarget": "cp1:50051",
+        "appliedIndex": "16",
+        "snapshotIndex": "10",
+        "snapshotInstalls": "0",
+        "stateRevision": "15",
+        "groupId": "11111111-1111-1111-1111-111111111111",
+        "appliedTerm": "3",
+        "logStartIndex": "0"
+      },
+      "majorityMutation": {
+        "entry": {
+          "key": "/fault/majority",
+          "value": "Y29tbWl0dGVk",
+          "modRevision": "15"
+        },
+        "revision": "15"
+      },
+      "proof": [
+        {
+          "applicationRpcReachable": true,
+          "nodeId": "cp2"
+        },
+        {
+          "oldLeaderRead": "DEADLINE_EXCEEDED"
+        },
+        {
+          "code": "UNAVAILABLE",
+          "watchFenced": true,
+          "elapsedMs": 2319
+        }
+      ],
+      "elapsedMs": 4956
+    },
+    {
+      "test": "snapshot-install",
+      "time": 1792456190.196095,
+      "before": {
+        "nodeId": "cp2",
+        "role": "FOLLOWER",
+        "leaderId": "cp1",
+        "leaderTarget": "cp1:50051",
+        "appliedIndex": "16",
+        "snapshotIndex": "10",
+        "snapshotInstalls": "0",
+        "stateRevision": "15",
+        "groupId": "11111111-1111-1111-1111-111111111111",
+        "appliedTerm": "3",
+        "logStartIndex": "0"
+      },
+      "purgedLeader": {
+        "nodeId": "cp1",
+        "role": "LEADER",
+        "leaderId": "cp1",
+        "leaderTarget": "cp1:50051",
+        "appliedIndex": "2416",
+        "snapshotIndex": "2416",
+        "snapshotInstalls": "0",
+        "stateRevision": "2415",
+        "groupId": "11111111-1111-1111-1111-111111111111",
+        "appliedTerm": "3",
+        "logStartIndex": "2049"
+      },
+      "snapshots": {
+        "cp1": {
+          "index": 2416
+        },
+        "cp3": {
+          "index": 2416
+        }
+      },
+      "installed": {
+        "nodeId": "cp2",
+        "role": "FOLLOWER",
+        "leaderId": "cp1",
+        "leaderTarget": "cp1:50051",
+        "appliedIndex": "2416",
+        "snapshotIndex": "2416",
+        "snapshotInstalls": "1",
+        "stateRevision": "2415",
+        "groupId": "11111111-1111-1111-1111-111111111111",
+        "appliedTerm": "3",
+        "logStartIndex": "-1"
+      }
+    },
+    {
+      "test": "full-restart",
+      "time": 1792456198.880695,
+      "revision": "2417",
+      "restored": {
+        "entry": {
+          "key": "/fault/persist",
+          "value": "cmV0YWluZWQ=",
+          "modRevision": "2417"
+        },
+        "stateRevision": "2417"
+      }
+    },
+    {
+      "test": "body-budget",
+      "time": 1792456204.74638,
+      "heldBytes": 66588613,
+      "firstObservedBytes": 66588613,
+      "sampleCount": 1,
+      "observationMs": 10,
+      "rejected": 2,
+      "sendFailures": 0,
+      "stats": {
+        "BlockIO": "0B / 471kB",
+        "CPUPerc": "3.64%",
+        "Container": "1638f111f8f7942f51e12b445808fd5b89217091b1142507bc846265853130cd",
+        "ID": "1638f111f8f7",
+        "MemPerc": "25.98%",
+        "MemUsage": "199.5MiB / 768MiB",
+        "Name": "kv-burst-20261020-gateway-1",
+        "NetIO": "71.7MB / 990kB",
+        "PIDs": "26"
+      },
+      "oomKilled": false
+    },
+    {
+      "test": "cleanup",
+      "time": 1792456207.096191,
+      "inflight": "0",
+      "bodyBytes": "0"
+    }
+  ]
+}

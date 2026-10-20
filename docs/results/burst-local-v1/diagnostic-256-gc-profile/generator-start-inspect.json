@@ -1,0 +1,47 @@
+{
+  "Id": "f86b6e685d658aab923fceacf6a7dfbd6c2b66233d3bc2c2fcbec9d70c771180",
+  "Name": "/kv-bench-1792454494888268000",
+  "Image": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+  "State": {
+    "Status": "running",
+    "Running": true,
+    "Paused": false,
+    "Restarting": false,
+    "OOMKilled": false,
+    "Dead": false,
+    "Pid": 664836,
+    "ExitCode": 0,
+    "Error": "",
+    "StartedAt": "2026-10-20T00:01:35.024667011Z",
+    "FinishedAt": "0001-01-01T00:00:00Z"
+  },
+  "Env": [
+    "RUN_ID=1792454494888268000",
+    "FIXED_VUS=256",
+    "MIN_SUCCESS_RPS=8000",
+    "GODEBUG=gctrace=1",
+    "WARMUP_SECONDS=30",
+    "BUCKET_SECONDS=10",
+    "MAX_P99_MS=15",
+    "RATE=8400",
+    "MEASURE_SECONDS=300",
+    "OUTPUT=acceptance-8400-r1.json",
+    "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+  ],
+  "HostConfig": {
+    "Memory": 805306368,
+    "MemorySwap": 1610612736,
+    "NanoCpus": 4000000000,
+    "CpuPeriod": 0,
+    "CpuQuota": 0,
+    "CpusetCpus": ""
+  },
+  "Ports": {
+    "6565/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "16565"
+      }
+    ]
+  }
+}

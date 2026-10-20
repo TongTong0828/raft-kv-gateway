@@ -1,0 +1,205 @@
+[INFO] Scanning for projects...
+[INFO] ------------------------------------------------------------------------
+[INFO] Detecting the operating system and CPU architecture
+[INFO] ------------------------------------------------------------------------
+[INFO] os.detected.name: linux
+[INFO] os.detected.arch: aarch_64
+[INFO] os.detected.bitness: 64
+[INFO] os.detected.version: 6.10
+[INFO] os.detected.version.major: 6
+[INFO] os.detected.version.minor: 10
+[INFO] os.detected.release: ubuntu
+[INFO] os.detected.release.version: 24.04
+[INFO] os.detected.release.like.ubuntu: true
+[INFO] os.detected.release.like.debian: true
+[INFO] os.detected.classifier: linux-aarch_64
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] Raft KV and Gateway                                                [pom]
+[INFO] api                                                                [jar]
+[INFO] gateway                                                            [jar]
+[INFO] 
+[INFO] -------------------< dev.kvgateway:raft-kv-gateway >--------------------
+[INFO] Building Raft KV and Gateway 0.1.0-SNAPSHOT                        [1/3]
+[INFO]   from pom.xml
+[INFO] --------------------------------[ pom ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ raft-kv-gateway ---
+[INFO] org.slf4j:slf4j-simple:jar:2.0.17 already exists in destination.
+[INFO] org.slf4j:slf4j-api:jar:2.0.17 already exists in destination.
+[INFO] 
+[INFO] --- exec:3.5.0:exec (archive-original-licenses) @ raft-kv-gateway ---
+[INFO] 
+[INFO] -------------------------< dev.kvgateway:api >--------------------------
+[INFO] Building api 0.1.0-SNAPSHOT                                        [2/3]
+[INFO]   from api/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- protobuf:0.6.1:compile (default) @ api ---
+[INFO] Compiling 1 proto file(s) to /workspace/api/target/generated-sources/protobuf/java
+[INFO] 
+[INFO] --- protobuf:0.6.1:compile-custom (default) @ api ---
+[INFO] Compiling 1 proto file(s) to /workspace/api/target/generated-sources/protobuf/grpc-java
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ api ---
+[INFO] skip non existing resourceDirectory /workspace/api/src/main/resources
+[INFO] Copying 13 resources from ../distribution/resources to target/classes
+[INFO] Copying 1 resource from src/main/proto to target/classes
+[INFO] Copying 1 resource from src/main/proto to target/classes
+[INFO] 
+[INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ api ---
+[INFO] com.google.protobuf:protobuf-java:jar:3.25.9 already exists in destination.
+[INFO] com.google.protobuf:protobuf-java-util:jar:3.25.9 already exists in destination.
+[INFO] com.google.code.findbugs:jsr305:jar:3.0.2 already exists in destination.
+[INFO] com.google.code.gson:gson:jar:2.8.9 already exists in destination.
+[INFO] com.google.errorprone:error_prone_annotations:jar:2.18.0 already exists in destination.
+[INFO] com.google.guava:guava:jar:32.0.1-jre already exists in destination.
+[INFO] com.google.guava:failureaccess:jar:1.0.1 already exists in destination.
+[INFO] com.google.guava:listenablefuture:jar:9999.0-empty-to-avoid-conflict-with-guava already exists in destination.
+[INFO] org.checkerframework:checker-qual:jar:3.33.0 already exists in destination.
+[INFO] com.google.j2objc:j2objc-annotations:jar:2.8 already exists in destination.
+[INFO] io.grpc:grpc-protobuf:jar:1.85.0 already exists in destination.
+[INFO] io.grpc:grpc-api:jar:1.85.0 already exists in destination.
+[INFO] com.google.api.grpc:proto-google-common-protos:jar:2.64.1 already exists in destination.
+[INFO] io.grpc:grpc-protobuf-lite:jar:1.85.0 already exists in destination.
+[INFO] io.grpc:grpc-stub:jar:1.85.0 already exists in destination.
+[INFO] org.codehaus.mojo:animal-sniffer-annotations:jar:1.27 already exists in destination.
+[INFO] javax.annotation:javax.annotation-api:jar:1.3.2 already exists in destination.
+[INFO] org.slf4j:slf4j-simple:jar:2.0.17 already exists in destination.
+[INFO] org.slf4j:slf4j-api:jar:2.0.17 already exists in destination.
+[INFO] 
+[INFO] --- exec:3.5.0:exec (archive-original-licenses) @ api ---
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 28 source files with javac [debug release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ api ---
+[INFO] skip non existing resourceDirectory /workspace/api/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 2 source files with javac [debug release 21] to target/test-classes
+[INFO] 
+[INFO] --- surefire:3.5.5:test (default-test) @ api ---
+[INFO] 
+[INFO] -----------------------< dev.kvgateway:gateway >------------------------
+[INFO] Building gateway 0.1.0-SNAPSHOT                                    [3/3]
+[INFO]   from gateway/pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- resources:3.4.0:resources (default-resources) @ gateway ---
+[INFO] skip non existing resourceDirectory /workspace/gateway/src/main/resources
+[INFO] Copying 13 resources from ../distribution/resources to target/classes
+[INFO] 
+[INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ gateway ---
+[INFO] dev.kvgateway:api:jar:0.1.0-SNAPSHOT already exists in destination.
+[INFO] com.google.protobuf:protobuf-java:jar:3.25.9 already exists in destination.
+[INFO] com.google.protobuf:protobuf-java-util:jar:3.25.9 already exists in destination.
+[INFO] com.google.code.findbugs:jsr305:jar:3.0.2 already exists in destination.
+[INFO] com.google.code.gson:gson:jar:2.8.9 already exists in destination.
+[INFO] com.google.j2objc:j2objc-annotations:jar:2.8 already exists in destination.
+[INFO] io.grpc:grpc-protobuf:jar:1.85.0 already exists in destination.
+[INFO] com.google.api.grpc:proto-google-common-protos:jar:2.64.1 already exists in destination.
+[INFO] io.grpc:grpc-protobuf-lite:jar:1.85.0 already exists in destination.
+[INFO] io.grpc:grpc-stub:jar:1.85.0 already exists in destination.
+[INFO] javax.annotation:javax.annotation-api:jar:1.3.2 already exists in destination.
+[INFO] io.grpc:grpc-netty-shaded:jar:1.85.0 already exists in destination.
+[INFO] io.grpc:grpc-util:jar:1.85.0 already exists in destination.
+[INFO] io.grpc:grpc-core:jar:1.85.0 already exists in destination.
+[INFO] com.google.android:annotations:jar:4.1.1.4 already exists in destination.
+[INFO] io.grpc:grpc-context:jar:1.85.0 already exists in destination.
+[INFO] com.google.guava:guava:jar:33.6.0-android already exists in destination.
+[INFO] com.google.guava:failureaccess:jar:1.0.3 already exists in destination.
+[INFO] com.google.guava:listenablefuture:jar:9999.0-empty-to-avoid-conflict-with-guava already exists in destination.
+[INFO] org.jspecify:jspecify:jar:1.0.0 already exists in destination.
+[INFO] com.google.errorprone:error_prone_annotations:jar:2.50.0 already exists in destination.
+[INFO] io.perfmark:perfmark-api:jar:0.27.0 already exists in destination.
+[INFO] io.grpc:grpc-api:jar:1.85.0 already exists in destination.
+[INFO] org.codehaus.mojo:animal-sniffer-annotations:jar:1.27 already exists in destination.
+[INFO] io.netty:netty-codec-http:jar:4.2.19.Final already exists in destination.
+[INFO] io.netty:netty-common:jar:4.2.19.Final already exists in destination.
+[INFO] io.netty:netty-buffer:jar:4.2.19.Final already exists in destination.
+[INFO] io.netty:netty-codec-base:jar:4.2.19.Final already exists in destination.
+[INFO] io.netty:netty-codec-compression:jar:4.2.19.Final already exists in destination.
+[INFO] io.netty:netty-transport:jar:4.2.19.Final already exists in destination.
+[INFO] io.netty:netty-resolver:jar:4.2.19.Final already exists in destination.
+[INFO] io.netty:netty-handler:jar:4.2.19.Final already exists in destination.
+[INFO] io.netty:netty-transport-native-unix-common:jar:4.2.19.Final already exists in destination.
+[INFO] io.netty:netty-resolver-dns:jar:4.2.19.Final already exists in destination.
+[INFO] io.netty:netty-codec-dns:jar:4.2.19.Final already exists in destination.
+[INFO] org.slf4j:slf4j-simple:jar:2.0.17 already exists in destination.
+[INFO] org.slf4j:slf4j-api:jar:2.0.17 already exists in destination.
+[INFO] 
+[INFO] --- exec:3.5.0:exec (archive-original-licenses) @ gateway ---
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ gateway ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 15 source files with javac [debug release 21] to target/classes
+[INFO] /workspace/gateway/src/main/java/dev/kvgateway/gateway/GatewayServer.java: /workspace/gateway/src/main/java/dev/kvgateway/gateway/GatewayServer.java uses or overrides a deprecated API.
+[INFO] /workspace/gateway/src/main/java/dev/kvgateway/gateway/GatewayServer.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- resources:3.4.0:testResources (default-testResources) @ gateway ---
+[INFO] skip non existing resourceDirectory /workspace/gateway/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ gateway ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 9 source files with javac [debug release 21] to target/test-classes
+[INFO] /workspace/gateway/src/test/java/dev/kvgateway/gateway/EndpointPoolTest.java: Some input files use or override a deprecated API.
+[INFO] /workspace/gateway/src/test/java/dev/kvgateway/gateway/EndpointPoolTest.java: Recompile with -Xlint:deprecation for details.
+[INFO] 
+[INFO] --- surefire:3.5.5:test (default-test) @ gateway ---
+[INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+[INFO] 
+[INFO] -------------------------------------------------------
+[INFO]  T E S T S
+[INFO] -------------------------------------------------------
+[INFO] Running dev.kvgateway.gateway.UpstreamDispatcherTest
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.281 s <<< FAILURE! -- in dev.kvgateway.gateway.UpstreamDispatcherTest
+[ERROR] dev.kvgateway.gateway.UpstreamDispatcherTest.retirementRacingNativeSuccessKeepsReservationUntilTheLateLeaseActuallyReturns -- Time elapsed: 0.271 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: retirement failure must await native lease return ==> expected: <false> but was: <true>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertFalse.failNotFalse(AssertFalse.java:63)
+	at org.junit.jupiter.api.AssertFalse.assertFalse(AssertFalse.java:36)
+	at org.junit.jupiter.api.Assertions.assertFalse(Assertions.java:239)
+	at dev.kvgateway.gateway.UpstreamDispatcherTest.retirementRacingNativeSuccessKeepsReservationUntilTheLateLeaseActuallyReturns(UpstreamDispatcherTest.java:323)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+
+[INFO] 
+[INFO] Results:
+[INFO] 
+[ERROR] Failures: 
+[ERROR]   UpstreamDispatcherTest.retirementRacingNativeSuccessKeepsReservationUntilTheLateLeaseActuallyReturns:323 retirement failure must await native lease return ==> expected: <false> but was: <true>
+[INFO] 
+[ERROR] Tests run: 1, Failures: 1, Errors: 0, Skipped: 0
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary for Raft KV and Gateway 0.1.0-SNAPSHOT:
+[INFO] 
+[INFO] Raft KV and Gateway ................................ SUCCESS [  0.719 s]
+[INFO] api ................................................ SUCCESS [  1.703 s]
+[INFO] gateway ............................................ FAILURE [  1.570 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  4.106 s
+[INFO] Finished at: 2026-10-19T23:13:44Z
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.5:test (default-test) on project gateway: There are test failures.
+[ERROR] 
+[ERROR] See /workspace/gateway/target/surefire-reports for the individual test results.
+[ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <args> -rf :gateway

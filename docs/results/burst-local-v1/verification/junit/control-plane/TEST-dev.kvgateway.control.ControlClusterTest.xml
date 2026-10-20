@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="dev.kvgateway.control.ControlClusterTest" time="25.856" tests="6" errors="0" skipped="0" failures="0" flakes="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/workspace/control-plane/target/test-classes:/workspace/control-plane/target/classes:/workspace/api/target/api-0.1.0-SNAPSHOT.jar:/m2/repository/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar:/m2/repository/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar:/m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar:/m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar:/m2/repository/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar:/m2/repository/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar:/m2/repository/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar:/m2/repository/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar:/m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:/m2/repository/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar:/m2/repository/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar:/m2/repository/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar:/m2/repository/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar:/m2/repository/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar:/m2/repository/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar:/m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar:/m2/repository/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar:/m2/repository/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar:/m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar:/m2/repository/org/apache/ratis/ratis-server/3.3.1/ratis-server-3.3.1.jar:/m2/repository/org/apache/ratis/ratis-thirdparty-misc/1.1.0/ratis-thirdparty-misc-1.1.0.jar:/m2/repository/org/apache/ratis/ratis-proto/3.3.1/ratis-proto-3.3.1.jar:/m2/repository/org/apache/ratis/ratis-common/3.3.1/ratis-common-3.3.1.jar:/m2/repository/org/apache/ratis/ratis-server-api/3.3.1/ratis-server-api-3.3.1.jar:/m2/repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar:/m2/repository/org/apache/ratis/ratis-metrics-api/3.3.1/ratis-metrics-api-3.3.1.jar:/m2/repository/org/apache/ratis/ratis-client/3.3.1/ratis-client-3.3.1.jar:/m2/repository/org/apache/ratis/ratis-grpc/3.3.1/ratis-grpc-3.3.1.jar:/m2/repository/org/apache/ratis/ratis-metrics-default/3.3.1/ratis-metrics-default-3.3.1.jar:/m2/repository/org/junit/jupiter/junit-jupiter/5.14.4/junit-jupiter-5.14.4.jar:/m2/repository/org/junit/jupiter/junit-jupiter-api/5.14.4/junit-jupiter-api-5.14.4.jar:/m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/m2/repository/org/junit/platform/junit-platform-commons/1.14.4/junit-platform-commons-1.14.4.jar:/m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/m2/repository/org/junit/jupiter/junit-jupiter-params/5.14.4/junit-jupiter-params-5.14.4.jar:/m2/repository/org/junit/jupiter/junit-jupiter-engine/5.14.4/junit-jupiter-engine-5.14.4.jar:/m2/repository/org/junit/platform/junit-platform-engine/1.14.4/junit-platform-engine-1.14.4.jar:/m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar:"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Etc/UTC"/>
+    <property name="io.netty.leakDetection.level" value="paranoid"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/opt/java/openjdk/lib"/>
+    <property name="sun.java.command" value="/workspace/control-plane/target/surefire/surefirebooter-20261019231422617_3.jar /workspace/control-plane/target/surefire 2026-10-19T23-14-22_596-jvmRun1 surefire-20261019231422617_1tmp surefire_0-20261019231422617_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/workspace/control-plane/target/test-classes:/workspace/control-plane/target/classes:/workspace/api/target/api-0.1.0-SNAPSHOT.jar:/m2/repository/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar:/m2/repository/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar:/m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar:/m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar:/m2/repository/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar:/m2/repository/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar:/m2/repository/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar:/m2/repository/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar:/m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:/m2/repository/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar:/m2/repository/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar:/m2/repository/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar:/m2/repository/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar:/m2/repository/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar:/m2/repository/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar:/m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar:/m2/repository/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar:/m2/repository/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar:/m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar:/m2/repository/org/apache/ratis/ratis-server/3.3.1/ratis-server-3.3.1.jar:/m2/repository/org/apache/ratis/ratis-thirdparty-misc/1.1.0/ratis-thirdparty-misc-1.1.0.jar:/m2/repository/org/apache/ratis/ratis-proto/3.3.1/ratis-proto-3.3.1.jar:/m2/repository/org/apache/ratis/ratis-common/3.3.1/ratis-common-3.3.1.jar:/m2/repository/org/apache/ratis/ratis-server-api/3.3.1/ratis-server-api-3.3.1.jar:/m2/repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar:/m2/repository/org/apache/ratis/ratis-metrics-api/3.3.1/ratis-metrics-api-3.3.1.jar:/m2/repository/org/apache/ratis/ratis-client/3.3.1/ratis-client-3.3.1.jar:/m2/repository/org/apache/ratis/ratis-grpc/3.3.1/ratis-grpc-3.3.1.jar:/m2/repository/org/apache/ratis/ratis-metrics-default/3.3.1/ratis-metrics-default-3.3.1.jar:/m2/repository/org/junit/jupiter/junit-jupiter/5.14.4/junit-jupiter-5.14.4.jar:/m2/repository/org/junit/jupiter/junit-jupiter-api/5.14.4/junit-jupiter-api-5.14.4.jar:/m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/m2/repository/org/junit/platform/junit-platform-commons/1.14.4/junit-platform-commons-1.14.4.jar:/m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/m2/repository/org/junit/jupiter/junit-jupiter-params/5.14.4/junit-jupiter-params-5.14.4.jar:/m2/repository/org/junit/jupiter/junit-jupiter-engine/5.14.4/junit-jupiter-engine-5.14.4.jar:/m2/repository/org/junit/platform/junit-platform-engine/1.14.4/junit-platform-engine-1.14.4.jar:/m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/root"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-08-18"/>
+    <property name="java.home" value="/opt/java/openjdk"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/workspace/control-plane"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="/workspace/control-plane/target/surefire/surefirebooter-20261019231422617_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.12.1+1-LTS"/>
+    <property name="user.name" value="root"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.10.14-linuxkit"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-21.0.12.1+1"/>
+    <property name="localRepository" value="/m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="21.0.12.1"/>
+    <property name="user.dir" value="/workspace/control-plane"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="org.slf4j.simpleLogger.defaultLogLevel" value="warn"/>
+    <property name="org.apache.ratis.thirdparty.io.netty.allocator.useCacheForAllThreads" value="false"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="21.0.12.1+1-LTS"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="maven.repo.local" value="/m2/repository"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="majorityCommitAndLinearizableRead" classname="dev.kvgateway.control.ControlClusterTest" time="1.559">
+    <system-err><![CDATA[Oct 19, 2026 11:14:25 PM org.apache.ratis.thirdparty.io.grpc.netty.TcpMetrics loadEpollInfo
+INFO: Epoll available during static init of TcpMetrics:true
+]]></system-err>
+  </testcase>
+  <testcase name="followerRejectsApplicationReadAndLeaderFailoverRetainsCommit" classname="dev.kvgateway.control.ControlClusterTest" time="4.209">
+    <system-err><![CDATA[[n0@group-111111111111->n1-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n1-GrpcLogAppender is interrupted: java.lang.InterruptedException
+[n0@group-111111111111->n2-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n2-GrpcLogAppender is interrupted: java.lang.InterruptedException
+[grpc-default-executor-3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n2-GrpcLogAppender: Failed to resetClient for n2
+org.apache.ratis.protocol.exceptions.AlreadyClosedException: n0 is already CLOSED
+	at org.apache.ratis.util.PeerProxyMap$PeerAndProxy.getProxy(PeerProxyMap.java:70)
+	at org.apache.ratis.util.PeerProxyMap.getProxy(PeerProxyMap.java:127)
+	at org.apache.ratis.grpc.server.GrpcLogAppender.getClient(GrpcLogAppender.java:203)
+	at org.apache.ratis.grpc.server.GrpcLogAppender.resetClient(GrpcLogAppender.java:208)
+	at org.apache.ratis.grpc.server.GrpcLogAppender.access$800(GrpcLogAppender.java:71)
+	at org.apache.ratis.grpc.server.GrpcLogAppender$AppendLogResponseHandler.onCompleted(GrpcLogAppender.java:563)
+	at org.apache.ratis.thirdparty.io.grpc.stub.ClientCalls$StreamObserverToCallListenerAdapter.onClose(ClientCalls.java:579)
+	at org.apache.ratis.thirdparty.io.grpc.internal.DelayedClientCall$DelayedListener$3.run(DelayedClientCall.java:553)
+	at org.apache.ratis.thirdparty.io.grpc.internal.DelayedClientCall$DelayedListener.delayOrExecute(DelayedClientCall.java:482)
+	at org.apache.ratis.thirdparty.io.grpc.internal.DelayedClientCall$DelayedListener.onClose(DelayedClientCall.java:537)
+	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:566)
+	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.access$100(ClientCallImpl.java:72)
+	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInternal(ClientCallImpl.java:734)
+	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInContext(ClientCallImpl.java:715)
+	at org.apache.ratis.thirdparty.io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at org.apache.ratis.thirdparty.io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+[grpc-default-executor-4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n1-GrpcLogAppender: Failed to resetClient for n1
+org.apache.ratis.protocol.exceptions.AlreadyClosedException: n0 is already CLOSED
+	at org.apache.ratis.util.PeerProxyMap$PeerAndProxy.getProxy(PeerProxyMap.java:70)
+	at org.apache.ratis.util.PeerProxyMap.getProxy(PeerProxyMap.java:127)
+	at org.apache.ratis.grpc.server.GrpcLogAppender.getClient(GrpcLogAppender.java:203)
+	at org.apache.ratis.grpc.server.GrpcLogAppender.resetClient(GrpcLogAppender.java:208)
+	at org.apache.ratis.grpc.server.GrpcLogAppender.access$800(GrpcLogAppender.java:71)
+	at org.apache.ratis.grpc.server.GrpcLogAppender$AppendLogResponseHandler.onCompleted(GrpcLogAppender.java:563)
+	at org.apache.ratis.thirdparty.io.grpc.stub.ClientCalls$StreamObserverToCallListenerAdapter.onClose(ClientCalls.java:579)
+	at org.apache.ratis.thirdparty.io.grpc.internal.DelayedClientCall$DelayedListener$3.run(DelayedClientCall.java:553)
+	at org.apache.ratis.thirdparty.io.grpc.internal.DelayedClientCall$DelayedListener.delayOrExecute(DelayedClientCall.java:482)
+	at org.apache.ratis.thirdparty.io.grpc.internal.DelayedClientCall$DelayedListener.onClose(DelayedClientCall.java:537)
+	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:566)
+	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.access$100(ClientCallImpl.java:72)
+	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInternal(ClientCallImpl.java:734)
+	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInContext(ClientCallImpl.java:715)
+	at org.apache.ratis.thirdparty.io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+	at org.apache.ratis.thirdparty.io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+[grpc-default-executor-4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n0-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+  Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: localhost/[0:0:0:0:0:0:0:1]:40443
+  Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+[grpc-default-executor-4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=1); keep nextIndex (5) unchanged and retry.
+[grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=3); keep nextIndex (6) unchanged and retry.
+[grpc-default-executor-4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=5); keep nextIndex (7) unchanged and retry.
+]]></system-err>
+  </testcase>
+  <testcase name="snapshotAndFullRestartPreserveRevision" classname="dev.kvgateway.control.ControlClusterTest" time="9.125">
+    <system-err><![CDATA[[grpc-default-executor-4] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - n1: APPEND_ENTRIES onError, lastRequest: n2->n1#2-t3,previous=(t:3, i:5),leaderCommit=5,initializing? false,entry=(t:3, i:6), first=(t:3, i:6), METADATAENTRY(c:5): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+[grpc-default-executor-4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n1-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: RST_STREAM closed stream. HTTP/2 error code: CANCEL
+[grpc-default-executor-4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n1-GrpcLogAppender: Follower failed (request=null, errorCount=1); keep nextIndex (7) unchanged and retry.
+[grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - n1: APPEND_ENTRIES onError, lastRequest: null: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+[timer6] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n0-AppendLogResponseHandler: Failed appendEntries (Repeated 20 times in the last 5.003s): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+  Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: localhost/[0:0:0:0:0:0:0:1]:40443
+  Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+[timer0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=2); keep nextIndex (5) unchanged and retry. (Repeated 2 times in the last 5.006s)
+[timer2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=4); keep nextIndex (6) unchanged and retry. (Repeated 2 times in the last 5.003s)
+[timer6] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=20); keep nextIndex (7) unchanged and retry. (Repeated 16 times in the last 5.001s)
+[n2@group-111111111111-LeaderStateImpl] WARN org.apache.ratis.server.RaftServer$Division - n2@group-111111111111-LeaderStateImpl: Lost leadership on term: 3. Election timeout: 1000ms. In charge for: 5048ms. Conf: conf: {index: 5, cur=peers:[n0|localhost:40443, n1|localhost:37743, n2|localhost:40331]|listeners:[], old=null}
+[n2@group-111111111111-LeaderStateImpl] WARN org.apache.ratis.server.RaftServer$Division - Follower n2@group-111111111111->n0(c-1,m-1,n7, caughtUp=true, lastRpcSendTime=155, lastRpcResponseTime=6048)
+[n2@group-111111111111-LeaderStateImpl] WARN org.apache.ratis.server.RaftServer$Division - Follower n2@group-111111111111->n1(c6,m6,n7, caughtUp=true, lastRpcSendTime=282, lastRpcResponseTime=1930)
+[n2@group-111111111111->n0-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n0-GrpcLogAppender is interrupted: java.lang.InterruptedException: sleep interrupted
+[n2@group-111111111111->n1-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n1-GrpcLogAppender is interrupted: java.lang.InterruptedException: sleep interrupted
+[timer6] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n1-GrpcLogAppender: Follower failed (request=null, errorCount=14); keep nextIndex (7) unchanged and retry. (Repeated 14 times in the last 5.004s)
+[timer5] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n1-AppendLogResponseHandler: Failed appendEntries (Repeated 14 times in the last 5.004s): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+  Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: localhost/[0:0:0:0:0:0:0:1]:37743
+  Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+[grpc-default-executor-6] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-AppendLogResponseHandler: received INCONSISTENCY reply with nextIndex 5, errorCount=1, request=AppendEntriesRequest:cid=0:HEARTBEAT 
+]]></system-err>
+  </testcase>
+  <testcase name="realGrpcWatchDeliversInitialSnapshot" classname="dev.kvgateway.control.ControlClusterTest" time="0.159"/>
+  <testcase name="commitBeforeReplyLossCanBeReconciled" classname="dev.kvgateway.control.ControlClusterTest" time="1.031"/>
+  <testcase name="shortDeadlinesNeverExhaustRatisClientSlots" classname="dev.kvgateway.control.ControlClusterTest" time="1.049"/>
+</testsuite>

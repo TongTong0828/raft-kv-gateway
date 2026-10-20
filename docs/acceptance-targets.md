@@ -1,20 +1,20 @@
 # Required project acceptance targets
 
-On 2026-10-18 the project owner clarified that all three supplied project bullets are required outcomes. This supersedes the initial v1 decision to treat 8,000 successful requests/s as an optional experiment and EKS as a render-only example. Strict local performance now passes; final cloud acceptance still requires the real AWS execution described here. The owner has no AWS account and explicitly declined paid AWS resources on 2026-10-18. No AWS resources have been created, and the proposal below is deferred and unapproved. Earlier results remain unchanged historical evidence.
+On 2026-10-18 the project owner clarified that all three supplied project bullets are required outcomes. This supersedes the initial v1 decision to treat 8,000 successful requests/s as an optional experiment and EKS as a render-only example. Local 32-VU historical and current 64/256-VU performance series pass their recorded gates; final cloud acceptance still requires the real AWS execution described here. The owner has no AWS account and explicitly declined paid AWS resources on 2026-10-18. No AWS resources have been created, and the proposal below is deferred and unapproved. Earlier results remain unchanged historical evidence.
 
 ## Acceptance matrix
 
 | Required outcome | Current evidence | Remaining acceptance |
 |---|---|---|
 | Three-node Apache Ratis KV, revision checks, persistent logs and snapshots; recovery under leader failure, restart and network partition | Implemented; real Docker fault suite, snapshot installation and recovery passed | Preserve these guarantees in the cloud deployment; record EKS recovery evidence |
-| Nonblocking Netty HTTP gateway, pooled connections, health-aware balancing and per-service concurrency limits | Implemented; HTTP/lifecycle tests, overload and isolation experiments passed | Repeat the sustained gate through the actual NLB when cloud work is authorized; [three local 32-VU runs passed](benchmarks.md#strict-sustained-local-acceptance) |
+| Nonblocking Netty HTTP gateway, pooled connections, health-aware balancing and per-service concurrency limits | Implemented; HTTP/lifecycle tests, overload and isolation experiments passed | Repeat the sustained gate through the actual NLB if cloud work is authorized; [local cohort evidence and comparison limits](burst-handling.md) |
 | StatefulSets and Deployments running on AWS EKS; versioned gRPC configuration, atomic route replacement and cached forwarding during control outages | Kubernetes kind validation and local configuration-outage tests passed; EKS overlay renders | Provision actual EKS infrastructure, deploy the committed image, exercise the real load balancer and cloud recovery cases |
 
 The previous highest-load runs delivered 7,996.17–7,998.47 successful requests/s over 30-second measurement scenarios. They do not establish at least 8,000 successful requests/s for a sustained acceptance interval. Their HTTP timing also excludes connection establishment, and their scenario summaries can include completion during graceful drain. These runs remain useful local observations, not final cloud acceptance.
 
 ## Performance gate
 
-The [local implementation of this gate](benchmarks.md#strict-sustained-local-acceptance) passed three consecutive 300-second runs with 32 fixed VUs, unchanged durability and all ninety ten-second completion buckets above target. This does not establish EKS/NLB performance or zero failures under higher-concurrency bursts.
+The [historical 32-VU local series](benchmarks.md#strict-sustained-local-acceptance) passed three 300-second runs. The [current burst report](burst-handling.md) separately records three 64-VU standard-profile passes (service admission 100, generator 768 MiB) and three 256-VU burst-profile passes (service admission 256, generator 1,536 MiB). All six current selected runs meet every gate with zero eligible failures or unaccounted outcomes; the lowest completion bucket is 8,115.3 successful requests/s. Each series retains earlier failures and its exact resource limits. These local results establish neither EKS/NLB performance nor success for every possible burst.
 
 Use a dedicated load-generator EC2 instance in the same AWS Region/VPC, separate from the EKS worker nodes, and address the actual gateway Network Load Balancer DNS name. Record its instance type, architecture, client location, network path, HTTP/TLS mode, connection reuse, Pod limits and image digests. Same-VPC latency must not be presented as Internet-client latency.
 

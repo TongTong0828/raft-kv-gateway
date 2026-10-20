@@ -1,0 +1,63 @@
+File: k6
+Type: cpu
+Time: 2026-10-20 00:05:34 UTC
+Duration: 70s, Total samples = 61.36s (87.65%)
+Showing nodes accounting for 12.10s, 19.72% of 61.36s total
+Dropped 834 nodes (cum <= 0.31s)
+Showing top 55 nodes out of 298
+      flat  flat%   sum%        cum   cum%
+         0     0%     0%     39.08s 63.69%  go.k6.io/k6/v2/lib/executor.(*activeVUPool).AddVU.func1
+     0.03s 0.049% 0.049%     38.99s 63.54%  go.k6.io/k6/v2/lib/executor.getIterationRunner.func1
+     0.03s 0.049% 0.098%     38.94s 63.46%  go.k6.io/k6/v2/internal/js.(*ActiveVU).RunOnce
+     0.01s 0.016%  0.11%     36.53s 59.53%  go.k6.io/k6/v2/internal/js.(*VU).runFn
+     0.04s 0.065%  0.18%     35.87s 58.46%  github.com/grafana/sobek.(*vm).try
+     0.01s 0.016%   0.2%     35.77s 58.30%  go.k6.io/k6/v2/internal/js/eventloop.(*EventLoop).Start
+     0.01s 0.016%  0.21%     35.69s 58.16%  go.k6.io/k6/v2/internal/js.(*VU).runFn.func2
+     0.02s 0.033%  0.24%     35.68s 58.15%  github.com/grafana/sobek.AssertFunction.func1
+     0.02s 0.033%  0.28%     35.66s 58.12%  github.com/grafana/sobek.(*Runtime).runWrapped
+     0.02s 0.033%  0.31%     35.53s 57.90%  github.com/grafana/sobek.AssertFunction.func1.1
+         0     0%  0.31%     35.51s 57.87%  github.com/grafana/sobek.(*baseJsFuncObject).Call
+     0.01s 0.016%  0.33%     35.51s 57.87%  github.com/grafana/sobek.(*baseJsFuncObject)._call (inline)
+         0     0%  0.33%     35.51s 57.87%  github.com/grafana/sobek.(*baseJsFuncObject).call
+     0.01s 0.016%  0.34%     35.50s 57.86%  github.com/grafana/sobek.(*baseJsFuncObject).__call
+     0.01s 0.016%  0.36%     35.41s 57.71%  github.com/grafana/sobek.(*vm).runTryInner
+     1.70s  2.77%  3.13%     35.40s 57.69%  github.com/grafana/sobek.(*vm).run
+     0.38s  0.62%  3.75%     24.67s 40.21%  github.com/grafana/sobek.(*Runtime).wrapReflectFunc.func1
+     0.15s  0.24%  3.99%     19.06s 31.06%  github.com/grafana/sobek.call.exec
+     0.34s  0.55%  4.55%     18.73s 30.52%  github.com/grafana/sobek.(*nativeFuncObject).vmCall
+     0.01s 0.016%  4.56%     17.69s 28.83%  reflect.Value.Call
+     0.79s  1.29%  5.85%     17.68s 28.81%  reflect.Value.call
+     0.68s  1.11%  6.96%      9.82s 16.00%  runtime.mallocgc
+     0.13s  0.21%  7.17%      9.36s 15.25%  github.com/grafana/sobek.getProp.exec
+     0.03s 0.049%  7.22%      7.81s 12.73%  go.k6.io/k6/v2/js/modules/k6/http.(*RootModule).NewModuleInstance.func2
+     0.01s 0.016%  7.24%      7.78s 12.68%  go.k6.io/k6/v2/js/modules/k6/http.(*Client).Request
+     0.03s 0.049%  7.28%      7.61s 12.40%  github.com/grafana/sobek.(*baseObject).getStr
+     0.04s 0.065%  7.35%      7.14s 11.64%  github.com/grafana/sobek.(*valueProperty).get
+     6.44s 10.50% 17.85%      6.44s 10.50%  internal/runtime/syscall/linux.Syscall6
+     0.05s 0.081% 17.93%      6.25s 10.19%  go.k6.io/k6/v2/lib/netext/httpext.MakeRequest
+     0.04s 0.065% 17.99%      5.73s  9.34%  runtime.systemstack
+     0.01s 0.016% 18.01%      5.27s  8.59%  go.k6.io/k6/v2/internal/js/modules/k6/execution.(*RootModule).NewModuleInstance.func1.1
+     0.01s 0.016% 18.02%      5.26s  8.57%  go.k6.io/k6/v2/internal/js/modules/k6/execution.(*ModuleInstance).newScenarioInfo
+         0     0% 18.02%      5.23s  8.52%  internal/poll.ignoringEINTRIO (inline)
+     0.21s  0.34% 18.37%      5.20s  8.47%  github.com/grafana/sobek.(*Runtime).toValue
+     0.01s 0.016% 18.38%      5.20s  8.47%  syscall.Syscall
+     0.02s 0.033% 18.42%      5.05s  8.23%  syscall.RawSyscall6
+     0.02s 0.033% 18.45%      4.97s  8.10%  go.k6.io/k6/v2/internal/js/modules/k6/execution.newInfoObj
+     0.03s 0.049% 18.50%      4.79s  7.81%  net/http.(*persistConn).writeLoop
+     0.02s 0.033% 18.53%      4.61s  7.51%  github.com/grafana/sobek.(*Runtime).ToValue (partial-inline)
+     0.13s  0.21% 18.74%      4.44s  7.24%  net/http.(*persistConn).readLoop
+     0.03s 0.049% 18.79%      4.08s  6.65%  runtime.mcall
+     0.05s 0.081% 18.87%      4.04s  6.58%  runtime.park_m
+     0.01s 0.016% 18.89%      3.91s  6.37%  bufio.(*Writer).Flush
+         0     0% 18.89%      3.90s  6.36%  go.k6.io/k6/v2/lib/netext.(*Conn).Write
+     0.01s 0.016% 18.90%      3.90s  6.36%  internal/poll.(*FD).Write
+         0     0% 18.90%      3.90s  6.36%  net.(*conn).Write
+         0     0% 18.90%      3.90s  6.36%  net.(*netFD).Write
+         0     0% 18.90%      3.90s  6.36%  net/http.persistConnWriter.Write
+     0.04s 0.065% 18.97%      3.87s  6.31%  runtime.schedule
+         0     0% 18.97%      3.84s  6.26%  syscall.Write (inline)
+     0.01s 0.016% 18.99%      3.84s  6.26%  syscall.write
+     0.01s 0.016% 19.00%      3.72s  6.06%  github.com/grafana/sobek.(*Runtime).newWrappedFunc
+     0.11s  0.18% 19.18%      3.69s  6.01%  runtime.findRunnable
+     0.31s  0.51% 19.69%      3.31s  5.39%  runtime.mallocgcSmallScanNoHeader
+     0.02s 0.033% 19.72%      2.94s  4.79%  github.com/grafana/sobek.(*Runtime).toReflectValue

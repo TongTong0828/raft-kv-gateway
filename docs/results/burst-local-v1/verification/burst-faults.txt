@@ -1,0 +1,745 @@
+backend-a-1  | Picked up JAVA_TOOL_OPTIONS: -Xmx32m -XX:MaxDirectMemorySize=16m -XX:ReservedCodeCacheSize=16m -XX:ActiveProcessorCount=1
+backend-a-1  | Backend backend-a listening on 8081
+gateway-1    | Picked up JAVA_TOOL_OPTIONS: -Xmx256m -XX:MaxDirectMemorySize=128m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dio.netty.leakDetection.level=advanced -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+gateway-1    | Gateway listening on 8080
+backend-b-1  | Picked up JAVA_TOOL_OPTIONS: -Xmx32m -XX:MaxDirectMemorySize=16m -XX:ReservedCodeCacheSize=16m -XX:ActiveProcessorCount=1
+backend-b-1  | Backend backend-b listening on 8081
+cp2-1        | Picked up JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+cp2-1        | Oct 20, 2026 12:28:45 AM org.apache.ratis.thirdparty.io.grpc.netty.TcpMetrics loadEpollInfo
+cp2-1        | INFO: Epoll available during static init of TcpMetrics:true
+cp2-1        | [grpc-default-executor-3] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - cp2: APPEND_ENTRIES onError, lastRequest: null: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+cp2-1        | [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - cp2: APPEND_ENTRIES onError, lastRequest: cp3->cp2#54-t1,previous=(t:1, i:9),leaderCommit=9,initializing? false,entry=(t:1, i:10), first=(t:1, i:10), METADATAENTRY(c:9): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+cp2-1        | Picked up JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+cp2-1        | Oct 20, 2026 12:29:03 AM org.apache.ratis.thirdparty.io.grpc.netty.TcpMetrics loadEpollInfo
+cp2-1        | INFO: Epoll available during static init of TcpMetrics:true
+cp2-1        | [cp2@group-111111111111-LeaderStateImpl] WARN org.apache.ratis.server.RaftServer$Division - cp2@group-111111111111-LeaderStateImpl: Lost leadership on term: 2. Election timeout: 1000ms. In charge for: 3175ms. Conf: conf: {index: 11, cur=peers:[cp2|cp2-raft:6000, cp1|cp1-raft:6000, cp3|cp3-raft:6000]|listeners:[], old=null}
+cp2-1        | [cp2@group-111111111111-LeaderStateImpl] WARN org.apache.ratis.server.RaftServer$Division - Follower cp2@group-111111111111->cp1(c12,m12,n13, caughtUp=true, lastRpcSendTime=0, lastRpcResponseTime=1279)
+cp2-1        | [cp2@group-111111111111-LeaderStateImpl] WARN org.apache.ratis.server.RaftServer$Division - Follower cp2@group-111111111111->cp3(c12,m12,n13, caughtUp=true, lastRpcSendTime=124, lastRpcResponseTime=1279)
+cp2-1        | [cp2@group-111111111111->cp1-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-GrpcLogAppender is interrupted: java.lang.InterruptedException
+cp2-1        | [cp2@group-111111111111->cp3-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-GrpcLogAppender is interrupted: java.lang.InterruptedException
+cp2-1        | [timer3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=1, request=AppendEntriesRequest:cid=14:HEARTBEAT
+cp2-1        | [timer4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=1, request=AppendEntriesRequest:cid=13:HEARTBEAT
+cp2-1        | [timer3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=2, request=AppendEntriesRequest:cid=15:HEARTBEAT
+cp2-1        | [timer4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=2, request=AppendEntriesRequest:cid=14:HEARTBEAT
+cp2-1        | [timer5] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=3, request=AppendEntriesRequest:cid=16:HEARTBEAT
+cp2-1        | [timer6] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=3, request=AppendEntriesRequest:cid=15:HEARTBEAT
+cp2-1        | [timer5] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=4, request=AppendEntriesRequest:cid=17:HEARTBEAT
+cp2-1        | [timer6] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=4, request=AppendEntriesRequest:cid=16:HEARTBEAT
+cp2-1        | [timer7] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=5, request=AppendEntriesRequest:cid=18:HEARTBEAT
+cp2-1        | [timer0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=5, request=AppendEntriesRequest:cid=17:HEARTBEAT
+cp2-1        | [timer7] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=6, request=AppendEntriesRequest:cid=19:HEARTBEAT
+cp2-1        | [timer0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=6, request=AppendEntriesRequest:cid=18:HEARTBEAT
+cp2-1        | [timer1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=7, request=AppendEntriesRequest:cid=20:HEARTBEAT
+cp2-1        | [timer2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=7, request=AppendEntriesRequest:cid=19:HEARTBEAT
+cp2-1        | [timer2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=8, request=AppendEntriesRequest:cid=21:HEARTBEAT
+cp2-1        | [timer3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=8, request=AppendEntriesRequest:cid=20:HEARTBEAT
+cp2-1        | [timer4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-GrpcLogAppender: Timed out HEARTBEAT appendEntries, errorCount=9, request=AppendEntriesRequest:cid=22:HEARTBEAT
+cp2-1        | [Thread-34] WARN org.apache.ratis.grpc.GrpcUtil - Timed out gracefully shutting down connection: ManagedChannelOrphanWrapper{delegate=ManagedChannelImpl{logId=21, target=cp2-raft:6000}}. 
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcClientProtocolService - 0-UnorderedRequestStreamObserver0: onError: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp1-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp2@group-111111111111->cp3-AppendLogResponseHandler: received NOT_LEADER reply with term 3
+cp2-1        | [grpc-default-executor-1] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - cp2: APPEND_ENTRIES onError, lastRequest: null: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+cp2-1        | [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - cp2: APPEND_ENTRIES onError, lastRequest: null: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+cp2-1        | [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - cp2: APPEND_ENTRIES onError, lastRequest: cp1->cp2#433051-t3,previous=(t:2, i:12),leaderCommit=16,initializing? false,4 entries=(t:3, i:13)...(t:3, i:16), first=(t:3, i:13), CONFIGURATIONENTRY(current:id:"cp2"address:"cp2-raft:6000"startupRole:FOLLOWER, id:"cp1"address:"cp1-raft:6000"startupRole:FOLLOWER, id:"cp3"address:"cp3-raft:6000"startupRole:FOLLOWER, old:): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+cp2-1        | Picked up JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+cp2-1        | Oct 20, 2026 12:29:45 AM org.apache.ratis.thirdparty.io.grpc.netty.TcpMetrics loadEpollInfo
+cp2-1        | INFO: Epoll available during static init of TcpMetrics:true
+cp2-1        | [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - cp2: APPEND_ENTRIES onError, lastRequest: cp1->cp2#1831006-t3,previous=(t:3, i:2417),leaderCommit=2417,initializing? false,entry=(t:3, i:2418), first=(t:3, i:2418), METADATAENTRY(c:2417): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+cp2-1        | [grpc-default-executor-3] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - cp2: APPEND_ENTRIES onError, lastRequest: null: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+cp2-1        | Picked up JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+cp2-1        | Oct 20, 2026 12:29:57 AM org.apache.ratis.thirdparty.io.grpc.netty.TcpMetrics loadEpollInfo
+cp2-1        | INFO: Epoll available during static init of TcpMetrics:true
+cp1-1        | Picked up JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+cp1-1        | Oct 20, 2026 12:28:45 AM org.apache.ratis.thirdparty.io.grpc.netty.TcpMetrics loadEpollInfo
+cp1-1        | INFO: Epoll available during static init of TcpMetrics:true
+cp1-1        | [grpc-default-executor-1] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - cp1: APPEND_ENTRIES onError, lastRequest: null: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+cp1-1        | [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - cp1: APPEND_ENTRIES onError, lastRequest: cp3->cp1#50-t1,previous=(t:1, i:9),leaderCommit=9,initializing? false,entry=(t:1, i:10), first=(t:1, i:10), METADATAENTRY(c:9): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+cp1-1        | Picked up JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+cp1-1        | Oct 20, 2026 12:29:03 AM org.apache.ratis.thirdparty.io.grpc.netty.TcpMetrics loadEpollInfo
+cp1-1        | INFO: Epoll available during static init of TcpMetrics:true
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft: Name or service not known
+cp1-1        | 	at java.base/java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)
+cp1-1        | 	at java.base/java.net.Inet6AddressImpl.lookupAllHostAddr(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress$PlatformResolver.lookupByName(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAddressesFromNameService(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress$NameServiceAddresses.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp3-1        | Picked up JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+cp3-1        | Oct 20, 2026 12:28:45 AM org.apache.ratis.thirdparty.io.grpc.netty.TcpMetrics loadEpollInfo
+cp3-1        | INFO: Epoll available during static init of TcpMetrics:true
+cp3-1        | [grpc-default-executor-4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp3@group-111111111111->cp2-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: RST_STREAM closed stream. HTTP/2 error code: CANCEL
+cp3-1        | [grpc-default-executor-3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp3@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=1); keep nextIndex (11) unchanged and retry.
+cp3-1        | [grpc-default-executor-4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp3@group-111111111111->cp1-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: RST_STREAM closed stream. HTTP/2 error code: CANCEL
+cp3-1        | [grpc-default-executor-4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp3@group-111111111111->cp1-GrpcLogAppender: Follower failed (request=null, errorCount=1); keep nextIndex (11) unchanged and retry.
+cp3-1        | [cp3@group-111111111111-LeaderStateImpl] WARN org.apache.ratis.server.RaftServer$Division - cp3@group-111111111111-LeaderStateImpl: Lost leadership on term: 1. Election timeout: 1000ms. In charge for: 9547ms. Conf: conf: {index: 0, cur=peers:[cp2|cp2-raft:6000, cp1|cp1-raft:6000, cp3|cp3-raft:6000]|listeners:[], old=null}
+cp3-1        | [cp3@group-111111111111-LeaderStateImpl] WARN org.apache.ratis.server.RaftServer$Division - Follower cp3@group-111111111111->cp2(c10,m10,n11, caughtUp=true, lastRpcSendTime=363, lastRpcResponseTime=1203)
+cp3-1        | [cp3@group-111111111111-LeaderStateImpl] WARN org.apache.ratis.server.RaftServer$Division - Follower cp3@group-111111111111->cp1(c10,m10,n11, caughtUp=true, lastRpcSendTime=363, lastRpcResponseTime=1203)
+cp3-1        | [cp3@group-111111111111->cp1-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp3@group-111111111111->cp1-GrpcLogAppender is interrupted: java.lang.InterruptedException: sleep interrupted
+cp3-1        | [cp3@group-111111111111->cp2-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp3@group-111111111111->cp2-GrpcLogAppender is interrupted: java.lang.InterruptedException: sleep interrupted
+cp3-1        | Picked up JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+cp3-1        | Oct 20, 2026 12:29:03 AM org.apache.ratis.thirdparty.io.grpc.netty.TcpMetrics loadEpollInfo
+cp3-1        | INFO: Epoll available during static init of TcpMetrics:true
+cp3-1        | [grpc-default-executor-1] WARN org.apache.ratis.server.RaftServer$Division - cp3@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp3-1        | [grpc-default-executor-1] WARN org.apache.ratis.server.RaftServer$Division - cp3@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp3-1        | [grpc-default-executor-1] WARN org.apache.ratis.server.RaftServer$Division - cp3@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp3-1        | [grpc-default-executor-1] WARN org.apache.ratis.server.RaftServer$Division - cp3@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp3-1        | [grpc-default-executor-1] WARN org.apache.ratis.server.RaftServer$Division - cp3@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp3-1        | [grpc-default-executor-1] WARN org.apache.ratis.server.RaftServer$Division - cp3@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp3-1        | [grpc-default-executor-1] WARN org.apache.ratis.server.RaftServer$Division - cp3@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp3-1        | [grpc-default-executor-1] WARN org.apache.ratis.server.RaftServer$Division - cp3@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp3-1        | [grpc-default-executor-3] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - cp3: APPEND_ENTRIES onError, lastRequest: null: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+cp3-1        | [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - cp3: APPEND_ENTRIES onError, lastRequest: cp1->cp3#3556-t3,previous=(t:3, i:2417),leaderCommit=2417,initializing? false,entry=(t:3, i:2418), first=(t:3, i:2418), METADATAENTRY(c:2417): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+cp3-1        | Picked up JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+cp3-1        | Oct 20, 2026 12:29:57 AM org.apache.ratis.thirdparty.io.grpc.netty.TcpMetrics loadEpollInfo
+cp3-1        | INFO: Epoll available during static init of TcpMetrics:true
+cp3-1        | [cp3@group-111111111111-LeaderElection1] WARN org.apache.ratis.util.FileUtils - Failed to Atomic Files.move /data/11111111-1111-1111-1111-111111111111/current/raft-meta.tmp to /data/11111111-1111-1111-1111-111111111111/current/raft-meta with options [REPLACE_EXISTING]: java.nio.file.NoSuchFileException: /data/11111111-1111-1111-1111-111111111111/current/raft-meta.tmp -> /data/11111111-1111-1111-1111-111111111111/current/raft-meta
+cp1-1        | [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: Unable to resolve host cp2-raft
+cp1-1        |   Caused by: java.net.UnknownHostException: cp2-raft
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | [grpc-default-executor-3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=1); keep nextIndex (13) unchanged and retry.
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | [grpc-default-executor-3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=3); keep nextIndex (14) unchanged and retry.
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | [grpc-default-executor-1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=5); keep nextIndex (15) unchanged and retry.
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:06 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:07 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:07 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:07 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:07 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:08 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:08 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:09 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:09 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:09 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:09 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:09 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:09 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:10 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:10 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | [timer4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=2); keep nextIndex (13) unchanged and retry. (Repeated 2 times in the last 5.012s)
+cp1-1        | [timer1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-AppendLogResponseHandler: Failed appendEntries (Repeated 22 times in the last 5.014s): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: Unable to resolve host cp2-raft
+cp1-1        |   Caused by: java.net.UnknownHostException: cp2-raft
+cp1-1        | [timer6] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=4); keep nextIndex (14) unchanged and retry. (Repeated 2 times in the last 5.012s)
+cp1-1        | [timer1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=22); keep nextIndex (15) unchanged and retry. (Repeated 18 times in the last 5.011s)
+cp1-1        | Oct 20, 2026 12:29:11 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | [grpc-default-executor-3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: Unable to resolve host cp2-raft
+cp1-1        |   Caused by: java.net.UnknownHostException: cp2-raft
+cp1-1        | [grpc-default-executor-1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=23); keep nextIndex (15) unchanged and retry.
+cp1-1        | Oct 20, 2026 12:29:11 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:11 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | [grpc-default-executor-2] WARN org.apache.ratis.server.RaftServer$Division - cp1@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp1-1        | [grpc-default-executor-2] WARN org.apache.ratis.server.RaftServer$Division - cp1@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp1-1        | [grpc-default-executor-2] WARN org.apache.ratis.server.RaftServer$Division - cp1@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp1-1        | [grpc-default-executor-2] WARN org.apache.ratis.server.RaftServer$Division - cp1@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp1-1        | [grpc-default-executor-2] WARN org.apache.ratis.server.RaftServer$Division - cp1@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp1-1        | [grpc-default-executor-2] WARN org.apache.ratis.server.RaftServer$Division - cp1@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp1-1        | [grpc-default-executor-2] WARN org.apache.ratis.server.RaftServer$Division - cp1@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp1-1        | [grpc-default-executor-2] WARN org.apache.ratis.server.RaftServer$Division - cp1@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp1-1        | [grpc-default-executor-2] WARN org.apache.ratis.server.RaftServer$Division - cp1@group-111111111111: Failed to recognize cp2 as leader for APPEND_ENTRIES since peerTerm = 2 < currentTerm = 3
+cp1-1        | Oct 20, 2026 12:29:12 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:12 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:12 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:13 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:13 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:14 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:14 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:15 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:15 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:15 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<12>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | Oct 20, 2026 12:29:15 AM org.apache.ratis.thirdparty.io.grpc.internal.ManagedChannelImpl$NameResolverListener handleErrorInSyncContext
+cp1-1        | WARNING: [Channel<8>: (cp2-raft:6000)] Failed to resolve name. status=Status{code=UNAVAILABLE, description=Unable to resolve host cp2-raft, cause=java.net.UnknownHostException: cp2-raft
+cp1-1        | 	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+cp1-1        | 	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$JdkAddressResolver.resolveAddress(DnsNameResolver.java:600)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.resolveAddresses(DnsNameResolver.java:213)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver.doResolve(DnsNameResolver.java:267)
+cp1-1        | 	at org.apache.ratis.thirdparty.io.grpc.internal.DnsNameResolver$Resolve.run(DnsNameResolver.java:302)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(Unknown Source)
+cp1-1        | 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+cp1-1        | 	at java.base/java.lang.Thread.run(Unknown Source)
+cp1-1        | }
+cp1-1        | [timer7] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=32); keep nextIndex (15) unchanged and retry. (Repeated 10 times in the last 5.002s)
+cp1-1        | [timer6] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-AppendLogResponseHandler: Failed appendEntries (Repeated 10 times in the last 5.002s): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: Unable to resolve host cp2-raft
+cp1-1        |   Caused by: java.net.UnknownHostException: cp2-raft
+cp1-1        | [grpc-default-executor-5] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: Unable to resolve host cp2-raft
+cp1-1        |   Caused by: java.net.UnknownHostException: cp2-raft
+cp1-1        | [grpc-default-executor-5] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=33); keep nextIndex (15) unchanged and retry.
+cp1-1        | [grpc-default-executor-1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-AppendLogResponseHandler: received INCONSISTENCY reply with nextIndex 13, errorCount=34, request=null 
+cp1-1        | [grpc-default-executor-5] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: RST_STREAM closed stream. HTTP/2 error code: CANCEL
+cp1-1        | [grpc-default-executor-1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=1); keep nextIndex (17) unchanged and retry.
+cp1-1        | [timer4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=19); keep nextIndex (17) unchanged and retry. (Repeated 19 times in the last 5.002s)
+cp1-1        | [timer3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-AppendLogResponseHandler: Failed appendEntries (Repeated 19 times in the last 5.002s): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+cp1-1        |   Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: cp2-raft/172.20.0.2:6000
+cp1-1        |   Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+cp1-1        | [grpc-default-executor-5] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+cp1-1        |   Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: cp2-raft/172.20.0.2:6000
+cp1-1        |   Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+cp1-1        | [grpc-default-executor-1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=20); keep nextIndex (17) unchanged and retry.
+cp1-1        | [grpc-default-executor-3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-InstallSnapshot: Failed InstallSnapshot: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+cp1-1        |   Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: cp2-raft/172.20.0.2:6000
+cp1-1        |   Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+cp1-1        | [timer7] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=30); keep nextIndex (17) unchanged and retry. (Repeated 11 times in the last 4.992s)
+cp1-1        | [timer6] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-AppendLogResponseHandler: Failed appendEntries (Repeated 10 times in the last 4.992s): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+cp1-1        |   Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: cp2-raft/172.20.0.2:6000
+cp1-1        |   Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+cp1-1        | [grpc-default-executor-5] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-InstallSnapshot: Failed InstallSnapshot: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+cp1-1        |   Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: cp2-raft/172.20.0.2:6000
+cp1-1        |   Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+cp1-1        | [grpc-default-executor-5] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=31); keep nextIndex (17) unchanged and retry.
+cp1-1        | [grpc-default-executor-5] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+cp1-1        |   Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: cp2-raft/172.20.0.2:6000
+cp1-1        |   Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+cp1-1        | [timer1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=33); keep nextIndex (17) unchanged and retry. (Repeated 3 times in the last 5.001s)
+cp1-1        | [timer3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-AppendLogResponseHandler: Failed appendEntries (Repeated 2 times in the last 5.002s): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+cp1-1        |   Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: cp2-raft/172.20.0.2:6000
+cp1-1        |   Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+cp1-1        | [grpc-default-executor-3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: RST_STREAM closed stream. HTTP/2 error code: CANCEL
+cp1-1        | [grpc-default-executor-5] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender: Follower failed (request=null, errorCount=1); keep nextIndex (2419) unchanged and retry.
+cp1-1        | [grpc-default-executor-1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp3-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: RST_STREAM closed stream. HTTP/2 error code: CANCEL
+cp1-1        | [grpc-default-executor-1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp3-GrpcLogAppender: Follower failed (request=null, errorCount=1); keep nextIndex (2419) unchanged and retry.
+cp1-1        | [cp1@group-111111111111->cp3-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp3-GrpcLogAppender is interrupted: java.lang.InterruptedException
+cp1-1        | [cp1@group-111111111111->cp2-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - cp1@group-111111111111->cp2-GrpcLogAppender is interrupted: java.lang.InterruptedException: sleep interrupted
+cp1-1        | Picked up JAVA_TOOL_OPTIONS: -Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn
+cp1-1        | Oct 20, 2026 12:29:57 AM org.apache.ratis.thirdparty.io.grpc.netty.TcpMetrics loadEpollInfo
+cp1-1        | INFO: Epoll available during static init of TcpMetrics:true

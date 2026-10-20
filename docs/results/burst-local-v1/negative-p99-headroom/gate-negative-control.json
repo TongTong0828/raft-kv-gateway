@@ -1,0 +1,6 @@
+{
+  "expected": "FAIL at deliberately impossible0.001msP99; all actual requests succeed",
+  "exitCode": 1,
+  "observedP99Ms": 1.0501818599990929,
+  "generatorMemoryMiB": 1536
+}

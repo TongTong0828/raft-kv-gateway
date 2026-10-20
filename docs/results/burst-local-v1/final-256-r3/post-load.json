@@ -1,0 +1,71 @@
+{
+  "recordedAt": "2026-10-20T00:28:25.656721+00:00",
+  "commit": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+  "dirty": false,
+  "quiescentGauges": {
+    "gateway_inflight": 0.0,
+    "gateway_body_bytes": 0.0,
+    "gateway_pool_active": 0.0,
+    "gateway_pool_waiting": 0.0,
+    "gateway_pool_acquired_slots": 0.0,
+    "gateway_pool_releasing": 0.0,
+    "gateway_dispatch_queued": 0.0,
+    "gateway_dispatch_reserved": 0.0
+  },
+  "containers": [
+    {
+      "service": "backend-a",
+      "name": "raft-kv-gateway-backend-a-1",
+      "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "service": "backend-b",
+      "name": "raft-kv-gateway-backend-b-1",
+      "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "service": "cp1",
+      "name": "raft-kv-gateway-cp1-1",
+      "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "service": "cp2",
+      "name": "raft-kv-gateway-cp2-1",
+      "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "service": "cp3",
+      "name": "raft-kv-gateway-cp3-1",
+      "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    },
+    {
+      "service": "gateway",
+      "name": "raft-kv-gateway-gateway-1",
+      "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "running": true,
+      "oomKilled": false,
+      "restartCount": 0
+    }
+  ]
+}

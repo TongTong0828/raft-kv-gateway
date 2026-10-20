@@ -85,6 +85,15 @@ After rebuilding and starting the Compose application from a clean checkout, sel
 python3 benchmarks/run.py --suite acceptance --profile burst --vus 256 --output work/benchmark-results/burst
 ```
 
+The runner uses four generator CPUs and defaults to 1,536 MiB. `--generator-memory-mib` accepts an integer from 256 through 4096 MiB and rejects invalid values before external tools run. Generator resources are separate from gateway admission, connection and held-body budgets. Reproduce the recorded cohorts explicitly:
+
+```bash
+python3 benchmarks/run.py --suite acceptance --profile standard --vus 64 --generator-memory-mib 768 --output work/strict-64-new
+python3 benchmarks/run.py --suite acceptance --profile burst --vus 256 --generator-memory-mib 1536 --output work/strict-256-new
+```
+
+Keep source, images, profile and budgets fixed throughout each three-repeat series. See [results and comparison limits](burst-handling.md). Historical commands using 768 MiB must specify that value now that the default has changed.
+
 The output directory must be new or empty. `--profile standard` is the default and seeds `examples/orders.json`; `--profile burst` seeds `examples/orders-burst.json`. The runner records and checks the applied service configuration and revision around measurements. These profiles apply to the gateway and acceptance suites. See [benchmark methodology](benchmarks.md) for acceptance criteria and reporting requirements; selecting a profile does not establish a performance result.
 
 ## Management

@@ -1,0 +1,29 @@
+FF
+======================================================================
+FAIL: test_applied_capacity_is_recorded_and_stale_limits_fail_closed (test_workload_profile.WorkloadProfileTest.test_applied_capacity_is_recorded_and_stale_limits_fail_closed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_workload_profile.py", line 13, in test_applied_capacity_is_recorded_and_stale_limits_fail_closed
+    self.assertEqual(self.actual,self.validate(self.actual))
+                                 ~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_workload_profile.py", line 10, in validate
+    self.assertIsNotNone(fn,'runner must verify the configuration actually applied')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : runner must verify the configuration actually applied
+
+======================================================================
+FAIL: test_missing_or_uncommitted_profile_is_rejected (test_workload_profile.WorkloadProfileTest.test_missing_or_uncommitted_profile_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_workload_profile.py", line 19, in test_missing_or_uncommitted_profile_is_rejected
+    with self.assertRaises(ValueError):self.validate(value)
+                                       ~~~~~~~~~~~~~^^^^^^^
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_workload_profile.py", line 10, in validate
+    self.assertIsNotNone(fn,'runner must verify the configuration actually applied')
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: unexpectedly None : runner must verify the configuration actually applied
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.000s
+
+FAILED (failures=2)

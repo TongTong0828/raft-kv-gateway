@@ -1,0 +1,14 @@
+test_missing_labels_are_rejected (test_build.ProvenanceTest.test_missing_labels_are_rejected) ... ok
+test_native_arm_and_amd_are_accepted (test_build.ProvenanceTest.test_native_arm_and_amd_are_accepted) ... ok
+test_platform_label_must_match_actual_image (test_build.ProvenanceTest.test_platform_label_must_match_actual_image) ... ok
+test_selected_platform_must_match_actual_image (test_build.ProvenanceTest.test_selected_platform_must_match_actual_image) ... ok
+test_wrong_architecture_is_rejected (test_build.ProvenanceTest.test_wrong_architecture_is_rejected) ... ok
+test_wrong_binary_is_rejected (test_build.ProvenanceTest.test_wrong_binary_is_rejected) ... ok
+test_wrong_patch_is_rejected (test_build.ProvenanceTest.test_wrong_patch_is_rejected) ... ok
+test_wrong_platform_manifest_is_rejected (test_build.ProvenanceTest.test_wrong_platform_manifest_is_rejected) ... ok
+test_wrong_source_is_rejected (test_build.ProvenanceTest.test_wrong_source_is_rejected) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.001s
+
+OK

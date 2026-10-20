@@ -1,0 +1,22 @@
+test_missing_labels_are_rejected (test_build.ProvenanceTest.test_missing_labels_are_rejected) ... ok
+test_native_arm_and_amd_are_accepted (test_build.ProvenanceTest.test_native_arm_and_amd_are_accepted) ... 
+  test_native_arm_and_amd_are_accepted (test_build.ProvenanceTest.test_native_arm_and_amd_are_accepted) (architecture='amd64') ... FAIL
+test_wrong_architecture_is_rejected (test_build.ProvenanceTest.test_wrong_architecture_is_rejected) ... ok
+test_wrong_binary_is_rejected (test_build.ProvenanceTest.test_wrong_binary_is_rejected) ... ok
+test_wrong_patch_is_rejected (test_build.ProvenanceTest.test_wrong_patch_is_rejected) ... ok
+test_wrong_platform_manifest_is_rejected (test_build.ProvenanceTest.test_wrong_platform_manifest_is_rejected) ... ok
+test_wrong_source_is_rejected (test_build.ProvenanceTest.test_wrong_source_is_rejected) ... ok
+
+======================================================================
+FAIL: test_native_arm_and_amd_are_accepted (test_build.ProvenanceTest.test_native_arm_and_amd_are_accepted) (architecture='amd64')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/k6/test_build.py", line 33, in test_native_arm_and_amd_are_accepted
+    self.assertTrue(accepted)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^
+AssertionError: False is not true
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.002s
+
+FAILED (failures=1)

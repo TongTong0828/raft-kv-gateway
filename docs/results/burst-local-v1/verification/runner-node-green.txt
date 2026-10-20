@@ -1,0 +1,21 @@
+✔ backward wall correction cannot count a drain completion inside the window (2.143541ms)
+✔ full-call latency and completion bucket use elapsed time despite forward wall correction (0.478875ms)
+✔ reversed executor progress invalidates the completion (0.374292ms)
+✔ eligible503 records a fixed rejection category and unknown headers remain unclassified (2.043708ms)
+✔ drain503 reason belongs to the same eligible cohort as late failures (0.304458ms)
+✔ warmup straddle is conservatively excluded (0.595125ms)
+✔ first boundary belongs to first bucket (0.065ms)
+✔ completion chooses its bucket (0.039333ms)
+✔ last millisecond still belongs to window (0.037083ms)
+✔ exact end is late and cannot inflate successes (0.037875ms)
+✔ start after end is outside (0.027833ms)
+✔ reversed clocks invalidate experiment (0.163125ms)
+✔ nonfinite clocks and invalid bucket/window settings are rejected (0.089542ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 47.833916

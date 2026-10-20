@@ -1,0 +1,74 @@
+import argparse,gzip,hashlib,json,math,pathlib,re,shutil,subprocess
+root=pathlib.Path.cwd();arg=argparse.ArgumentParser();arg.add_argument('--destination',default='docs/results/burst-local-v1');arg.add_argument('--selection',default='work/burst-acceptance-sets.json');args=arg.parse_args();dest=root/args.destination;assert not dest.exists();dest.mkdir(parents=True)
+base=root/'work/burst-results';cases=sorted(p for p in base.iterdir() if p.is_dir());index={'environment':'local shared Docker VM; AWS excluded','cases':[]}
+def sha(data):return hashlib.sha256(data).hexdigest()
+def memory(value):
+ m=re.fullmatch(r'([0-9.]+)([a-zA-Z]+)',value.split(' / ')[0]);return float(m[1])*{'B':1,'KiB':1024,'MiB':1024**2,'GiB':1024**3,'kB':1000,'MB':1000**2,'GB':1000**3}[m[2]]
+def metrics(path):
+ return {m.group(1):int(m.group(2)) for line in path.read_text().splitlines() if (m:=re.fullmatch(r'gateway_rejections_total\{reason="([a-z_]+)"\} ([0-9]+)',line))} if path.exists() else {}
+def finite(v):return type(v) in [int,float] and math.isfinite(v)
+for src in cases:
+ case=src.name;out=dest/case;out.mkdir();encodings=[]
+ for p in src.iterdir():
+  if not p.is_file():continue
+  if p.suffix=='.jsonl' and (p.name=='pool-events.jsonl' or p.stat().st_size>100*1024):
+   data=p.read_bytes()
+   with (out/(p.name+'.gz')).open('wb') as stream:
+    with gzip.GzipFile(fileobj=stream,mode='wb',filename='',mtime=0) as gz:gz.write(data)
+   (out/(p.stem+'.sha256')).write_text(sha(data)+'  '+p.name+' (decompressed bytes)\n');encodings.append({'file':p.name+'.gz','decompressedSha256':sha(data)})
+  else:shutil.copyfile(p,out/(p.name[:-4]+'.k6.txt' if p.name.endswith('.log') else p.name))
+ env=json.loads((src/'environment.json').read_text()) if (src/'environment.json').exists() else None
+ summaries=json.loads((src/'summary.json').read_text()) if (src/'summary.json').exists() else []
+ if not env or not summaries:
+  index['cases'].append({'case':case,'exportAvailable':False,'passed':False,'note':'Incomplete trial retained; no accepted performance claim','encodings':encodings});continue
+ summary=summaries[0];raw=json.loads((src/summary['raw']).read_text());post=json.loads((src/'post-load.json').read_text()) if (src/'post-load.json').exists() else None
+ attribution_ok=bool(env['commit'] and not env['dirty'] and env['imageRevision']==env['commit'] and len(env['actualContainers'])==6 and all(c['revision']==env['commit'] and c['imageId']==env['image'] for c in env['actualContainers']))
+ post_ok=bool(post and not post['dirty'] and post['commit']==env['commit'] and len(post['containers'])==6 and len(post['quiescentGauges'])==8 and all(v==0 for v in post['quiescentGauges'].values()) and all(c['running'] and not c['oomKilled'] and c['restartCount']==0 and c['imageId']==env['image'] and c['revision']==env['commit'] for c in post['containers']))
+ timing={}
+ for name,item in raw['metrics'].items():
+  if item.get('contains')=='time':
+   values=item['values'];valid=all(finite(v) and v>=0 for v in values.values());minimum=values.get('min');timing[name]={'min':minimum if finite(minimum) else None,'allAggregateStatisticsFiniteAndNonnegative':valid}
+ stats=json.loads((src/(summary['raw']+'.stats.json')).read_text());valid=[];errors=[]
+ for sample in stats:
+  if sample.get('error'):errors.append(sample['error'])
+  for c in sample.get('containers',[]):
+   if c.get('Name','').startswith('kv-bench-'):valid.append(c)
+ resources={'generatorMemoryLimitMiB':env['generatorLimits']['memoryMiB'],'generatorCpus':env['generatorLimits']['cpus'],'generatorSamples':len(valid),'samplingErrors':errors,'generatorSampledPeakCpuCores':max([float(c['CPUPerc'].rstrip('%'))/100 for c in valid] or [0]),'generatorSampledPeakMemory':max(valid,key=lambda c:memory(c['MemUsage']))['MemUsage'] if valid else None}
+ before=metrics(src/'gateway-before.prom');after=metrics(src/'gateway-after.prom')
+ observer=json.loads((src/'observer.json').read_text()) if (src/'observer.json').exists() else None
+ resources['generatorObserverVerified']=bool(observer and observer.get('validated'))
+ cgroups=src/'generator-cgroup.jsonl'
+ if cgroups.exists():
+  samples=[json.loads(line) for line in cgroups.read_text().splitlines()];good=[r for r in samples if r.get('returncode')==0]
+  sections=lambda row:{chunk.split('\n',1)[0]:chunk.split('\n',1)[1].strip() for chunk in row.get('stdout','').split('@@ ')[1:] if '\n' in chunk}
+  parsed=[sections(row) for row in good]
+  vals=lambda suffix:[int(row['/sys/fs/cgroup/'+suffix]) for row in parsed if row.get('/sys/fs/cgroup/'+suffix,'').isdigit()]
+  event_values=[{line.split()[0]:int(line.split()[1]) for line in row.get('/sys/fs/cgroup/memory.events','').splitlines()} for row in parsed]
+  cpu_values=[{line.split()[0]:int(line.split()[1]) for line in row.get('/sys/fs/cgroup/cpu.stat','').splitlines()} for row in parsed]
+  resources['cgroupObservation']={'validSamples':len(good),'errorSamples':len(samples)-len(good),'peakMemoryBytes':max(vals('memory.peak') or [0]),'peakSwapBytes':max(vals('memory.swap.current') or [0]),'maximumCpuThrottledPeriods':max([e.get('nr_throttled',0) for e in cpu_values] or [0]),'maximumCpuThrottledUsec':max([e.get('throttled_usec',0) for e in cpu_values] or [0]),'maximumMemoryEvents':{key:max([e.get(key,0) for e in event_values] or [0]) for key in ['max','oom','oom_kill']}}
+ purpose='diagnostic' if (src/'runtime-overrides.json').exists() else 'short calibration' if case.startswith('calibration') else 'formal trial' if case.startswith(('formal','final')) else 'gate negative control'
+ row={'case':case,'purpose':purpose,'exportAvailable':True,'profile':env['workloadProfile'],'sourceCommit':env['commit'],'applicationImage':env['image'],'generatorImage':env['k6Image'],'generatorBinarySha256':env['generator']['binarySha256'],'vus':env['generatorLimits']['preallocatedVUsPerScenario'],'seconds':env['measurementSeconds'],'passed':summary['passed'],'reasons':summary.get('reasons',[]),'attributionVerified':attribution_ok,'postLoadVerified':post_ok,'successful':summary.get('successful'),'successfulRps':summary.get('successfulRps'),'fullCallP99Ms':summary.get('successP99Ms'),'minimumBucketSuccessfulRps':min(summary.get('bucketSuccessfulRps') or [0]),'eligibleFailed':summary.get('failed'),'unaccounted':summary.get('unaccounted'),'lateSuccess':summary.get('lateSuccess'),'lateFailed':summary.get('lateFailed'),'wholeExperimentDrops':summary.get('totalExperimentDropped'),'cohortRejections':summary.get('cohortRejections'),'processRejectionDeltaIncludingWarmup':{k:after[k]-before[k] for k in before if k in after},'timingChecks':timing,'resources':resources,'quiescentGauges':post['quiescentGauges'] if post else None,'encodings':encodings}
+ index['cases'].append(row)
+index['sourceCommits']=sorted(set(row['sourceCommit'] for row in index['cases'] if row.get('sourceCommit')))
+modules=['api','control-plane','gateway','cli','demo-backend'];index['runtimeSourceTrees']={commit:{module:subprocess.check_output(['git','rev-parse',commit+':'+module+'/src/main'],text=True).strip() for module in modules} for commit in index['sourceCommits']}
+selections=json.loads((root/args.selection).read_text());bycase={r['case']:r for r in index['cases']};index['acceptanceSets']={}
+for name,selection in selections.items():
+ rows=[bycase[c] for c in selection['cases'] if c in bycase];valid=len(rows)==selection['requiredRuns'] and len(rows)==len(selection['cases'])
+ for row in rows:
+  valid=valid and row.get('passed') and row.get('attributionVerified') and row.get('postLoadVerified') and row.get('seconds')==300 and row.get('vus')==selection['vus'] and row['profile']['name']==selection['profile'] and row['resources']['generatorMemoryLimitMiB']==selection['generatorMemoryMiB'] and (not selection.get('requireGeneratorObserver') or row['resources']['generatorObserverVerified']) and all(t['allAggregateStatisticsFiniteAndNonnegative'] for t in row['timingChecks'].values())
+ index['acceptanceSets'][name]={**selection,'recordedRuns':len(rows),'allPassed':bool(valid)}
+index['allFormalTrials']={'cases':[r['case'] for r in index['cases'] if r.get('purpose')=='formal trial'],'failedCases':[r['case'] for r in index['cases'] if r.get('purpose')=='formal trial' and not r['passed']]}
+(dest/'evidence.json').write_text(json.dumps(index,indent=2,allow_nan=False)+'\n')
+verification=dest/'verification';verification.mkdir()
+for p in (root/'work/verification').iterdir():
+ if p.is_file() and p.suffix not in ['.yaml']:shutil.copyfile(p,verification/(p.name[:-4]+'.txt' if p.suffix=='.log' else p.name))
+for module in ['api','control-plane','gateway','cli','integration-tests']:
+ target=verification/'junit'/module;target.mkdir(parents=True)
+ for p in (root/module/'target/surefire-reports').glob('TEST-*.xml'):shutil.copyfile(p,target/p.name)
+k6out=verification/'k6';k6out.mkdir()
+for name in ['image.json','provenance-verified.json','httpext-tests.jsonl','race.jsonl','red.log','green.jsonl','provenance-tests.log','repro-build.log','official-rejection.stderr','platform-red.log','platform-green.log','race-toolchain.log']:
+ p=root/'work/k6'/name
+ if p.exists():shutil.copyfile(p,k6out/(name[:-4]+'.txt' if name.endswith('.log') else name))
+for name in ['watch-burst.py','post-burst.py','run-burst-cohort.py','run-formal-bursts.py','publish-burst-evidence.py','diagnostic-runner.py','cohort-diagnostic.py','cohort-headroom.py','watch-generator-headroom.py','run-final-headroom.py']:
+ shutil.copyfile(root/'work'/name,verification/(name+'.txt'))
+print('Published',len(index['cases']),'trials; acceptance sets:',index['acceptanceSets'])

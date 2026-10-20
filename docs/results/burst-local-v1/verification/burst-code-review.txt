@@ -1,0 +1,7 @@
+Fresh independent whole-branch review of the timing/gateway/runner changes against base91967dce68c2e141e695de666b9300af035a80df.
+Reviewer received a scoped brief without parent conversation history, read-only, no heavy executions.
+Timing/runner/CI: monotonic event sources, snapshot-before-end, unchanged duration components and strict parser, immutable verified generator ID, exact applied profile readback; no concrete blocker.
+Gateway: one P2 finding in successful native acquire racing retirement: EndpointPool published wrapper failure after calling asynchronous release but before native return completed. Dispatcher could release its reservation too early.
+Fix: publish original retired failure from lease.returned completion. Deterministic real ChannelPoolHandler gate and blocked native-return loop reproduced RED; GREEN kept borrowed/releasing/reserved=1 and result pending until return, then zero resources/no business request.
+Reviewer focused recheck accepted this fix and its RED/GREEN evidence; no remaining concrete findings. Root separately verified final full-reactor process exit0 and final BUILD SUCCESS at2026-10-19T23:15:18Z,66tests0failures/errors/skips.
+Source committed as2c2f4fe. Performance and final result documentation remain a separate validation phase. No AWS work authorized or executed.

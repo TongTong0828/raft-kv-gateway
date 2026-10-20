@@ -1,0 +1,84 @@
+{
+  "diagnosticOnly": true,
+  "sourceCommit": "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6",
+  "cpuProfile": {
+    "wallSeconds": 70,
+    "totalCpuSeconds": 61.36,
+    "thresholdSortCpuSeconds": 2.11,
+    "thresholdSortCpuPercent": 3.44,
+    "backgroundGcCpuSeconds": 2.8,
+    "backgroundGcCpuPercent": 4.56,
+    "gcAssistCpuSeconds": 0.48,
+    "gcAssistCpuPercent": 0.78,
+    "mallocgcCumulativeCpuSeconds": 9.82,
+    "mallocgcCumulativeCpuPercent": 16.0,
+    "evidence": [
+      "cpu-top.txt",
+      "cpu-cumulative.txt",
+      "cpu-mechanisms.txt"
+    ]
+  },
+  "generatorCgroup": {
+    "goodSamples": 330,
+    "memoryMaxBytes": 805306368,
+    "firstMaxEventLaunchOffsetSeconds": 246.24681154079735,
+    "memoryPeakBytes": 805310464,
+    "maxSwapCurrentBytes": 288444416,
+    "lastMemoryEvents": {
+      "low": 0,
+      "high": 0,
+      "max": 1613,
+      "oom": 0,
+      "oom_kill": 0,
+      "oom_group_kill": 0
+    },
+    "lastCpuStat": {
+      "usage_usec": 291364372,
+      "user_usec": 255984670,
+      "system_usec": 35379702,
+      "nr_periods": 3316,
+      "nr_throttled": 0,
+      "throttled_usec": 0,
+      "nr_bursts": 0,
+      "burst_usec": 0
+    },
+    "evidence": [
+      "generator-cgroup.jsonl",
+      "generator-start-inspect.json"
+    ]
+  },
+  "goGc": {
+    "count": 653,
+    "maxIndividualStwMs": 11.0,
+    "maxStwSumPerGcMs": 11.11,
+    "sumStwMs": 411.295,
+    "maxConcurrentMarkWallMs": 65.0,
+    "largestStwGc": {
+      "gc": 569,
+      "runtimeSeconds": 246.138,
+      "stwStartMs": 0.11,
+      "concurrentMarkWallMs": 65.0,
+      "stwEndMs": 11.0
+    },
+    "evidence": "acceptance-8400-r1.json.log"
+  },
+  "gatewayGc": {
+    "collector": "Serial",
+    "scope": "generator docker subprocess lifetime, including warmup",
+    "completedPauseCount": 4518,
+    "sumPauseMs": 2503.009,
+    "maxPause": {
+      "wallTime": "2026-10-20T00:04:46.387+0000",
+      "pauseMs": 51.158,
+      "line": "[2026-10-20T00:04:46.387+0000][302.893s][info][gc             ] GC(2635) Pause Full (CodeCache GC Threshold) 13M->8M(23M) 51.158ms"
+    },
+    "evidence": "gateway-gc.txt"
+  },
+  "conclusion": "This diagnostic directly encountered the generator cgroup memory cap and swap with no OOM or CPU quota throttling. Threshold sorting is measured but not the dominant profiled CPU consumer. The exact cause of the earlier formal-r3 bad bucket remains unproven; its failure stays retained. Next controlled candidate: explicit generator memory headroom with native and Python gates unchanged, before changing threshold policy.",
+  "limitations": [
+    "Extra profiling/GC/cgroup observations have observer overhead.",
+    "All five goroutine snapshots saw the threshold worker idle; snapshots do not prove absence of intermittent lock or channel waits.",
+    "CPU percentages describe the captured 70s CPU samples, not a wall-clock delay bound.",
+    "A passing diagnostic with cap pressure does not establish that pressure caused the historical failed bucket."
+  ]
+}

@@ -1,0 +1,56 @@
+import json,pathlib,subprocess,sys,time
+
+root=pathlib.Path.cwd();out=root/'work/verification'
+def run(cmd):
+ return subprocess.check_output(cmd,text=True).strip()
+commit=run(['git','rev-parse','HEAD'])
+assert not run(['git','status','--porcelain']), 'clean source required'
+image=json.loads(run(['docker','image','inspect','raft-kv-gateway:local']))[0]
+assert image['Config']['Labels']['org.opencontainers.image.revision']==commit
+witness={'commit':commit,'dirty':False,'applicationImage':image['Id'],'imageRevision':commit,'checks':{}}
+def execute(name,cmd,observe=None):
+ started=time.time();log=out/(name+'-runner.txt')
+ with log.open('w') as stream:
+  process=subprocess.Popen(cmd,stdout=stream,stderr=subprocess.STDOUT)
+  observed=None
+  while process.poll() is None:
+   if observed is None and observe:
+    try:observed=observe()
+    except (subprocess.CalledProcessError,AssertionError,KeyError,FileNotFoundError):pass
+   time.sleep(2)
+  code=process.wait()
+ witness['checks'][name]={'command':cmd,'exitCode':code,'startedAtEpoch':started,'finishedAtEpoch':time.time(),'liveImageObservation':observed}
+ (out/'burst-deployment-image-witness.json').write_text(json.dumps(witness,indent=2)+'\n')
+ if code:sys.exit(code)
+ assert observed is not None
+
+project='kv-burst-20261020'
+def compose_observation():
+ ids=run(['docker','ps','-q','--filter','label=com.docker.compose.project='+project]).splitlines()
+ if not ids:return None
+ rows=json.loads(run(['docker','inspect',*ids]));services={row['Config']['Labels'].get('com.docker.compose.service'):row for row in rows}
+ required={'cp1','cp2','cp3','gateway','backend-a','backend-b'}
+ if not required.issubset(services):return None
+ found=[{'service':service,'containerId':services[service]['Id'],'imageId':services[service]['Image'],'imageRevision':services[service]['Config']['Labels'].get('org.opencontainers.image.revision')} for service in sorted(required)]
+ assert all(row['imageId']==image['Id'] and row['imageRevision']==commit for row in found)
+ return found
+execute('burst-faults',[sys.executable,'scripts/faults.py','--project',project,'--output','work/verification/burst-faults.json'],compose_observation)
+assert not run(['docker','ps','-aq','--filter','label=com.docker.compose.project='+project])
+assert not run(['docker','volume','ls','-q','--filter','label=com.docker.compose.project='+project])
+
+cluster='kv-burst-20261020'
+def kind_observation():
+ config=root/'work'/('kubeconfig-'+cluster)
+ if not config.exists():return None
+ cmd=[str(root/'work/tools/kubectl'),'--kubeconfig',str(config),'--context','kind-'+cluster,'-n','kv-gateway','get','pods','-o','json']
+ result=subprocess.run(cmd,text=True,capture_output=True,timeout=5)
+ if result.returncode:return None
+ pods=json.loads(result.stdout)['items']
+ rows=[{'pod':pod['metadata']['name'],'containers':pod['spec']['containers'],'statuses':pod.get('status',{}).get('containerStatuses',[])} for pod in pods]
+ if not all(any(row['pod'].startswith(prefix) and row['statuses'] and all(s.get('ready') for s in row['statuses']) for row in rows) for prefix in ['cp-0','cp-1','cp-2','gateway-','backend-a-','backend-b-']):return None
+ return rows
+execute('burst-kind',['./scripts/kind-smoke.sh','--name',cluster,'--output','work/verification/burst-kind.json'],kind_observation)
+assert cluster not in run([str(root/'work/tools/kind'),'get','clusters']).splitlines()
+witness['cleanupVerified']=True
+(out/'burst-deployment-image-witness.json').write_text(json.dumps(witness,indent=2)+'\n')
+print('Fault and kind checks passed; owned resources removed.',flush=True)

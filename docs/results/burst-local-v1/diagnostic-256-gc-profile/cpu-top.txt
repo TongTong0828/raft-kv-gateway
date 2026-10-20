@@ -1,0 +1,53 @@
+File: k6
+Type: cpu
+Time: 2026-10-20 00:05:34 UTC
+Duration: 70s, Total samples = 61.36s (87.65%)
+Showing nodes accounting for 33.92s, 55.28% of 61.36s total
+Dropped 834 nodes (cum <= 0.31s)
+Showing top 45 nodes out of 298
+      flat  flat%   sum%        cum   cum%
+     6.44s 10.50% 10.50%      6.44s 10.50%  internal/runtime/syscall/linux.Syscall6
+     2.11s  3.44% 13.93%      2.94s  4.79%  runtime.mallocgcSmallScanNoHeaderSC5
+     1.70s  2.77% 16.70%     35.40s 57.69%  github.com/grafana/sobek.(*vm).run
+     1.60s  2.61% 19.31%      1.60s  2.61%  runtime.nanotime (inline)
+     1.37s  2.23% 21.54%      1.37s  2.23%  runtime.memclrNoHeapPointers
+     1.12s  1.83% 23.37%      1.12s  1.83%  runtime.memmove
+     0.99s  1.61% 24.98%      1.26s  2.05%  time.now
+     0.94s  1.53% 26.52%      1.18s  1.92%  internal/runtime/maps.(*Map).getWithoutKeySmallFastStr
+     0.79s  1.29% 27.80%     17.68s 28.81%  reflect.Value.call
+     0.75s  1.22% 29.03%      1.78s  2.90%  runtime.scanObjectsSmall
+     0.73s  1.19% 30.22%      1.12s  1.83%  runtime.mallocgcTinySC2
+     0.73s  1.19% 31.40%      1.95s  3.18%  runtime.selectgo
+     0.70s  1.14% 32.55%      0.70s  1.14%  runtime.futex
+     0.68s  1.11% 33.65%      9.82s 16.00%  runtime.mallocgc
+     0.67s  1.09% 34.75%      1.15s  1.87%  runtime.resolveTypeOff
+     0.60s  0.98% 35.72%      2.25s  3.67%  runtime.mapaccess2_faststr
+     0.58s  0.95% 36.67%      1.43s  2.33%  slices.partialInsertionSortOrdered[go.shape.float64]
+     0.56s  0.91% 37.58%      0.56s  0.91%  internal/runtime/maps.memHashAES
+     0.55s   0.9% 38.48%      0.55s   0.9%  cmp.isNaN[go.shape.float64] (inline)
+     0.55s   0.9% 39.37%      1.14s  1.86%  runtime.mallocgcSmallScanNoHeaderSC2
+     0.55s   0.9% 40.27%      1.16s  1.89%  runtime.tryDeferToSpanScan
+     0.54s  0.88% 41.15%      1.09s  1.78%  cmp.Less[go.shape.float64] (inline)
+     0.53s  0.86% 42.01%      0.53s  0.86%  github.com/grafana/sobek/unistring.Scan
+     0.51s  0.83% 42.85%      0.60s  0.98%  runtime.(*mspan).writeHeapBitsSmall
+     0.48s  0.78% 43.63%      0.48s  0.78%  runtime.acquirem (inline)
+     0.47s  0.77% 44.39%      0.47s  0.77%  runtime.memequal
+     0.46s  0.75% 45.14%      0.46s  0.75%  runtime.releasem (inline)
+     0.43s   0.7% 45.84%      0.60s  0.98%  runtime.nilinterhash
+     0.43s   0.7% 46.54%      0.43s   0.7%  runtime.write1
+     0.41s  0.67% 47.21%      2.71s  4.42%  reflect.implements
+     0.39s  0.64% 47.85%      1.98s  3.23%  runtime.mapassign_faststr
+     0.38s  0.62% 48.47%     24.67s 40.21%  github.com/grafana/sobek.(*Runtime).wrapReflectFunc.func1
+     0.38s  0.62% 49.09%      0.52s  0.85%  github.com/grafana/sobek.(*vm).pushCtx
+     0.37s   0.6% 49.69%      0.37s   0.6%  runtime.resolveNameOff
+     0.35s  0.57% 50.26%      0.35s  0.57%  runtime.(*spanScanOwnership).or (inline)
+     0.35s  0.57% 50.83%      0.49s   0.8%  runtime.mallocgcSmallScanNoHeaderSC3
+     0.35s  0.57% 51.40%      0.58s  0.95%  slices.partitionOrdered[go.shape.float64]
+     0.34s  0.55% 51.96%     18.73s 30.52%  github.com/grafana/sobek.(*nativeFuncObject).vmCall
+     0.32s  0.52% 52.48%      0.65s  1.06%  runtime.mallocgcSmallScanNoHeaderSC4
+     0.31s  0.51% 52.98%      3.31s  5.39%  runtime.mallocgcSmallScanNoHeader
+     0.31s  0.51% 53.49%      0.52s  0.85%  runtime.pcvalue
+     0.29s  0.47% 53.96%      0.57s  0.93%  runtime.unlock2
+     0.27s  0.44% 54.40%      0.83s  1.35%  github.com/grafana/sobek.(*objectGoReflect).init
+     0.27s  0.44% 54.84%      1.42s  2.31%  reflect.resolveTypeOff
+     0.27s  0.44% 55.28%      0.35s  0.57%  runtime.casgstatus

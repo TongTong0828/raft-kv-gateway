@@ -1,0 +1,25 @@
+import hashlib,json,pathlib,subprocess,tarfile,time
+root=pathlib.Path.cwd();out=root/'docs/results/burst-local-v1/verification/kind-image-proof';out.mkdir()
+kind=str(root/'work/tools/kind');name='kv-image-proof-20261020';config=str(root/'work/kubeconfig-image-proof-20261020');node='kindest/node:v1.37.0@sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5'
+expected='sha256:375f5ca4b60c6a7b497fa71a5f69fd4793475f9e7db5ed926c55e6e522318619';image='sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9';commands=[]
+def run(cmd,timeout=180):
+ commands.append(cmd);return subprocess.check_output(cmd,stderr=subprocess.STDOUT,timeout=timeout)
+assert name not in run([kind,'get','clusters']).decode().splitlines()
+proof={'scope':'Post-run immutable image mapping probe; no application or benchmark rerun','originalKindImageID':expected,'dockerImageIndex':image,'startedAtEpoch':time.time()};created=False
+try:
+ created=True;run([kind,'create','cluster','--name',name,'--image',node,'--kubeconfig',config,'--wait','60s'],240)
+ run([kind,'load','docker-image','raft-kv-gateway:local','--name',name],180)
+ observed=run(['docker','exec',name+'-control-plane','ctr','--namespace','k8s.io','content','get',expected]);assert 'sha256:'+hashlib.sha256(observed).hexdigest()==expected
+ (out/'kind-manifest.json').write_bytes(observed);loaded=json.loads(observed)
+ with tarfile.open(root/'work/kind-image-mapping.tar') as archive:
+  def blob(digest,filename):
+   data=archive.extractfile('blobs/sha256/'+digest.split(':')[1]).read();assert 'sha256:'+hashlib.sha256(data).hexdigest()==digest;(out/filename).write_bytes(data);return json.loads(data)
+  index=blob(image,'docker-index.json');arm=next(m for m in index['manifests'] if m.get('platform')=={'architecture':'arm64','os':'linux'});manifest=blob(arm['digest'],'docker-arm64-manifest.json');sourceconfig=blob(manifest['config']['digest'],'image-config.json')
+ assert loaded['config']['digest']==manifest['config']['digest']
+ assert [l['digest'] for l in loaded['layers']]==[l['digest'] for l in manifest['layers']]
+ assert sourceconfig['config']['Labels']['org.opencontainers.image.revision']=='e3ae41cd03e60d11a883c7970ef688a7448f129e'
+ proof.update(verified=True,sourcePlatformManifest=arm['digest'],configDigest=manifest['config']['digest'],sameOrderedLayerDigests=True,sourceRevision=sourceconfig['config']['Labels']['org.opencontainers.image.revision'],manifestMediaTypes={'docker':manifest['mediaType'],'kind':loaded['mediaType']})
+finally:
+ if created:run([kind,'delete','cluster','--name',name],60)
+ proof.update(finishedAtEpoch=time.time(),commands=commands,cleanupVerified=name not in run([kind,'get','clusters']).decode().splitlines());(out/'mapping.json').write_text(json.dumps(proof,indent=2)+'\n')
+print(json.dumps(proof,indent=2))

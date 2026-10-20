@@ -1,6 +1,6 @@
 # Diagnosing HTTP 503 under bounded gateway concurrency
 
-This report describes the historical endpoint-first implementation and its recorded runs. The current shared FIFO/available-slot design is specified in [architecture](architecture.md#http-request-lifecycle); these historical exports are preserved unchanged.
+This report describes the historical endpoint-first implementation and its recorded runs. The later [shared FIFO, available-slot dispatch and 64/256-VU verification](burst-handling.md) are separate bounded changes. Historical raw exports, invalid timing records and failed/unfinished attempts below remain unchanged; newer results do not retrospectively prove their causes.
 
 All experiments below use local Docker. AWS work remains deferred at the owner's request.
 
@@ -38,10 +38,10 @@ Gateway-generated business HTTP 503 responses carry `X-Gateway-Rejection` with o
 | Reason | Meaning |
 |---|---|
 | `no_configuration` | No route snapshot has been installed. |
-| `admission_limit` | `ResourceBudget.admit(service)` rejected the exchange. The label combines global/service admission limits and unavailable service-admission state; it does not distinguish them by itself. |
+| `admission_limit` | Global/service exchange admission, unavailable service-admission state, or the defensive shared-dispatch waiting bound rejected the request. The fixed label does not distinguish these cases. Historical diagnostic admission counts came from the earlier admission path. |
 | `body_budget` | Reserving buffered request/response bytes exceeded the global byte budget. |
 | `no_healthy_endpoint` | No configured endpoint was healthy at routing time. |
-| `pool_unavailable` | The selected service/endpoint had no registered pool. |
+| `pool_unavailable` | No registered service/endpoint pool was available for dispatch. |
 | `pool_queue_full` | The pinned Netty pool reported `Too many outstanding acquire operations`. |
 | `pool_timeout` | Pending acquisition exceeded its configured timeout, currently 100 ms. |
 | `pool_retired` | The endpoint wrapper or underlying pool was retired/closed. |
@@ -51,7 +51,7 @@ Gateway-generated business HTTP 503 responses carry `X-Gateway-Rejection` with o
 
 The gateway strips `X-Gateway-Rejection` while copying incoming and upstream headers, then writes its own reason when constructing a local 503. A backend's HTTP 503 remains a backend response and does not gain a fabricated gateway reason. The benchmark records an unclassified label when a cohort 503 lacks a recognized reason. This contract concerns the business proxy port; admin readiness responses are separate.
 
-`gateway_rejections_total{reason="..."}` counts reasoned local rejection attempts over the gateway process lifetime. It is incremented when the response is constructed, not when the client confirms receipt, and is not restricted to warmup or measurement. `gateway_service_rejected_total{service="..."}` covers admission rejection for that service, not every cause of 503. Those service series can be removed when configuration removes the service. Process reason counters, response-class counters, acquisition failures, and received client responses are related observations with different boundaries; they are not interchangeable totals under cancellation, failed writes, or configuration changes.
+`gateway_rejections_total{reason="..."}` counts reasoned local rejection attempts over the gateway process lifetime. It is incremented when the response is constructed, not when the client confirms receipt, and is not restricted to warmup or measurement. `gateway_service_rejected_total{service="..."}` covers `ResourceBudget.admit` rejection for that service, not the shared-dispatch guard or every cause of 503. Those service series can be removed when configuration removes the service. Process reason counters, response-class counters, acquisition failures, and received client responses are related observations with different boundaries; they are not interchangeable totals under cancellation, failed writes, or configuration changes.
 
 Observed pool acquisition failure paths also feed a bounded diagnostic history: at most **64 most recent entries**, each truncated to **2,048 characters**, with CR/LF removed. Entries appear as `# pool_failure ...` comments in the metrics response, not Prometheus time series. They include endpoint, exception class/message, timestamp, acquired/borrowed/waiting/releasing counts, limit, retired flag, and elapsed acquisition time. Warning logs are limited to the first four samples of each reason per process. The ring overwrites older entries; neither ring nor warning logs are a complete error history. An acquisition can fail after its exchange has already ended, so an acquisition-history entry need not correspond to a newly emitted HTTP 503. One coverage limit remains: a successful native acquisition rejected because the wrapper concurrently retires is categorized for the HTTP response, but that race does not append a failure-history sample.
 
@@ -66,13 +66,20 @@ The current code exports:
 - `gateway_upstream_connections`: the global budget of physical application upstream channels, including channels draining from retired pools. It excludes downstream clients and separate health probes.
 - `gateway_pool_idle`: a clamped approximation, `max(0, global physical application connections - registered borrowed leases)`. It is not a native inventory of immediately reusable idle channels. Retired/draining channels, connection setup, and asynchronous handoff can affect it.
 
+The dispatcher additionally exports:
+
+- `gateway_dispatch_queued`: aggregate in-transit/waiting dispatch tickets, bounded globally at 256. Callers retain exchange permits and held-body ownership.
+- `gateway_dispatch_reserved`: native acquisition, borrowed exchange and actual asynchronous native return, including retired pools until cleanup. It is not registered borrowed count or native pending length.
+
+These independently sampled gauges overlap other lifecycle stages and must not be summed as disjoint populations. Native release remains asynchronous; the dispatcher holds its reservation through the returned future. The historical release-order probe below remains ownership characterization, not a retroactive bug verdict.
+
 Retiring/removing a pool removes it from registry-derived gauges even while its old leases or channels drain. Thus registered-pool gauges alone cannot prove that every retired pool is empty. The gauges are sampled and are not a single atomic snapshot across fields or pools. `waiting` can decrease before a cancelled native pending task is removed, so low wrapper gauges do not disprove a brief native queue-full condition. The baseline image predates the newest acquired-slot/releasing gauge additions; absent baseline series must not be treated as zero.
 
 ## Asynchronous release characterization is not a bug verdict
 
 The throwaway [release-order probe and runner](results/backpressure-v1/verification/) use the real `EndpointPool`, Netty, and `BackendFixture`, with one event loop and a one-connection pool. In a single event-loop task, the probe invoked `lease.release(true)` and then issued 33 new acquisitions. Release invocation left `nativeAcquired=1, borrowed=1, releasing=1`. The 33rd acquisition failed in 43.666 microseconds with the exact queue-full exception, while 32 acquisitions were pending. Cleanup subsequently reduced acquired, native pending, borrowed, waiting, releasing, and physical connections to zero; all wrapper futures completed, and no backend business request was sent. See the [unmodified probe output](results/backpressure-v1/verification/release-order-probe.txt).
 
-This demonstrates that invoking `Lease.release(void)` is not a completion barrier. The wrapper schedules channel cleanup and Netty completes its slot bookkeeping asynchronously. The present contract permits that resource lifetime. It does **not** prove a leak, double release, or that deferred releases caused the measured high-VU failures. Executing release inline when already on the channel event loop would be a scheduling optimization unless stronger evidence demonstrates a violated contract or invariant; it must not be presented as a proven root-cause fix.
+This demonstrates that invoking `Lease.release(void)` is not a completion barrier. The wrapper schedules channel cleanup and Netty completes its slot bookkeeping asynchronously. The asynchronous release contract permits that resource lifetime; the newer dispatcher waits for actual return before freeing its separate reservation. It does **not** prove a leak, double release, or that deferred releases caused the measured high-VU failures. Executing release inline when already on the channel event loop would be a scheduling optimization unless stronger evidence demonstrates a violated contract or invariant; it must not be presented as a proven root-cause fix.
 
 Evidence sufficient to establish an implementation error would include a request/lease that can never release its slot, persistent nonzero counters after quiescence, double ownership/release, counter underflow/overflow, response cross-wiring, or violation of a documented release-completion guarantee. Rejection at the declared active/pending limit, by itself, is expected bounded backpressure. Unacceptable rejection rates for a desired workload can justify explicit capacity/routing changes, but that is a workload/capacity decision rather than proof that the pool implementation is incorrect.
 
@@ -104,4 +111,4 @@ Every eligible failure in these four final-source runs is an attributed HTTP 503
 
 After **each** run, inflight requests, held body bytes, registered borrowed leases, wrapper waiting, native acquired slots and releases in progress were all zero. All six application containers were running at the expected revision, with zero restarts and no OOM flags. The active-pool test separately verifies cancel/drain/reuse; post-load gauges are sampled observations rather than an exhaustive proof of every lifecycle interleaving.
 
-See [the evidence index and reproduction commands](results/backpressure-v1/README.md), [machine-readable diagnosis](results/backpressure-v1/diagnosis.json), raw exports, per-case process-counter boundaries and post-load states. Existing historical failed/invalid results are retained. No concurrency algorithm repair was justified by this evidence; the implemented correction is explicit attribution and bounded diagnostics, with regressions for header spoofing, accounting and recovery. AWS was not run.
+See [the evidence index and reproduction commands](results/backpressure-v1/README.md), [machine-readable diagnosis](results/backpressure-v1/diagnosis.json), raw exports, per-case process-counter boundaries and post-load states. Existing historical failed/invalid results are retained. That diagnostic release supplied attribution and bounded diagnostics, with header/accounting/recovery regressions; it did not claim a concurrency-algorithm repair. The subsequent [burst-handling work](burst-handling.md) adds bounded waiting and available-slot selection under explicit workload profiles. Historical failures and invalid exports remain retained. AWS was not run.

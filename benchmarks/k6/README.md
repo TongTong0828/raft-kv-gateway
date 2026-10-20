@@ -12,7 +12,10 @@ process monotonic epoch, plus one to retain zero as the unset sentinel.
 `Done` snapshots callback timestamps before capturing its endpoint; late
 callbacks cannot introduce a timestamp after that endpoint. Wall `EndTime`,
 the existing duration components, callback selection, HTTP/2 overlap handling,
-connection reuse and units are retained. No values are clamped or filtered.
+connection reuse and units are retained. The patch adds no new clamping or
+filtering and does not discard samples; existing upstream normalization remains
+unchanged. It repairs timestamp arithmetic and finalization ordering. Historical
+negative exports remain invalid under the unchanged acceptance parser and gates.
 
 The deterministic Go tests use hand-derived event offsets and an injected
 end clock. They cover wall jumps in both directions, a callback racing the
@@ -51,3 +54,9 @@ order. Individual patch checksums and build flags are embedded as well.
 license and source/rebuild pointers. Rebuild from this checkout and the
 checksum-verified source archive; do not report this image as the official
 digest or reuse results from the earlier invalid native-clock run.
+
+Runtime generator limits are separate from the 2 GiB/two-CPU build limits above.
+Benchmark execution uses four CPUs and defaults to 1,536 MiB, with
+`--generator-memory-mib` bounded to 256–4096 MiB. The recorded 64-VU standard
+cohort used 768 MiB; the separate 256-VU burst cohort uses 1,536 MiB. See
+[timing, burst methodology and all retained outcomes](../../docs/burst-handling.md).

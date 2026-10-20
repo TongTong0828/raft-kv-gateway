@@ -40,6 +40,7 @@ jobs:
           path: |
             work/ci-faults.*
             work/k6/httpext-tests.jsonl
+            work/k6/provenance-tests.log
             work/k6/image.json
             **/target/surefire-reports/*.xml
           if-no-files-found: ignore

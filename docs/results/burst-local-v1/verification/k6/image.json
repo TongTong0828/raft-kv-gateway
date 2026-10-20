@@ -1,0 +1,66 @@
+{
+  "imageId": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+  "imageTag": "raft-kv-k6:monotonic",
+  "version": "k6 v2.3.0 (commit/devel, go1.27.1, linux/arm64)",
+  "platform": "linux/arm64",
+  "binarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+  "labels": {
+    "io.raftkv.k6.binary.sha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+    "io.raftkv.k6.build-origin": "raft-kv-gateway-monotonic.1",
+    "io.raftkv.k6.clock": "process-monotonic-v1",
+    "io.raftkv.k6.patch.sha256": "d14b4733afc322baa3ddfc8b39298938b09527a188d5e8f733cd41d327bcf29a",
+    "io.raftkv.k6.platform": "linux/arm64",
+    "io.raftkv.k6.source.sha256": "30b6421805f00c63b046a48219ced8fd3c8e47dcc099ee7e6b060e8f9e7ec146",
+    "io.raftkv.k6.upstream.commit": "e0887846143ab176d4b5483c9d52cf3b3e009f1a",
+    "org.opencontainers.image.licenses": "AGPL-3.0",
+    "org.opencontainers.image.revision": "e0887846143ab176d4b5483c9d52cf3b3e009f1a",
+    "org.opencontainers.image.source": "https://github.com/grafana/k6",
+    "org.opencontainers.image.title": "k6 with local monotonic HTTP tracer",
+    "org.opencontainers.image.version": "2.3.0-monotonic.1"
+  },
+  "provenance": {
+    "version": "2.3.0",
+    "upstreamCommit": "e0887846143ab176d4b5483c9d52cf3b3e009f1a",
+    "sourceUrl": "https://codeload.github.com/grafana/k6/tar.gz/e0887846143ab176d4b5483c9d52cf3b3e009f1a",
+    "sourceSha256": "30b6421805f00c63b046a48219ced8fd3c8e47dcc099ee7e6b060e8f9e7ec146",
+    "builderImage": "golang:1.27.1-alpine@sha256:4cb7ac979db5fcc41cae44b2227ba5ab8a51e8807f40d9ba4dee20a0ad960b5b",
+    "runtimeImage": "grafana/k6:2.3.0@sha256:9c2dee7f8ed74d317e4027c06a10f169b625638189de8d4555d0b3486a5aeb34",
+    "platforms": [
+      "linux/arm64",
+      "linux/amd64"
+    ],
+    "clock": "process-monotonic-v1",
+    "buildOrigin": "raft-kv-gateway-monotonic.1",
+    "imageTag": "raft-kv-k6:monotonic",
+    "patches": [
+      "0001-monotonic-tracer.patch",
+      "0002-monotonic-tracer-tests.patch"
+    ],
+    "platform": "linux/arm64",
+    "patchSha256": "d14b4733afc322baa3ddfc8b39298938b09527a188d5e8f733cd41d327bcf29a",
+    "patchSha256ByFile": {
+      "0001-monotonic-tracer.patch": "b8f9dfeaddd0c683998768f158903c6eb9418a4c382897f884fa75a1835513ae",
+      "0002-monotonic-tracer-tests.patch": "4bec4c3f8f4a00b03de60687084c4b31d0dcb61c38764073ed59755432c7e37c"
+    },
+    "binarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+    "goVersion": "go1.27.1",
+    "compile": {
+      "CGO_ENABLED": "0",
+      "GOTOOLCHAIN": "local",
+      "GOPROXY": "off",
+      "GOSUMDB": "off",
+      "flags": [
+        "-mod=vendor",
+        "-p=2",
+        "-trimpath",
+        "-buildvcs=false",
+        "-ldflags=-buildid= -X go.k6.io/k6/v2/internal/build.BuildOrigin=raft-kv-gateway-monotonic.1"
+      ]
+    },
+    "tests": {
+      "package": "go.k6.io/k6/v2/lib/netext/httpext",
+      "passedTestsAndSubtests": 277,
+      "log": "work/k6/httpext-tests.jsonl"
+    }
+  }
+}

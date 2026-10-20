@@ -1,0 +1,5 @@
+{
+  "purpose": "diagnostic only; no application limits or image change",
+  "originalJavaToolOptions": "-Xmx256m -XX:MaxDirectMemorySize=128m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dio.netty.leakDetection.level=advanced -Dorg.slf4j.simpleLogger.defaultLogLevel=warn",
+  "diagnosticJavaToolOptions": "-Xmx256m -XX:MaxDirectMemorySize=128m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dio.netty.leakDetection.level=advanced -Dorg.slf4j.simpleLogger.defaultLogLevel=warn -Xlog:gc*,safepoint:file=/tmp/burst-gateway-gc.log:time,uptime,level,tags"
+}

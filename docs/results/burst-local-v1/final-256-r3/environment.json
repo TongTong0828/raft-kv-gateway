@@ -1,0 +1,516 @@
+{
+  "commit": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+  "dirty": false,
+  "platform": "macOS-15.7.9-arm64-arm-64bit-Mach-O",
+  "machine": "arm64",
+  "processor": "Apple M4 Pro",
+  "docker": {
+    "ServerVersion": "28.3.2",
+    "NCPU": 12,
+    "MemTotal": 8217751552,
+    "Architecture": "aarch64",
+    "OperatingSystem": "Docker Desktop"
+  },
+  "image": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+  "imageRevision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+  "k6Image": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+  "generator": {
+    "imageId": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+    "imageTag": "raft-kv-k6:monotonic",
+    "version": "k6 v2.3.0 (commit/devel, go1.27.1, linux/arm64)",
+    "platform": "linux/arm64",
+    "binarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+    "labels": {
+      "io.raftkv.k6.binary.sha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "io.raftkv.k6.build-origin": "raft-kv-gateway-monotonic.1",
+      "io.raftkv.k6.clock": "process-monotonic-v1",
+      "io.raftkv.k6.patch.sha256": "d14b4733afc322baa3ddfc8b39298938b09527a188d5e8f733cd41d327bcf29a",
+      "io.raftkv.k6.platform": "linux/arm64",
+      "io.raftkv.k6.source.sha256": "30b6421805f00c63b046a48219ced8fd3c8e47dcc099ee7e6b060e8f9e7ec146",
+      "io.raftkv.k6.upstream.commit": "e0887846143ab176d4b5483c9d52cf3b3e009f1a",
+      "org.opencontainers.image.licenses": "AGPL-3.0",
+      "org.opencontainers.image.revision": "e0887846143ab176d4b5483c9d52cf3b3e009f1a",
+      "org.opencontainers.image.source": "https://github.com/grafana/k6",
+      "org.opencontainers.image.title": "k6 with local monotonic HTTP tracer",
+      "org.opencontainers.image.version": "2.3.0-monotonic.1"
+    },
+    "provenance": {
+      "version": "2.3.0",
+      "upstreamCommit": "e0887846143ab176d4b5483c9d52cf3b3e009f1a",
+      "sourceUrl": "https://codeload.github.com/grafana/k6/tar.gz/e0887846143ab176d4b5483c9d52cf3b3e009f1a",
+      "sourceSha256": "30b6421805f00c63b046a48219ced8fd3c8e47dcc099ee7e6b060e8f9e7ec146",
+      "builderImage": "golang:1.27.1-alpine@sha256:4cb7ac979db5fcc41cae44b2227ba5ab8a51e8807f40d9ba4dee20a0ad960b5b",
+      "runtimeImage": "grafana/k6:2.3.0@sha256:9c2dee7f8ed74d317e4027c06a10f169b625638189de8d4555d0b3486a5aeb34",
+      "platforms": [
+        "linux/arm64",
+        "linux/amd64"
+      ],
+      "clock": "process-monotonic-v1",
+      "buildOrigin": "raft-kv-gateway-monotonic.1",
+      "imageTag": "raft-kv-k6:monotonic",
+      "patches": [
+        "0001-monotonic-tracer.patch",
+        "0002-monotonic-tracer-tests.patch"
+      ],
+      "platform": "linux/arm64",
+      "patchSha256": "d14b4733afc322baa3ddfc8b39298938b09527a188d5e8f733cd41d327bcf29a",
+      "patchSha256ByFile": {
+        "0001-monotonic-tracer.patch": "b8f9dfeaddd0c683998768f158903c6eb9418a4c382897f884fa75a1835513ae",
+        "0002-monotonic-tracer-tests.patch": "4bec4c3f8f4a00b03de60687084c4b31d0dcb61c38764073ed59755432c7e37c"
+      },
+      "binarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "goVersion": "go1.27.1",
+      "compile": {
+        "CGO_ENABLED": "0",
+        "GOTOOLCHAIN": "local",
+        "GOPROXY": "off",
+        "GOSUMDB": "off",
+        "flags": [
+          "-mod=vendor",
+          "-p=2",
+          "-trimpath",
+          "-buildvcs=false",
+          "-ldflags=-buildid= -X go.k6.io/k6/v2/internal/build.BuildOrigin=raft-kv-gateway-monotonic.1"
+        ]
+      },
+      "tests": {
+        "package": "go.k6.io/k6/v2/lib/netext/httpext",
+        "passedTestsAndSubtests": 277,
+        "log": "work/k6/httpext-tests.jsonl"
+      }
+    }
+  },
+  "generatorLimits": {
+    "cpus": 4,
+    "memoryMiB": 1536,
+    "preallocatedVUsPerScenario": 256,
+    "maxVUsPerScenario": 256
+  },
+  "warmupSeconds": 30,
+  "measurementSeconds": 300,
+  "payloadBytes": 1024,
+  "compose": {
+    "name": "raft-kv-gateway",
+    "networks": {
+      "app": {
+        "name": "raft-kv-gateway_app",
+        "ipam": {}
+      },
+      "raft": {
+        "name": "raft-kv-gateway_raft",
+        "ipam": {}
+      }
+    },
+    "services": {
+      "backend-a": {
+        "cpus": 0.5,
+        "command": [
+          "-jar",
+          "/app/demo-backend.jar"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "JAVA_TOOL_OPTIONS": "-Xmx32m -XX:MaxDirectMemorySize=16m -XX:ReservedCodeCacheSize=16m -XX:ActiveProcessorCount=1",
+          "KV_BACKEND_ID": "backend-a"
+        },
+        "image": "raft-kv-gateway:local",
+        "mem_limit": "134217728",
+        "networks": {
+          "app": null
+        }
+      },
+      "backend-b": {
+        "cpus": 0.5,
+        "command": [
+          "-jar",
+          "/app/demo-backend.jar"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "JAVA_TOOL_OPTIONS": "-Xmx32m -XX:MaxDirectMemorySize=16m -XX:ReservedCodeCacheSize=16m -XX:ActiveProcessorCount=1",
+          "KV_BACKEND_ID": "backend-b"
+        },
+        "image": "raft-kv-gateway:local",
+        "mem_limit": "134217728",
+        "networks": {
+          "app": null
+        }
+      },
+      "cp1": {
+        "build": {
+          "context": "<repository>",
+          "dockerfile": "docker/Dockerfile"
+        },
+        "cpus": 1,
+        "command": [
+          "-jar",
+          "/app/control-plane.jar"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "JAVA_TOOL_OPTIONS": "-Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn",
+          "KV_DATA_DIR": "/data",
+          "KV_GRPC_PEERS": "cp1=cp1:50051,cp2=cp2:50051,cp3=cp3:50051",
+          "KV_NODE_ID": "cp1",
+          "KV_RAFT_PEERS": "cp1=cp1-raft:6000,cp2=cp2-raft:6000,cp3=cp3-raft:6000"
+        },
+        "healthcheck": {
+          "test": [
+            "CMD",
+            "bash",
+            "-c",
+            "exec 3<>/dev/tcp/127.0.0.1/9101"
+          ],
+          "timeout": "1s",
+          "interval": "2s",
+          "retries": 30,
+          "start_period": "10s"
+        },
+        "image": "raft-kv-gateway:local",
+        "mem_limit": "335544320",
+        "networks": {
+          "app": {
+            "gw_priority": 1
+          },
+          "raft": {
+            "aliases": [
+              "cp1-raft"
+            ]
+          }
+        },
+        "ports": [
+          {
+            "mode": "ingress",
+            "host_ip": "127.0.0.1",
+            "target": 50051,
+            "published": "15051",
+            "protocol": "tcp"
+          },
+          {
+            "mode": "ingress",
+            "host_ip": "127.0.0.1",
+            "target": 9101,
+            "published": "19101",
+            "protocol": "tcp"
+          }
+        ],
+        "stop_grace_period": "15s",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "cp1-data",
+            "target": "/data",
+            "volume": {}
+          }
+        ]
+      },
+      "cp2": {
+        "build": {
+          "context": "<repository>",
+          "dockerfile": "docker/Dockerfile"
+        },
+        "cpus": 1,
+        "command": [
+          "-jar",
+          "/app/control-plane.jar"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "JAVA_TOOL_OPTIONS": "-Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn",
+          "KV_DATA_DIR": "/data",
+          "KV_GRPC_PEERS": "cp1=cp1:50051,cp2=cp2:50051,cp3=cp3:50051",
+          "KV_NODE_ID": "cp2",
+          "KV_RAFT_PEERS": "cp1=cp1-raft:6000,cp2=cp2-raft:6000,cp3=cp3-raft:6000"
+        },
+        "healthcheck": {
+          "test": [
+            "CMD",
+            "bash",
+            "-c",
+            "exec 3<>/dev/tcp/127.0.0.1/9101"
+          ],
+          "timeout": "1s",
+          "interval": "2s",
+          "retries": 30,
+          "start_period": "10s"
+        },
+        "image": "raft-kv-gateway:local",
+        "mem_limit": "335544320",
+        "networks": {
+          "app": {
+            "gw_priority": 1
+          },
+          "raft": {
+            "aliases": [
+              "cp2-raft"
+            ]
+          }
+        },
+        "ports": [
+          {
+            "mode": "ingress",
+            "host_ip": "127.0.0.1",
+            "target": 50051,
+            "published": "15052",
+            "protocol": "tcp"
+          },
+          {
+            "mode": "ingress",
+            "host_ip": "127.0.0.1",
+            "target": 9101,
+            "published": "19102",
+            "protocol": "tcp"
+          }
+        ],
+        "stop_grace_period": "15s",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "cp2-data",
+            "target": "/data",
+            "volume": {}
+          }
+        ]
+      },
+      "cp3": {
+        "build": {
+          "context": "<repository>",
+          "dockerfile": "docker/Dockerfile"
+        },
+        "cpus": 1,
+        "command": [
+          "-jar",
+          "/app/control-plane.jar"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "JAVA_TOOL_OPTIONS": "-Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn",
+          "KV_DATA_DIR": "/data",
+          "KV_GRPC_PEERS": "cp1=cp1:50051,cp2=cp2:50051,cp3=cp3:50051",
+          "KV_NODE_ID": "cp3",
+          "KV_RAFT_PEERS": "cp1=cp1-raft:6000,cp2=cp2-raft:6000,cp3=cp3-raft:6000"
+        },
+        "healthcheck": {
+          "test": [
+            "CMD",
+            "bash",
+            "-c",
+            "exec 3<>/dev/tcp/127.0.0.1/9101"
+          ],
+          "timeout": "1s",
+          "interval": "2s",
+          "retries": 30,
+          "start_period": "10s"
+        },
+        "image": "raft-kv-gateway:local",
+        "mem_limit": "335544320",
+        "networks": {
+          "app": {
+            "gw_priority": 1
+          },
+          "raft": {
+            "aliases": [
+              "cp3-raft"
+            ]
+          }
+        },
+        "ports": [
+          {
+            "mode": "ingress",
+            "host_ip": "127.0.0.1",
+            "target": 50051,
+            "published": "15053",
+            "protocol": "tcp"
+          },
+          {
+            "mode": "ingress",
+            "host_ip": "127.0.0.1",
+            "target": 9101,
+            "published": "19103",
+            "protocol": "tcp"
+          }
+        ],
+        "stop_grace_period": "15s",
+        "volumes": [
+          {
+            "type": "volume",
+            "source": "cp3-data",
+            "target": "/data",
+            "volume": {}
+          }
+        ]
+      },
+      "gateway": {
+        "cpus": 2,
+        "command": [
+          "-jar",
+          "/app/gateway.jar"
+        ],
+        "entrypoint": null,
+        "environment": {
+          "JAVA_TOOL_OPTIONS": "-Xmx256m -XX:MaxDirectMemorySize=128m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dio.netty.leakDetection.level=advanced -Dorg.slf4j.simpleLogger.defaultLogLevel=warn",
+          "KV_CONTROL_SEEDS": "cp1:50051,cp2:50051,cp3:50051"
+        },
+        "healthcheck": {
+          "test": [
+            "CMD",
+            "bash",
+            "-c",
+            "exec 3<>/dev/tcp/127.0.0.1/9090"
+          ],
+          "timeout": "1s",
+          "interval": "2s",
+          "retries": 20
+        },
+        "image": "raft-kv-gateway:local",
+        "mem_limit": "805306368",
+        "networks": {
+          "app": null
+        },
+        "ports": [
+          {
+            "mode": "ingress",
+            "host_ip": "127.0.0.1",
+            "target": 8080,
+            "published": "8080",
+            "protocol": "tcp"
+          },
+          {
+            "mode": "ingress",
+            "host_ip": "127.0.0.1",
+            "target": 9090,
+            "published": "9090",
+            "protocol": "tcp"
+          }
+        ]
+      }
+    },
+    "volumes": {
+      "cp1-data": {
+        "name": "raft-kv-gateway_cp1-data"
+      },
+      "cp2-data": {
+        "name": "raft-kv-gateway_cp2-data"
+      },
+      "cp3-data": {
+        "name": "raft-kv-gateway_cp3-data"
+      }
+    },
+    "x-control": {
+      "build": {
+        "context": ".",
+        "dockerfile": "docker/Dockerfile"
+      },
+      "command": [
+        "-jar",
+        "/app/control-plane.jar"
+      ],
+      "cpus": 1,
+      "environment": {
+        "JAVA_TOOL_OPTIONS": "-Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn",
+        "KV_DATA_DIR": "/data",
+        "KV_GRPC_PEERS": "cp1=cp1:50051,cp2=cp2:50051,cp3=cp3:50051",
+        "KV_RAFT_PEERS": "cp1=cp1-raft:6000,cp2=cp2-raft:6000,cp3=cp3-raft:6000"
+      },
+      "healthcheck": {
+        "interval": "2s",
+        "retries": 30,
+        "start_period": "10s",
+        "test": [
+          "CMD",
+          "bash",
+          "-c",
+          "exec 3<>/dev/tcp/127.0.0.1/9101"
+        ],
+        "timeout": "1s"
+      },
+      "image": "raft-kv-gateway:local",
+      "mem_limit": "320m",
+      "stop_grace_period": "15s"
+    }
+  },
+  "actualContainers": [
+    {
+      "service": "backend-a",
+      "containerId": "d657e6b719247e9afc1c68368bcaabb78a475db587b0f49a2edebd043c49fb91",
+      "name": "raft-kv-gateway-backend-a-1",
+      "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "memoryLimitBytes": 134217728,
+      "nanoCpus": 500000000
+    },
+    {
+      "service": "backend-b",
+      "containerId": "fb952b30ae29284dfb97a398181b7d74fc1604148cab0859ce7c376cae70fae3",
+      "name": "raft-kv-gateway-backend-b-1",
+      "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "memoryLimitBytes": 134217728,
+      "nanoCpus": 500000000
+    },
+    {
+      "service": "cp1",
+      "containerId": "258cd761f0ea0cbc054d88b94196d9f0456081c34037d15d17c32577693f0988",
+      "name": "raft-kv-gateway-cp1-1",
+      "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "memoryLimitBytes": 335544320,
+      "nanoCpus": 1000000000
+    },
+    {
+      "service": "cp2",
+      "containerId": "dd0f80140c04f9e0db753417965eae8e285be4ed7fba5a8362c7e6fae5c5a113",
+      "name": "raft-kv-gateway-cp2-1",
+      "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "memoryLimitBytes": 335544320,
+      "nanoCpus": 1000000000
+    },
+    {
+      "service": "cp3",
+      "containerId": "79727e0543ce397105b42812d7ba72ecf921c405ea0575b62f9afa802fbd38b2",
+      "name": "raft-kv-gateway-cp3-1",
+      "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "memoryLimitBytes": 335544320,
+      "nanoCpus": 1000000000
+    },
+    {
+      "service": "gateway",
+      "containerId": "7a3b1576673ed4125b97c2c737d682173653840ccc1c974937a85f8b8aa8f6f1",
+      "name": "raft-kv-gateway-gateway-1",
+      "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "memoryLimitBytes": 805306368,
+      "nanoCpus": 2000000000
+    }
+  ],
+  "acceptance": {
+    "minimumSuccessfulRps": 8000,
+    "maximumFullCallP99Ms": 15,
+    "bucketSeconds": 10,
+    "completionWindow": "eligible start and completion inside [warmup,warmup+measurement)",
+    "clock": "pinned k6 constant-arrival-rate scenario.progress times configured duration; Go monotonic time.Since, clamped at deadline",
+    "graceSeconds": 5,
+    "dropScope": "entire experiment including warmup",
+    "environment": "local shared Docker VM; not AWS EKS"
+  },
+  "workloadProfile": {
+    "name": "burst",
+    "file": "examples/orders-burst.json",
+    "applied": {
+      "revision": "6093",
+      "service": {
+        "serviceId": "orders",
+        "pathPrefix": "/orders",
+        "endpoints": [
+          "backend-a:8081",
+          "backend-b:8081"
+        ],
+        "requestTimeoutMs": 2000,
+        "maxInflight": 256,
+        "maxConnectionsPerEndpoint": 16
+      }
+    }
+  }
+}

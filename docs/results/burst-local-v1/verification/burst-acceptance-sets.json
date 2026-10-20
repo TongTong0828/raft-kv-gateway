@@ -1,0 +1,25 @@
+{
+  "64-standard": {
+    "requiredRuns": 3,
+    "cases": [
+      "formal-64-r1",
+      "formal-64-r2",
+      "formal-64-r3"
+    ],
+    "vus": 64,
+    "profile": "standard",
+    "generatorMemoryMiB": 768
+  },
+  "256-burst-headroom": {
+    "requiredRuns": 3,
+    "cases": [
+      "final-256-r1",
+      "final-256-r2",
+      "final-256-r3"
+    ],
+    "vus": 256,
+    "profile": "burst",
+    "generatorMemoryMiB": 1536,
+    "requireGeneratorObserver": true
+  }
+}

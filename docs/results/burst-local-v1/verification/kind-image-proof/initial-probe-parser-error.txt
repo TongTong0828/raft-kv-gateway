@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/work/kind-image-proof.py", line 18, in <module>
+    assert loaded['config']['digest']==manifest['config']['digest']
+           ~~~~~~^^^^^^^^^^
+KeyError: 'config'

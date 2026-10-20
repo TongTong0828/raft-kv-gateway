@@ -1,0 +1,187 @@
+#!/usr/bin/env python3
+"""Run the unchanged benchmark runner with explicit, retained observation overrides."""
+import hashlib
+import json
+from pathlib import Path
+import runpy
+import subprocess
+import sys
+import threading
+import time
+import urllib.request
+
+ROOT = Path(__file__).resolve().parent.parent
+REAL_RUN = subprocess.run
+API = 'http://127.0.0.1:16565'
+CGROUP_FILES = [
+    '/proc/uptime', '/sys/fs/cgroup/cpu.max', '/sys/fs/cgroup/cpu.stat',
+    '/sys/fs/cgroup/cpu.pressure', '/sys/fs/cgroup/memory.current',
+    '/sys/fs/cgroup/memory.peak', '/sys/fs/cgroup/memory.max',
+    '/sys/fs/cgroup/memory.high', '/sys/fs/cgroup/memory.events',
+    '/sys/fs/cgroup/memory.events.local', '/sys/fs/cgroup/memory.pressure',
+    '/sys/fs/cgroup/memory.swap.current', '/sys/fs/cgroup/memory.swap.max',
+    '/proc/pressure/cpu', '/proc/pressure/memory', '/proc/pressure/io',
+    '/proc/meminfo',
+]
+
+
+def sha(path):
+    return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def cli_values(command):
+    values = {}
+    for index, value in enumerate(command[:-1]):
+        if value == '-e':
+            key, _, contents = command[index + 1].partition('=')
+            values[key] = contents
+    return values
+
+
+def diagnostic_run(command, *args, **kwargs):
+    if not isinstance(command, (list, tuple)):
+        return REAL_RUN(command, *args, **kwargs)
+    command = [str(part) for part in command]
+    target = (command[:2] == ['docker', 'run'] and len(command) >= 4
+              and command[-3:] == ['run', '--quiet', '/workspace/benchmarks/acceptance.js']
+              and command[-4].startswith('sha256:') and '--name' in command
+              and command[command.index('--name') + 1].startswith('kv-bench-'))
+    if not target:
+        return REAL_RUN(command, *args, **kwargs)
+
+    env = cli_values(command)
+    expected = {'RATE': '8400', 'FIXED_VUS': '256', 'WARMUP_SECONDS': '30',
+                'MEASURE_SECONDS': '300'}
+    if any(env.get(key) != value for key, value in expected.items()):
+        raise ValueError('diagnostic wrapper requires the unchanged 256-VU 30+300s workload')
+    if command[command.index('--memory') + 1] != '768m' or command[command.index('--cpus') + 1] != '4':
+        raise ValueError('diagnostic wrapper requires unchanged 768MiB/4CPU generator limits')
+    if 'GODEBUG' in env or '--no-thresholds' in command or env.get('K6_NO_THRESHOLDS'):
+        raise ValueError('unexpected pre-existing GC/threshold override')
+    mounts = [command[i + 1] for i, value in enumerate(command[:-1]) if value == '-v']
+    out = Path(next(value[:-len(':/results')] for value in mounts if value.endswith(':/results')))
+    if not (out / 'environment.json').exists():
+        raise ValueError('runner must initialize the output directory before diagnostic overrides')
+    name = command[command.index('--name') + 1]
+    effective = command[:-4] + ['-e', 'GODEBUG=gctrace=1', '-p', '127.0.0.1:16565:6565'] + [
+        command[-4], '--address', '0.0.0.0:6565', '--profiling-enabled', *command[-3:]]
+    launch = time.monotonic()
+    stop = threading.Event()
+    write_lock = threading.Lock()
+    metadata = {
+        'diagnosticOnly': True, 'wrapperSha256': sha(Path(__file__)),
+        'runnerSha256': sha(ROOT / 'benchmarks/run.py'),
+        'originalCommand': command, 'effectiveCommand': effective,
+        'generatorName': name, 'generatorImageId': command[-4],
+        'launchWallTimeNs': time.time_ns(), 'launchMonotonicSeconds': launch,
+        'unchangedWorkload': expected, 'generatorMemoryMiB': 768, 'generatorCpus': 4,
+        'thresholdsEnabled': True, 'acceptanceParserUnmodified': True,
+        'overrides': {'environment': {'GODEBUG': 'gctrace=1'},
+                      'hostPort': '127.0.0.1:16565', 'containerRestAddress': '0.0.0.0:6565',
+                      'profilingEnabled': True},
+        'cpuProfile': {'plannedLaunchOffsetSeconds': 240, 'seconds': 70},
+        'cgroupSampling': {'targetIntervalSeconds': 1, 'execTimeoutSeconds': 2,
+                           'files': CGROUP_FILES},
+        'goroutineSnapshotLaunchOffsetsSeconds': [230, 280, 284, 300, 312],
+        'observerEffect': 'Additional GC logs, pprof sampling, REST and docker-exec observations; diagnostic result is retained separately.',
+    }
+    (out / 'runtime-overrides.json').write_text(json.dumps(metadata, indent=2) + '\n')
+
+    def event(kind, **fields):
+        row = {'kind': kind, 'wallTimeNs': time.time_ns(),
+               'launchOffsetSeconds': time.monotonic() - launch, **fields}
+        with write_lock, (out / 'diagnostic-events.jsonl').open('a') as stream:
+            stream.write(json.dumps(row) + '\n')
+
+    def wait_until(offset):
+        return not stop.wait(max(0, launch + offset - time.monotonic()))
+
+    def fetch(path, destination, timeout):
+        began = time.monotonic()
+        event('http_start', path=path, output=destination)
+        try:
+            with urllib.request.urlopen(API + path, timeout=timeout) as response:
+                payload = response.read(32 * 1024 * 1024 + 1)
+            if len(payload) > 32 * 1024 * 1024:
+                raise ValueError('diagnostic response exceeded 32MiB bound')
+            (out / destination).write_bytes(payload)
+            event('http_complete', path=path, output=destination, bytes=len(payload),
+                  durationSeconds=time.monotonic() - began)
+        except Exception as failure:
+            event('http_error', path=path, output=destination, error=repr(failure),
+                  durationSeconds=time.monotonic() - began)
+
+    def cgroups():
+        script = 'for task_file in ' + ' '.join(CGROUP_FILES) + '; do printf "\\n@@ %s\\n" "$task_file"; if [ -r "$task_file" ]; then cat "$task_file"; else printf "<unavailable>\\n"; fi; done'
+        inspected = False
+        with (out / 'generator-cgroup.jsonl').open('a', buffering=1) as stream:
+            while not stop.is_set():
+                began = time.monotonic()
+                row = {'wallTimeNs': time.time_ns(), 'launchOffsetSeconds': began - launch}
+                try:
+                    result = REAL_RUN(['docker', 'exec', name, 'sh', '-c', script],
+                                      text=True, capture_output=True, timeout=2)
+                    row.update(returncode=result.returncode, stdout=result.stdout, stderr=result.stderr)
+                    if result.returncode == 0 and not inspected:
+                        info = REAL_RUN(['docker', 'inspect', '--format', '{{json .}}', name],
+                                        text=True, capture_output=True, timeout=2)
+                        if info.returncode == 0:
+                            data = json.loads(info.stdout)
+                            state = {'Id': data['Id'], 'Name': data['Name'], 'Image': data['Image'],
+                                     'State': data['State'], 'Env': data['Config']['Env'],
+                                     'HostConfig': {key: data['HostConfig'].get(key) for key in
+                                         ['Memory', 'MemorySwap', 'NanoCpus', 'CpuPeriod', 'CpuQuota', 'CpusetCpus']},
+                                     'Ports': data['NetworkSettings']['Ports']}
+                            (out / 'generator-start-inspect.json').write_text(json.dumps(state, indent=2) + '\n')
+                            inspected = True
+                except Exception as failure:
+                    row['error'] = repr(failure)
+                row['durationSeconds'] = time.monotonic() - began
+                stream.write(json.dumps(row) + '\n')
+                stop.wait(max(0, 1 - (time.monotonic() - began)))
+
+    def cpu_profile():
+        if wait_until(240):
+            fetch('/debug/pprof/profile?seconds=70', 'generator-cpu-240s-70s.pprof', 85)
+
+    def stacks():
+        if wait_until(5):
+            fetch('/v1/status', 'generator-rest-status-5s.json', 3)
+        for offset in [230, 280, 284, 300, 312]:
+            if not wait_until(offset):
+                return
+            fetch('/debug/pprof/goroutine?debug=2', f'generator-goroutine-{offset}s.txt', 5)
+        if not stop.is_set():
+            fetch('/v1/status', 'generator-rest-status-312s.json', 3)
+
+    threads = [threading.Thread(target=job, name='generator-diagnostic-' + job.__name__, daemon=True)
+               for job in [cgroups, cpu_profile, stacks]]
+    for thread in threads:
+        thread.start()
+    try:
+        event('generator_subprocess_start')
+        result = REAL_RUN(effective, *args, **kwargs)
+        metadata['returncode'] = result.returncode
+        return result
+    finally:
+        stop.set()
+        for thread in threads:
+            thread.join(timeout=4)
+        metadata['finishedWallTimeNs'] = time.time_ns()
+        metadata['elapsedSeconds'] = time.monotonic() - launch
+        metadata['threadsStillAlive'] = [thread.name for thread in threads if thread.is_alive()]
+        (out / 'runtime-overrides.json').write_text(json.dumps(metadata, indent=2) + '\n')
+
+
+def main():
+    subprocess.run = diagnostic_run
+    sys.path.insert(0, str(ROOT / 'benchmarks'))
+    sys.argv[0] = str(ROOT / 'benchmarks/run.py')
+    try:
+        runpy.run_path(str(ROOT / 'benchmarks/run.py'), run_name='__main__')
+    finally:
+        subprocess.run = REAL_RUN
+
+
+if __name__ == '__main__':
+    main()

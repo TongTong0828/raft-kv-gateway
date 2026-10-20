@@ -1,0 +1,66 @@
+File: k6
+Type: cpu
+Time: 2026-10-20 00:05:34 UTC
+Duration: 70s, Total samples = 61.36s (87.65%)
+Showing nodes accounting for 61.36s, 100% of 61.36s total
+----------------------------------------------------------+-------------
+      flat  flat%   sum%        cum   cum%   calls calls% + context 	 	 
+----------------------------------------------------------+-------------
+                                             0.52s   100% |   go.k6.io/k6/v2/internal/metrics/engine.(*OutputIngester).flushMetrics
+     0.08s  0.13%  0.13%      0.52s  0.85%                | go.k6.io/k6/v2/metrics.(*TrendSink).Add
+                                             0.44s 84.62% |   runtime.growslice
+----------------------------------------------------------+-------------
+                                             0.70s   100% |   go.k6.io/k6/v2/output.(*PeriodicFlusher).run
+     0.06s 0.098%  0.23%      0.70s  1.14%                | go.k6.io/k6/v2/internal/metrics/engine.(*OutputIngester).flushMetrics
+                                             0.52s 74.29% |   go.k6.io/k6/v2/metrics.(*TrendSink).Add
+                                             0.05s  7.14% |   go.k6.io/k6/v2/internal/metrics/engine.(*cardinalityControl).Add (inline)
+                                             0.03s  4.29% |   runtime.mallocgcSmallScanNoHeaderSC6
+                                             0.01s  1.43% |   go.k6.io/k6/v2/metrics.(*RateSink).Add
+                                             0.01s  1.43% |   go.k6.io/k6/v2/metrics.(*TagSet).Contains (inline)
+                                             0.01s  1.43% |   go.k6.io/k6/v2/output.(*SampleBuffer).GetBufferedSamples
+                                             0.01s  1.43% |   runtime.wbMove
+----------------------------------------------------------+-------------
+                                             0.51s   100% |   go.k6.io/k6/v2/output.(*PeriodicFlusher).run
+     0.06s 0.098%  0.33%      0.51s  0.83%                | go.k6.io/k6/v2/internal/output/summary.(*Output).flushMetrics
+                                             0.38s 74.51% |   go.k6.io/k6/v2/internal/output/summary.(*Output).flushSample
+                                             0.05s  9.80% |   runtime.mallocgcSmallScanNoHeaderSC6
+                                             0.01s  1.96% |   go.k6.io/k6/v2/lib/netext/httpext.(*Trail).GetSamples
+                                             0.01s  1.96% |   go.k6.io/k6/v2/output.(*SampleBuffer).GetBufferedSamples
+----------------------------------------------------------+-------------
+                                             2.11s   100% |   go.k6.io/k6/v2/internal/metrics/engine.(*MetricsEngine).StartThresholdCalculations.func1
+         0     0%  0.33%      2.11s  3.44%                | go.k6.io/k6/v2/internal/metrics/engine.(*MetricsEngine).evaluateThresholds
+                                             2.11s   100% |   go.k6.io/k6/v2/metrics.(*Thresholds).Run
+----------------------------------------------------------+-------------
+                                             2.11s   100% |   go.k6.io/k6/v2/internal/metrics/engine.(*MetricsEngine).evaluateThresholds
+         0     0%  0.33%      2.11s  3.44%                | go.k6.io/k6/v2/metrics.(*Thresholds).Run
+                                             2.11s   100% |   go.k6.io/k6/v2/metrics.(*TrendSink).P
+----------------------------------------------------------+-------------
+                                             2.11s   100% |   go.k6.io/k6/v2/metrics.(*Thresholds).Run
+         0     0%  0.33%      2.11s  3.44%                | go.k6.io/k6/v2/metrics.(*TrendSink).P
+                                             2.11s   100% |   sort.Float64s
+----------------------------------------------------------+-------------
+                                             0.33s 68.75% |   runtime.mallocgcSmallScanSlowPath
+                                             0.14s 29.17% |   runtime.deductAssistCredit
+                                             0.01s  2.08% |   runtime.mallocgcSmallNoScanSlowPath
+         0     0%  0.33%      0.48s  0.78%                | runtime.gcAssistAlloc
+                                             0.48s   100% |   runtime.systemstack
+----------------------------------------------------------+-------------
+                                             0.48s   100% |   runtime.systemstack
+         0     0%  0.33%      0.48s  0.78%                | runtime.gcAssistAlloc.func2
+                                             0.48s   100% |   runtime.gcAssistAlloc1
+----------------------------------------------------------+-------------
+                                             0.48s   100% |   runtime.gcAssistAlloc.func2
+         0     0%  0.33%      0.48s  0.78%                | runtime.gcAssistAlloc1
+                                             0.46s 95.83% |   runtime.gcDrainN
+                                             0.01s  2.08% |   gcWriteBarrier
+                                             0.01s  2.08% |   runtime.(*gcCPULimiterState).update
+----------------------------------------------------------+-------------
+         0     0%  0.33%      2.80s  4.56%                | runtime.gcBgMarkWorker
+                                             2.79s 99.64% |   runtime.systemstack
+                                             0.01s  0.36% |   runtime.gcMarkDone
+----------------------------------------------------------+-------------
+                                             2.79s   100% |   runtime.systemstack
+         0     0%  0.33%      2.79s  4.55%                | runtime.gcBgMarkWorker.func2
+                                             1.58s 56.63% |   runtime.gcDrainMarkWorkerIdle (inline)
+                                             1.21s 43.37% |   runtime.gcDrainMarkWorkerDedicated (inline)
+----------------------------------------------------------+-------------

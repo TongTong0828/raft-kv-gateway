@@ -1,0 +1,158 @@
+.FFFFFFFusage: run.py [-h] [--suite {gateway,kv,isolation,all,acceptance}]
+              [--profile {standard,burst}] [--rates RATES] [--repeats REPEATS]
+              [--warmup WARMUP] [--seconds SECONDS] [--output OUTPUT]
+              [--vus VUS] [--bucket-seconds BUCKET_SECONDS]
+              [--min-success-rps MIN_SUCCESS_RPS] [--max-p99-ms MAX_P99_MS]
+run.py: error: unrecognized arguments: --generator-memory-mib 256
+Eusage: run.py [-h] [--suite {gateway,kv,isolation,all,acceptance}]
+              [--profile {standard,burst}] [--rates RATES] [--repeats REPEATS]
+              [--warmup WARMUP] [--seconds SECONDS] [--output OUTPUT]
+              [--vus VUS] [--bucket-seconds BUCKET_SECONDS]
+              [--min-success-rps MIN_SUCCESS_RPS] [--max-p99-ms MAX_P99_MS]
+run.py: error: unrecognized arguments: --generator-memory-mib 1024
+Eusage: run.py [-h] [--suite {gateway,kv,isolation,all,acceptance}]
+              [--profile {standard,burst}] [--rates RATES] [--repeats REPEATS]
+              [--warmup WARMUP] [--seconds SECONDS] [--output OUTPUT]
+              [--vus VUS] [--bucket-seconds BUCKET_SECONDS]
+              [--min-success-rps MIN_SUCCESS_RPS] [--max-p99-ms MAX_P99_MS]
+run.py: error: unrecognized arguments: --generator-memory-mib 4096
+E..
+======================================================================
+ERROR: test_generator_memory_used_by_docker_matches_recorded_metadata (test_runner.RunnerTest.test_generator_memory_used_by_docker_matches_recorded_metadata) (value=256)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_runner.py", line 59, in test_generator_memory_used_by_docker_matches_recorded_metadata
+    runpy.run_path(str(ROOT/'benchmarks/run.py'),run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/run.py", line 8, in <module>
+    p=argparse.ArgumentParser();p.add_argument('--suite',choices=['gateway','kv','isolation','all','acceptance'],default='gateway');p.add_argument('--profile',choices=['standard','burst'],default='standard');p.add_argument('--rates');p.add_argument('--repeats',type=int,default=3);p.add_argument('--warmup',type=int);p.add_argument('--seconds',type=int);p.add_argument('--output',default='work/benchmark-results');p.add_argument('--vus',type=int,default=256);p.add_argument('--bucket-seconds',type=int,default=10);p.add_argument('--min-success-rps',type=float,default=8000);p.add_argument('--max-p99-ms',type=float,default=15);args=p.parse_args()
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/argparse.py", line 2005, in parse_args
+    self.error(msg)
+    ~~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/argparse.py", line 2771, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/argparse.py", line 2758, in exit
+    _sys.exit(status)
+    ~~~~~~~~~^^^^^^^^
+SystemExit: 2
+
+======================================================================
+ERROR: test_generator_memory_used_by_docker_matches_recorded_metadata (test_runner.RunnerTest.test_generator_memory_used_by_docker_matches_recorded_metadata) (value=1024)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_runner.py", line 59, in test_generator_memory_used_by_docker_matches_recorded_metadata
+    runpy.run_path(str(ROOT/'benchmarks/run.py'),run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/run.py", line 8, in <module>
+    p=argparse.ArgumentParser();p.add_argument('--suite',choices=['gateway','kv','isolation','all','acceptance'],default='gateway');p.add_argument('--profile',choices=['standard','burst'],default='standard');p.add_argument('--rates');p.add_argument('--repeats',type=int,default=3);p.add_argument('--warmup',type=int);p.add_argument('--seconds',type=int);p.add_argument('--output',default='work/benchmark-results');p.add_argument('--vus',type=int,default=256);p.add_argument('--bucket-seconds',type=int,default=10);p.add_argument('--min-success-rps',type=float,default=8000);p.add_argument('--max-p99-ms',type=float,default=15);args=p.parse_args()
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/argparse.py", line 2005, in parse_args
+    self.error(msg)
+    ~~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/argparse.py", line 2771, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/argparse.py", line 2758, in exit
+    _sys.exit(status)
+    ~~~~~~~~~^^^^^^^^
+SystemExit: 2
+
+======================================================================
+ERROR: test_generator_memory_used_by_docker_matches_recorded_metadata (test_runner.RunnerTest.test_generator_memory_used_by_docker_matches_recorded_metadata) (value=4096)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_runner.py", line 59, in test_generator_memory_used_by_docker_matches_recorded_metadata
+    runpy.run_path(str(ROOT/'benchmarks/run.py'),run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/run.py", line 8, in <module>
+    p=argparse.ArgumentParser();p.add_argument('--suite',choices=['gateway','kv','isolation','all','acceptance'],default='gateway');p.add_argument('--profile',choices=['standard','burst'],default='standard');p.add_argument('--rates');p.add_argument('--repeats',type=int,default=3);p.add_argument('--warmup',type=int);p.add_argument('--seconds',type=int);p.add_argument('--output',default='work/benchmark-results');p.add_argument('--vus',type=int,default=256);p.add_argument('--bucket-seconds',type=int,default=10);p.add_argument('--min-success-rps',type=float,default=8000);p.add_argument('--max-p99-ms',type=float,default=15);args=p.parse_args()
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ~~~~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/argparse.py", line 2005, in parse_args
+    self.error(msg)
+    ~~~~~~~~~~^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/argparse.py", line 2771, in error
+    self.exit(2, _('%(prog)s: error: %(message)s\n') % args)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.0_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/argparse.py", line 2758, in exit
+    _sys.exit(status)
+    ~~~~~~~~~^^^^^^^^
+SystemExit: 2
+
+======================================================================
+FAIL: test_generator_memory_bounds_rejected_before_external_tools (test_runner.RunnerTest.test_generator_memory_bounds_rejected_before_external_tools) (value='255')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_runner.py", line 22, in test_generator_memory_bounds_rejected_before_external_tools
+    self.assertIn('generator memory must be between 256 and 4096 mib',r.stderr.lower())
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'generator memory must be between 256 and 4096 mib' not found in 'usage: run.py [-h] [--suite {gateway,kv,isolation,all,acceptance}]\n              [--profile {standard,burst}] [--rates rates] [--repeats repeats]\n              [--warmup warmup] [--seconds seconds] [--output output]\n              [--vus vus] [--bucket-seconds bucket_seconds]\n              [--min-success-rps min_success_rps] [--max-p99-ms max_p99_ms]\nrun.py: error: unrecognized arguments: --generator-memory-mib 255\n'
+
+======================================================================
+FAIL: test_generator_memory_bounds_rejected_before_external_tools (test_runner.RunnerTest.test_generator_memory_bounds_rejected_before_external_tools) (value='4097')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_runner.py", line 22, in test_generator_memory_bounds_rejected_before_external_tools
+    self.assertIn('generator memory must be between 256 and 4096 mib',r.stderr.lower())
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'generator memory must be between 256 and 4096 mib' not found in 'usage: run.py [-h] [--suite {gateway,kv,isolation,all,acceptance}]\n              [--profile {standard,burst}] [--rates rates] [--repeats repeats]\n              [--warmup warmup] [--seconds seconds] [--output output]\n              [--vus vus] [--bucket-seconds bucket_seconds]\n              [--min-success-rps min_success_rps] [--max-p99-ms max_p99_ms]\nrun.py: error: unrecognized arguments: --generator-memory-mib 4097\n'
+
+======================================================================
+FAIL: test_generator_memory_bounds_rejected_before_external_tools (test_runner.RunnerTest.test_generator_memory_bounds_rejected_before_external_tools) (value='0')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_runner.py", line 22, in test_generator_memory_bounds_rejected_before_external_tools
+    self.assertIn('generator memory must be between 256 and 4096 mib',r.stderr.lower())
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'generator memory must be between 256 and 4096 mib' not found in 'usage: run.py [-h] [--suite {gateway,kv,isolation,all,acceptance}]\n              [--profile {standard,burst}] [--rates rates] [--repeats repeats]\n              [--warmup warmup] [--seconds seconds] [--output output]\n              [--vus vus] [--bucket-seconds bucket_seconds]\n              [--min-success-rps min_success_rps] [--max-p99-ms max_p99_ms]\nrun.py: error: unrecognized arguments: --generator-memory-mib 0\n'
+
+======================================================================
+FAIL: test_generator_memory_bounds_rejected_before_external_tools (test_runner.RunnerTest.test_generator_memory_bounds_rejected_before_external_tools) (value='-1')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_runner.py", line 22, in test_generator_memory_bounds_rejected_before_external_tools
+    self.assertIn('generator memory must be between 256 and 4096 mib',r.stderr.lower())
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'generator memory must be between 256 and 4096 mib' not found in 'usage: run.py [-h] [--suite {gateway,kv,isolation,all,acceptance}]\n              [--profile {standard,burst}] [--rates rates] [--repeats repeats]\n              [--warmup warmup] [--seconds seconds] [--output output]\n              [--vus vus] [--bucket-seconds bucket_seconds]\n              [--min-success-rps min_success_rps] [--max-p99-ms max_p99_ms]\nrun.py: error: unrecognized arguments: --generator-memory-mib -1\n'
+
+======================================================================
+FAIL: test_generator_memory_requires_an_integer_before_external_tools (test_runner.RunnerTest.test_generator_memory_requires_an_integer_before_external_tools) (value='512.5')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_runner.py", line 28, in test_generator_memory_requires_an_integer_before_external_tools
+    self.assertIn('invalid int value',r.stderr.lower())
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'invalid int value' not found in 'usage: run.py [-h] [--suite {gateway,kv,isolation,all,acceptance}]\n              [--profile {standard,burst}] [--rates rates] [--repeats repeats]\n              [--warmup warmup] [--seconds seconds] [--output output]\n              [--vus vus] [--bucket-seconds bucket_seconds]\n              [--min-success-rps min_success_rps] [--max-p99-ms max_p99_ms]\nrun.py: error: unrecognized arguments: --generator-memory-mib 512.5\n'
+
+======================================================================
+FAIL: test_generator_memory_requires_an_integer_before_external_tools (test_runner.RunnerTest.test_generator_memory_requires_an_integer_before_external_tools) (value='abc')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_runner.py", line 28, in test_generator_memory_requires_an_integer_before_external_tools
+    self.assertIn('invalid int value',r.stderr.lower())
+    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'invalid int value' not found in 'usage: run.py [-h] [--suite {gateway,kv,isolation,all,acceptance}]\n              [--profile {standard,burst}] [--rates rates] [--repeats repeats]\n              [--warmup warmup] [--seconds seconds] [--output output]\n              [--vus vus] [--bucket-seconds bucket_seconds]\n              [--min-success-rps min_success_rps] [--max-p99-ms max_p99_ms]\nrun.py: error: unrecognized arguments: --generator-memory-mib abc\n'
+
+======================================================================
+FAIL: test_generator_memory_used_by_docker_matches_recorded_metadata (test_runner.RunnerTest.test_generator_memory_used_by_docker_matches_recorded_metadata) (value=None)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/test_runner.py", line 63, in test_generator_memory_used_by_docker_matches_recorded_metadata
+    self.assertEqual(expected,metadata['generatorLimits']['memoryMiB'])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1536 != 768
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.609s
+
+FAILED (failures=7, errors=3)

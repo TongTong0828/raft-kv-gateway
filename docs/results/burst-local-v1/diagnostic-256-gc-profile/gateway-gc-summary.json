@@ -1,0 +1,7 @@
+{
+  "gatewayGcPauseCount": 4536,
+  "gatewayGcMaxPauseMs": 51.158,
+  "gatewaySafepointCount": 4610,
+  "gatewaySafepointMaxTotalMs": 51.21925,
+  "scope": "entire gateway GC file, including setup before generator launch; analysis-summary.json uses the generator-run interval"
+}

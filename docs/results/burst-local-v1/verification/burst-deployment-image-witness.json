@@ -1,0 +1,961 @@
+{
+  "commit": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+  "dirty": false,
+  "applicationImage": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+  "imageRevision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+  "checks": {
+    "burst-faults": {
+      "command": [
+        "/opt/homebrew/opt/python@3.14/bin/python3.14",
+        "scripts/faults.py",
+        "--project",
+        "kv-burst-20261020",
+        "--output",
+        "work/verification/burst-faults.json"
+      ],
+      "exitCode": 0,
+      "startedAtEpoch": 1792456122.813004,
+      "finishedAtEpoch": 1792456213.043231,
+      "liveImageObservation": [
+        {
+          "service": "backend-a",
+          "containerId": "5a42f661d042eb5b7b8c286e1454a1ddb3ae4503bbb25ea104977c052fc8988a",
+          "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+          "imageRevision": "e3ae41cd03e60d11a883c7970ef688a7448f129e"
+        },
+        {
+          "service": "backend-b",
+          "containerId": "519f631657e654bd16c445a1d244a0bdc061104894388246e52f76c5d61a03ca",
+          "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+          "imageRevision": "e3ae41cd03e60d11a883c7970ef688a7448f129e"
+        },
+        {
+          "service": "cp1",
+          "containerId": "a7b95a1fe81f013bcc1b18c6d9edce668df384c75594013107beb0cffe1a5b19",
+          "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+          "imageRevision": "e3ae41cd03e60d11a883c7970ef688a7448f129e"
+        },
+        {
+          "service": "cp2",
+          "containerId": "7b333d647e077c8ec3f52b7e84662217706a988c11fd1e9d87dfa905ff80d8a9",
+          "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+          "imageRevision": "e3ae41cd03e60d11a883c7970ef688a7448f129e"
+        },
+        {
+          "service": "cp3",
+          "containerId": "296c9153b035c4d24e6c77fd6c92a8625dcba75d9b04812b338e35ec51db537c",
+          "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+          "imageRevision": "e3ae41cd03e60d11a883c7970ef688a7448f129e"
+        },
+        {
+          "service": "gateway",
+          "containerId": "1638f111f8f7942f51e12b445808fd5b89217091b1142507bc846265853130cd",
+          "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+          "imageRevision": "e3ae41cd03e60d11a883c7970ef688a7448f129e"
+        }
+      ]
+    },
+    "burst-kind": {
+      "command": [
+        "./scripts/kind-smoke.sh",
+        "--name",
+        "kv-burst-20261020",
+        "--output",
+        "work/verification/burst-kind.json"
+      ],
+      "exitCode": 0,
+      "startedAtEpoch": 1792456213.100189,
+      "finishedAtEpoch": 1792456288.7536058,
+      "liveImageObservation": [
+        {
+          "pod": "backend-a-78ffd9dcdc-2pj6x",
+          "containers": [
+            {
+              "args": [
+                "-jar",
+                "/app/demo-backend.jar"
+              ],
+              "env": [
+                {
+                  "name": "KV_BACKEND_ID",
+                  "value": "backend-a"
+                },
+                {
+                  "name": "JAVA_TOOL_OPTIONS",
+                  "value": "-Xmx32m -XX:MaxDirectMemorySize=16m -XX:ReservedCodeCacheSize=16m -XX:ActiveProcessorCount=1"
+                }
+              ],
+              "image": "raft-kv-gateway:local",
+              "imagePullPolicy": "IfNotPresent",
+              "name": "backend",
+              "ports": [
+                {
+                  "containerPort": 8081,
+                  "name": "http",
+                  "protocol": "TCP"
+                }
+              ],
+              "readinessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/health",
+                  "port": "http",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 2,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "128Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "64Mi"
+                }
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-nm8jl",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "statuses": [
+            {
+              "allocatedResources": {
+                "cpu": "50m",
+                "memory": "64Mi"
+              },
+              "containerID": "containerd://8ac7b28804001960f8fbea4acb30a15d6bf146b2e92562c9beb5d4401725e8cc",
+              "image": "docker.io/library/raft-kv-gateway:local",
+              "imageID": "docker.io/library/import-2026-10-20@sha256:375f5ca4b60c6a7b497fa71a5f69fd4793475f9e7db5ed926c55e6e522318619",
+              "lastState": {},
+              "name": "backend",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "128Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "64Mi"
+                }
+              },
+              "restartCount": 0,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-10-20T00:30:52Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 10001,
+                  "supplementalGroups": [
+                    10001
+                  ],
+                  "uid": 10001
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-nm8jl",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "pod": "backend-b-7895cb85b7-g9jsp",
+          "containers": [
+            {
+              "args": [
+                "-jar",
+                "/app/demo-backend.jar"
+              ],
+              "env": [
+                {
+                  "name": "KV_BACKEND_ID",
+                  "value": "backend-b"
+                },
+                {
+                  "name": "JAVA_TOOL_OPTIONS",
+                  "value": "-Xmx32m -XX:MaxDirectMemorySize=16m -XX:ReservedCodeCacheSize=16m -XX:ActiveProcessorCount=1"
+                }
+              ],
+              "image": "raft-kv-gateway:local",
+              "imagePullPolicy": "IfNotPresent",
+              "name": "backend",
+              "ports": [
+                {
+                  "containerPort": 8081,
+                  "name": "http",
+                  "protocol": "TCP"
+                }
+              ],
+              "readinessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/health",
+                  "port": "http",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 2,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "128Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "64Mi"
+                }
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-rgkc5",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "statuses": [
+            {
+              "allocatedResources": {
+                "cpu": "50m",
+                "memory": "64Mi"
+              },
+              "containerID": "containerd://df26dbc4b5b0d26e16ec99d7f640ff07aa2f6911b4c122208617a9f07d2569a3",
+              "image": "docker.io/library/raft-kv-gateway:local",
+              "imageID": "docker.io/library/import-2026-10-20@sha256:375f5ca4b60c6a7b497fa71a5f69fd4793475f9e7db5ed926c55e6e522318619",
+              "lastState": {},
+              "name": "backend",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "500m",
+                  "memory": "128Mi"
+                },
+                "requests": {
+                  "cpu": "50m",
+                  "memory": "64Mi"
+                }
+              },
+              "restartCount": 0,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-10-20T00:30:52Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 10001,
+                  "supplementalGroups": [
+                    10001
+                  ],
+                  "uid": 10001
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-rgkc5",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "pod": "cp-0",
+          "containers": [
+            {
+              "args": [
+                "-jar",
+                "/app/control-plane.jar"
+              ],
+              "env": [
+                {
+                  "name": "KV_NODE_ID",
+                  "valueFrom": {
+                    "fieldRef": {
+                      "apiVersion": "v1",
+                      "fieldPath": "metadata.name"
+                    }
+                  }
+                },
+                {
+                  "name": "KV_DATA_DIR",
+                  "value": "/data"
+                },
+                {
+                  "name": "JAVA_TOOL_OPTIONS",
+                  "value": "-Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn"
+                }
+              ],
+              "envFrom": [
+                {
+                  "configMapRef": {
+                    "name": "kv-config"
+                  }
+                }
+              ],
+              "image": "raft-kv-gateway:local",
+              "imagePullPolicy": "IfNotPresent",
+              "livenessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/live",
+                  "port": "admin",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 5,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "name": "control",
+              "ports": [
+                {
+                  "containerPort": 50051,
+                  "name": "grpc",
+                  "protocol": "TCP"
+                },
+                {
+                  "containerPort": 6000,
+                  "name": "raft",
+                  "protocol": "TCP"
+                },
+                {
+                  "containerPort": 9101,
+                  "name": "admin",
+                  "protocol": "TCP"
+                }
+              ],
+              "readinessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/ready",
+                  "port": "admin",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 2,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "320Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "192Mi"
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 60,
+                "httpGet": {
+                  "path": "/live",
+                  "port": "admin",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 2,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/data",
+                  "name": "data"
+                },
+                {
+                  "mountPath": "/config",
+                  "name": "config",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-rw276",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "statuses": [
+            {
+              "allocatedResources": {
+                "cpu": "100m",
+                "memory": "192Mi"
+              },
+              "containerID": "containerd://71a31be2b04958b7cfffc5186bf97837b03ba90d7052f069c0816e1f8855568b",
+              "image": "docker.io/library/raft-kv-gateway:local",
+              "imageID": "docker.io/library/import-2026-10-20@sha256:375f5ca4b60c6a7b497fa71a5f69fd4793475f9e7db5ed926c55e6e522318619",
+              "lastState": {},
+              "name": "control",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "320Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "192Mi"
+                }
+              },
+              "restartCount": 0,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-10-20T00:30:56Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 10001,
+                  "supplementalGroups": [
+                    10001
+                  ],
+                  "uid": 10001
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/data",
+                  "name": "data"
+                },
+                {
+                  "mountPath": "/config",
+                  "name": "config",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-rw276",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "pod": "cp-1",
+          "containers": [
+            {
+              "args": [
+                "-jar",
+                "/app/control-plane.jar"
+              ],
+              "env": [
+                {
+                  "name": "KV_NODE_ID",
+                  "valueFrom": {
+                    "fieldRef": {
+                      "apiVersion": "v1",
+                      "fieldPath": "metadata.name"
+                    }
+                  }
+                },
+                {
+                  "name": "KV_DATA_DIR",
+                  "value": "/data"
+                },
+                {
+                  "name": "JAVA_TOOL_OPTIONS",
+                  "value": "-Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn"
+                }
+              ],
+              "envFrom": [
+                {
+                  "configMapRef": {
+                    "name": "kv-config"
+                  }
+                }
+              ],
+              "image": "raft-kv-gateway:local",
+              "imagePullPolicy": "IfNotPresent",
+              "livenessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/live",
+                  "port": "admin",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 5,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "name": "control",
+              "ports": [
+                {
+                  "containerPort": 50051,
+                  "name": "grpc",
+                  "protocol": "TCP"
+                },
+                {
+                  "containerPort": 6000,
+                  "name": "raft",
+                  "protocol": "TCP"
+                },
+                {
+                  "containerPort": 9101,
+                  "name": "admin",
+                  "protocol": "TCP"
+                }
+              ],
+              "readinessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/ready",
+                  "port": "admin",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 2,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "320Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "192Mi"
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 60,
+                "httpGet": {
+                  "path": "/live",
+                  "port": "admin",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 2,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/data",
+                  "name": "data"
+                },
+                {
+                  "mountPath": "/config",
+                  "name": "config",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-c7xjs",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "statuses": [
+            {
+              "allocatedResources": {
+                "cpu": "100m",
+                "memory": "192Mi"
+              },
+              "containerID": "containerd://9778848a7f5d907de6a3017c274d924ffffc7f19d80415a9d0f91861e3011825",
+              "image": "docker.io/library/raft-kv-gateway:local",
+              "imageID": "docker.io/library/import-2026-10-20@sha256:375f5ca4b60c6a7b497fa71a5f69fd4793475f9e7db5ed926c55e6e522318619",
+              "lastState": {},
+              "name": "control",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "320Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "192Mi"
+                }
+              },
+              "restartCount": 0,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-10-20T00:30:56Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 10001,
+                  "supplementalGroups": [
+                    10001
+                  ],
+                  "uid": 10001
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/data",
+                  "name": "data"
+                },
+                {
+                  "mountPath": "/config",
+                  "name": "config",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-c7xjs",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "pod": "cp-2",
+          "containers": [
+            {
+              "args": [
+                "-jar",
+                "/app/control-plane.jar"
+              ],
+              "env": [
+                {
+                  "name": "KV_NODE_ID",
+                  "valueFrom": {
+                    "fieldRef": {
+                      "apiVersion": "v1",
+                      "fieldPath": "metadata.name"
+                    }
+                  }
+                },
+                {
+                  "name": "KV_DATA_DIR",
+                  "value": "/data"
+                },
+                {
+                  "name": "JAVA_TOOL_OPTIONS",
+                  "value": "-Xmx128m -XX:MaxDirectMemorySize=64m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn"
+                }
+              ],
+              "envFrom": [
+                {
+                  "configMapRef": {
+                    "name": "kv-config"
+                  }
+                }
+              ],
+              "image": "raft-kv-gateway:local",
+              "imagePullPolicy": "IfNotPresent",
+              "livenessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/live",
+                  "port": "admin",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 5,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "name": "control",
+              "ports": [
+                {
+                  "containerPort": 50051,
+                  "name": "grpc",
+                  "protocol": "TCP"
+                },
+                {
+                  "containerPort": 6000,
+                  "name": "raft",
+                  "protocol": "TCP"
+                },
+                {
+                  "containerPort": 9101,
+                  "name": "admin",
+                  "protocol": "TCP"
+                }
+              ],
+              "readinessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/ready",
+                  "port": "admin",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 2,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "320Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "192Mi"
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 60,
+                "httpGet": {
+                  "path": "/live",
+                  "port": "admin",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 2,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/data",
+                  "name": "data"
+                },
+                {
+                  "mountPath": "/config",
+                  "name": "config",
+                  "readOnly": true
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-gmpg5",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "statuses": [
+            {
+              "allocatedResources": {
+                "cpu": "100m",
+                "memory": "192Mi"
+              },
+              "containerID": "containerd://b5672e7f89f9737f738dac93bc18d9cf2ce59c61c8cf659fc97a76beaed12f69",
+              "image": "docker.io/library/raft-kv-gateway:local",
+              "imageID": "docker.io/library/import-2026-10-20@sha256:375f5ca4b60c6a7b497fa71a5f69fd4793475f9e7db5ed926c55e6e522318619",
+              "lastState": {},
+              "name": "control",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "1",
+                  "memory": "320Mi"
+                },
+                "requests": {
+                  "cpu": "100m",
+                  "memory": "192Mi"
+                }
+              },
+              "restartCount": 0,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-10-20T00:30:57Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 10001,
+                  "supplementalGroups": [
+                    10001
+                  ],
+                  "uid": 10001
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/data",
+                  "name": "data"
+                },
+                {
+                  "mountPath": "/config",
+                  "name": "config",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                },
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-gmpg5",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "pod": "gateway-58ddc6d865-mt74t",
+          "containers": [
+            {
+              "args": [
+                "-jar",
+                "/app/gateway.jar"
+              ],
+              "env": [
+                {
+                  "name": "KV_CONTROL_SEEDS",
+                  "valueFrom": {
+                    "configMapKeyRef": {
+                      "key": "KV_CONTROL_SEEDS",
+                      "name": "kv-config"
+                    }
+                  }
+                },
+                {
+                  "name": "JAVA_TOOL_OPTIONS",
+                  "value": "-Xmx256m -XX:MaxDirectMemorySize=128m -XX:ReservedCodeCacheSize=32m -XX:ActiveProcessorCount=2 -Dorg.slf4j.simpleLogger.defaultLogLevel=warn"
+                }
+              ],
+              "image": "raft-kv-gateway:local",
+              "imagePullPolicy": "IfNotPresent",
+              "livenessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/live",
+                  "port": "admin",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 5,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "name": "gateway",
+              "ports": [
+                {
+                  "containerPort": 8080,
+                  "name": "http",
+                  "protocol": "TCP"
+                },
+                {
+                  "containerPort": 9090,
+                  "name": "admin",
+                  "protocol": "TCP"
+                }
+              ],
+              "readinessProbe": {
+                "failureThreshold": 3,
+                "httpGet": {
+                  "path": "/ready",
+                  "port": "admin",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 2,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "resources": {
+                "limits": {
+                  "cpu": "2",
+                  "memory": "768Mi"
+                },
+                "requests": {
+                  "cpu": "200m",
+                  "memory": "256Mi"
+                }
+              },
+              "startupProbe": {
+                "failureThreshold": 30,
+                "httpGet": {
+                  "path": "/live",
+                  "port": "admin",
+                  "scheme": "HTTP"
+                },
+                "periodSeconds": 2,
+                "successThreshold": 1,
+                "timeoutSeconds": 1
+              },
+              "terminationMessagePath": "/dev/termination-log",
+              "terminationMessagePolicy": "File",
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-p78lz",
+                  "readOnly": true
+                }
+              ]
+            }
+          ],
+          "statuses": [
+            {
+              "allocatedResources": {
+                "cpu": "200m",
+                "memory": "256Mi"
+              },
+              "containerID": "containerd://73e704f04b98f286953f6eacdc357a77956ad3aa82cbb28246c75de6ec3e7869",
+              "image": "docker.io/library/raft-kv-gateway:local",
+              "imageID": "docker.io/library/import-2026-10-20@sha256:375f5ca4b60c6a7b497fa71a5f69fd4793475f9e7db5ed926c55e6e522318619",
+              "lastState": {},
+              "name": "gateway",
+              "ready": true,
+              "resources": {
+                "limits": {
+                  "cpu": "2",
+                  "memory": "768Mi"
+                },
+                "requests": {
+                  "cpu": "200m",
+                  "memory": "256Mi"
+                }
+              },
+              "restartCount": 0,
+              "started": true,
+              "state": {
+                "running": {
+                  "startedAt": "2026-10-20T00:30:52Z"
+                }
+              },
+              "user": {
+                "linux": {
+                  "gid": 10001,
+                  "supplementalGroups": [
+                    10001
+                  ],
+                  "uid": 10001
+                }
+              },
+              "volumeMounts": [
+                {
+                  "mountPath": "/var/run/secrets/kubernetes.io/serviceaccount",
+                  "name": "kube-api-access-p78lz",
+                  "readOnly": true,
+                  "recursiveReadOnly": "Disabled"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "cleanupVerified": true
+}

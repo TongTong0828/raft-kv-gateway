@@ -1,0 +1,49 @@
+=== RUN   TestTracerMonotonicWallClockJump
+=== PAUSE TestTracerMonotonicWallClockJump
+=== RUN   TestTracerMonotonicLateFirstByte
+=== PAUSE TestTracerMonotonicLateFirstByte
+=== RUN   TestTracerMonotonicCallbackOrders
+=== PAUSE TestTracerMonotonicCallbackOrders
+=== RUN   TestTracerMonotonicConcurrentLateCallbacks
+=== PAUSE TestTracerMonotonicConcurrentLateCallbacks
+=== CONT  TestTracerMonotonicWallClockJump
+=== RUN   TestTracerMonotonicWallClockJump/0s
+=== RUN   TestTracerMonotonicWallClockJump/-1h0m0s
+    tracer_monotonic_test.go:35: 
+        	Error Trace:	/src/lib/netext/httpext/tracer_monotonic_test.go:35
+        	Error:      	Not equal: 
+        	            	expected: 3ms
+        	            	actual  : -59m59.997s
+        	Test:       	TestTracerMonotonicWallClockJump/-1h0m0s
+=== RUN   TestTracerMonotonicWallClockJump/1h0m0s
+    tracer_monotonic_test.go:35: 
+        	Error Trace:	/src/lib/netext/httpext/tracer_monotonic_test.go:35
+        	Error:      	Not equal: 
+        	            	expected: 3ms
+        	            	actual  : 1h0m0.003s
+        	Test:       	TestTracerMonotonicWallClockJump/1h0m0s
+--- FAIL: TestTracerMonotonicWallClockJump (0.00s)
+    --- PASS: TestTracerMonotonicWallClockJump/0s (0.00s)
+    --- FAIL: TestTracerMonotonicWallClockJump/-1h0m0s (0.00s)
+    --- FAIL: TestTracerMonotonicWallClockJump/1h0m0s (0.00s)
+=== CONT  TestTracerMonotonicConcurrentLateCallbacks
+=== CONT  TestTracerMonotonicCallbackOrders
+=== RUN   TestTracerMonotonicCallbackOrders/response_before_write_callback
+=== RUN   TestTracerMonotonicCallbackOrders/no_response
+=== RUN   TestTracerMonotonicCallbackOrders/same_tick
+--- PASS: TestTracerMonotonicCallbackOrders (0.00s)
+    --- PASS: TestTracerMonotonicCallbackOrders/response_before_write_callback (0.00s)
+    --- PASS: TestTracerMonotonicCallbackOrders/no_response (0.00s)
+    --- PASS: TestTracerMonotonicCallbackOrders/same_tick (0.00s)
+=== CONT  TestTracerMonotonicLateFirstByte
+    tracer_monotonic_test.go:53: 
+        	Error Trace:	/src/lib/netext/httpext/tracer_monotonic_test.go:53
+        	Error:      	Not equal: 
+        	            	expected: 8ms
+        	            	actual  : 9ms
+        	Test:       	TestTracerMonotonicLateFirstByte
+--- FAIL: TestTracerMonotonicLateFirstByte (0.00s)
+--- PASS: TestTracerMonotonicConcurrentLateCallbacks (0.00s)
+FAIL
+FAIL	go.k6.io/k6/v2/lib/netext/httpext	0.007s
+FAIL

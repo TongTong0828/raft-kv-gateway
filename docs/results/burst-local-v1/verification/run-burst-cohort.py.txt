@@ -1,0 +1,19 @@
+import pathlib,subprocess,sys,urllib.request
+out=pathlib.Path(sys.argv[1]);vus=sys.argv[2];profile=sys.argv[3];seconds=sys.argv[4] if len(sys.argv)>4 else '300'
+assert not out.exists(),str(out)
+root=pathlib.Path.cwd();out.mkdir(parents=True)
+# Save pre-run counters outside the runner's required empty output directory.
+before=urllib.request.urlopen('http://127.0.0.1:9090/metrics',timeout=2).read()
+observer_path=pathlib.Path(str(out)+'.events.jsonl')
+watch=subprocess.Popen([sys.executable,'work/watch-burst.py',str(observer_path)])
+try:
+ with pathlib.Path(str(out)+'.runner.txt').open('w') as log:
+  result=subprocess.run([sys.executable,'benchmarks/run.py','--suite','acceptance','--profile',profile,'--vus',vus,'--repeats','1','--warmup','30','--seconds',seconds,'--output',str(out)],stdout=log,stderr=subprocess.STDOUT)
+ (out/'gateway-before.prom').write_bytes(before)
+ subprocess.run([sys.executable,'work/post-burst.py',str(out)],check=True)
+finally:
+ pathlib.Path(str(observer_path)+'.stop').touch();watch.wait(timeout=5)
+ observer_path.rename(out/'pool-events.jsonl')
+ pathlib.Path(str(out)+'.runner.txt').rename(out/'runner.txt')
+print('runner exit',result.returncode,flush=True)
+sys.exit(result.returncode)

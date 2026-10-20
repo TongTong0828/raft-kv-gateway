@@ -1,0 +1,21 @@
+{
+  "case": "formal-256-r3",
+  "sourceCommit": "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6",
+  "acceptance": "FAIL",
+  "missedGate": "10-second completion bucket 25: 7576.6 successful requests/s; required >=8000",
+  "successfulRpsOverall": 8367.09,
+  "fullCallP99Ms": 1.518800759984294,
+  "eligibleFailures": 0,
+  "unaccounted": 0,
+  "wholeExperimentDrops": 9948,
+  "invalidTiming": false,
+  "observations": [
+    "One-second observer continued through the failing interval; no uniquely long multi-second blackout establishes a Docker VM freeze.",
+    "At 2026-10-19T23:55:23.882Z independently sampled gauges included inflight192, queued173, reserved32; queue drained by next sample.",
+    "Two healthy endpoints, all rejection counters unchanged; all eligible started requests succeeded.",
+    "Gateway/backend memory stable; generator sampled peak756.2MiB of768MiB and174.52%CPU; these correlations do not prove a GC cause.",
+    "Docker stats EOF is final sample error, not proof of a mid-window generator death.",
+    "k6 periodic threshold evaluation sorts retained trend samples while holding MetricsLock shared with aggregation. Source alone does not prove direct VU channel blockage because OutputIngester swaps its sample buffer before taking that lock."
+  ],
+  "nextAction": "Separate unchanged-load diagnostic with generator CPU/GC/cgroup telemetry and gateway GC logs; retain this failure regardless of later outcome."
+}

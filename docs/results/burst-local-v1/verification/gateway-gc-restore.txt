@@ -1,0 +1,6 @@
+ Container raft-kv-gateway-gateway-1  Recreate
+ Container raft-kv-gateway-gateway-1  Recreated
+ Container raft-kv-gateway-gateway-1  Starting
+ Container raft-kv-gateway-gateway-1  Started
+ Container raft-kv-gateway-gateway-1  Waiting
+ Container raft-kv-gateway-gateway-1  Healthy

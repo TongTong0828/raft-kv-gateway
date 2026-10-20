@@ -1,0 +1,74 @@
+{
+  "scope": "Post-run immutable image mapping probe; no application or benchmark rerun",
+  "originalKindImageID": "sha256:375f5ca4b60c6a7b497fa71a5f69fd4793475f9e7db5ed926c55e6e522318619",
+  "dockerImageIndex": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+  "startedAtEpoch": 1792456589.185295,
+  "finishedAtEpoch": 1792456622.0505269,
+  "commands": [
+    [
+      "/Users/at/.codex/worktrees/burst-timing/\u5206\u5e03\u5f0f\u9879\u76ee/work/tools/kind",
+      "get",
+      "clusters"
+    ],
+    [
+      "/Users/at/.codex/worktrees/burst-timing/\u5206\u5e03\u5f0f\u9879\u76ee/work/tools/kind",
+      "create",
+      "cluster",
+      "--name",
+      "kv-image-proof-20261020",
+      "--image",
+      "kindest/node:v1.37.0@sha256:a1ed56cfb0e7b93589bdf97c8cd566405a265939e3620fc4f5de89adff580ae5",
+      "--kubeconfig",
+      "/Users/at/.codex/worktrees/burst-timing/\u5206\u5e03\u5f0f\u9879\u76ee/work/kubeconfig-image-proof-20261020",
+      "--wait",
+      "60s"
+    ],
+    [
+      "/Users/at/.codex/worktrees/burst-timing/\u5206\u5e03\u5f0f\u9879\u76ee/work/tools/kind",
+      "load",
+      "docker-image",
+      "raft-kv-gateway:local",
+      "--name",
+      "kv-image-proof-20261020"
+    ],
+    [
+      "docker",
+      "exec",
+      "kv-image-proof-20261020-control-plane",
+      "ctr",
+      "--namespace",
+      "k8s.io",
+      "content",
+      "get",
+      "sha256:375f5ca4b60c6a7b497fa71a5f69fd4793475f9e7db5ed926c55e6e522318619"
+    ],
+    [
+      "/Users/at/.codex/worktrees/burst-timing/\u5206\u5e03\u5f0f\u9879\u76ee/work/tools/kind",
+      "delete",
+      "cluster",
+      "--name",
+      "kv-image-proof-20261020"
+    ],
+    [
+      "/Users/at/.codex/worktrees/burst-timing/\u5206\u5e03\u5f0f\u9879\u76ee/work/tools/kind",
+      "get",
+      "clusters"
+    ]
+  ],
+  "cleanupVerified": true,
+  "verified": true,
+  "verifiedAtEpoch": 1792456661.952239,
+  "kindContentMediaType": "application/vnd.oci.image.index.v1+json",
+  "sourcePlatformManifest": "sha256:41d6243a4f07f19ff183cb918ec8ca00f1e41aa2f75e7f01dc0ccfd86f57bab2",
+  "configDigest": "sha256:d4ec58da5340c38a02417532038fba91827cd596eec8ff72b96c6caa2f309c7d",
+  "sourceRevision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+  "allOriginalKindImageIDsMatch": true,
+  "chain": [
+    "kind-import-index.json",
+    "docker-index.json",
+    "docker-arm64-manifest.json",
+    "image-config.json"
+  ],
+  "validation": "Hash each retained raw blob; imported outer index references exact Docker image index; its linux/arm64 manifest references config with expected source label.",
+  "probeParserCorrection": "The capture/cleanup probe exited1 after incorrectly assuming its captured content was a manifest with config. It is an outer OCI index. The raw index capture and hash check succeeded; this separate offline chain validation succeeded without a new application or benchmark run."
+}

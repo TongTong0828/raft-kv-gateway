@@ -1,0 +1,128 @@
+[
+  {
+    "scenario": "acceptance",
+    "repeat": 1,
+    "raw": "acceptance-1000-r1.json",
+    "actualContainers": [
+      {
+        "service": "backend-a",
+        "containerId": "d657e6b719247e9afc1c68368bcaabb78a475db587b0f49a2edebd043c49fb91",
+        "name": "raft-kv-gateway-backend-a-1",
+        "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+        "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+        "memoryLimitBytes": 134217728,
+        "nanoCpus": 500000000
+      },
+      {
+        "service": "backend-b",
+        "containerId": "fb952b30ae29284dfb97a398181b7d74fc1604148cab0859ce7c376cae70fae3",
+        "name": "raft-kv-gateway-backend-b-1",
+        "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+        "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+        "memoryLimitBytes": 134217728,
+        "nanoCpus": 500000000
+      },
+      {
+        "service": "cp1",
+        "containerId": "258cd761f0ea0cbc054d88b94196d9f0456081c34037d15d17c32577693f0988",
+        "name": "raft-kv-gateway-cp1-1",
+        "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+        "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+        "memoryLimitBytes": 335544320,
+        "nanoCpus": 1000000000
+      },
+      {
+        "service": "cp2",
+        "containerId": "dd0f80140c04f9e0db753417965eae8e285be4ed7fba5a8362c7e6fae5c5a113",
+        "name": "raft-kv-gateway-cp2-1",
+        "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+        "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+        "memoryLimitBytes": 335544320,
+        "nanoCpus": 1000000000
+      },
+      {
+        "service": "cp3",
+        "containerId": "79727e0543ce397105b42812d7ba72ecf921c405ea0575b62f9afa802fbd38b2",
+        "name": "raft-kv-gateway-cp3-1",
+        "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+        "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+        "memoryLimitBytes": 335544320,
+        "nanoCpus": 1000000000
+      },
+      {
+        "service": "gateway",
+        "containerId": "7a3b1576673ed4125b97c2c737d682173653840ccc1c974937a85f8b8aa8f6f1",
+        "name": "raft-kv-gateway-gateway-1",
+        "imageId": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+        "revision": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+        "memoryLimitBytes": 805306368,
+        "nanoCpus": 2000000000
+      }
+    ],
+    "k6ExitCode": 99,
+    "cohortRejections": {
+      "no_configuration": 0,
+      "admission_limit": 0,
+      "body_budget": 0,
+      "no_healthy_endpoint": 0,
+      "pool_unavailable": 0,
+      "pool_queue_full": 0,
+      "pool_timeout": 0,
+      "pool_retired": 0,
+      "pool_cancelled": 0,
+      "connection_budget": 0,
+      "pool_acquire_error": 0,
+      "unclassified": 0
+    },
+    "passed": false,
+    "reasons": [
+      "successful full-call P99 is missing or above target",
+      "k6 acceptance thresholds failed"
+    ],
+    "offeredRate": 1000,
+    "seconds": 10,
+    "bucketSeconds": 5,
+    "minimumSuccessfulRps": 900.0,
+    "maximumSuccessP99Ms": 0.001,
+    "windowStarted": 10000,
+    "successful": 9999,
+    "successfulRps": 999.9,
+    "successP99Ms": 1.0501818599990929,
+    "windowFailed": 0,
+    "lateSuccess": 1,
+    "lateFailed": 0,
+    "invalidCompletions": 0,
+    "failed": 0,
+    "unaccounted": 0,
+    "bucketSuccessful": [
+      5000,
+      4999
+    ],
+    "bucketSuccessfulRps": [
+      1000.0,
+      999.8
+    ],
+    "totalExperimentDropped": 0,
+    "successFullCallLatencyMs": {
+      "avg": 0.42657792819282675,
+      "min": 0.16220799999973678,
+      "med": 0.38937499999883585,
+      "max": 30.652667000000292,
+      "p(90)": 0.5784162000002653,
+      "p(95)": 0.6685493999992104,
+      "p(99)": 1.0501818599990929
+    },
+    "successTransportLatencyMs": {
+      "avg": 0.379938517651765,
+      "min": 0.132666,
+      "med": 0.345875,
+      "max": 30.6165,
+      "p(90)": 0.5193336000000001,
+      "p(95)": 0.6008463999999999,
+      "p(99)": 0.9011683399999998
+    },
+    "cohortStatuses": {
+      "200": 10000
+    }
+  }
+]

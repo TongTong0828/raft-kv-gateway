@@ -1,0 +1,17 @@
+{"kind": "generator_subprocess_start", "wallTimeNs": 1792454494971349000, "launchOffsetSeconds": 0.0006843330338597298}
+{"kind": "http_start", "wallTimeNs": 1792454499970924000, "launchOffsetSeconds": 5.000312707852572, "path": "/v1/status", "output": "generator-rest-status-5s.json"}
+{"kind": "http_complete", "wallTimeNs": 1792454499975199000, "launchOffsetSeconds": 5.004587207920849, "path": "/v1/status", "output": "generator-rest-status-5s.json", "bytes": 176, "durationSeconds": 0.004284083377569914}
+{"kind": "http_start", "wallTimeNs": 1792454724969518000, "launchOffsetSeconds": 230.00127899972722, "path": "/debug/pprof/goroutine?debug=2", "output": "generator-goroutine-230s.txt"}
+{"kind": "http_complete", "wallTimeNs": 1792454724979696000, "launchOffsetSeconds": 230.01145666604862, "path": "/debug/pprof/goroutine?debug=2", "output": "generator-goroutine-230s.txt", "bytes": 464995, "durationSeconds": 0.01018575020134449}
+{"kind": "http_start", "wallTimeNs": 1792454734971127000, "launchOffsetSeconds": 240.00299362512305, "path": "/debug/pprof/profile?seconds=70", "output": "generator-cpu-240s-70s.pprof"}
+{"kind": "http_start", "wallTimeNs": 1792454774980515000, "launchOffsetSeconds": 280.000598707702, "path": "/debug/pprof/goroutine?debug=2", "output": "generator-goroutine-280s.txt"}
+{"kind": "http_complete", "wallTimeNs": 1792454774989963000, "launchOffsetSeconds": 280.01004579104483, "path": "/debug/pprof/goroutine?debug=2", "output": "generator-goroutine-280s.txt", "bytes": 466306, "durationSeconds": 0.009467124938964844}
+{"kind": "http_start", "wallTimeNs": 1792454778986791000, "launchOffsetSeconds": 284.0065324581228, "path": "/debug/pprof/goroutine?debug=2", "output": "generator-goroutine-284s.txt"}
+{"kind": "http_complete", "wallTimeNs": 1792454778995482000, "launchOffsetSeconds": 284.0152224157937, "path": "/debug/pprof/goroutine?debug=2", "output": "generator-goroutine-284s.txt", "bytes": 453480, "durationSeconds": 0.008691334165632725}
+{"kind": "http_start", "wallTimeNs": 1792454794987547000, "launchOffsetSeconds": 300.0065932907164, "path": "/debug/pprof/goroutine?debug=2", "output": "generator-goroutine-300s.txt"}
+{"kind": "http_complete", "wallTimeNs": 1792454794995338000, "launchOffsetSeconds": 300.0143830408342, "path": "/debug/pprof/goroutine?debug=2", "output": "generator-goroutine-300s.txt", "bytes": 456564, "durationSeconds": 0.007795417215675116}
+{"kind": "http_complete", "wallTimeNs": 1792454805000913000, "launchOffsetSeconds": 310.01981770806015, "path": "/debug/pprof/profile?seconds=70", "output": "generator-cpu-240s-70s.pprof", "bytes": 115585, "durationSeconds": 70.01680975034833}
+{"kind": "http_start", "wallTimeNs": 1792454806991548000, "launchOffsetSeconds": 312.010439499747, "path": "/debug/pprof/goroutine?debug=2", "output": "generator-goroutine-312s.txt"}
+{"kind": "http_complete", "wallTimeNs": 1792454806999498000, "launchOffsetSeconds": 312.0183885409497, "path": "/debug/pprof/goroutine?debug=2", "output": "generator-goroutine-312s.txt", "bytes": 446170, "durationSeconds": 0.007958124857395887}
+{"kind": "http_start", "wallTimeNs": 1792454806999653000, "launchOffsetSeconds": 312.01854354096577, "path": "/v1/status", "output": "generator-rest-status-312s.json"}
+{"kind": "http_complete", "wallTimeNs": 1792454807002172000, "launchOffsetSeconds": 312.0210628747009, "path": "/v1/status", "output": "generator-rest-status-312s.json", "bytes": 174, "durationSeconds": 0.0025162920355796814}

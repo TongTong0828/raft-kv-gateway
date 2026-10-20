@@ -1,0 +1,2189 @@
+{
+  "environment": "local shared Docker VM; AWS excluded",
+  "cases": [
+    {
+      "case": "calibration-256-burst",
+      "purpose": "short calibration",
+      "exportAvailable": true,
+      "profile": {
+        "name": "burst",
+        "file": "examples/orders-burst.json",
+        "applied": {
+          "revision": "6067",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 256,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6",
+      "applicationImage": "sha256:b2e32e5aacc2daefb9f39db4ccb9d4760dce6eaba9d6d7a71bf0d744b04f1bf2",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 256,
+      "seconds": 60,
+      "passed": true,
+      "reasons": [],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 501761,
+      "successfulRps": 8362.683333333332,
+      "fullCallP99Ms": 14.877291800001668,
+      "minimumBucketSuccessfulRps": 8298.6,
+      "eligibleFailed": 0,
+      "unaccounted": 0,
+      "lateSuccess": 8,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 2587,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "window_transport_ms": {
+          "min": 0.073292,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_all_full_call_ms": {
+          "min": 0.09550000001036096,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.064417,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_receiving": {
+          "min": 0.002291,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_sending": {
+          "min": 0.001083,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "iteration_duration": {
+          "min": 0.011583,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.073292,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration{expected_response:true}": {
+          "min": 0.073292,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.000334,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_success_latency_ms": {
+          "min": 0.09550000001036096,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 768,
+        "generatorCpus": 4,
+        "generatorSamples": 26,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', '335863a216062b714028a04fba50270b7b5df9908bf0e289d73031e979f73d9d', '148f87413625f5c81284ca3a2538ed54f29cee6994442c8fa081a27da22660ab', 'b7927e3be74058c11084e75c38e5e6e068877403b5ed3993f35fc1fa98e18ab7', '957ebf0c032ef92ff7bbc88487e0079c73a8c8d170059d0b08963787197e6c8d', 'd5334ee0ed57f9ea940d6b642dbe1a5b44fa8dc4362f525882a65bdb33b8a76d', '869cc4a7f2bb3b832c25868739d11ed70f51eff4267b0ba36797aa71990f7d74', 'kv-bench-1792452008890055000']: Error response from daemon: No such container: kv-bench-1792452008890055000\n "
+        ],
+        "generatorSampledPeakCpuCores": 1.7691999999999999,
+        "generatorSampledPeakMemory": "283.4MiB / 768MiB",
+        "generatorObserverVerified": false
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": [
+        {
+          "file": "pool-events.jsonl.gz",
+          "decompressedSha256": "a03c6988eaeb41c25765c45c573162aa371dfaa4d5875be7e66f0117703d2d37"
+        }
+      ]
+    },
+    {
+      "case": "calibration-256-standard",
+      "purpose": "short calibration",
+      "exportAvailable": true,
+      "profile": {
+        "name": "standard",
+        "file": "examples/orders.json",
+        "applied": {
+          "revision": "6065",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 100,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6",
+      "applicationImage": "sha256:b2e32e5aacc2daefb9f39db4ccb9d4760dce6eaba9d6d7a71bf0d744b04f1bf2",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 256,
+      "seconds": 60,
+      "passed": false,
+      "reasons": [
+        "eligible requests failed, including drain",
+        "k6 acceptance thresholds failed"
+      ],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 502881,
+      "successfulRps": 8381.35,
+      "fullCallP99Ms": 1.753508399995917,
+      "minimumBucketSuccessfulRps": 8304.0,
+      "eligibleFailed": 897,
+      "unaccounted": 0,
+      "lateSuccess": 0,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 249,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 897,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 1176,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "iteration_duration": {
+          "min": 0.103709,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_transport_ms": {
+          "min": 0.079042,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_sending": {
+          "min": 0.001041,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.059875,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_all_full_call_ms": {
+          "min": 0.0977079999865964,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_receiving": {
+          "min": 0.002167,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_success_latency_ms": {
+          "min": 0.0977079999865964,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration{expected_response:true}": {
+          "min": 0.076917,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.076917,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.000375,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 768,
+        "generatorCpus": 4,
+        "generatorSamples": 26,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', '335863a216062b714028a04fba50270b7b5df9908bf0e289d73031e979f73d9d', '148f87413625f5c81284ca3a2538ed54f29cee6994442c8fa081a27da22660ab', 'b7927e3be74058c11084e75c38e5e6e068877403b5ed3993f35fc1fa98e18ab7', '957ebf0c032ef92ff7bbc88487e0079c73a8c8d170059d0b08963787197e6c8d', 'd5334ee0ed57f9ea940d6b642dbe1a5b44fa8dc4362f525882a65bdb33b8a76d', '869cc4a7f2bb3b832c25868739d11ed70f51eff4267b0ba36797aa71990f7d74', 'kv-bench-1792451904297680000']: Error response from daemon: No such container: kv-bench-1792451904297680000\n "
+        ],
+        "generatorSampledPeakCpuCores": 1.2227,
+        "generatorSampledPeakMemory": "289.1MiB / 768MiB",
+        "generatorObserverVerified": false
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": [
+        {
+          "file": "pool-events.jsonl.gz",
+          "decompressedSha256": "37004a5ffe9a4ebe8e6b081e6c7a422590136727febf32892afa1317c65897fb"
+        }
+      ]
+    },
+    {
+      "case": "calibration-64-standard",
+      "purpose": "short calibration",
+      "exportAvailable": true,
+      "profile": {
+        "name": "standard",
+        "file": "examples/orders.json",
+        "applied": {
+          "revision": "6063",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 100,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6",
+      "applicationImage": "sha256:b2e32e5aacc2daefb9f39db4ccb9d4760dce6eaba9d6d7a71bf0d744b04f1bf2",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 64,
+      "seconds": 60,
+      "passed": true,
+      "reasons": [],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 502007,
+      "successfulRps": 8366.783333333333,
+      "fullCallP99Ms": 1.2314799600016688,
+      "minimumBucketSuccessfulRps": 8304.2,
+      "eligibleFailed": 0,
+      "unaccounted": 0,
+      "lateSuccess": 0,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 9190,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "http_req_duration{expected_response:true}": {
+          "min": 0.066,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_receiving": {
+          "min": 0.002208,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.000291,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_transport_ms": {
+          "min": 0.066,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.061125,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_all_full_call_ms": {
+          "min": 0.08349999999336433,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_sending": {
+          "min": 0.000916,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "iteration_duration": {
+          "min": 0.01025,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_success_latency_ms": {
+          "min": 0.08349999999336433,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.066,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 768,
+        "generatorCpus": 4,
+        "generatorSamples": 26,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', '335863a216062b714028a04fba50270b7b5df9908bf0e289d73031e979f73d9d', '148f87413625f5c81284ca3a2538ed54f29cee6994442c8fa081a27da22660ab', 'b7927e3be74058c11084e75c38e5e6e068877403b5ed3993f35fc1fa98e18ab7', '957ebf0c032ef92ff7bbc88487e0079c73a8c8d170059d0b08963787197e6c8d', 'd5334ee0ed57f9ea940d6b642dbe1a5b44fa8dc4362f525882a65bdb33b8a76d', '869cc4a7f2bb3b832c25868739d11ed70f51eff4267b0ba36797aa71990f7d74', 'kv-bench-1792451798039788000']: Error response from daemon: No such container: kv-bench-1792451798039788000\n "
+        ],
+        "generatorSampledPeakCpuCores": 1.1136,
+        "generatorSampledPeakMemory": "205.7MiB / 768MiB",
+        "generatorObserverVerified": false
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": [
+        {
+          "file": "pool-events.jsonl.gz",
+          "decompressedSha256": "0e397285555b9c8dfaba13cb03ff253836e5966e951170566fd2c0f4365258ea"
+        }
+      ]
+    },
+    {
+      "case": "diagnostic-256-gc-profile",
+      "purpose": "diagnostic",
+      "exportAvailable": true,
+      "profile": {
+        "name": "burst",
+        "file": "examples/orders-burst.json",
+        "applied": {
+          "revision": "6081",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 256,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6",
+      "applicationImage": "sha256:b2e32e5aacc2daefb9f39db4ccb9d4760dce6eaba9d6d7a71bf0d744b04f1bf2",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 256,
+      "seconds": 300,
+      "passed": true,
+      "reasons": [],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 2517853,
+      "successfulRps": 8392.843333333334,
+      "fullCallP99Ms": 1.5643951599881976,
+      "minimumBucketSuccessfulRps": 8324.9,
+      "eligibleFailed": 0,
+      "unaccounted": 0,
+      "lateSuccess": 6,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 2747,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "iteration_duration": {
+          "min": 0.008166,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_transport_ms": {
+          "min": 0.067458,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.062667,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_receiving": {
+          "min": 0.002042,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.067458,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_sending": {
+          "min": 0.001,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration{expected_response:true}": {
+          "min": 0.067458,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.000333,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_success_latency_ms": {
+          "min": 0.08466700001736172,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_all_full_call_ms": {
+          "min": 0.08466700001736172,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 768,
+        "generatorCpus": 4,
+        "generatorSamples": 98,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', '335863a216062b714028a04fba50270b7b5df9908bf0e289d73031e979f73d9d', '148f87413625f5c81284ca3a2538ed54f29cee6994442c8fa081a27da22660ab', 'b7927e3be74058c11084e75c38e5e6e068877403b5ed3993f35fc1fa98e18ab7', '957ebf0c032ef92ff7bbc88487e0079c73a8c8d170059d0b08963787197e6c8d', 'd5334ee0ed57f9ea940d6b642dbe1a5b44fa8dc4362f525882a65bdb33b8a76d', '0be757021e28643bbf72920de6f4ff7b9c6baff900de0155618e81b56c2f0aa3', 'kv-bench-1792454494888268000']: Error response from daemon: No such container: kv-bench-1792454494888268000\n "
+        ],
+        "generatorSampledPeakCpuCores": 1.4103,
+        "generatorSampledPeakMemory": "754.5MiB / 768MiB",
+        "generatorObserverVerified": false,
+        "cgroupObservation": {
+          "validSamples": 330,
+          "errorSamples": 1,
+          "peakMemoryBytes": 805310464,
+          "peakSwapBytes": 288444416,
+          "maximumCpuThrottledPeriods": 0,
+          "maximumCpuThrottledUsec": 0,
+          "maximumMemoryEvents": {
+            "max": 1613,
+            "oom": 0,
+            "oom_kill": 0
+          }
+        }
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": [
+        {
+          "file": "generator-cgroup.jsonl.gz",
+          "decompressedSha256": "2b098ad59538f220be5f9fc41ccdab1d7f469ebefcd6960cbdd27cba54e898c7"
+        },
+        {
+          "file": "pool-events.jsonl.gz",
+          "decompressedSha256": "88a424791271558d6f9a4a59302d5b6eefaaaee7479c58e711f004975e3538cd"
+        }
+      ]
+    },
+    {
+      "case": "final-256-r1",
+      "purpose": "formal trial",
+      "exportAvailable": true,
+      "profile": {
+        "name": "burst",
+        "file": "examples/orders-burst.json",
+        "applied": {
+          "revision": "6089",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 256,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "applicationImage": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 256,
+      "seconds": 300,
+      "passed": true,
+      "reasons": [],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 2509097,
+      "successfulRps": 8363.656666666666,
+      "fullCallP99Ms": 6.150959679991937,
+      "minimumBucketSuccessfulRps": 8115.3,
+      "eligibleFailed": 0,
+      "unaccounted": 0,
+      "lateSuccess": 3,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 10916,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "http_req_sending": {
+          "min": 0.001,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_success_latency_ms": {
+          "min": 0.08100000000558794,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.000292,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_transport_ms": {
+          "min": 0.058417,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "iteration_duration": {
+          "min": 0.0065,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.058417,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_receiving": {
+          "min": 0.002125,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_all_full_call_ms": {
+          "min": 0.08100000000558794,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.043458,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration{expected_response:true}": {
+          "min": 0.058417,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 1536,
+        "generatorCpus": 4,
+        "generatorSamples": 97,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', 'd657e6b719247e9afc1c68368bcaabb78a475db587b0f49a2edebd043c49fb91', 'fb952b30ae29284dfb97a398181b7d74fc1604148cab0859ce7c376cae70fae3', '258cd761f0ea0cbc054d88b94196d9f0456081c34037d15d17c32577693f0988', 'dd0f80140c04f9e0db753417965eae8e285be4ed7fba5a8362c7e6fae5c5a113', '79727e0543ce397105b42812d7ba72ecf921c405ea0575b62f9afa802fbd38b2', '7a3b1576673ed4125b97c2c737d682173653840ccc1c974937a85f8b8aa8f6f1', 'kv-bench-1792455089856022000']: Error response from daemon: No such container: kv-bench-1792455089856022000\n ",
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', 'd657e6b719247e9afc1c68368bcaabb78a475db587b0f49a2edebd043c49fb91', 'fb952b30ae29284dfb97a398181b7d74fc1604148cab0859ce7c376cae70fae3', '258cd761f0ea0cbc054d88b94196d9f0456081c34037d15d17c32577693f0988', 'dd0f80140c04f9e0db753417965eae8e285be4ed7fba5a8362c7e6fae5c5a113', '79727e0543ce397105b42812d7ba72ecf921c405ea0575b62f9afa802fbd38b2', '7a3b1576673ed4125b97c2c737d682173653840ccc1c974937a85f8b8aa8f6f1', 'kv-bench-1792455089856022000']: EOF\n "
+        ],
+        "generatorSampledPeakCpuCores": 2.2899000000000003,
+        "generatorSampledPeakMemory": "811.6MiB / 1.5GiB",
+        "generatorObserverVerified": true,
+        "cgroupObservation": {
+          "validSamples": 330,
+          "errorSamples": 3,
+          "peakMemoryBytes": 902123520,
+          "peakSwapBytes": 0,
+          "maximumCpuThrottledPeriods": 1,
+          "maximumCpuThrottledUsec": 15986,
+          "maximumMemoryEvents": {
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0
+          }
+        }
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": [
+        {
+          "file": "generator-cgroup.jsonl.gz",
+          "decompressedSha256": "4fdc5bea9409f05b30212774280a23e2992d7578d764ef99b7f5d892fcb93017"
+        },
+        {
+          "file": "pool-events.jsonl.gz",
+          "decompressedSha256": "044f0fae79ba298bd6c6ae2e57e0a4f500a298d873d42396c75cc07d94072609"
+        }
+      ]
+    },
+    {
+      "case": "final-256-r2",
+      "purpose": "formal trial",
+      "exportAvailable": true,
+      "profile": {
+        "name": "burst",
+        "file": "examples/orders-burst.json",
+        "applied": {
+          "revision": "6091",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 256,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "applicationImage": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 256,
+      "seconds": 300,
+      "passed": true,
+      "reasons": [],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 2513943,
+      "successfulRps": 8379.81,
+      "fullCallP99Ms": 6.709474639994577,
+      "minimumBucketSuccessfulRps": 8202.4,
+      "eligibleFailed": 0,
+      "unaccounted": 0,
+      "lateSuccess": 2,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 6114,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.067709,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_sending": {
+          "min": 0.001041,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.059708,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_success_latency_ms": {
+          "min": 0.08716699999058619,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_receiving": {
+          "min": 0.002125,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "iteration_duration": {
+          "min": 0.009708,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_transport_ms": {
+          "min": 0.067709,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration{expected_response:true}": {
+          "min": 0.067709,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_all_full_call_ms": {
+          "min": 0.08716699999058619,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.000333,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 1536,
+        "generatorCpus": 4,
+        "generatorSamples": 97,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', 'd657e6b719247e9afc1c68368bcaabb78a475db587b0f49a2edebd043c49fb91', 'fb952b30ae29284dfb97a398181b7d74fc1604148cab0859ce7c376cae70fae3', '258cd761f0ea0cbc054d88b94196d9f0456081c34037d15d17c32577693f0988', 'dd0f80140c04f9e0db753417965eae8e285be4ed7fba5a8362c7e6fae5c5a113', '79727e0543ce397105b42812d7ba72ecf921c405ea0575b62f9afa802fbd38b2', '7a3b1576673ed4125b97c2c737d682173653840ccc1c974937a85f8b8aa8f6f1', 'kv-bench-1792455431437784000']: Error response from daemon: No such container: kv-bench-1792455431437784000\n "
+        ],
+        "generatorSampledPeakCpuCores": 1.9240000000000002,
+        "generatorSampledPeakMemory": "785.2MiB / 1.5GiB",
+        "generatorObserverVerified": true,
+        "cgroupObservation": {
+          "validSamples": 331,
+          "errorSamples": 2,
+          "peakMemoryBytes": 889126912,
+          "peakSwapBytes": 0,
+          "maximumCpuThrottledPeriods": 0,
+          "maximumCpuThrottledUsec": 0,
+          "maximumMemoryEvents": {
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0
+          }
+        }
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": [
+        {
+          "file": "generator-cgroup.jsonl.gz",
+          "decompressedSha256": "979164912919bca4fdb296f4546de834b9886cfdb081972a4fe701fbeb3d2ec4"
+        },
+        {
+          "file": "pool-events.jsonl.gz",
+          "decompressedSha256": "c3e4858e89a87317ea3de55914407acb8d5b59f4d14a199d6863df8063751783"
+        }
+      ]
+    },
+    {
+      "case": "final-256-r3",
+      "purpose": "formal trial",
+      "exportAvailable": true,
+      "profile": {
+        "name": "burst",
+        "file": "examples/orders-burst.json",
+        "applied": {
+          "revision": "6093",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 256,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "applicationImage": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 256,
+      "seconds": 300,
+      "passed": true,
+      "reasons": [],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 2514404,
+      "successfulRps": 8381.346666666666,
+      "fullCallP99Ms": 3.8084144800211632,
+      "minimumBucketSuccessfulRps": 8239.2,
+      "eligibleFailed": 0,
+      "unaccounted": 0,
+      "lateSuccess": 1,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 5698,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "http_req_receiving": {
+          "min": 0.002208,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.000333,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.064042,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "iteration_duration": {
+          "min": 0.102291,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_transport_ms": {
+          "min": 0.064042,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_all_full_call_ms": {
+          "min": 0.08387499995296821,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration{expected_response:true}": {
+          "min": 0.064042,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_sending": {
+          "min": 0.001041,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_success_latency_ms": {
+          "min": 0.08387499995296821,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.057333,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 1536,
+        "generatorCpus": 4,
+        "generatorSamples": 97,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', 'd657e6b719247e9afc1c68368bcaabb78a475db587b0f49a2edebd043c49fb91', 'fb952b30ae29284dfb97a398181b7d74fc1604148cab0859ce7c376cae70fae3', '258cd761f0ea0cbc054d88b94196d9f0456081c34037d15d17c32577693f0988', 'dd0f80140c04f9e0db753417965eae8e285be4ed7fba5a8362c7e6fae5c5a113', '79727e0543ce397105b42812d7ba72ecf921c405ea0575b62f9afa802fbd38b2', '7a3b1576673ed4125b97c2c737d682173653840ccc1c974937a85f8b8aa8f6f1', 'kv-bench-1792455772462466000']: Error response from daemon: No such container: kv-bench-1792455772462466000\n "
+        ],
+        "generatorSampledPeakCpuCores": 1.9969,
+        "generatorSampledPeakMemory": "788.9MiB / 1.5GiB",
+        "generatorObserverVerified": true,
+        "cgroupObservation": {
+          "validSamples": 330,
+          "errorSamples": 2,
+          "peakMemoryBytes": 925908992,
+          "peakSwapBytes": 0,
+          "maximumCpuThrottledPeriods": 0,
+          "maximumCpuThrottledUsec": 0,
+          "maximumMemoryEvents": {
+            "max": 0,
+            "oom": 0,
+            "oom_kill": 0
+          }
+        }
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": [
+        {
+          "file": "generator-cgroup.jsonl.gz",
+          "decompressedSha256": "95c3e7ef318285110e6025acee6e65516c3f7fb4604eea8f54a54282ee4668e0"
+        },
+        {
+          "file": "pool-events.jsonl.gz",
+          "decompressedSha256": "6f0b83c282adcdaf1f2058a69f9379942be17524ddab670207f07c6f538dc2c7"
+        }
+      ]
+    },
+    {
+      "case": "formal-256-r1",
+      "purpose": "formal trial",
+      "exportAvailable": true,
+      "profile": {
+        "name": "burst",
+        "file": "examples/orders-burst.json",
+        "applied": {
+          "revision": "6075",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 256,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6",
+      "applicationImage": "sha256:b2e32e5aacc2daefb9f39db4ccb9d4760dce6eaba9d6d7a71bf0d744b04f1bf2",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 256,
+      "seconds": 300,
+      "passed": true,
+      "reasons": [],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 2519621,
+      "successfulRps": 8398.736666666666,
+      "fullCallP99Ms": 1.0628500000108005,
+      "minimumBucketSuccessfulRps": 8374.8,
+      "eligibleFailed": 0,
+      "unaccounted": 0,
+      "lateSuccess": 0,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 396,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "window_success_latency_ms": {
+          "min": 0.0848330000299029,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_all_full_call_ms": {
+          "min": 0.0848330000299029,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.000292,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.064583,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration{expected_response:true}": {
+          "min": 0.064583,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "iteration_duration": {
+          "min": 0.007209,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_sending": {
+          "min": 0.001,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.05675,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_receiving": {
+          "min": 0.002084,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_transport_ms": {
+          "min": 0.064583,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 768,
+        "generatorCpus": 4,
+        "generatorSamples": 97,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', '335863a216062b714028a04fba50270b7b5df9908bf0e289d73031e979f73d9d', '148f87413625f5c81284ca3a2538ed54f29cee6994442c8fa081a27da22660ab', 'b7927e3be74058c11084e75c38e5e6e068877403b5ed3993f35fc1fa98e18ab7', '957ebf0c032ef92ff7bbc88487e0079c73a8c8d170059d0b08963787197e6c8d', 'd5334ee0ed57f9ea940d6b642dbe1a5b44fa8dc4362f525882a65bdb33b8a76d', '869cc4a7f2bb3b832c25868739d11ed70f51eff4267b0ba36797aa71990f7d74', 'kv-bench-1792453160230517000']: Error response from daemon: No such container: kv-bench-1792453160230517000\n "
+        ],
+        "generatorSampledPeakCpuCores": 1.0773000000000001,
+        "generatorSampledPeakMemory": "728.1MiB / 768MiB",
+        "generatorObserverVerified": false
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": [
+        {
+          "file": "pool-events.jsonl.gz",
+          "decompressedSha256": "47512c2ff08bc3ae7b0f02aef452196e8b2c9647252f1adf64786f4647e81a40"
+        }
+      ]
+    },
+    {
+      "case": "formal-256-r2",
+      "purpose": "formal trial",
+      "exportAvailable": true,
+      "profile": {
+        "name": "burst",
+        "file": "examples/orders-burst.json",
+        "applied": {
+          "revision": "6077",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 256,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6",
+      "applicationImage": "sha256:b2e32e5aacc2daefb9f39db4ccb9d4760dce6eaba9d6d7a71bf0d744b04f1bf2",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 256,
+      "seconds": 300,
+      "passed": true,
+      "reasons": [],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 2519953,
+      "successfulRps": 8399.843333333334,
+      "fullCallP99Ms": 0.9525196800025869,
+      "minimumBucketSuccessfulRps": 8393.8,
+      "eligibleFailed": 0,
+      "unaccounted": 0,
+      "lateSuccess": 1,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 497,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "iteration_duration": {
+          "min": 0.008834,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration{expected_response:true}": {
+          "min": 0.064375,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.054417,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_transport_ms": {
+          "min": 0.064375,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_receiving": {
+          "min": 0.002041,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_success_latency_ms": {
+          "min": 0.08216699998592958,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.000292,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.064375,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_sending": {
+          "min": 0.000958,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_all_full_call_ms": {
+          "min": 0.08216699998592958,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 768,
+        "generatorCpus": 4,
+        "generatorSamples": 97,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', '335863a216062b714028a04fba50270b7b5df9908bf0e289d73031e979f73d9d', '148f87413625f5c81284ca3a2538ed54f29cee6994442c8fa081a27da22660ab', 'b7927e3be74058c11084e75c38e5e6e068877403b5ed3993f35fc1fa98e18ab7', '957ebf0c032ef92ff7bbc88487e0079c73a8c8d170059d0b08963787197e6c8d', 'd5334ee0ed57f9ea940d6b642dbe1a5b44fa8dc4362f525882a65bdb33b8a76d', '869cc4a7f2bb3b832c25868739d11ed70f51eff4267b0ba36797aa71990f7d74', 'kv-bench-1792453500390255000']: Error response from daemon: No such container: kv-bench-1792453500390255000\n "
+        ],
+        "generatorSampledPeakCpuCores": 1.0732,
+        "generatorSampledPeakMemory": "751.7MiB / 768MiB",
+        "generatorObserverVerified": false
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": [
+        {
+          "file": "pool-events.jsonl.gz",
+          "decompressedSha256": "664dd12acccd26ee0243785d530c76bc682620386248fac823ac5fbcd0fda6db"
+        }
+      ]
+    },
+    {
+      "case": "formal-256-r3",
+      "purpose": "formal trial",
+      "exportAvailable": true,
+      "profile": {
+        "name": "burst",
+        "file": "examples/orders-burst.json",
+        "applied": {
+          "revision": "6079",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 256,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6",
+      "applicationImage": "sha256:b2e32e5aacc2daefb9f39db4ccb9d4760dce6eaba9d6d7a71bf0d744b04f1bf2",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 256,
+      "seconds": 300,
+      "passed": false,
+      "reasons": [
+        "a completion bucket is below target",
+        "k6 acceptance thresholds failed"
+      ],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 2510127,
+      "successfulRps": 8367.09,
+      "fullCallP99Ms": 1.518800759984294,
+      "minimumBucketSuccessfulRps": 7576.6,
+      "eligibleFailed": 0,
+      "unaccounted": 0,
+      "lateSuccess": 0,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 9948,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "window_all_full_call_ms": {
+          "min": 0.08724999998230487,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.057708,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.06825,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_receiving": {
+          "min": 0.002083,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.000292,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_transport_ms": {
+          "min": 0.06825,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_sending": {
+          "min": 0.001,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "iteration_duration": {
+          "min": 0.006625,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_success_latency_ms": {
+          "min": 0.08724999998230487,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration{expected_response:true}": {
+          "min": 0.06825,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 768,
+        "generatorCpus": 4,
+        "generatorSamples": 97,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', '335863a216062b714028a04fba50270b7b5df9908bf0e289d73031e979f73d9d', '148f87413625f5c81284ca3a2538ed54f29cee6994442c8fa081a27da22660ab', 'b7927e3be74058c11084e75c38e5e6e068877403b5ed3993f35fc1fa98e18ab7', '957ebf0c032ef92ff7bbc88487e0079c73a8c8d170059d0b08963787197e6c8d', 'd5334ee0ed57f9ea940d6b642dbe1a5b44fa8dc4362f525882a65bdb33b8a76d', '869cc4a7f2bb3b832c25868739d11ed70f51eff4267b0ba36797aa71990f7d74', 'kv-bench-1792453840274068000']: Error response from daemon: No such container: kv-bench-1792453840274068000\n ",
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', '335863a216062b714028a04fba50270b7b5df9908bf0e289d73031e979f73d9d', '148f87413625f5c81284ca3a2538ed54f29cee6994442c8fa081a27da22660ab', 'b7927e3be74058c11084e75c38e5e6e068877403b5ed3993f35fc1fa98e18ab7', '957ebf0c032ef92ff7bbc88487e0079c73a8c8d170059d0b08963787197e6c8d', 'd5334ee0ed57f9ea940d6b642dbe1a5b44fa8dc4362f525882a65bdb33b8a76d', '869cc4a7f2bb3b832c25868739d11ed70f51eff4267b0ba36797aa71990f7d74', 'kv-bench-1792453840274068000']: EOF\n "
+        ],
+        "generatorSampledPeakCpuCores": 1.7452,
+        "generatorSampledPeakMemory": "756.2MiB / 768MiB",
+        "generatorObserverVerified": false
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": [
+        {
+          "file": "pool-events.jsonl.gz",
+          "decompressedSha256": "813146a078235d8ec5fe1d08b099f8d1e002cb019c7481a0f20e45e9159bbac8"
+        }
+      ]
+    },
+    {
+      "case": "formal-64-r1",
+      "purpose": "formal trial",
+      "exportAvailable": true,
+      "profile": {
+        "name": "standard",
+        "file": "examples/orders.json",
+        "applied": {
+          "revision": "6069",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 100,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6",
+      "applicationImage": "sha256:b2e32e5aacc2daefb9f39db4ccb9d4760dce6eaba9d6d7a71bf0d744b04f1bf2",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 64,
+      "seconds": 300,
+      "passed": true,
+      "reasons": [],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 2517832,
+      "successfulRps": 8392.773333333333,
+      "fullCallP99Ms": 1.0546692500288162,
+      "minimumBucketSuccessfulRps": 8358.3,
+      "eligibleFailed": 0,
+      "unaccounted": 0,
+      "lateSuccess": 9,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 3905,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "window_success_latency_ms": {
+          "min": 0.0812090000254102,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.064291,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.057583,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration{expected_response:true}": {
+          "min": 0.064291,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "iteration_duration": {
+          "min": 0.094708,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_all_full_call_ms": {
+          "min": 0.0812090000254102,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.000291,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_receiving": {
+          "min": 0.002083,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_transport_ms": {
+          "min": 0.064291,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_sending": {
+          "min": 0.000916,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 768,
+        "generatorCpus": 4,
+        "generatorSamples": 97,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', '335863a216062b714028a04fba50270b7b5df9908bf0e289d73031e979f73d9d', '148f87413625f5c81284ca3a2538ed54f29cee6994442c8fa081a27da22660ab', 'b7927e3be74058c11084e75c38e5e6e068877403b5ed3993f35fc1fa98e18ab7', '957ebf0c032ef92ff7bbc88487e0079c73a8c8d170059d0b08963787197e6c8d', 'd5334ee0ed57f9ea940d6b642dbe1a5b44fa8dc4362f525882a65bdb33b8a76d', '869cc4a7f2bb3b832c25868739d11ed70f51eff4267b0ba36797aa71990f7d74', 'kv-bench-1792452138655819000']: Error response from daemon: No such container: kv-bench-1792452138655819000\n ",
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', '335863a216062b714028a04fba50270b7b5df9908bf0e289d73031e979f73d9d', '148f87413625f5c81284ca3a2538ed54f29cee6994442c8fa081a27da22660ab', 'b7927e3be74058c11084e75c38e5e6e068877403b5ed3993f35fc1fa98e18ab7', '957ebf0c032ef92ff7bbc88487e0079c73a8c8d170059d0b08963787197e6c8d', 'd5334ee0ed57f9ea940d6b642dbe1a5b44fa8dc4362f525882a65bdb33b8a76d', '869cc4a7f2bb3b832c25868739d11ed70f51eff4267b0ba36797aa71990f7d74', 'kv-bench-1792452138655819000']: EOF\n "
+        ],
+        "generatorSampledPeakCpuCores": 1.0371,
+        "generatorSampledPeakMemory": "735.3MiB / 768MiB",
+        "generatorObserverVerified": false
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": [
+        {
+          "file": "pool-events.jsonl.gz",
+          "decompressedSha256": "27173ae0bfd83dfb361f6ad718a31ab0a1f0dc6bba82eafe11e7d8d296ca39fb"
+        }
+      ]
+    },
+    {
+      "case": "formal-64-r2",
+      "purpose": "formal trial",
+      "exportAvailable": true,
+      "profile": {
+        "name": "standard",
+        "file": "examples/orders.json",
+        "applied": {
+          "revision": "6071",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 100,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6",
+      "applicationImage": "sha256:b2e32e5aacc2daefb9f39db4ccb9d4760dce6eaba9d6d7a71bf0d744b04f1bf2",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 64,
+      "seconds": 300,
+      "passed": true,
+      "reasons": [],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 2517196,
+      "successfulRps": 8390.653333333334,
+      "fullCallP99Ms": 0.9349159999983385,
+      "minimumBucketSuccessfulRps": 8324.7,
+      "eligibleFailed": 0,
+      "unaccounted": 0,
+      "lateSuccess": 4,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 2841,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_sending": {
+          "min": 0.000792,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration{expected_response:true}": {
+          "min": 0.060542,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "iteration_duration": {
+          "min": 0.093959,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.060542,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_transport_ms": {
+          "min": 0.060542,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_all_full_call_ms": {
+          "min": 0.07795900001656264,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_success_latency_ms": {
+          "min": 0.07795900001656264,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_receiving": {
+          "min": 0.002041,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.056084,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.000291,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 768,
+        "generatorCpus": 4,
+        "generatorSamples": 97,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', '335863a216062b714028a04fba50270b7b5df9908bf0e289d73031e979f73d9d', '148f87413625f5c81284ca3a2538ed54f29cee6994442c8fa081a27da22660ab', 'b7927e3be74058c11084e75c38e5e6e068877403b5ed3993f35fc1fa98e18ab7', '957ebf0c032ef92ff7bbc88487e0079c73a8c8d170059d0b08963787197e6c8d', 'd5334ee0ed57f9ea940d6b642dbe1a5b44fa8dc4362f525882a65bdb33b8a76d', '869cc4a7f2bb3b832c25868739d11ed70f51eff4267b0ba36797aa71990f7d74', 'kv-bench-1792452480390908000']: Error response from daemon: No such container: kv-bench-1792452480390908000\n "
+        ],
+        "generatorSampledPeakCpuCores": 1.0147,
+        "generatorSampledPeakMemory": "666.8MiB / 768MiB",
+        "generatorObserverVerified": false
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": [
+        {
+          "file": "pool-events.jsonl.gz",
+          "decompressedSha256": "afb9fd051469f9aeaa6fb665e416633ddeedd2b47c64b9b3ee056dada9d3e7f2"
+        }
+      ]
+    },
+    {
+      "case": "formal-64-r3",
+      "purpose": "formal trial",
+      "exportAvailable": true,
+      "profile": {
+        "name": "standard",
+        "file": "examples/orders.json",
+        "applied": {
+          "revision": "6073",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 100,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6",
+      "applicationImage": "sha256:b2e32e5aacc2daefb9f39db4ccb9d4760dce6eaba9d6d7a71bf0d744b04f1bf2",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 64,
+      "seconds": 300,
+      "passed": true,
+      "reasons": [],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 2518677,
+      "successfulRps": 8395.59,
+      "fullCallP99Ms": 0.8209680799965272,
+      "minimumBucketSuccessfulRps": 8369.0,
+      "eligibleFailed": 0,
+      "unaccounted": 0,
+      "lateSuccess": 3,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 2021,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "iteration_duration": {
+          "min": 0.090041,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.057458,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_sending": {
+          "min": 0.000833,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.000291,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration{expected_response:true}": {
+          "min": 0.057458,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_transport_ms": {
+          "min": 0.057458,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_success_latency_ms": {
+          "min": 0.07487499999115244,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_all_full_call_ms": {
+          "min": 0.07487499999115244,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_receiving": {
+          "min": 0.002041,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.052666,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 768,
+        "generatorCpus": 4,
+        "generatorSamples": 97,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', '335863a216062b714028a04fba50270b7b5df9908bf0e289d73031e979f73d9d', '148f87413625f5c81284ca3a2538ed54f29cee6994442c8fa081a27da22660ab', 'b7927e3be74058c11084e75c38e5e6e068877403b5ed3993f35fc1fa98e18ab7', '957ebf0c032ef92ff7bbc88487e0079c73a8c8d170059d0b08963787197e6c8d', 'd5334ee0ed57f9ea940d6b642dbe1a5b44fa8dc4362f525882a65bdb33b8a76d', '869cc4a7f2bb3b832c25868739d11ed70f51eff4267b0ba36797aa71990f7d74', 'kv-bench-1792452820562813000']: Error response from daemon: No such container: kv-bench-1792452820562813000\n "
+        ],
+        "generatorSampledPeakCpuCores": 1.1885,
+        "generatorSampledPeakMemory": "683.2MiB / 768MiB",
+        "generatorObserverVerified": false
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": [
+        {
+          "file": "pool-events.jsonl.gz",
+          "decompressedSha256": "22edcb6cd5ef26a1c2f16e8dbeca65884ad0d1ee698eb5d100875d01ca414657"
+        }
+      ]
+    },
+    {
+      "case": "negative-p99-headroom",
+      "purpose": "gate negative control",
+      "exportAvailable": true,
+      "profile": {
+        "name": "burst",
+        "file": "examples/orders-burst.json",
+        "applied": {
+          "revision": "6087",
+          "service": {
+            "serviceId": "orders",
+            "pathPrefix": "/orders",
+            "endpoints": [
+              "backend-a:8081",
+              "backend-b:8081"
+            ],
+            "requestTimeoutMs": 2000,
+            "maxInflight": 256,
+            "maxConnectionsPerEndpoint": 16
+          }
+        }
+      },
+      "sourceCommit": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+      "applicationImage": "sha256:3ed95e21eab191e1fb229e4a61766fc3a18116a55ac765f7171f45d25c2ed0a9",
+      "generatorImage": "sha256:fdc79d307f09f23104c75066d9e525e70d1fc0515b6265f048ccdf4844cff456",
+      "generatorBinarySha256": "a0e2755c864edc60c60c215737f956e7e31fbcada29c0800433aab7dd1f7594d",
+      "vus": 64,
+      "seconds": 10,
+      "passed": false,
+      "reasons": [
+        "successful full-call P99 is missing or above target",
+        "k6 acceptance thresholds failed"
+      ],
+      "attributionVerified": true,
+      "postLoadVerified": true,
+      "successful": 9999,
+      "successfulRps": 999.9,
+      "fullCallP99Ms": 1.0501818599990929,
+      "minimumBucketSuccessfulRps": 999.8,
+      "eligibleFailed": 0,
+      "unaccounted": 0,
+      "lateSuccess": 1,
+      "lateFailed": 0,
+      "wholeExperimentDrops": 0,
+      "cohortRejections": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0,
+        "unclassified": 0
+      },
+      "processRejectionDeltaIncludingWarmup": {
+        "no_configuration": 0,
+        "admission_limit": 0,
+        "body_budget": 0,
+        "no_healthy_endpoint": 0,
+        "pool_unavailable": 0,
+        "pool_queue_full": 0,
+        "pool_timeout": 0,
+        "pool_retired": 0,
+        "pool_cancelled": 0,
+        "connection_budget": 0,
+        "pool_acquire_error": 0
+      },
+      "timingChecks": {
+        "http_req_sending": {
+          "min": 0.001459,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "iteration_duration": {
+          "min": 0.014375,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_success_latency_ms": {
+          "min": 0.16220799999973678,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_receiving": {
+          "min": 0.002542,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_transport_ms": {
+          "min": 0.132666,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_blocked": {
+          "min": 0.0005,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_tls_handshaking": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "window_all_full_call_ms": {
+          "min": 0.16220799999973678,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_waiting": {
+          "min": 0.125,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration{expected_response:true}": {
+          "min": 0.132666,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_connecting": {
+          "min": 0,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        },
+        "http_req_duration": {
+          "min": 0.132666,
+          "allAggregateStatisticsFiniteAndNonnegative": true
+        }
+      },
+      "resources": {
+        "generatorMemoryLimitMiB": 1536,
+        "generatorCpus": 4,
+        "generatorSamples": 3,
+        "samplingErrors": [
+          "['docker', 'stats', '--no-stream', '--format', '{{json .}}', 'd657e6b719247e9afc1c68368bcaabb78a475db587b0f49a2edebd043c49fb91', 'fb952b30ae29284dfb97a398181b7d74fc1604148cab0859ce7c376cae70fae3', '258cd761f0ea0cbc054d88b94196d9f0456081c34037d15d17c32577693f0988', 'dd0f80140c04f9e0db753417965eae8e285be4ed7fba5a8362c7e6fae5c5a113', '79727e0543ce397105b42812d7ba72ecf921c405ea0575b62f9afa802fbd38b2', '7a3b1576673ed4125b97c2c737d682173653840ccc1c974937a85f8b8aa8f6f1', 'kv-bench-1792455017179734000']: Error response from daemon: No such container: kv-bench-1792455017179734000\n "
+        ],
+        "generatorSampledPeakCpuCores": 0.256,
+        "generatorSampledPeakMemory": "45.93MiB / 1.5GiB",
+        "generatorObserverVerified": false
+      },
+      "quiescentGauges": {
+        "gateway_inflight": 0.0,
+        "gateway_body_bytes": 0.0,
+        "gateway_pool_active": 0.0,
+        "gateway_pool_waiting": 0.0,
+        "gateway_pool_acquired_slots": 0.0,
+        "gateway_pool_releasing": 0.0,
+        "gateway_dispatch_queued": 0.0,
+        "gateway_dispatch_reserved": 0.0
+      },
+      "encodings": []
+    }
+  ],
+  "sourceCommits": [
+    "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6",
+    "e3ae41cd03e60d11a883c7970ef688a7448f129e"
+  ],
+  "runtimeSourceTrees": {
+    "2c2f4fe2d002fa569a9382a2b30a6c56e6b7f2c6": {
+      "api": "33c0dd2eb02603d0fcd3953ad7145c974b0133e7",
+      "control-plane": "54ea7c09f650f57d6eca7bb652e3387034187f2d",
+      "gateway": "6565a64a07ed4c1104ef619a4ff30664851620ff",
+      "cli": "2e8fe65dc6c587fbc293960bb3a59f7d10b9eb98",
+      "demo-backend": "0bc6643ccb6c0586ac84c641e31f5266467b0929"
+    },
+    "e3ae41cd03e60d11a883c7970ef688a7448f129e": {
+      "api": "33c0dd2eb02603d0fcd3953ad7145c974b0133e7",
+      "control-plane": "54ea7c09f650f57d6eca7bb652e3387034187f2d",
+      "gateway": "6565a64a07ed4c1104ef619a4ff30664851620ff",
+      "cli": "2e8fe65dc6c587fbc293960bb3a59f7d10b9eb98",
+      "demo-backend": "0bc6643ccb6c0586ac84c641e31f5266467b0929"
+    }
+  },
+  "acceptanceSets": {
+    "64-standard": {
+      "requiredRuns": 3,
+      "cases": [
+        "formal-64-r1",
+        "formal-64-r2",
+        "formal-64-r3"
+      ],
+      "vus": 64,
+      "profile": "standard",
+      "generatorMemoryMiB": 768,
+      "recordedRuns": 3,
+      "allPassed": true
+    },
+    "256-burst-headroom": {
+      "requiredRuns": 3,
+      "cases": [
+        "final-256-r1",
+        "final-256-r2",
+        "final-256-r3"
+      ],
+      "vus": 256,
+      "profile": "burst",
+      "generatorMemoryMiB": 1536,
+      "requireGeneratorObserver": true,
+      "recordedRuns": 3,
+      "allPassed": true
+    }
+  },
+  "allFormalTrials": {
+    "cases": [
+      "final-256-r1",
+      "final-256-r2",
+      "final-256-r3",
+      "formal-256-r1",
+      "formal-256-r2",
+      "formal-256-r3",
+      "formal-64-r1",
+      "formal-64-r2",
+      "formal-64-r3"
+    ],
+    "failedCases": [
+      "formal-256-r3"
+    ]
+  }
+}

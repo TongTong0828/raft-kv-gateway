@@ -1,0 +1,80 @@
+NAME                             READY   STATUS    RESTARTS   AGE   IP            NODE                              NOMINATED NODE   READINESS GATES
+pod/backend-a-78ffd9dcdc-2pj6x   1/1     Running   0          35s   10.244.0.5    kv-burst-20261020-control-plane   <none>           <none>
+pod/backend-b-7895cb85b7-g9jsp   1/1     Running   0          35s   10.244.0.7    kv-burst-20261020-control-plane   <none>           <none>
+pod/cp-0                         1/1     Running   0          8s    10.244.0.14   kv-burst-20261020-control-plane   <none>           <none>
+pod/cp-1                         1/1     Running   0          35s   10.244.0.12   kv-burst-20261020-control-plane   <none>           <none>
+pod/cp-2                         1/1     Running   0          35s   10.244.0.13   kv-burst-20261020-control-plane   <none>           <none>
+pod/gateway-588c78f759-ssn7f     1/1     Running   0          4s    10.244.0.15   kv-burst-20261020-control-plane   <none>           <none>
+
+NAME                              STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE   VOLUMEMODE
+persistentvolumeclaim/data-cp-0   Bound    pvc-a5035e08-84d6-44a2-9034-56cecadb4306   1Gi        RWO            standard       <unset>                 35s   Filesystem
+persistentvolumeclaim/data-cp-1   Bound    pvc-3cdfbec9-9bea-4757-a430-ae7eace08b3c   1Gi        RWO            standard       <unset>                 35s   Filesystem
+persistentvolumeclaim/data-cp-2   Bound    pvc-30a2cf68-eca1-422b-9b5c-b23bd9b0a985   1Gi        RWO            standard       <unset>                 35s   Filesystem
+LAST SEEN   TYPE      REASON                  OBJECT                            MESSAGE
+35s         Normal    SuccessfulCreate        replicaset/backend-b-7895cb85b7   Created pod: backend-b-7895cb85b7-g9jsp
+35s         Normal    ScalingReplicaSet       deployment/backend-a              Scaled up replica set backend-a-78ffd9dcdc from 0 to 1
+35s         Normal    SuccessfulCreate        statefulset/cp                    Create Pod cp-1 in StatefulSet cp successful
+35s         Normal    SuccessfulCreate        statefulset/cp                    Create Claim data-cp-2 Pod cp-2 in StatefulSet cp success
+35s         Normal    SuccessfulCreate        statefulset/cp                    Create Claim data-cp-1 Pod cp-1 in StatefulSet cp success
+35s         Normal    SuccessfulCreate        replicaset/backend-a-78ffd9dcdc   Created pod: backend-a-78ffd9dcdc-2pj6x
+35s         Normal    Provisioning            persistentvolumeclaim/data-cp-0   External provisioner is provisioning volume for claim "kv-gateway/data-cp-0"
+35s         Normal    Scheduled               pod/backend-b-7895cb85b7-g9jsp    Successfully assigned kv-gateway/backend-b-7895cb85b7-g9jsp to kv-burst-20261020-control-plane
+35s         Normal    ExternalProvisioning    persistentvolumeclaim/data-cp-0   Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+35s         Normal    WaitForFirstConsumer    persistentvolumeclaim/data-cp-0   waiting for first consumer to be created before binding
+35s         Normal    SuccessfulCreate        statefulset/cp                    Create Pod cp-2 in StatefulSet cp successful
+35s         Normal    SuccessfulCreate        statefulset/cp                    Create Claim data-cp-0 Pod cp-0 in StatefulSet cp success
+35s         Normal    Scheduled               pod/backend-a-78ffd9dcdc-2pj6x    Successfully assigned kv-gateway/backend-a-78ffd9dcdc-2pj6x to kv-burst-20261020-control-plane
+35s         Normal    ScalingReplicaSet       deployment/backend-b              Scaled up replica set backend-b-7895cb85b7 from 0 to 1
+35s         Normal    NoPods                  poddisruptionbudget/control       No matching pods found
+35s         Normal    WaitForFirstConsumer    persistentvolumeclaim/data-cp-1   waiting for first consumer to be created before binding
+35s         Normal    ExternalProvisioning    persistentvolumeclaim/data-cp-2   Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+35s         Normal    ScalingReplicaSet       deployment/gateway                Scaled up replica set gateway-58ddc6d865 from 0 to 1
+35s         Normal    SuccessfulCreate        replicaset/gateway-58ddc6d865     Created pod: gateway-58ddc6d865-mt74t
+35s         Normal    ExternalProvisioning    persistentvolumeclaim/data-cp-1   Waiting for a volume to be created either by the external provisioner 'rancher.io/local-path' or manually by the system administrator. If volume creation is delayed, please verify that the provisioner is running and correctly registered.
+35s         Normal    Provisioning            persistentvolumeclaim/data-cp-1   External provisioner is provisioning volume for claim "kv-gateway/data-cp-1"
+35s         Normal    WaitForFirstConsumer    persistentvolumeclaim/data-cp-2   waiting for first consumer to be created before binding
+35s         Normal    Scheduled               pod/gateway-58ddc6d865-mt74t      Successfully assigned kv-gateway/gateway-58ddc6d865-mt74t to kv-burst-20261020-control-plane
+35s         Normal    Provisioning            persistentvolumeclaim/data-cp-2   External provisioner is provisioning volume for claim "kv-gateway/data-cp-2"
+34s         Normal    Created                 pod/backend-b-7895cb85b7-g9jsp    Container created
+34s         Normal    Pulled                  pod/backend-b-7895cb85b7-g9jsp    Container image "raft-kv-gateway:local" already present on machine and can be accessed by the pod
+34s         Normal    Pulled                  pod/gateway-58ddc6d865-mt74t      Container image "raft-kv-gateway:local" already present on machine and can be accessed by the pod
+34s         Normal    Pulled                  pod/backend-a-78ffd9dcdc-2pj6x    Container image "raft-kv-gateway:local" already present on machine and can be accessed by the pod
+34s         Normal    Created                 pod/gateway-58ddc6d865-mt74t      Container created
+34s         Normal    Started                 pod/gateway-58ddc6d865-mt74t      Container started
+34s         Normal    Created                 pod/backend-a-78ffd9dcdc-2pj6x    Container created
+34s         Normal    Started                 pod/backend-a-78ffd9dcdc-2pj6x    Container started
+34s         Warning   Unhealthy               pod/backend-b-7895cb85b7-g9jsp    Readiness probe failed: Get "http://10.244.0.7:8081/health": dial tcp 10.244.0.7:8081: connect: connection refused
+34s         Normal    Started                 pod/backend-b-7895cb85b7-g9jsp    Container started
+34s         Warning   Unhealthy               pod/backend-a-78ffd9dcdc-2pj6x    Readiness probe failed: Get "http://10.244.0.5:8081/health": dial tcp 10.244.0.5:8081: connect: connection refused
+32s         Normal    ProvisioningSucceeded   persistentvolumeclaim/data-cp-1   Successfully provisioned volume pvc-3cdfbec9-9bea-4757-a430-ae7eace08b3c
+31s         Normal    Scheduled               pod/cp-1                          Successfully assigned kv-gateway/cp-1 to kv-burst-20261020-control-plane
+31s         Normal    ProvisioningSucceeded   persistentvolumeclaim/data-cp-0   Successfully provisioned volume pvc-a5035e08-84d6-44a2-9034-56cecadb4306
+31s         Normal    Scheduled               pod/cp-0                          Successfully assigned kv-gateway/cp-0 to kv-burst-20261020-control-plane
+30s         Normal    Pulled                  pod/cp-0                          Container image "raft-kv-gateway:local" already present on machine and can be accessed by the pod
+30s         Normal    Scheduled               pod/cp-2                          Successfully assigned kv-gateway/cp-2 to kv-burst-20261020-control-plane
+30s         Normal    Started                 pod/cp-1                          Container started
+30s         Normal    Created                 pod/cp-1                          Container created
+30s         Normal    Pulled                  pod/cp-1                          Container image "raft-kv-gateway:local" already present on machine and can be accessed by the pod
+30s         Normal    Created                 pod/cp-0                          Container created
+30s         Normal    Started                 pod/cp-0                          Container started
+30s         Normal    ProvisioningSucceeded   persistentvolumeclaim/data-cp-2   Successfully provisioned volume pvc-30a2cf68-eca1-422b-9b5c-b23bd9b0a985
+29s         Normal    Started                 pod/cp-2                          Container started
+29s         Normal    Created                 pod/cp-2                          Container created
+29s         Normal    Pulled                  pod/cp-2                          Container image "raft-kv-gateway:local" already present on machine and can be accessed by the pod
+16s         Warning   Unhealthy               pod/gateway-58ddc6d865-mt74t      Readiness probe failed: HTTP probe failed with statuscode: 503
+13s         Normal    Killing                 pod/cp-0                          Stopping container control
+10s         Warning   Unhealthy               pod/cp-0                          Readiness probe failed: Get "http://10.244.0.11:9101/ready": dial tcp 10.244.0.11:9101: connect: connection refused
+8s          Normal    Scheduled               pod/cp-0                          Successfully assigned kv-gateway/cp-0 to kv-burst-20261020-control-plane
+8s          Normal    SuccessfulCreate        statefulset/cp                    Create Pod cp-0 in StatefulSet cp successful
+7s          Normal    Created                 pod/cp-0                          Container created
+7s          Normal    Pulled                  pod/cp-0                          Container image "raft-kv-gateway:local" already present on machine and can be accessed by the pod
+7s          Normal    Started                 pod/cp-0                          Container started
+4s          Normal    SuccessfulCreate        replicaset/gateway-588c78f759     Created pod: gateway-588c78f759-ssn7f
+4s          Normal    Scheduled               pod/gateway-588c78f759-ssn7f      Successfully assigned kv-gateway/gateway-588c78f759-ssn7f to kv-burst-20261020-control-plane
+4s          Normal    ScalingReplicaSet       deployment/gateway                Scaled up replica set gateway-588c78f759 from 0 to 1
+3s          Normal    Started                 pod/gateway-588c78f759-ssn7f      Container started
+3s          Normal    Pulled                  pod/gateway-588c78f759-ssn7f      Container image "raft-kv-gateway:local" already present on machine and can be accessed by the pod
+3s          Normal    Created                 pod/gateway-588c78f759-ssn7f      Container created
+1s          Normal    Killing                 pod/gateway-58ddc6d865-mt74t      Stopping container gateway
+1s          Normal    SuccessfulDelete        replicaset/gateway-58ddc6d865     Deleted pod: gateway-58ddc6d865-mt74t
+1s          Normal    ScalingReplicaSet       deployment/gateway                Scaled down replica set gateway-58ddc6d865 from 1 to 0

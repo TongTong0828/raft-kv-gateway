@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/k6/build.py", line 222, in <module>
+    main()
+    ~~~~^^
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/k6/build.py", line 214, in main
+    result = verify(args.image, platform)
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/k6/build.py", line 153, in verify
+    labels = validate_image(info, platform)
+  File "/Users/at/.codex/worktrees/burst-timing/分布式项目/benchmarks/k6/build.py", line 131, in validate_image
+    raise ValueError('unrecognized k6 image label: ' + key)
+ValueError: unrecognized k6 image label: io.raftkv.k6.upstream.commit

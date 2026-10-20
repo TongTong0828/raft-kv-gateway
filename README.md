@@ -6,9 +6,9 @@ A Java 21 distributed-systems project combining a durable, three-node Raft KV st
 
 The project focuses on failure behavior that can be reproduced locally: revision-checked writes, leader isolation, snapshot installation, configuration outages, connection reuse, overload rejection, and resource cleanup.
 
-**Local sustained performance passed:** three five-minute windows at source `3c1f5f6` delivered **8,386.03–8,392.89 successful requests/s**, successful full-call **P99 0.64–0.88 ms**, and exact 1 KiB bodies. **Actual AWS EKS acceptance remains pending**: the owner has no AWS account and has declined paid resources. See [acceptance status](docs/acceptance-targets.md).
+**Local 64/256-VU sustained performance passed:** three five-minute runs per cohort delivered **8,390.65–8,395.59 successful requests/s at 64 VUs** and **8,363.66–8,381.35/s at 256 VUs**, with successful full-call **P99 0.82–1.05 ms** and **3.81–6.71 ms** respectively, exact 1 KiB bodies, and zero eligible failures or unaccounted outcomes. The 64-VU standard profile uses service admission 100 and a 768 MiB generator; the 256-VU burst profile explicitly uses admission 256 and a 1,536 MiB generator. See [burst handling, per-run outcomes and retained failed experiments](docs/burst-handling.md).
 
-**Historical high-concurrency 503s diagnosed:** instrumented 64/256-VU runs identified configured service admission and per-endpoint pool queue limits. Recovery checks found no pool leak. Read the [baseline root-cause report and retained evidence](docs/backpressure.md). The current gateway uses a shared service FIFO and available-slot dispatch; see the [current lifecycle contract](docs/architecture.md#http-request-lifecycle).
+**Actual AWS EKS acceptance remains deferred:** the owner has no AWS account and declined paid resources. No local result establishes an AWS deployment or NLB performance result. See [acceptance status](docs/acceptance-targets.md). Earlier [32-VU passes](docs/benchmarks.md#strict-sustained-local-acceptance) and [503 diagnoses](docs/backpressure.md) remain historical evidence.
 
 ## Architecture
 
@@ -72,15 +72,16 @@ Reads print JSON; raw KV bytes are base64 encoded. To update or delete an existi
 | Capability | Evidence |
 |---|---|
 | CAS, delete/recreate revision safety, durable restart, real gRPC Watch | Java test suite: `./scripts/mvn.sh verify` |
-| Old leader rejects a strong read; majority commits; old Watch is fenced | [Recorded Docker fault run](docs/results/faults-v1.json) |
-| Lagging follower installs a snapshot after missing logs are purged | [Install counter and index evidence](docs/results/faults-v1.json) |
-| Cached routing during full control outage; atomic route-table replacement | [Fault assertions and traffic evidence](scripts/faults.py) |
-| Global body budget, overload rejection, cancellation cleanup | Real HTTP tests and [80-service body-budget run](docs/results/faults-v1.json) |
-| Three Kubernetes voters, PVC retention, pod replacement, gateway rollout | [Recorded kind validation](docs/results/kind-v1.json) |
+| Old leader rejects a strong read; majority commits; old Watch is fenced | [Current Docker fault run](docs/results/burst-local-v1/verification/burst-faults.json) |
+| Lagging follower installs a snapshot after missing logs are purged | [Install counter and index evidence](docs/results/burst-local-v1/verification/burst-faults.json) |
+| Cached routing during full control outage; atomic route-table replacement | [Current fault assertions and traffic evidence](docs/results/burst-local-v1/verification/burst-faults.json) |
+| Global body budget, overload rejection, cancellation cleanup | Real HTTP tests and [80-service body-budget run](docs/results/burst-local-v1/verification/burst-faults.json) |
+| Three Raft voters on one kind node, three PVCs, pod replacement, gateway rollout | [Current local Kubernetes validation](docs/results/burst-local-v1/verification/burst-kind.json) |
 | EKS gp3 / LoadBalancer configuration | [Render-checked deployment example](deploy/kubernetes/README.md); **not deployed to AWS** |
+| Bounded FIFO, available-slot dispatch, cancellation/deadline/retirement ownership | [Real-network regressions and burst verification](docs/burst-handling.md) |
 | HTTP and direct-KV performance | [Benchmark method and measured results](docs/benchmarks.md) |
 
-The strict local gate used 32 fixed VUs, 8,400 offered requests/s, 30 seconds warmup and 300 seconds measurement, repeated three times. Every ten-second bucket exceeded 8,000 successful requests/s (lowest: 8,308.50/s), with zero eligible failures or unaccounted requests. The generator dropped 11,423 scheduled arrivals across the full experiments, including warmup; these are excluded from success counts. This is a shared local Docker VM result. Higher-concurrency failed experiments remain public. See the [method, per-run results and raw evidence](docs/benchmarks.md). The earlier 30-run gateway/KV/isolation matrix is retained separately as historical evidence.
+The six selected local runs each used 8,400 offered requests/s, 30 seconds warmup and 300 seconds measurement. Every ten-second bucket exceeded 8,000 successful requests/s (lowest: 8,115.30/s), with zero eligible failures or unaccounted outcomes. Whole-experiment generator drops, including warmup, totalled 8,767 for the 64-VU cohort and 22,728 for the 256-VU cohort; they are excluded from successes. The cohorts have different service and generator budgets and are reported separately. The earlier failed 256-VU/768 MiB series, invalid timing exports, historical 32-VU passes and original 30-run matrix remain public. See [current burst verification](docs/burst-handling.md) and [historical methods and results](docs/benchmarks.md).
 
 The Docker and kind scripts create isolated resources and clean up only resources they own. Fault and Kubernetes tooling additionally require Python 3.9+ and curl.
 
@@ -105,6 +106,7 @@ This is a personal learning project, not a production database or an internet-fa
 ```bash
 ./scripts/mvn.sh verify
 python3 -m unittest discover -s benchmarks -p 'test_*.py'
+python3 -m unittest discover -s benchmarks/k6 -p 'test_*.py'
 node --test benchmarks/test_*.mjs
 python3 scripts/audit-release.py
 ```

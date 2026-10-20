@@ -1,0 +1,12 @@
+import json,pathlib,sys,time,urllib.request
+out=pathlib.Path(sys.argv[1]);stop=pathlib.Path(str(out)+'.stop');previous=None;tick=0
+with out.open('w') as stream:
+ while not stop.exists():
+  row={'time':time.time()}
+  try:
+   text=urllib.request.urlopen('http://127.0.0.1:9090/metrics',timeout=2).read().decode()
+   observed=[line for line in text.splitlines() if line.startswith(('# pool_failure ','gateway_rejections_total','gateway_healthy_endpoints','gateway_pool_','gateway_dispatch_','gateway_inflight ','gateway_body_bytes '))]
+   if observed!=previous or tick%5==0:
+    row['observed']=observed;stream.write(json.dumps(row)+'\n');stream.flush();previous=observed
+  except Exception as e:stream.write(json.dumps({**row,'error':str(e)})+'\n');stream.flush()
+  tick+=1;time.sleep(1)

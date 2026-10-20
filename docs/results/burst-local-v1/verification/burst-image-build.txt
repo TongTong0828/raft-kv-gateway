@@ -1,0 +1,691 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 663B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 967B done
+#2 DONE 0.0s
+
+#3 resolve image config for docker-image://docker.io/docker/dockerfile:1
+#3 DONE 1.6s
+
+#4 docker-image://docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e
+#4 resolve docker.io/docker/dockerfile:1@sha256:4edf897a3ffa55b89f906fc8cc78afdb3f1834cc9c7083565e611a8a7d5fe99e done
+#4 CACHED
+
+#5 [internal] load metadata for docker.io/library/eclipse-temurin:21-jre-noble@sha256:35501d3f93173b420ac9001658eb68157e813316b865087e345c187fca422c4c
+#5 DONE 0.3s
+
+#6 [internal] load metadata for docker.io/library/maven:3.9.16-eclipse-temurin-21-noble@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+#6 DONE 0.3s
+
+#7 [internal] load .dockerignore
+#7 transferring context: 91B done
+#7 DONE 0.0s
+
+#8 [build 1/4] FROM docker.io/library/maven:3.9.16-eclipse-temurin-21-noble@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+#8 resolve docker.io/library/maven:3.9.16-eclipse-temurin-21-noble@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320 done
+#8 DONE 0.0s
+
+#9 [stage-1 1/4] FROM docker.io/library/eclipse-temurin:21-jre-noble@sha256:35501d3f93173b420ac9001658eb68157e813316b865087e345c187fca422c4c
+#9 resolve docker.io/library/eclipse-temurin:21-jre-noble@sha256:35501d3f93173b420ac9001658eb68157e813316b865087e345c187fca422c4c done
+#9 CACHED
+
+#10 [internal] load build context
+#10 transferring context: 773.65kB 0.0s done
+#10 DONE 0.0s
+
+#11 [build 2/4] WORKDIR /src
+#11 CACHED
+
+#12 [build 3/4] COPY . .
+#12 DONE 0.0s
+
+#13 [stage-1 2/4] RUN groupadd --gid 10001 kv && useradd --uid 10001 --gid 10001 --no-create-home kv && mkdir /data && chown kv:kv /data
+#13 DONE 0.2s
+
+#14 [build 4/4] RUN --mount=type=cache,target=/root/.m2 mvn -B -ntp -DskipTests package
+#14 ...
+
+#15 [stage-1 3/4] WORKDIR /app
+#15 DONE 0.0s
+
+#14 [build 4/4] RUN --mount=type=cache,target=/root/.m2 mvn -B -ntp -DskipTests package
+#14 0.562 [INFO] Scanning for projects...
+#14 0.659 [INFO] ------------------------------------------------------------------------
+#14 0.659 [INFO] Detecting the operating system and CPU architecture
+#14 0.659 [INFO] ------------------------------------------------------------------------
+#14 0.660 [INFO] os.detected.name: linux
+#14 0.660 [INFO] os.detected.arch: aarch_64
+#14 0.660 [INFO] os.detected.bitness: 64
+#14 0.660 [INFO] os.detected.version: 6.10
+#14 0.660 [INFO] os.detected.version.major: 6
+#14 0.660 [INFO] os.detected.version.minor: 10
+#14 0.660 [INFO] os.detected.release: ubuntu
+#14 0.660 [INFO] os.detected.release.version: 24.04
+#14 0.660 [INFO] os.detected.release.like.ubuntu: true
+#14 0.660 [INFO] os.detected.release.like.debian: true
+#14 0.660 [INFO] os.detected.classifier: linux-aarch_64
+#14 0.662 [INFO] ------------------------------------------------------------------------
+#14 0.662 [INFO] Reactor Build Order:
+#14 0.662 [INFO] 
+#14 0.663 [INFO] Raft KV and Gateway                                                [pom]
+#14 0.663 [INFO] api                                                                [jar]
+#14 0.663 [INFO] control-plane                                                      [jar]
+#14 0.663 [INFO] gateway                                                            [jar]
+#14 0.663 [INFO] cli                                                                [jar]
+#14 0.663 [INFO] demo-backend                                                       [jar]
+#14 0.663 [INFO] integration-tests                                                  [jar]
+#14 0.667 [INFO] 
+#14 0.667 [INFO] -------------------< dev.kvgateway:raft-kv-gateway >--------------------
+#14 0.667 [INFO] Building Raft KV and Gateway 0.1.0-SNAPSHOT                        [1/7]
+#14 0.668 [INFO]   from pom.xml
+#14 0.668 [INFO] --------------------------------[ pom ]---------------------------------
+#14 0.709 [INFO] 
+#14 0.709 [INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ raft-kv-gateway ---
+#14 1.039 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar to /src/target/original-dependencies/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar
+#14 1.047 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar to /src/target/original-dependencies/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
+#14 1.049 [INFO] 
+#14 1.049 [INFO] --- exec:3.5.0:exec (archive-original-licenses) @ raft-kv-gateway ---
+#14 1.386 [INFO] 
+#14 1.386 [INFO] --- dependency:3.9.0:list (dependency-inventory) @ raft-kv-gateway ---
+#14 1.392 [INFO] 
+#14 1.392 [INFO] -------------------------< dev.kvgateway:api >--------------------------
+#14 1.392 [INFO] Building api 0.1.0-SNAPSHOT                                        [2/7]
+#14 1.392 [INFO]   from api/pom.xml
+#14 1.392 [INFO] --------------------------------[ jar ]---------------------------------
+#14 1.439 [INFO] 
+#14 1.439 [INFO] --- protobuf:0.6.1:compile (default) @ api ---
+#14 1.542 [INFO] Compiling 1 proto file(s) to /src/api/target/generated-sources/protobuf/java
+#14 1.550 [INFO] 
+#14 1.550 [INFO] --- protobuf:0.6.1:compile-custom (default) @ api ---
+#14 1.570 [INFO] Compiling 1 proto file(s) to /src/api/target/generated-sources/protobuf/grpc-java
+#14 1.587 [INFO] 
+#14 1.587 [INFO] --- resources:3.4.0:resources (default-resources) @ api ---
+#14 1.612 [INFO] skip non existing resourceDirectory /src/api/src/main/resources
+#14 1.613 [INFO] Copying 13 resources from ../distribution/resources to target/classes
+#14 1.616 [INFO] Copying 1 resource from src/main/proto to target/classes
+#14 1.617 [INFO] Copying 1 resource from src/main/proto to target/classes
+#14 1.617 [INFO] 
+#14 1.617 [INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ api ---
+#14 1.697 [INFO] Installing /root/.m2/repository/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar to /src/api/target/original-dependencies/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar
+#14 1.719 [INFO] Installing /root/.m2/repository/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar to /src/api/target/original-dependencies/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar
+#14 1.721 [INFO] Installing /root/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar to /src/api/target/original-dependencies/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar
+#14 1.722 [INFO] Installing /root/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar to /src/api/target/original-dependencies/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar
+#14 1.725 [INFO] Installing /root/.m2/repository/com/google/errorprone/error_prone_annotations/2.18.0/error_prone_annotations-2.18.0.jar to /src/api/target/original-dependencies/com/google/errorprone/error_prone_annotations/2.18.0/error_prone_annotations-2.18.0.jar
+#14 1.726 [INFO] Installing /root/.m2/repository/com/google/guava/guava/32.0.1-jre/guava-32.0.1-jre.jar to /src/api/target/original-dependencies/com/google/guava/guava/32.0.1-jre/guava-32.0.1-jre.jar
+#14 1.730 [INFO] Installing /root/.m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar to /src/api/target/original-dependencies/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar
+#14 1.731 [INFO] Installing /root/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar to /src/api/target/original-dependencies/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+#14 1.733 [INFO] Installing /root/.m2/repository/org/checkerframework/checker-qual/3.33.0/checker-qual-3.33.0.jar to /src/api/target/original-dependencies/org/checkerframework/checker-qual/3.33.0/checker-qual-3.33.0.jar
+#14 1.734 [INFO] Installing /root/.m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar to /src/api/target/original-dependencies/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar
+#14 1.735 [INFO] Installing /root/.m2/repository/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar to /src/api/target/original-dependencies/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar
+#14 1.736 [INFO] Installing /root/.m2/repository/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar to /src/api/target/original-dependencies/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar
+#14 1.739 [INFO] Installing /root/.m2/repository/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar to /src/api/target/original-dependencies/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar
+#14 1.753 [INFO] Installing /root/.m2/repository/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar to /src/api/target/original-dependencies/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar
+#14 1.753 [INFO] Installing /root/.m2/repository/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar to /src/api/target/original-dependencies/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar
+#14 1.754 [INFO] Installing /root/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar to /src/api/target/original-dependencies/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar
+#14 1.755 [INFO] Installing /root/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar to /src/api/target/original-dependencies/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
+#14 1.756 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar to /src/api/target/original-dependencies/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar
+#14 1.756 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar to /src/api/target/original-dependencies/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
+#14 1.757 [INFO] 
+#14 1.757 [INFO] --- exec:3.5.0:exec (archive-original-licenses) @ api ---
+#14 2.076 [INFO] 
+#14 2.076 [INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+#14 2.109 [INFO] Recompiling the module because of changed source code.
+#14 2.112 [INFO] Compiling 28 source files with javac [debug release 21] to target/classes
+#14 2.731 [INFO] 
+#14 2.731 [INFO] --- resources:3.4.0:testResources (default-testResources) @ api ---
+#14 2.733 [INFO] skip non existing resourceDirectory /src/api/src/test/resources
+#14 2.733 [INFO] 
+#14 2.733 [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+#14 2.736 [INFO] Recompiling the module because of changed dependency.
+#14 2.736 [INFO] Compiling 2 source files with javac [debug release 21] to target/test-classes
+#14 2.789 [INFO] 
+#14 2.789 [INFO] --- surefire:3.5.5:test (default-test) @ api ---
+#14 2.829 [INFO] Tests are skipped.
+#14 2.829 [INFO] 
+#14 2.829 [INFO] --- dependency:3.9.0:list (dependency-inventory) @ api ---
+#14 2.839 [INFO] 
+#14 2.839 [INFO] --- jar:3.5.0:jar (default-jar) @ api ---
+#14 2.907 [INFO] Building jar: /src/api/target/api-0.1.0-SNAPSHOT.jar
+#14 2.941 [INFO] 
+#14 2.941 [INFO] --------------------< dev.kvgateway:control-plane >---------------------
+#14 2.941 [INFO] Building control-plane 0.1.0-SNAPSHOT                              [3/7]
+#14 2.941 [INFO]   from control-plane/pom.xml
+#14 2.941 [INFO] --------------------------------[ jar ]---------------------------------
+#14 2.963 [INFO] 
+#14 2.963 [INFO] --- resources:3.4.0:resources (default-resources) @ control-plane ---
+#14 2.974 [INFO] skip non existing resourceDirectory /src/control-plane/src/main/resources
+#14 2.977 [INFO] Copying 13 resources from ../distribution/resources to target/classes
+#14 2.979 [INFO] 
+#14 2.979 [INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ control-plane ---
+#14 2.981 [INFO] Installing /src/api/target/api-0.1.0-SNAPSHOT.jar to /src/control-plane/target/original-dependencies/dev/kvgateway/api/0.1.0-SNAPSHOT/api-0.1.0-SNAPSHOT.jar
+#14 2.982 [INFO] Installing /root/.m2/repository/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar to /src/control-plane/target/original-dependencies/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar
+#14 2.984 [INFO] Installing /root/.m2/repository/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar to /src/control-plane/target/original-dependencies/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar
+#14 2.985 [INFO] Installing /root/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar to /src/control-plane/target/original-dependencies/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar
+#14 2.985 [INFO] Installing /root/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar to /src/control-plane/target/original-dependencies/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar
+#14 2.986 [INFO] Installing /root/.m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar to /src/control-plane/target/original-dependencies/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar
+#14 2.987 [INFO] Installing /root/.m2/repository/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar to /src/control-plane/target/original-dependencies/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar
+#14 2.988 [INFO] Installing /root/.m2/repository/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar to /src/control-plane/target/original-dependencies/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar
+#14 2.991 [INFO] Installing /root/.m2/repository/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar to /src/control-plane/target/original-dependencies/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar
+#14 2.992 [INFO] Installing /root/.m2/repository/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar to /src/control-plane/target/original-dependencies/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar
+#14 2.993 [INFO] Installing /root/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar to /src/control-plane/target/original-dependencies/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
+#14 2.993 [INFO] Installing /root/.m2/repository/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar to /src/control-plane/target/original-dependencies/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar
+#14 3.078 [INFO] Installing /root/.m2/repository/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar to /src/control-plane/target/original-dependencies/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar
+#14 3.080 [INFO] Installing /root/.m2/repository/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar to /src/control-plane/target/original-dependencies/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar
+#14 3.086 [INFO] Installing /root/.m2/repository/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar to /src/control-plane/target/original-dependencies/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar
+#14 3.088 [INFO] Installing /root/.m2/repository/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar to /src/control-plane/target/original-dependencies/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar
+#14 3.088 [INFO] Installing /root/.m2/repository/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar to /src/control-plane/target/original-dependencies/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar
+#14 3.110 [INFO] Installing /root/.m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar to /src/control-plane/target/original-dependencies/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar
+#14 3.111 [INFO] Installing /root/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar to /src/control-plane/target/original-dependencies/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+#14 3.111 [INFO] Installing /root/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar to /src/control-plane/target/original-dependencies/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar
+#14 3.112 [INFO] Installing /root/.m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar to /src/control-plane/target/original-dependencies/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar
+#14 3.113 [INFO] Installing /root/.m2/repository/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar to /src/control-plane/target/original-dependencies/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar
+#14 3.113 [INFO] Installing /root/.m2/repository/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar to /src/control-plane/target/original-dependencies/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar
+#14 3.114 [INFO] Installing /root/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar to /src/control-plane/target/original-dependencies/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar
+#14 3.115 [INFO] Installing /root/.m2/repository/org/apache/ratis/ratis-server/3.3.1/ratis-server-3.3.1.jar to /src/control-plane/target/original-dependencies/org/apache/ratis/ratis-server/3.3.1/ratis-server-3.3.1.jar
+#14 3.117 [INFO] Installing /root/.m2/repository/org/apache/ratis/ratis-thirdparty-misc/1.1.0/ratis-thirdparty-misc-1.1.0.jar to /src/control-plane/target/original-dependencies/org/apache/ratis/ratis-thirdparty-misc/1.1.0/ratis-thirdparty-misc-1.1.0.jar
+#14 3.154 [INFO] Installing /root/.m2/repository/org/apache/ratis/ratis-proto/3.3.1/ratis-proto-3.3.1.jar to /src/control-plane/target/original-dependencies/org/apache/ratis/ratis-proto/3.3.1/ratis-proto-3.3.1.jar
+#14 3.158 [INFO] Installing /root/.m2/repository/org/apache/ratis/ratis-common/3.3.1/ratis-common-3.3.1.jar to /src/control-plane/target/original-dependencies/org/apache/ratis/ratis-common/3.3.1/ratis-common-3.3.1.jar
+#14 3.161 [INFO] Installing /root/.m2/repository/org/apache/ratis/ratis-server-api/3.3.1/ratis-server-api-3.3.1.jar to /src/control-plane/target/original-dependencies/org/apache/ratis/ratis-server-api/3.3.1/ratis-server-api-3.3.1.jar
+#14 3.163 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar to /src/control-plane/target/original-dependencies/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar
+#14 3.165 [INFO] Installing /root/.m2/repository/org/apache/ratis/ratis-metrics-api/3.3.1/ratis-metrics-api-3.3.1.jar to /src/control-plane/target/original-dependencies/org/apache/ratis/ratis-metrics-api/3.3.1/ratis-metrics-api-3.3.1.jar
+#14 3.166 [INFO] Installing /root/.m2/repository/org/apache/ratis/ratis-client/3.3.1/ratis-client-3.3.1.jar to /src/control-plane/target/original-dependencies/org/apache/ratis/ratis-client/3.3.1/ratis-client-3.3.1.jar
+#14 3.167 [INFO] Installing /root/.m2/repository/org/apache/ratis/ratis-grpc/3.3.1/ratis-grpc-3.3.1.jar to /src/control-plane/target/original-dependencies/org/apache/ratis/ratis-grpc/3.3.1/ratis-grpc-3.3.1.jar
+#14 3.169 [INFO] Installing /root/.m2/repository/org/apache/ratis/ratis-metrics-default/3.3.1/ratis-metrics-default-3.3.1.jar to /src/control-plane/target/original-dependencies/org/apache/ratis/ratis-metrics-default/3.3.1/ratis-metrics-default-3.3.1.jar
+#14 3.170 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar to /src/control-plane/target/original-dependencies/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar
+#14 3.170 [INFO] 
+#14 3.170 [INFO] --- exec:3.5.0:exec (archive-original-licenses) @ control-plane ---
+#14 3.585 [INFO] 
+#14 3.585 [INFO] --- compiler:3.14.1:compile (default-compile) @ control-plane ---
+#14 3.606 [INFO] Recompiling the module because of changed dependency.
+#14 3.610 [INFO] Compiling 7 source files with javac [debug release 21] to target/classes
+#14 3.740 [INFO] 
+#14 3.740 [INFO] --- resources:3.4.0:testResources (default-testResources) @ control-plane ---
+#14 3.742 [INFO] skip non existing resourceDirectory /src/control-plane/src/test/resources
+#14 3.742 [INFO] 
+#14 3.742 [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ control-plane ---
+#14 3.745 [INFO] Recompiling the module because of changed dependency.
+#14 3.745 [INFO] Compiling 4 source files with javac [debug release 21] to target/test-classes
+#14 3.838 [INFO] 
+#14 3.838 [INFO] --- surefire:3.5.5:test (default-test) @ control-plane ---
+#14 3.855 [INFO] Tests are skipped.
+#14 3.855 [INFO] 
+#14 3.855 [INFO] --- dependency:3.9.0:list (dependency-inventory) @ control-plane ---
+#14 3.882 [INFO] Can't extract module name from ratis-metrics-default-3.3.1.jar: ratis.metrics.default: Invalid module name: 'default' is not a Java identifier
+#14 3.883 [INFO] 
+#14 3.883 [INFO] --- jar:3.5.0:jar (default-jar) @ control-plane ---
+#14 3.925 [INFO] Building jar: /src/control-plane/target/control-plane.jar
+#14 3.940 [INFO] 
+#14 3.940 [INFO] --- shade:3.6.1:shade (default) @ control-plane ---
+#14 6.077 [WARNING] api-0.1.0-SNAPSHOT.jar, control-plane.jar define 26 overlapping resources: 
+#14 6.077 [WARNING]   - META-INF/third-party/Apache-2.0-LICENSE.txt
+#14 6.077 [WARNING]   - META-INF/third-party/animal-sniffer-1.27-LICENSE.txt
+#14 6.077 [WARNING]   - META-INF/third-party/error-prone-v2.50.0-COPYING.txt
+#14 6.077 [WARNING]   - META-INF/third-party/gson-gson-parent-2.8.9-LICENSE.txt
+#14 6.077 [WARNING]   - META-INF/third-party/guava-v33.6.0-LICENSE.txt
+#14 6.077 [WARNING]   - META-INF/third-party/index.json
+#14 6.077 [WARNING]   - META-INF/third-party/j2objc-2.8-LICENSE.txt
+#14 6.077 [WARNING]   - META-INF/third-party/netty-4.2.19.Final-LICENSE.txt
+#14 6.077 [WARNING]   - META-INF/third-party/netty-4.2.19.Final-NOTICE.txt
+#14 6.077 [WARNING]   - META-INF/third-party/originals/com_google_api_grpc_proto-google-common-protos_2.64.1_proto-google-common-protos-2.64.1.jar.licenses.zip
+#14 6.077 [WARNING]   - 16 more...
+#14 6.077 [WARNING] guava-33.6.0-android.jar, ratis-thirdparty-misc-1.1.0.jar define 2 overlapping resources: 
+#14 6.077 [WARNING]   - META-INF/maven/com.google.guava/guava/pom.properties
+#14 6.077 [WARNING]   - META-INF/maven/com.google.guava/guava/pom.xml
+#14 6.077 [WARNING] failureaccess-1.0.3.jar, ratis-thirdparty-misc-1.1.0.jar define 2 overlapping resources: 
+#14 6.077 [WARNING]   - META-INF/maven/com.google.guava/failureaccess/pom.properties
+#14 6.077 [WARNING]   - META-INF/maven/com.google.guava/failureaccess/pom.xml
+#14 6.077 [WARNING] animal-sniffer-annotations-1.27.jar, annotations-4.1.1.4.jar, api-0.1.0-SNAPSHOT.jar, control-plane.jar, error_prone_annotations-2.50.0.jar, failureaccess-1.0.3.jar, grpc-api-1.85.0.jar, grpc-context-1.85.0.jar, grpc-core-1.85.0.jar, grpc-netty-shaded-1.85.0.jar, grpc-protobuf-1.85.0.jar, grpc-protobuf-lite-1.85.0.jar, grpc-stub-1.85.0.jar, grpc-util-1.85.0.jar, gson-2.8.9.jar, guava-33.6.0-android.jar, j2objc-annotations-2.8.jar, javax.annotation-api-1.3.2.jar, jspecify-1.0.0.jar, jsr305-3.0.2.jar, listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar, perfmark-api-0.27.0.jar, proto-google-common-protos-2.64.1.jar, protobuf-java-3.25.9.jar, protobuf-java-util-3.25.9.jar, ratis-client-3.3.1.jar, ratis-common-3.3.1.jar, ratis-grpc-3.3.1.jar, ratis-metrics-api-3.3.1.jar, ratis-metrics-default-3.3.1.jar, ratis-proto-3.3.1.jar, ratis-server-3.3.1.jar, ratis-server-api-3.3.1.jar, ratis-thirdparty-misc-1.1.0.jar, slf4j-api-2.0.18.jar, slf4j-simple-2.0.17.jar define 1 overlapping resource: 
+#14 6.077 [WARNING]   - META-INF/MANIFEST.MF
+#14 6.077 [WARNING] ratis-client-3.3.1.jar, ratis-common-3.3.1.jar, ratis-grpc-3.3.1.jar, ratis-metrics-api-3.3.1.jar, ratis-metrics-default-3.3.1.jar, ratis-proto-3.3.1.jar, ratis-server-3.3.1.jar, ratis-server-api-3.3.1.jar, ratis-thirdparty-misc-1.1.0.jar define 1 overlapping resource: 
+#14 6.077 [WARNING]   - META-INF/DEPENDENCIES
+#14 6.077 [WARNING] ratis-client-3.3.1.jar, ratis-common-3.3.1.jar, ratis-grpc-3.3.1.jar, ratis-metrics-api-3.3.1.jar, ratis-metrics-default-3.3.1.jar, ratis-proto-3.3.1.jar, ratis-server-3.3.1.jar, ratis-server-api-3.3.1.jar define 1 overlapping resource: 
+#14 6.077 [WARNING]   - ratis-version.properties
+#14 6.077 [WARNING] gson-2.8.9.jar, ratis-thirdparty-misc-1.1.0.jar define 2 overlapping resources: 
+#14 6.077 [WARNING]   - META-INF/maven/com.google.code.gson/gson/pom.properties
+#14 6.077 [WARNING]   - META-INF/maven/com.google.code.gson/gson/pom.xml
+#14 6.077 [WARNING] protobuf-java-3.25.9.jar, ratis-thirdparty-misc-1.1.0.jar define 11 overlapping resources: 
+#14 6.077 [WARNING]   - google/protobuf/any.proto
+#14 6.077 [WARNING]   - google/protobuf/api.proto
+#14 6.077 [WARNING]   - google/protobuf/descriptor.proto
+#14 6.077 [WARNING]   - google/protobuf/duration.proto
+#14 6.077 [WARNING]   - google/protobuf/empty.proto
+#14 6.077 [WARNING]   - google/protobuf/field_mask.proto
+#14 6.077 [WARNING]   - google/protobuf/source_context.proto
+#14 6.077 [WARNING]   - google/protobuf/struct.proto
+#14 6.077 [WARNING]   - google/protobuf/timestamp.proto
+#14 6.077 [WARNING]   - google/protobuf/type.proto
+#14 6.077 [WARNING]   - 1 more...
+#14 6.077 [WARNING] annotations-4.1.1.4.jar, ratis-thirdparty-misc-1.1.0.jar define 4 overlapping classes and resources: 
+#14 6.077 [WARNING]   - META-INF/maven/com.google.android/annotations/pom.properties
+#14 6.077 [WARNING]   - META-INF/maven/com.google.android/annotations/pom.xml
+#14 6.077 [WARNING]   - android.annotation.SuppressLint
+#14 6.077 [WARNING]   - android.annotation.TargetApi
+#14 6.077 [WARNING] grpc-netty-shaded-1.85.0.jar, ratis-thirdparty-misc-1.1.0.jar define 1 overlapping classes: 
+#14 6.077 [WARNING]   - META-INF.versions.11.module-info
+#14 6.077 [WARNING] jspecify-1.0.0.jar, ratis-thirdparty-misc-1.1.0.jar define 5 overlapping class and resource: 
+#14 6.077 [WARNING]   - META-INF/versions/9/OSGI-INF/MANIFEST.MF
+#14 6.077 [WARNING]   - org.jspecify.annotations.NonNull
+#14 6.077 [WARNING]   - org.jspecify.annotations.NullMarked
+#14 6.077 [WARNING]   - org.jspecify.annotations.NullUnmarked
+#14 6.077 [WARNING]   - org.jspecify.annotations.Nullable
+#14 6.077 [WARNING] listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar, ratis-thirdparty-misc-1.1.0.jar define 2 overlapping resources: 
+#14 6.077 [WARNING]   - META-INF/maven/com.google.guava/listenablefuture/pom.properties
+#14 6.077 [WARNING]   - META-INF/maven/com.google.guava/listenablefuture/pom.xml
+#14 6.077 [WARNING] error_prone_annotations-2.50.0.jar, failureaccess-1.0.3.jar, jspecify-1.0.0.jar, ratis-thirdparty-misc-1.1.0.jar, slf4j-api-2.0.18.jar, slf4j-simple-2.0.17.jar define 1 overlapping classes: 
+#14 6.077 [WARNING]   - META-INF.versions.9.module-info
+#14 6.077 [WARNING] maven-shade-plugin has detected that some files are
+#14 6.077 [WARNING] present in two or more JARs. When this happens, only one
+#14 6.077 [WARNING] single version of the file is copied to the uber jar.
+#14 6.077 [WARNING] Usually this is not harmful and you can skip these warnings,
+#14 6.077 [WARNING] otherwise try to manually exclude artifacts based on
+#14 6.077 [WARNING] mvn dependency:tree -Ddetail=true and the above output.
+#14 6.077 [WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+#14 6.092 [INFO] Replacing original artifact with shaded artifact.
+#14 6.093 [INFO] 
+#14 6.093 [INFO] -----------------------< dev.kvgateway:gateway >------------------------
+#14 6.093 [INFO] Building gateway 0.1.0-SNAPSHOT                                    [4/7]
+#14 6.093 [INFO]   from gateway/pom.xml
+#14 6.093 [INFO] --------------------------------[ jar ]---------------------------------
+#14 6.109 [INFO] 
+#14 6.109 [INFO] --- resources:3.4.0:resources (default-resources) @ gateway ---
+#14 6.110 [INFO] skip non existing resourceDirectory /src/gateway/src/main/resources
+#14 6.111 [INFO] Copying 13 resources from ../distribution/resources to target/classes
+#14 6.112 [INFO] 
+#14 6.112 [INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ gateway ---
+#14 6.113 [INFO] Installing /src/api/target/api-0.1.0-SNAPSHOT.jar to /src/gateway/target/original-dependencies/dev/kvgateway/api/0.1.0-SNAPSHOT/api-0.1.0-SNAPSHOT.jar
+#14 6.114 [INFO] Installing /root/.m2/repository/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar to /src/gateway/target/original-dependencies/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar
+#14 6.117 [INFO] Installing /root/.m2/repository/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar to /src/gateway/target/original-dependencies/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar
+#14 6.117 [INFO] Installing /root/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar to /src/gateway/target/original-dependencies/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar
+#14 6.118 [INFO] Installing /root/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar to /src/gateway/target/original-dependencies/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar
+#14 6.119 [INFO] Installing /root/.m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar to /src/gateway/target/original-dependencies/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar
+#14 6.120 [INFO] Installing /root/.m2/repository/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar to /src/gateway/target/original-dependencies/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar
+#14 6.120 [INFO] Installing /root/.m2/repository/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar to /src/gateway/target/original-dependencies/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar
+#14 6.125 [INFO] Installing /root/.m2/repository/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar to /src/gateway/target/original-dependencies/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar
+#14 6.125 [INFO] Installing /root/.m2/repository/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar to /src/gateway/target/original-dependencies/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar
+#14 6.126 [INFO] Installing /root/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar to /src/gateway/target/original-dependencies/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
+#14 6.127 [INFO] Installing /root/.m2/repository/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar to /src/gateway/target/original-dependencies/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar
+#14 6.137 [INFO] Installing /root/.m2/repository/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar to /src/gateway/target/original-dependencies/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar
+#14 6.137 [INFO] Installing /root/.m2/repository/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar to /src/gateway/target/original-dependencies/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar
+#14 6.138 [INFO] Installing /root/.m2/repository/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar to /src/gateway/target/original-dependencies/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar
+#14 6.139 [INFO] Installing /root/.m2/repository/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar to /src/gateway/target/original-dependencies/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar
+#14 6.139 [INFO] Installing /root/.m2/repository/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar to /src/gateway/target/original-dependencies/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar
+#14 6.142 [INFO] Installing /root/.m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar to /src/gateway/target/original-dependencies/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar
+#14 6.143 [INFO] Installing /root/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar to /src/gateway/target/original-dependencies/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+#14 6.143 [INFO] Installing /root/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar to /src/gateway/target/original-dependencies/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar
+#14 6.144 [INFO] Installing /root/.m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar to /src/gateway/target/original-dependencies/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar
+#14 6.145 [INFO] Installing /root/.m2/repository/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar to /src/gateway/target/original-dependencies/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar
+#14 6.146 [INFO] Installing /root/.m2/repository/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar to /src/gateway/target/original-dependencies/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar
+#14 6.146 [INFO] Installing /root/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar to /src/gateway/target/original-dependencies/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar
+#14 6.147 [INFO] Installing /root/.m2/repository/io/netty/netty-codec-http/4.2.19.Final/netty-codec-http-4.2.19.Final.jar to /src/gateway/target/original-dependencies/io/netty/netty-codec-http/4.2.19.Final/netty-codec-http-4.2.19.Final.jar
+#14 6.151 [INFO] Installing /root/.m2/repository/io/netty/netty-common/4.2.19.Final/netty-common-4.2.19.Final.jar to /src/gateway/target/original-dependencies/io/netty/netty-common/4.2.19.Final/netty-common-4.2.19.Final.jar
+#14 6.154 [INFO] Installing /root/.m2/repository/io/netty/netty-buffer/4.2.19.Final/netty-buffer-4.2.19.Final.jar to /src/gateway/target/original-dependencies/io/netty/netty-buffer/4.2.19.Final/netty-buffer-4.2.19.Final.jar
+#14 6.156 [INFO] Installing /root/.m2/repository/io/netty/netty-codec-base/4.2.19.Final/netty-codec-base-4.2.19.Final.jar to /src/gateway/target/original-dependencies/io/netty/netty-codec-base/4.2.19.Final/netty-codec-base-4.2.19.Final.jar
+#14 6.158 [INFO] Installing /root/.m2/repository/io/netty/netty-codec-compression/4.2.19.Final/netty-codec-compression-4.2.19.Final.jar to /src/gateway/target/original-dependencies/io/netty/netty-codec-compression/4.2.19.Final/netty-codec-compression-4.2.19.Final.jar
+#14 6.159 [INFO] Installing /root/.m2/repository/io/netty/netty-transport/4.2.19.Final/netty-transport-4.2.19.Final.jar to /src/gateway/target/original-dependencies/io/netty/netty-transport/4.2.19.Final/netty-transport-4.2.19.Final.jar
+#14 6.163 [INFO] Installing /root/.m2/repository/io/netty/netty-resolver/4.2.19.Final/netty-resolver-4.2.19.Final.jar to /src/gateway/target/original-dependencies/io/netty/netty-resolver/4.2.19.Final/netty-resolver-4.2.19.Final.jar
+#14 6.164 [INFO] Installing /root/.m2/repository/io/netty/netty-handler/4.2.19.Final/netty-handler-4.2.19.Final.jar to /src/gateway/target/original-dependencies/io/netty/netty-handler/4.2.19.Final/netty-handler-4.2.19.Final.jar
+#14 6.166 [INFO] Installing /root/.m2/repository/io/netty/netty-transport-native-unix-common/4.2.19.Final/netty-transport-native-unix-common-4.2.19.Final.jar to /src/gateway/target/original-dependencies/io/netty/netty-transport-native-unix-common/4.2.19.Final/netty-transport-native-unix-common-4.2.19.Final.jar
+#14 6.167 [INFO] Installing /root/.m2/repository/io/netty/netty-resolver-dns/4.2.19.Final/netty-resolver-dns-4.2.19.Final.jar to /src/gateway/target/original-dependencies/io/netty/netty-resolver-dns/4.2.19.Final/netty-resolver-dns-4.2.19.Final.jar
+#14 6.168 [INFO] Installing /root/.m2/repository/io/netty/netty-codec-dns/4.2.19.Final/netty-codec-dns-4.2.19.Final.jar to /src/gateway/target/original-dependencies/io/netty/netty-codec-dns/4.2.19.Final/netty-codec-dns-4.2.19.Final.jar
+#14 6.170 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar to /src/gateway/target/original-dependencies/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar
+#14 6.170 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar to /src/gateway/target/original-dependencies/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
+#14 6.171 [INFO] 
+#14 6.171 [INFO] --- exec:3.5.0:exec (archive-original-licenses) @ gateway ---
+#14 6.588 [INFO] 
+#14 6.588 [INFO] --- compiler:3.14.1:compile (default-compile) @ gateway ---
+#14 6.591 [INFO] Recompiling the module because of changed dependency.
+#14 6.591 [INFO] Compiling 15 source files with javac [debug release 21] to target/classes
+#14 6.713 [INFO] /src/gateway/src/main/java/dev/kvgateway/gateway/GatewayServer.java: /src/gateway/src/main/java/dev/kvgateway/gateway/GatewayServer.java uses or overrides a deprecated API.
+#14 6.713 [INFO] /src/gateway/src/main/java/dev/kvgateway/gateway/GatewayServer.java: Recompile with -Xlint:deprecation for details.
+#14 6.713 [INFO] 
+#14 6.713 [INFO] --- resources:3.4.0:testResources (default-testResources) @ gateway ---
+#14 6.714 [INFO] skip non existing resourceDirectory /src/gateway/src/test/resources
+#14 6.714 [INFO] 
+#14 6.714 [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ gateway ---
+#14 6.715 [INFO] Recompiling the module because of changed dependency.
+#14 6.715 [INFO] Compiling 9 source files with javac [debug release 21] to target/test-classes
+#14 6.832 [INFO] /src/gateway/src/test/java/dev/kvgateway/gateway/EndpointPoolTest.java: Some input files use or override a deprecated API.
+#14 6.832 [INFO] /src/gateway/src/test/java/dev/kvgateway/gateway/EndpointPoolTest.java: Recompile with -Xlint:deprecation for details.
+#14 6.832 [INFO] 
+#14 6.832 [INFO] --- surefire:3.5.5:test (default-test) @ gateway ---
+#14 6.834 [INFO] Tests are skipped.
+#14 6.834 [INFO] 
+#14 6.834 [INFO] --- dependency:3.9.0:list (dependency-inventory) @ gateway ---
+#14 6.842 [INFO] 
+#14 6.842 [INFO] --- jar:3.5.0:jar (default-jar) @ gateway ---
+#14 6.844 [INFO] Building jar: /src/gateway/target/gateway.jar
+#14 6.850 [INFO] 
+#14 6.850 [INFO] --- shade:3.6.1:shade (default) @ gateway ---
+#14 8.102 [WARNING] animal-sniffer-annotations-1.27.jar, annotations-4.1.1.4.jar, api-0.1.0-SNAPSHOT.jar, error_prone_annotations-2.50.0.jar, failureaccess-1.0.3.jar, gateway.jar, grpc-api-1.85.0.jar, grpc-context-1.85.0.jar, grpc-core-1.85.0.jar, grpc-netty-shaded-1.85.0.jar, grpc-protobuf-1.85.0.jar, grpc-protobuf-lite-1.85.0.jar, grpc-stub-1.85.0.jar, grpc-util-1.85.0.jar, gson-2.8.9.jar, guava-33.6.0-android.jar, j2objc-annotations-2.8.jar, javax.annotation-api-1.3.2.jar, jspecify-1.0.0.jar, jsr305-3.0.2.jar, listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar, netty-buffer-4.2.19.Final.jar, netty-codec-base-4.2.19.Final.jar, netty-codec-compression-4.2.19.Final.jar, netty-codec-dns-4.2.19.Final.jar, netty-codec-http-4.2.19.Final.jar, netty-common-4.2.19.Final.jar, netty-handler-4.2.19.Final.jar, netty-resolver-4.2.19.Final.jar, netty-resolver-dns-4.2.19.Final.jar, netty-transport-4.2.19.Final.jar, netty-transport-native-unix-common-4.2.19.Final.jar, perfmark-api-0.27.0.jar, proto-google-common-protos-2.64.1.jar, protobuf-java-3.25.9.jar, protobuf-java-util-3.25.9.jar, slf4j-api-2.0.17.jar, slf4j-simple-2.0.17.jar define 1 overlapping resource: 
+#14 8.102 [WARNING]   - META-INF/MANIFEST.MF
+#14 8.102 [WARNING] grpc-netty-shaded-1.85.0.jar, netty-buffer-4.2.19.Final.jar, netty-codec-base-4.2.19.Final.jar, netty-codec-compression-4.2.19.Final.jar, netty-codec-dns-4.2.19.Final.jar, netty-codec-http-4.2.19.Final.jar, netty-common-4.2.19.Final.jar, netty-handler-4.2.19.Final.jar, netty-resolver-4.2.19.Final.jar, netty-resolver-dns-4.2.19.Final.jar, netty-transport-4.2.19.Final.jar, netty-transport-native-unix-common-4.2.19.Final.jar define 1 overlapping classes: 
+#14 8.102 [WARNING]   - META-INF.versions.11.module-info
+#14 8.102 [WARNING] error_prone_annotations-2.50.0.jar, failureaccess-1.0.3.jar, jspecify-1.0.0.jar, slf4j-api-2.0.17.jar, slf4j-simple-2.0.17.jar define 1 overlapping classes: 
+#14 8.102 [WARNING]   - META-INF.versions.9.module-info
+#14 8.102 [WARNING] netty-buffer-4.2.19.Final.jar, netty-codec-base-4.2.19.Final.jar, netty-codec-compression-4.2.19.Final.jar, netty-codec-dns-4.2.19.Final.jar, netty-codec-http-4.2.19.Final.jar, netty-common-4.2.19.Final.jar, netty-handler-4.2.19.Final.jar, netty-resolver-4.2.19.Final.jar, netty-resolver-dns-4.2.19.Final.jar, netty-transport-4.2.19.Final.jar, netty-transport-native-unix-common-4.2.19.Final.jar define 1 overlapping resource: 
+#14 8.102 [WARNING]   - META-INF/io.netty.versions.properties
+#14 8.102 [WARNING] api-0.1.0-SNAPSHOT.jar, gateway.jar define 27 overlapping resources: 
+#14 8.102 [WARNING]   - META-INF/third-party/Apache-2.0-LICENSE.txt
+#14 8.102 [WARNING]   - META-INF/third-party/animal-sniffer-1.27-LICENSE.txt
+#14 8.102 [WARNING]   - META-INF/third-party/error-prone-v2.50.0-COPYING.txt
+#14 8.102 [WARNING]   - META-INF/third-party/gson-gson-parent-2.8.9-LICENSE.txt
+#14 8.102 [WARNING]   - META-INF/third-party/guava-v33.6.0-LICENSE.txt
+#14 8.102 [WARNING]   - META-INF/third-party/index.json
+#14 8.102 [WARNING]   - META-INF/third-party/j2objc-2.8-LICENSE.txt
+#14 8.102 [WARNING]   - META-INF/third-party/netty-4.2.19.Final-LICENSE.txt
+#14 8.102 [WARNING]   - META-INF/third-party/netty-4.2.19.Final-NOTICE.txt
+#14 8.102 [WARNING]   - META-INF/third-party/originals/com_google_api_grpc_proto-google-common-protos_2.64.1_proto-google-common-protos-2.64.1.jar.licenses.zip
+#14 8.102 [WARNING]   - 17 more...
+#14 8.102 [WARNING] maven-shade-plugin has detected that some files are
+#14 8.102 [WARNING] present in two or more JARs. When this happens, only one
+#14 8.102 [WARNING] single version of the file is copied to the uber jar.
+#14 8.102 [WARNING] Usually this is not harmful and you can skip these warnings,
+#14 8.102 [WARNING] otherwise try to manually exclude artifacts based on
+#14 8.102 [WARNING] mvn dependency:tree -Ddetail=true and the above output.
+#14 8.102 [WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+#14 8.109 [INFO] Replacing original artifact with shaded artifact.
+#14 8.109 [INFO] 
+#14 8.109 [INFO] -------------------------< dev.kvgateway:cli >--------------------------
+#14 8.109 [INFO] Building cli 0.1.0-SNAPSHOT                                        [5/7]
+#14 8.109 [INFO]   from cli/pom.xml
+#14 8.109 [INFO] --------------------------------[ jar ]---------------------------------
+#14 8.112 [INFO] 
+#14 8.112 [INFO] --- resources:3.4.0:resources (default-resources) @ cli ---
+#14 8.113 [INFO] skip non existing resourceDirectory /src/cli/src/main/resources
+#14 8.116 [INFO] Copying 13 resources from ../distribution/resources to target/classes
+#14 8.117 [INFO] 
+#14 8.117 [INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ cli ---
+#14 8.118 [INFO] Installing /src/api/target/api-0.1.0-SNAPSHOT.jar to /src/cli/target/original-dependencies/dev/kvgateway/api/0.1.0-SNAPSHOT/api-0.1.0-SNAPSHOT.jar
+#14 8.119 [INFO] Installing /root/.m2/repository/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar to /src/cli/target/original-dependencies/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar
+#14 8.121 [INFO] Installing /root/.m2/repository/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar to /src/cli/target/original-dependencies/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar
+#14 8.121 [INFO] Installing /root/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar to /src/cli/target/original-dependencies/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar
+#14 8.122 [INFO] Installing /root/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar to /src/cli/target/original-dependencies/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar
+#14 8.122 [INFO] Installing /root/.m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar to /src/cli/target/original-dependencies/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar
+#14 8.123 [INFO] Installing /root/.m2/repository/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar to /src/cli/target/original-dependencies/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar
+#14 8.123 [INFO] Installing /root/.m2/repository/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar to /src/cli/target/original-dependencies/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar
+#14 8.125 [INFO] Installing /root/.m2/repository/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar to /src/cli/target/original-dependencies/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar
+#14 8.125 [INFO] Installing /root/.m2/repository/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar to /src/cli/target/original-dependencies/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar
+#14 8.126 [INFO] Installing /root/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar to /src/cli/target/original-dependencies/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
+#14 8.126 [INFO] Installing /root/.m2/repository/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar to /src/cli/target/original-dependencies/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar
+#14 8.132 [INFO] Installing /root/.m2/repository/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar to /src/cli/target/original-dependencies/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar
+#14 8.132 [INFO] Installing /root/.m2/repository/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar to /src/cli/target/original-dependencies/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar
+#14 8.133 [INFO] Installing /root/.m2/repository/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar to /src/cli/target/original-dependencies/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar
+#14 8.134 [INFO] Installing /root/.m2/repository/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar to /src/cli/target/original-dependencies/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar
+#14 8.134 [INFO] Installing /root/.m2/repository/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar to /src/cli/target/original-dependencies/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar
+#14 8.136 [INFO] Installing /root/.m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar to /src/cli/target/original-dependencies/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar
+#14 8.138 [INFO] Installing /root/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar to /src/cli/target/original-dependencies/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+#14 8.138 [INFO] Installing /root/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar to /src/cli/target/original-dependencies/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar
+#14 8.139 [INFO] Installing /root/.m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar to /src/cli/target/original-dependencies/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar
+#14 8.140 [INFO] Installing /root/.m2/repository/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar to /src/cli/target/original-dependencies/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar
+#14 8.140 [INFO] Installing /root/.m2/repository/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar to /src/cli/target/original-dependencies/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar
+#14 8.141 [INFO] Installing /root/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar to /src/cli/target/original-dependencies/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar
+#14 8.142 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar to /src/cli/target/original-dependencies/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar
+#14 8.142 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar to /src/cli/target/original-dependencies/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
+#14 8.142 [INFO] 
+#14 8.143 [INFO] --- exec:3.5.0:exec (archive-original-licenses) @ cli ---
+#14 8.564 [INFO] 
+#14 8.564 [INFO] --- compiler:3.14.1:compile (default-compile) @ cli ---
+#14 8.566 [INFO] Recompiling the module because of changed dependency.
+#14 8.567 [INFO] Compiling 2 source files with javac [debug release 21] to target/classes
+#14 8.610 [INFO] 
+#14 8.610 [INFO] --- resources:3.4.0:testResources (default-testResources) @ cli ---
+#14 8.611 [INFO] skip non existing resourceDirectory /src/cli/src/test/resources
+#14 8.611 [INFO] 
+#14 8.611 [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ cli ---
+#14 8.612 [INFO] Recompiling the module because of changed dependency.
+#14 8.613 [INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+#14 8.650 [INFO] 
+#14 8.650 [INFO] --- surefire:3.5.5:test (default-test) @ cli ---
+#14 8.651 [INFO] Tests are skipped.
+#14 8.651 [INFO] 
+#14 8.651 [INFO] --- dependency:3.9.0:list (dependency-inventory) @ cli ---
+#14 8.659 [INFO] 
+#14 8.659 [INFO] --- jar:3.5.0:jar (default-jar) @ cli ---
+#14 8.661 [INFO] Building jar: /src/cli/target/cli.jar
+#14 8.665 [INFO] 
+#14 8.665 [INFO] --- shade:3.6.1:shade (default) @ cli ---
+#14 9.726 [WARNING] api-0.1.0-SNAPSHOT.jar, cli.jar define 27 overlapping resources: 
+#14 9.726 [WARNING]   - META-INF/third-party/Apache-2.0-LICENSE.txt
+#14 9.726 [WARNING]   - META-INF/third-party/animal-sniffer-1.27-LICENSE.txt
+#14 9.726 [WARNING]   - META-INF/third-party/error-prone-v2.50.0-COPYING.txt
+#14 9.726 [WARNING]   - META-INF/third-party/gson-gson-parent-2.8.9-LICENSE.txt
+#14 9.726 [WARNING]   - META-INF/third-party/guava-v33.6.0-LICENSE.txt
+#14 9.726 [WARNING]   - META-INF/third-party/index.json
+#14 9.726 [WARNING]   - META-INF/third-party/j2objc-2.8-LICENSE.txt
+#14 9.726 [WARNING]   - META-INF/third-party/netty-4.2.19.Final-LICENSE.txt
+#14 9.726 [WARNING]   - META-INF/third-party/netty-4.2.19.Final-NOTICE.txt
+#14 9.726 [WARNING]   - META-INF/third-party/originals/com_google_api_grpc_proto-google-common-protos_2.64.1_proto-google-common-protos-2.64.1.jar.licenses.zip
+#14 9.726 [WARNING]   - 17 more...
+#14 9.726 [WARNING] animal-sniffer-annotations-1.27.jar, annotations-4.1.1.4.jar, api-0.1.0-SNAPSHOT.jar, cli.jar, error_prone_annotations-2.50.0.jar, failureaccess-1.0.3.jar, grpc-api-1.85.0.jar, grpc-context-1.85.0.jar, grpc-core-1.85.0.jar, grpc-netty-shaded-1.85.0.jar, grpc-protobuf-1.85.0.jar, grpc-protobuf-lite-1.85.0.jar, grpc-stub-1.85.0.jar, grpc-util-1.85.0.jar, gson-2.8.9.jar, guava-33.6.0-android.jar, j2objc-annotations-2.8.jar, javax.annotation-api-1.3.2.jar, jspecify-1.0.0.jar, jsr305-3.0.2.jar, listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar, perfmark-api-0.27.0.jar, proto-google-common-protos-2.64.1.jar, protobuf-java-3.25.9.jar, protobuf-java-util-3.25.9.jar, slf4j-api-2.0.17.jar, slf4j-simple-2.0.17.jar define 1 overlapping resource: 
+#14 9.726 [WARNING]   - META-INF/MANIFEST.MF
+#14 9.727 [WARNING] error_prone_annotations-2.50.0.jar, failureaccess-1.0.3.jar, jspecify-1.0.0.jar, slf4j-api-2.0.17.jar, slf4j-simple-2.0.17.jar define 1 overlapping classes: 
+#14 9.727 [WARNING]   - META-INF.versions.9.module-info
+#14 9.727 [WARNING] maven-shade-plugin has detected that some files are
+#14 9.727 [WARNING] present in two or more JARs. When this happens, only one
+#14 9.727 [WARNING] single version of the file is copied to the uber jar.
+#14 9.727 [WARNING] Usually this is not harmful and you can skip these warnings,
+#14 9.727 [WARNING] otherwise try to manually exclude artifacts based on
+#14 9.727 [WARNING] mvn dependency:tree -Ddetail=true and the above output.
+#14 9.727 [WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+#14 9.731 [INFO] Replacing original artifact with shaded artifact.
+#14 9.731 [INFO] 
+#14 9.732 [INFO] ---------------------< dev.kvgateway:demo-backend >---------------------
+#14 9.732 [INFO] Building demo-backend 0.1.0-SNAPSHOT                               [6/7]
+#14 9.732 [INFO]   from demo-backend/pom.xml
+#14 9.732 [INFO] --------------------------------[ jar ]---------------------------------
+#14 9.735 [INFO] 
+#14 9.735 [INFO] --- resources:3.4.0:resources (default-resources) @ demo-backend ---
+#14 9.735 [INFO] skip non existing resourceDirectory /src/demo-backend/src/main/resources
+#14 9.736 [INFO] Copying 13 resources from ../distribution/resources to target/classes
+#14 9.737 [INFO] 
+#14 9.737 [INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ demo-backend ---
+#14 9.738 [INFO] Installing /src/api/target/api-0.1.0-SNAPSHOT.jar to /src/demo-backend/target/original-dependencies/dev/kvgateway/api/0.1.0-SNAPSHOT/api-0.1.0-SNAPSHOT.jar
+#14 9.739 [INFO] Installing /root/.m2/repository/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar to /src/demo-backend/target/original-dependencies/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar
+#14 9.741 [INFO] Installing /root/.m2/repository/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar to /src/demo-backend/target/original-dependencies/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar
+#14 9.741 [INFO] Installing /root/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar to /src/demo-backend/target/original-dependencies/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar
+#14 9.742 [INFO] Installing /root/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar to /src/demo-backend/target/original-dependencies/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar
+#14 9.742 [INFO] Installing /root/.m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar to /src/demo-backend/target/original-dependencies/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar
+#14 9.743 [INFO] Installing /root/.m2/repository/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar to /src/demo-backend/target/original-dependencies/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar
+#14 9.743 [INFO] Installing /root/.m2/repository/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar to /src/demo-backend/target/original-dependencies/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar
+#14 9.745 [INFO] Installing /root/.m2/repository/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar to /src/demo-backend/target/original-dependencies/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar
+#14 9.746 [INFO] Installing /root/.m2/repository/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar to /src/demo-backend/target/original-dependencies/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar
+#14 9.747 [INFO] Installing /root/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar to /src/demo-backend/target/original-dependencies/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
+#14 9.747 [INFO] Installing /root/.m2/repository/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar to /src/demo-backend/target/original-dependencies/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar
+#14 9.751 [INFO] Installing /root/.m2/repository/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar to /src/demo-backend/target/original-dependencies/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar
+#14 9.752 [INFO] Installing /root/.m2/repository/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar to /src/demo-backend/target/original-dependencies/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar
+#14 9.753 [INFO] Installing /root/.m2/repository/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar to /src/demo-backend/target/original-dependencies/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar
+#14 9.753 [INFO] Installing /root/.m2/repository/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar to /src/demo-backend/target/original-dependencies/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar
+#14 9.754 [INFO] Installing /root/.m2/repository/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar to /src/demo-backend/target/original-dependencies/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar
+#14 9.755 [INFO] Installing /root/.m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar to /src/demo-backend/target/original-dependencies/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar
+#14 9.756 [INFO] Installing /root/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar to /src/demo-backend/target/original-dependencies/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+#14 9.756 [INFO] Installing /root/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar to /src/demo-backend/target/original-dependencies/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar
+#14 9.757 [INFO] Installing /root/.m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar to /src/demo-backend/target/original-dependencies/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar
+#14 9.758 [INFO] Installing /root/.m2/repository/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar to /src/demo-backend/target/original-dependencies/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar
+#14 9.758 [INFO] Installing /root/.m2/repository/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar to /src/demo-backend/target/original-dependencies/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar
+#14 9.759 [INFO] Installing /root/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar to /src/demo-backend/target/original-dependencies/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar
+#14 9.759 [INFO] Installing /root/.m2/repository/io/netty/netty-codec-http/4.2.19.Final/netty-codec-http-4.2.19.Final.jar to /src/demo-backend/target/original-dependencies/io/netty/netty-codec-http/4.2.19.Final/netty-codec-http-4.2.19.Final.jar
+#14 9.760 [INFO] Installing /root/.m2/repository/io/netty/netty-common/4.2.19.Final/netty-common-4.2.19.Final.jar to /src/demo-backend/target/original-dependencies/io/netty/netty-common/4.2.19.Final/netty-common-4.2.19.Final.jar
+#14 9.761 [INFO] Installing /root/.m2/repository/io/netty/netty-buffer/4.2.19.Final/netty-buffer-4.2.19.Final.jar to /src/demo-backend/target/original-dependencies/io/netty/netty-buffer/4.2.19.Final/netty-buffer-4.2.19.Final.jar
+#14 9.762 [INFO] Installing /root/.m2/repository/io/netty/netty-transport/4.2.19.Final/netty-transport-4.2.19.Final.jar to /src/demo-backend/target/original-dependencies/io/netty/netty-transport/4.2.19.Final/netty-transport-4.2.19.Final.jar
+#14 9.762 [INFO] Installing /root/.m2/repository/io/netty/netty-codec-base/4.2.19.Final/netty-codec-base-4.2.19.Final.jar to /src/demo-backend/target/original-dependencies/io/netty/netty-codec-base/4.2.19.Final/netty-codec-base-4.2.19.Final.jar
+#14 9.763 [INFO] Installing /root/.m2/repository/io/netty/netty-codec-compression/4.2.19.Final/netty-codec-compression-4.2.19.Final.jar to /src/demo-backend/target/original-dependencies/io/netty/netty-codec-compression/4.2.19.Final/netty-codec-compression-4.2.19.Final.jar
+#14 9.763 [INFO] Installing /root/.m2/repository/io/netty/netty-handler/4.2.19.Final/netty-handler-4.2.19.Final.jar to /src/demo-backend/target/original-dependencies/io/netty/netty-handler/4.2.19.Final/netty-handler-4.2.19.Final.jar
+#14 9.764 [INFO] Installing /root/.m2/repository/io/netty/netty-resolver/4.2.19.Final/netty-resolver-4.2.19.Final.jar to /src/demo-backend/target/original-dependencies/io/netty/netty-resolver/4.2.19.Final/netty-resolver-4.2.19.Final.jar
+#14 9.764 [INFO] Installing /root/.m2/repository/io/netty/netty-transport-native-unix-common/4.2.19.Final/netty-transport-native-unix-common-4.2.19.Final.jar to /src/demo-backend/target/original-dependencies/io/netty/netty-transport-native-unix-common/4.2.19.Final/netty-transport-native-unix-common-4.2.19.Final.jar
+#14 9.765 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar to /src/demo-backend/target/original-dependencies/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar
+#14 9.766 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar to /src/demo-backend/target/original-dependencies/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
+#14 9.766 [INFO] 
+#14 9.766 [INFO] --- exec:3.5.0:exec (archive-original-licenses) @ demo-backend ---
+#14 10.18 [INFO] 
+#14 10.18 [INFO] --- compiler:3.14.1:compile (default-compile) @ demo-backend ---
+#14 10.18 [INFO] Recompiling the module because of changed dependency.
+#14 10.18 [INFO] Compiling 1 source file with javac [debug release 21] to target/classes
+#14 10.22 [INFO] /src/demo-backend/src/main/java/dev/kvgateway/demo/DemoMain.java: /src/demo-backend/src/main/java/dev/kvgateway/demo/DemoMain.java uses or overrides a deprecated API.
+#14 10.22 [INFO] /src/demo-backend/src/main/java/dev/kvgateway/demo/DemoMain.java: Recompile with -Xlint:deprecation for details.
+#14 10.22 [INFO] 
+#14 10.22 [INFO] --- resources:3.4.0:testResources (default-testResources) @ demo-backend ---
+#14 10.22 [INFO] skip non existing resourceDirectory /src/demo-backend/src/test/resources
+#14 10.22 [INFO] 
+#14 10.22 [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ demo-backend ---
+#14 10.22 [INFO] No sources to compile
+#14 10.22 [INFO] 
+#14 10.22 [INFO] --- surefire:3.5.5:test (default-test) @ demo-backend ---
+#14 10.22 [INFO] Tests are skipped.
+#14 10.22 [INFO] 
+#14 10.22 [INFO] --- dependency:3.9.0:list (dependency-inventory) @ demo-backend ---
+#14 10.23 [INFO] 
+#14 10.23 [INFO] --- jar:3.5.0:jar (default-jar) @ demo-backend ---
+#14 10.23 [INFO] Building jar: /src/demo-backend/target/demo-backend.jar
+#14 10.23 [INFO] 
+#14 10.23 [INFO] --- shade:3.6.1:shade (default) @ demo-backend ---
+#14 11.45 [WARNING] animal-sniffer-annotations-1.27.jar, annotations-4.1.1.4.jar, api-0.1.0-SNAPSHOT.jar, demo-backend.jar, error_prone_annotations-2.50.0.jar, failureaccess-1.0.3.jar, grpc-api-1.85.0.jar, grpc-context-1.85.0.jar, grpc-core-1.85.0.jar, grpc-netty-shaded-1.85.0.jar, grpc-protobuf-1.85.0.jar, grpc-protobuf-lite-1.85.0.jar, grpc-stub-1.85.0.jar, grpc-util-1.85.0.jar, gson-2.8.9.jar, guava-33.6.0-android.jar, j2objc-annotations-2.8.jar, javax.annotation-api-1.3.2.jar, jspecify-1.0.0.jar, jsr305-3.0.2.jar, listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar, netty-buffer-4.2.19.Final.jar, netty-codec-base-4.2.19.Final.jar, netty-codec-compression-4.2.19.Final.jar, netty-codec-http-4.2.19.Final.jar, netty-common-4.2.19.Final.jar, netty-handler-4.2.19.Final.jar, netty-resolver-4.2.19.Final.jar, netty-transport-4.2.19.Final.jar, netty-transport-native-unix-common-4.2.19.Final.jar, perfmark-api-0.27.0.jar, proto-google-common-protos-2.64.1.jar, protobuf-java-3.25.9.jar, protobuf-java-util-3.25.9.jar, slf4j-api-2.0.17.jar, slf4j-simple-2.0.17.jar define 1 overlapping resource: 
+#14 11.45 [WARNING]   - META-INF/MANIFEST.MF
+#14 11.45 [WARNING] grpc-netty-shaded-1.85.0.jar, netty-buffer-4.2.19.Final.jar, netty-codec-base-4.2.19.Final.jar, netty-codec-compression-4.2.19.Final.jar, netty-codec-http-4.2.19.Final.jar, netty-common-4.2.19.Final.jar, netty-handler-4.2.19.Final.jar, netty-resolver-4.2.19.Final.jar, netty-transport-4.2.19.Final.jar, netty-transport-native-unix-common-4.2.19.Final.jar define 1 overlapping classes: 
+#14 11.45 [WARNING]   - META-INF.versions.11.module-info
+#14 11.45 [WARNING] error_prone_annotations-2.50.0.jar, failureaccess-1.0.3.jar, jspecify-1.0.0.jar, slf4j-api-2.0.17.jar, slf4j-simple-2.0.17.jar define 1 overlapping classes: 
+#14 11.45 [WARNING]   - META-INF.versions.9.module-info
+#14 11.45 [WARNING] api-0.1.0-SNAPSHOT.jar, demo-backend.jar define 27 overlapping resources: 
+#14 11.45 [WARNING]   - META-INF/third-party/Apache-2.0-LICENSE.txt
+#14 11.45 [WARNING]   - META-INF/third-party/animal-sniffer-1.27-LICENSE.txt
+#14 11.45 [WARNING]   - META-INF/third-party/error-prone-v2.50.0-COPYING.txt
+#14 11.45 [WARNING]   - META-INF/third-party/gson-gson-parent-2.8.9-LICENSE.txt
+#14 11.45 [WARNING]   - META-INF/third-party/guava-v33.6.0-LICENSE.txt
+#14 11.45 [WARNING]   - META-INF/third-party/index.json
+#14 11.45 [WARNING]   - META-INF/third-party/j2objc-2.8-LICENSE.txt
+#14 11.45 [WARNING]   - META-INF/third-party/netty-4.2.19.Final-LICENSE.txt
+#14 11.45 [WARNING]   - META-INF/third-party/netty-4.2.19.Final-NOTICE.txt
+#14 11.45 [WARNING]   - META-INF/third-party/originals/com_google_api_grpc_proto-google-common-protos_2.64.1_proto-google-common-protos-2.64.1.jar.licenses.zip
+#14 11.45 [WARNING]   - 17 more...
+#14 11.45 [WARNING] netty-buffer-4.2.19.Final.jar, netty-codec-base-4.2.19.Final.jar, netty-codec-compression-4.2.19.Final.jar, netty-codec-http-4.2.19.Final.jar, netty-common-4.2.19.Final.jar, netty-handler-4.2.19.Final.jar, netty-resolver-4.2.19.Final.jar, netty-transport-4.2.19.Final.jar, netty-transport-native-unix-common-4.2.19.Final.jar define 1 overlapping resource: 
+#14 11.45 [WARNING]   - META-INF/io.netty.versions.properties
+#14 11.45 [WARNING] maven-shade-plugin has detected that some files are
+#14 11.45 [WARNING] present in two or more JARs. When this happens, only one
+#14 11.45 [WARNING] single version of the file is copied to the uber jar.
+#14 11.45 [WARNING] Usually this is not harmful and you can skip these warnings,
+#14 11.45 [WARNING] otherwise try to manually exclude artifacts based on
+#14 11.45 [WARNING] mvn dependency:tree -Ddetail=true and the above output.
+#14 11.45 [WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+#14 11.46 [INFO] Replacing original artifact with shaded artifact.
+#14 11.46 [INFO] 
+#14 11.46 [INFO] ------------------< dev.kvgateway:integration-tests >-------------------
+#14 11.46 [INFO] Building integration-tests 0.1.0-SNAPSHOT                          [7/7]
+#14 11.46 [INFO]   from integration-tests/pom.xml
+#14 11.46 [INFO] --------------------------------[ jar ]---------------------------------
+#14 11.46 [INFO] 
+#14 11.46 [INFO] --- resources:3.4.0:resources (default-resources) @ integration-tests ---
+#14 11.46 [INFO] skip non existing resourceDirectory /src/integration-tests/src/main/resources
+#14 11.47 [INFO] Copying 13 resources from ../distribution/resources to target/classes
+#14 11.47 [INFO] 
+#14 11.47 [INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ integration-tests ---
+#14 11.47 [INFO] Installing /src/api/target/api-0.1.0-SNAPSHOT.jar to /src/integration-tests/target/original-dependencies/dev/kvgateway/api/0.1.0-SNAPSHOT/api-0.1.0-SNAPSHOT.jar
+#14 11.47 [INFO] Installing /root/.m2/repository/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar to /src/integration-tests/target/original-dependencies/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar
+#14 11.47 [INFO] Installing /root/.m2/repository/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar to /src/integration-tests/target/original-dependencies/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar
+#14 11.47 [INFO] Installing /root/.m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar to /src/integration-tests/target/original-dependencies/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar
+#14 11.47 [INFO] Installing /root/.m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar to /src/integration-tests/target/original-dependencies/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar
+#14 11.47 [INFO] Installing /root/.m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar to /src/integration-tests/target/original-dependencies/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar
+#14 11.47 [INFO] Installing /root/.m2/repository/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar to /src/integration-tests/target/original-dependencies/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar
+#14 11.47 [INFO] Installing /root/.m2/repository/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar to /src/integration-tests/target/original-dependencies/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar
+#14 11.47 [INFO] Installing /root/.m2/repository/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar to /src/integration-tests/target/original-dependencies/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar
+#14 11.47 [INFO] Installing /root/.m2/repository/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar to /src/integration-tests/target/original-dependencies/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar
+#14 11.47 [INFO] Installing /root/.m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar to /src/integration-tests/target/original-dependencies/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
+#14 11.47 [INFO] Installing /root/.m2/repository/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar to /src/integration-tests/target/original-dependencies/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar
+#14 11.48 [INFO] Installing /root/.m2/repository/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar to /src/integration-tests/target/original-dependencies/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar
+#14 11.48 [INFO] Installing /root/.m2/repository/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar to /src/integration-tests/target/original-dependencies/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar
+#14 11.48 [INFO] Installing /root/.m2/repository/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar to /src/integration-tests/target/original-dependencies/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar
+#14 11.48 [INFO] Installing /root/.m2/repository/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar to /src/integration-tests/target/original-dependencies/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar
+#14 11.48 [INFO] Installing /root/.m2/repository/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar to /src/integration-tests/target/original-dependencies/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar
+#14 11.48 [INFO] Installing /root/.m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar to /src/integration-tests/target/original-dependencies/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar
+#14 11.48 [INFO] Installing /root/.m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar to /src/integration-tests/target/original-dependencies/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+#14 11.48 [INFO] Installing /root/.m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar to /src/integration-tests/target/original-dependencies/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar
+#14 11.48 [INFO] Installing /root/.m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar to /src/integration-tests/target/original-dependencies/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar
+#14 11.48 [INFO] Installing /root/.m2/repository/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar to /src/integration-tests/target/original-dependencies/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar
+#14 11.48 [INFO] Installing /root/.m2/repository/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar to /src/integration-tests/target/original-dependencies/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar
+#14 11.49 [INFO] Installing /root/.m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar to /src/integration-tests/target/original-dependencies/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar
+#14 11.49 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar to /src/integration-tests/target/original-dependencies/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar
+#14 11.49 [INFO] Installing /root/.m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar to /src/integration-tests/target/original-dependencies/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
+#14 11.49 [INFO] 
+#14 11.49 [INFO] --- exec:3.5.0:exec (archive-original-licenses) @ integration-tests ---
+#14 11.90 [INFO] 
+#14 11.90 [INFO] --- compiler:3.14.1:compile (default-compile) @ integration-tests ---
+#14 11.91 [INFO] Recompiling the module because of changed dependency.
+#14 11.91 [INFO] Compiling 2 source files with javac [debug release 21] to target/classes
+#14 11.95 [INFO] 
+#14 11.95 [INFO] --- resources:3.4.0:testResources (default-testResources) @ integration-tests ---
+#14 11.96 [INFO] skip non existing resourceDirectory /src/integration-tests/src/test/resources
+#14 11.96 [INFO] 
+#14 11.96 [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ integration-tests ---
+#14 11.96 [INFO] Recompiling the module because of changed dependency.
+#14 11.96 [INFO] Compiling 1 source file with javac [debug release 21] to target/test-classes
+#14 11.98 [INFO] 
+#14 11.98 [INFO] --- surefire:3.5.5:test (default-test) @ integration-tests ---
+#14 11.99 [INFO] Tests are skipped.
+#14 11.99 [INFO] 
+#14 11.99 [INFO] --- dependency:3.9.0:list (dependency-inventory) @ integration-tests ---
+#14 11.99 [INFO] 
+#14 11.99 [INFO] --- jar:3.5.0:jar (default-jar) @ integration-tests ---
+#14 11.99 [INFO] Building jar: /src/integration-tests/target/integration-tests.jar
+#14 12.00 [INFO] 
+#14 12.00 [INFO] --- shade:3.6.1:shade (default) @ integration-tests ---
+#14 13.07 [WARNING] animal-sniffer-annotations-1.27.jar, annotations-4.1.1.4.jar, api-0.1.0-SNAPSHOT.jar, error_prone_annotations-2.50.0.jar, failureaccess-1.0.3.jar, grpc-api-1.85.0.jar, grpc-context-1.85.0.jar, grpc-core-1.85.0.jar, grpc-netty-shaded-1.85.0.jar, grpc-protobuf-1.85.0.jar, grpc-protobuf-lite-1.85.0.jar, grpc-stub-1.85.0.jar, grpc-util-1.85.0.jar, gson-2.8.9.jar, guava-33.6.0-android.jar, integration-tests.jar, j2objc-annotations-2.8.jar, javax.annotation-api-1.3.2.jar, jspecify-1.0.0.jar, jsr305-3.0.2.jar, listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar, perfmark-api-0.27.0.jar, proto-google-common-protos-2.64.1.jar, protobuf-java-3.25.9.jar, protobuf-java-util-3.25.9.jar, slf4j-api-2.0.17.jar, slf4j-simple-2.0.17.jar define 1 overlapping resource: 
+#14 13.07 [WARNING]   - META-INF/MANIFEST.MF
+#14 13.07 [WARNING] error_prone_annotations-2.50.0.jar, failureaccess-1.0.3.jar, jspecify-1.0.0.jar, slf4j-api-2.0.17.jar, slf4j-simple-2.0.17.jar define 1 overlapping classes: 
+#14 13.07 [WARNING]   - META-INF.versions.9.module-info
+#14 13.07 [WARNING] api-0.1.0-SNAPSHOT.jar, integration-tests.jar define 27 overlapping resources: 
+#14 13.07 [WARNING]   - META-INF/third-party/Apache-2.0-LICENSE.txt
+#14 13.07 [WARNING]   - META-INF/third-party/animal-sniffer-1.27-LICENSE.txt
+#14 13.07 [WARNING]   - META-INF/third-party/error-prone-v2.50.0-COPYING.txt
+#14 13.07 [WARNING]   - META-INF/third-party/gson-gson-parent-2.8.9-LICENSE.txt
+#14 13.07 [WARNING]   - META-INF/third-party/guava-v33.6.0-LICENSE.txt
+#14 13.07 [WARNING]   - META-INF/third-party/index.json
+#14 13.07 [WARNING]   - META-INF/third-party/j2objc-2.8-LICENSE.txt
+#14 13.07 [WARNING]   - META-INF/third-party/netty-4.2.19.Final-LICENSE.txt
+#14 13.07 [WARNING]   - META-INF/third-party/netty-4.2.19.Final-NOTICE.txt
+#14 13.07 [WARNING]   - META-INF/third-party/originals/com_google_api_grpc_proto-google-common-protos_2.64.1_proto-google-common-protos-2.64.1.jar.licenses.zip
+#14 13.07 [WARNING]   - 17 more...
+#14 13.07 [WARNING] maven-shade-plugin has detected that some files are
+#14 13.07 [WARNING] present in two or more JARs. When this happens, only one
+#14 13.07 [WARNING] single version of the file is copied to the uber jar.
+#14 13.07 [WARNING] Usually this is not harmful and you can skip these warnings,
+#14 13.07 [WARNING] otherwise try to manually exclude artifacts based on
+#14 13.07 [WARNING] mvn dependency:tree -Ddetail=true and the above output.
+#14 13.07 [WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+#14 13.07 [INFO] Replacing original artifact with shaded artifact.
+#14 13.07 [INFO] ------------------------------------------------------------------------
+#14 13.07 [INFO] Reactor Summary for Raft KV and Gateway 0.1.0-SNAPSHOT:
+#14 13.07 [INFO] 
+#14 13.07 [INFO] Raft KV and Gateway ................................ SUCCESS [  0.725 s]
+#14 13.07 [INFO] api ................................................ SUCCESS [  1.549 s]
+#14 13.07 [INFO] control-plane ...................................... SUCCESS [  3.152 s]
+#14 13.07 [INFO] gateway ............................................ SUCCESS [  2.016 s]
+#14 13.07 [INFO] cli ................................................ SUCCESS [  1.623 s]
+#14 13.07 [INFO] demo-backend ....................................... SUCCESS [  1.728 s]
+#14 13.07 [INFO] integration-tests .................................. SUCCESS [  1.611 s]
+#14 13.07 [INFO] ------------------------------------------------------------------------
+#14 13.07 [INFO] BUILD SUCCESS
+#14 13.07 [INFO] ------------------------------------------------------------------------
+#14 13.07 [INFO] Total time:  12.517 s
+#14 13.07 [INFO] Finished at: 2026-10-19T23:15:58Z
+#14 13.07 [INFO] ------------------------------------------------------------------------
+#14 DONE 13.3s
+
+#16 [stage-1 4/4] COPY --from=build /src/control-plane/target/control-plane.jar /src/gateway/target/gateway.jar /src/cli/target/cli.jar /src/demo-backend/target/demo-backend.jar /src/integration-tests/target/integration-tests.jar /app/
+#16 DONE 0.2s
+
+#17 exporting to image
+#17 exporting layers
+#17 exporting layers 1.9s done
+#17 exporting manifest sha256:34053f9de8dc9cd23dedf31848b7c0756178b8c9f0242c879263a978da22af12
+#17 exporting manifest sha256:34053f9de8dc9cd23dedf31848b7c0756178b8c9f0242c879263a978da22af12 done
+#17 exporting config sha256:2ed43167fac5c69081c64dd4576a7c862e8d674ae4b7e8a1fbbbad9705bf58f7 done
+#17 exporting attestation manifest sha256:fdc3160588bbc7993d1feed2f50e093b36ba8ec7fa1ce4cb07ca2ff7f35b6938 0.0s done
+#17 exporting manifest list sha256:b2e32e5aacc2daefb9f39db4ccb9d4760dce6eaba9d6d7a71bf0d744b04f1bf2 done
+#17 naming to docker.io/library/raft-kv-gateway:local done
+#17 unpacking to docker.io/library/raft-kv-gateway:local
+#17 unpacking to docker.io/library/raft-kv-gateway:local 0.7s done
+#17 DONE 2.7s
+
+#18 resolving provenance for metadata file
+#18 DONE 0.0s
+ raft-kv-gateway:local  Built
