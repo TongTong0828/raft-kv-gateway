@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="dev.kvgateway.gateway.UpstreamDispatcherTest" time="1.671" tests="50" errors="0" skipped="0" failures="0" flakes="0">
+  <properties>
+    <property name="java.specification.version" value="21"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/workspace/gateway/target/test-classes:/workspace/gateway/target/classes:/workspace/api/target/classes:/m2/repository/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar:/m2/repository/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar:/m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar:/m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar:/m2/repository/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar:/m2/repository/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar:/m2/repository/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar:/m2/repository/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar:/m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:/m2/repository/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar:/m2/repository/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar:/m2/repository/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar:/m2/repository/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar:/m2/repository/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar:/m2/repository/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar:/m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar:/m2/repository/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar:/m2/repository/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar:/m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar:/m2/repository/io/netty/netty-codec-http/4.2.19.Final/netty-codec-http-4.2.19.Final.jar:/m2/repository/io/netty/netty-common/4.2.19.Final/netty-common-4.2.19.Final.jar:/m2/repository/io/netty/netty-buffer/4.2.19.Final/netty-buffer-4.2.19.Final.jar:/m2/repository/io/netty/netty-codec-base/4.2.19.Final/netty-codec-base-4.2.19.Final.jar:/m2/repository/io/netty/netty-codec-compression/4.2.19.Final/netty-codec-compression-4.2.19.Final.jar:/m2/repository/io/netty/netty-transport/4.2.19.Final/netty-transport-4.2.19.Final.jar:/m2/repository/io/netty/netty-resolver/4.2.19.Final/netty-resolver-4.2.19.Final.jar:/m2/repository/io/netty/netty-handler/4.2.19.Final/netty-handler-4.2.19.Final.jar:/m2/repository/io/netty/netty-transport-native-unix-common/4.2.19.Final/netty-transport-native-unix-common-4.2.19.Final.jar:/m2/repository/io/netty/netty-resolver-dns/4.2.19.Final/netty-resolver-dns-4.2.19.Final.jar:/m2/repository/io/netty/netty-codec-dns/4.2.19.Final/netty-codec-dns-4.2.19.Final.jar:/m2/repository/org/junit/jupiter/junit-jupiter/5.14.4/junit-jupiter-5.14.4.jar:/m2/repository/org/junit/jupiter/junit-jupiter-api/5.14.4/junit-jupiter-api-5.14.4.jar:/m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/m2/repository/org/junit/platform/junit-platform-commons/1.14.4/junit-platform-commons-1.14.4.jar:/m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/m2/repository/org/junit/jupiter/junit-jupiter-params/5.14.4/junit-jupiter-params-5.14.4.jar:/m2/repository/org/junit/jupiter/junit-jupiter-engine/5.14.4/junit-jupiter-engine-5.14.4.jar:/m2/repository/org/junit/platform/junit-platform-engine/1.14.4/junit-platform-engine-1.14.4.jar:/m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar:/m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:"/>
+    <property name="java.vm.vendor" value="Eclipse Adoptium"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://adoptium.net/"/>
+    <property name="user.timezone" value="Etc/UTC"/>
+    <property name="io.netty.leakDetection.level" value="paranoid"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="21"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="user.country" value="US"/>
+    <property name="sun.boot.library.path" value="/opt/java/openjdk/lib"/>
+    <property name="sun.java.command" value="/workspace/gateway/target/surefire/surefirebooter-20261020004352818_3.jar /workspace/gateway/target/surefire 2026-10-20T00-43-52_794-jvmRun1 surefire-20261020004352818_1tmp surefire_0-20261020004352818_2tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="test" value="UpstreamDispatcherTest#retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead"/>
+    <property name="surefire.test.class.path" value="/workspace/gateway/target/test-classes:/workspace/gateway/target/classes:/workspace/api/target/classes:/m2/repository/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar:/m2/repository/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar:/m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar:/m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar:/m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar:/m2/repository/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar:/m2/repository/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar:/m2/repository/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar:/m2/repository/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar:/m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar:/m2/repository/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar:/m2/repository/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar:/m2/repository/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar:/m2/repository/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar:/m2/repository/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar:/m2/repository/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar:/m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar:/m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar:/m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar:/m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar:/m2/repository/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar:/m2/repository/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar:/m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar:/m2/repository/io/netty/netty-codec-http/4.2.19.Final/netty-codec-http-4.2.19.Final.jar:/m2/repository/io/netty/netty-common/4.2.19.Final/netty-common-4.2.19.Final.jar:/m2/repository/io/netty/netty-buffer/4.2.19.Final/netty-buffer-4.2.19.Final.jar:/m2/repository/io/netty/netty-codec-base/4.2.19.Final/netty-codec-base-4.2.19.Final.jar:/m2/repository/io/netty/netty-codec-compression/4.2.19.Final/netty-codec-compression-4.2.19.Final.jar:/m2/repository/io/netty/netty-transport/4.2.19.Final/netty-transport-4.2.19.Final.jar:/m2/repository/io/netty/netty-resolver/4.2.19.Final/netty-resolver-4.2.19.Final.jar:/m2/repository/io/netty/netty-handler/4.2.19.Final/netty-handler-4.2.19.Final.jar:/m2/repository/io/netty/netty-transport-native-unix-common/4.2.19.Final/netty-transport-native-unix-common-4.2.19.Final.jar:/m2/repository/io/netty/netty-resolver-dns/4.2.19.Final/netty-resolver-dns-4.2.19.Final.jar:/m2/repository/io/netty/netty-codec-dns/4.2.19.Final/netty-codec-dns-4.2.19.Final.jar:/m2/repository/org/junit/jupiter/junit-jupiter/5.14.4/junit-jupiter-5.14.4.jar:/m2/repository/org/junit/jupiter/junit-jupiter-api/5.14.4/junit-jupiter-api-5.14.4.jar:/m2/repository/org/opentest4j/opentest4j/1.3.0/opentest4j-1.3.0.jar:/m2/repository/org/junit/platform/junit-platform-commons/1.14.4/junit-platform-commons-1.14.4.jar:/m2/repository/org/apiguardian/apiguardian-api/1.1.2/apiguardian-api-1.1.2.jar:/m2/repository/org/junit/jupiter/junit-jupiter-params/5.14.4/junit-jupiter-params-5.14.4.jar:/m2/repository/org/junit/jupiter/junit-jupiter-engine/5.14.4/junit-jupiter-engine-5.14.4.jar:/m2/repository/org/junit/platform/junit-platform-engine/1.14.4/junit-platform-engine-1.14.4.jar:/m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar:/m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/root"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2026-08-18"/>
+    <property name="java.home" value="/opt/java/openjdk"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/workspace/gateway"/>
+    <property name="java.vm.compressedOopsMode" value="32-bit"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="/workspace/gateway/target/surefire/surefirebooter-20261020004352818_3.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="21.0.12.1+1-LTS"/>
+    <property name="user.name" value="root"/>
+    <property name="stdout.encoding" value="UTF-8"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.10.14-linuxkit"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="surefire.failIfNoSpecifiedTests" value="false"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="java.vendor.version" value="Temurin-21.0.12.1+1"/>
+    <property name="localRepository" value="/m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://github.com/adoptium/adoptium-support/issues"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="21.0.12.1"/>
+    <property name="user.dir" value="/workspace/gateway"/>
+    <property name="os.arch" value="aarch64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="org.slf4j.simpleLogger.defaultLogLevel" value="warn"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="stderr.encoding" value="UTF-8"/>
+    <property name="java.vendor" value="Eclipse Adoptium"/>
+    <property name="java.vm.version" value="21.0.12.1+1-LTS"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="maven.repo.local" value="/m2/repository"/>
+    <property name="java.class.version" value="65.0"/>
+  </properties>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[1]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.27">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:36285 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=21291]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[2]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:42169 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=7958]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[3]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:40061 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5375]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[4]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:43739 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=4708]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[5]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:44605 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5334]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[6]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:33369 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5583]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[7]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.029">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:36763 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5625]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[8]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:33545 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5458]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[9]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.029">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:39237 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5417]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[10]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.031">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:42919 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=7750]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[11]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:37787 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=7125]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[12]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:45549 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=6708]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[13]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:39265 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=7208]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[14]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:46677 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5041]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[15]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.03">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:35839 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5917]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[16]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:45715 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5250]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[17]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.026">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:44851 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=8167]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[18]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:44955 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5292]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[19]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:34863 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=7917]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[20]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:42065 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=7458]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[21]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:36205 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=6917]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[22]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.026">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:45687 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=6209]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[23]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.025">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:41689 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5709]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[24]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.025">
+    <system-err><![CDATA[Oct 20, 2026 12:43:53 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:39617 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5250]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[25]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.026">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:38339 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5500]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[26]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:38265 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=10417]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[27]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.029">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:44299 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=9375]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[28]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:36835 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5958]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[29]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.029">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:43255 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=4417]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[30]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:34995 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=4959]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[31]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.026">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:38013 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5875]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[32]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.029">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:46489 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=6083]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[33]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:33855 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=6542]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[34]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:37329 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=6083]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[35]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:42737 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=4833]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[36]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.029">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:44515 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5500]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[37]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:34083 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=6750]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[38]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.03">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:35927 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=6667]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[39]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:38317 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=7000]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[40]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:44611 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=6583]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[41]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:39489 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5959]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[42]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:46065 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=6459]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[43]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.029">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:44345 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5083]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[44]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:34375 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5792]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[45]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.026">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:35539 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5750]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[46]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.027">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:42725 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5792]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[47]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.026">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:39063 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=5583]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[48]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.029">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:38159 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=11333]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[49]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.028">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:42283 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=7458]
+]]></system-err>
+  </testcase>
+  <testcase name="retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead()[50]" classname="dev.kvgateway.gateway.UpstreamDispatcherTest" time="0.03">
+    <system-err><![CDATA[Oct 20, 2026 12:43:54 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:44783 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=8625]
+]]></system-err>
+  </testcase>
+</testsuite>

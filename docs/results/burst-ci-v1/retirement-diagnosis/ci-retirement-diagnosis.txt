@@ -1,0 +1,18 @@
+CI retirement-test ordering diagnosis
+
+CI source: e8e060c. The upstream failure was the sole failing Java case: retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead expected "endpoint retired" but received "no_healthy_endpoint" after 29 ms. The original CI log/JUnit remain in the primary work/burst-timing-20261020/ archive.
+
+Production queued() is an aggregate in-transit/waiting gauge. acquire() increments its atomic counter synchronously before submitting enqueue(ticket) to the coordinator. The old test observed queued()==2 and immediately called Fixture.install(onlyA); this did not prove either ticket had entered the FIFO. The fixture changes registered pools and health before its final event-loop barrier. A tail still in transit can therefore execute enqueue() only after B health has been removed. Its initial no-healthy check legitimately returns no_healthy_endpoint before FIFO membership. A queued old-revision ticket instead takes the retired-candidate branch, which is what the test meant to verify.
+
+Deterministic RED: pause the coordinator with latches, acquire head and tail, observe queued()==2 while explicitly asserting both Ticket.queued flags false, then remove B pools/health before resuming. The unchanged endpoint-retired assertion fails with exactly the CI no_healthy_endpoint cause. This reproduces a permitted scheduling order and establishes that the gauge was not a valid queue-membership synchronization boundary. It does not change production logic or prove a measured-load defect.
+
+Test-only correction: retain the forced in-transit setup, resume the coordinator, and wait for a task on that same coordinator. Inside it assert head.queued and tail.queued, both futures unfinished, queued count 2, reserved count 1 and B borrowed count0. Only after this task completes may Fixture.install(onlyA) retire B. The exact "endpoint retired" cause assertion and checks that the unrelated head remains pending and B received no business request remain unchanged. Cleanup always resumes the coordinator and cancels/releases both tickets/held lease. No sleeps or production hooks were added.
+
+Evidence:
+- ci-retirement-before.java: original single-test source.
+- ci-retirement-red.java and ci-retirement-red.log: deterministic wrong-order reproduction; 1 test, 1 expected failure, 0 errors.
+- ci-retirement-green.java: corrected normal single-Test source.
+- ci-retirement-repeated.java, ci-retirement-repeated-green.log and ci-retirement-50-junit.xml: temporary in-process 50-repetition validation; 50 tests, 0 failures/errors/skips. The annotation was restored to single @Test before full verification.
+- ci-retirement-full-verify.log: full reactor verification completed with exit 0 and BUILD SUCCESS in 1:00 min; 16 fresh JUnit XML files total 66 tests with zero failures, errors or skips.
+
+Only gateway/src/test/java/dev/kvgateway/gateway/UpstreamDispatcherTest.java is changed. Production source trees and previously measured application behavior are unchanged; no new pressure run is inferred or required from this test synchronization correction alone.

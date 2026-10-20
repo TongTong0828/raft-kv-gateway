@@ -1,0 +1,22 @@
+{
+  "measuredApplicationCommit": "e3ae41cd03e60d11a883c7970ef688a7448f129e",
+  "baseCommitBeforeTestCorrection": "e8e060c6870b76b3eb235bcf3b322cc4aadfafe7",
+  "runtimeSourceTrees": {
+    "e3ae41cd03e60d11a883c7970ef688a7448f129e": {
+      "api": "33c0dd2eb02603d0fcd3953ad7145c974b0133e7",
+      "control-plane": "54ea7c09f650f57d6eca7bb652e3387034187f2d",
+      "gateway": "6565a64a07ed4c1104ef619a4ff30664851620ff",
+      "cli": "2e8fe65dc6c587fbc293960bb3a59f7d10b9eb98",
+      "demo-backend": "0bc6643ccb6c0586ac84c641e31f5266467b0929"
+    },
+    "e8e060c6870b76b3eb235bcf3b322cc4aadfafe7": {
+      "api": "33c0dd2eb02603d0fcd3953ad7145c974b0133e7",
+      "control-plane": "54ea7c09f650f57d6eca7bb652e3387034187f2d",
+      "gateway": "6565a64a07ed4c1104ef619a4ff30664851620ff",
+      "cli": "2e8fe65dc6c587fbc293960bb3a59f7d10b9eb98",
+      "demo-backend": "0bc6643ccb6c0586ac84c641e31f5266467b0929"
+    }
+  },
+  "workingTreeProductionDiffEmpty": true,
+  "scope": "All five application production src/main trees; test synchronization and documentation changes do not modify runtime source. Benchmark reruns are not relabeled to a different source commit."
+}

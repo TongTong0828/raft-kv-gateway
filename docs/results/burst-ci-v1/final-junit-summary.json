@@ -1,0 +1,161 @@
+{
+  "scope": "Final local full-reactor verification after retirement and liveness test barriers",
+  "log": "liveness-diagnosis/ci-liveness-full-verify.log",
+  "elapsedSeconds": 59.388,
+  "result": "BUILD SUCCESS",
+  "exitCode": 0,
+  "sourceSnapshot": "liveness-diagnosis/ci-liveness-green.java",
+  "counts": {
+    "files": 16,
+    "tests": 66,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "suites": [
+    {
+      "module": "api",
+      "file": "final-junit/api/TEST-dev.kvgateway.api.ServiceSpecsTest.xml",
+      "suite": "dev.kvgateway.api.ServiceSpecsTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "api",
+      "file": "final-junit/api/TEST-dev.kvgateway.api.SettingsTest.xml",
+      "suite": "dev.kvgateway.api.SettingsTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "control-plane",
+      "file": "final-junit/control-plane/TEST-dev.kvgateway.control.ConfigPublisherTest.xml",
+      "suite": "dev.kvgateway.control.ConfigPublisherTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "control-plane",
+      "file": "final-junit/control-plane/TEST-dev.kvgateway.control.ControlClusterTest.xml",
+      "suite": "dev.kvgateway.control.ControlClusterTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "control-plane",
+      "file": "final-junit/control-plane/TEST-dev.kvgateway.control.KvSnapshotTest.xml",
+      "suite": "dev.kvgateway.control.KvSnapshotTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "control-plane",
+      "file": "final-junit/control-plane/TEST-dev.kvgateway.control.KvStoreTest.xml",
+      "suite": "dev.kvgateway.control.KvStoreTest",
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "gateway",
+      "file": "final-junit/gateway/TEST-dev.kvgateway.gateway.ControlWatcherTest.xml",
+      "suite": "dev.kvgateway.gateway.ControlWatcherTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "gateway",
+      "file": "final-junit/gateway/TEST-dev.kvgateway.gateway.EndpointPoolTest.xml",
+      "suite": "dev.kvgateway.gateway.EndpointPoolTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "gateway",
+      "file": "final-junit/gateway/TEST-dev.kvgateway.gateway.GatewayDispatchTest.xml",
+      "suite": "dev.kvgateway.gateway.GatewayDispatchTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "gateway",
+      "file": "final-junit/gateway/TEST-dev.kvgateway.gateway.GatewayHttpTest.xml",
+      "suite": "dev.kvgateway.gateway.GatewayHttpTest",
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "gateway",
+      "file": "final-junit/gateway/TEST-dev.kvgateway.gateway.HealthMonitorTest.xml",
+      "suite": "dev.kvgateway.gateway.HealthMonitorTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "gateway",
+      "file": "final-junit/gateway/TEST-dev.kvgateway.gateway.ResourceBudgetTest.xml",
+      "suite": "dev.kvgateway.gateway.ResourceBudgetTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "gateway",
+      "file": "final-junit/gateway/TEST-dev.kvgateway.gateway.RouteManagerTest.xml",
+      "suite": "dev.kvgateway.gateway.RouteManagerTest",
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "gateway",
+      "file": "final-junit/gateway/TEST-dev.kvgateway.gateway.UpstreamDispatcherTest.xml",
+      "suite": "dev.kvgateway.gateway.UpstreamDispatcherTest",
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "cli",
+      "file": "final-junit/cli/TEST-dev.kvgateway.cli.ControlClientTest.xml",
+      "suite": "dev.kvgateway.cli.ControlClientTest",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "module": "integration-tests",
+      "file": "final-junit/integration-tests/TEST-dev.kvgateway.it.LinearizabilityCheckerTest.xml",
+      "suite": "dev.kvgateway.it.LinearizabilityCheckerTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ]
+}

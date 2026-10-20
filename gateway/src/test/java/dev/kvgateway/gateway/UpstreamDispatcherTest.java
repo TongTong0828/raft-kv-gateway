@@ -117,17 +117,41 @@ class UpstreamDispatcherTest {
     try (var a = new BackendFixture();
         var b = new BackendFixture();
         var f = new Fixture(DefaultAddressResolverGroup.INSTANCE)) {
+      var withB = service(10, a.endpoint(), b.endpoint());
+      f.install(withB);
       var onlyA = service(10, a.endpoint());
-      f.install(onlyA);
       var held = f.dispatcher.acquire(onlyA, deadline()).future().get(2, TimeUnit.SECONDS);
-      UpstreamDispatcher.Ticket tail = null;
+      List<UpstreamDispatcher.Ticket> queued = List.of();
       try {
-        var head =
-            f.dispatcher.acquire(onlyA, System.nanoTime() + TimeUnit.MILLISECONDS.toNanos(400));
-        ControlWatcherTest.await(() -> f.dispatcher.queued() == 1);
-        var withB = service(10, a.endpoint(), b.endpoint());
-        f.install(withB);
-        tail = f.dispatcher.acquire(withB, deadline());
+        queued =
+            f.group
+                .next()
+                .submit(
+                    () -> {
+                      // Both endpoints are already healthy: setup cannot consume the head's
+                      // deadline.
+                      var head =
+                          f.dispatcher.acquire(
+                              onlyA, System.nanoTime() + TimeUnit.MILLISECONDS.toNanos(400));
+                      var tail = f.dispatcher.acquire(withB, deadline());
+                      try {
+                        assertTrue(head.queued);
+                        assertTrue(tail.queued);
+                        assertFalse(head.future().isDone());
+                        assertFalse(tail.future().isDone());
+                        assertEquals(2, f.dispatcher.queued());
+                        assertEquals(1, f.dispatcher.reserved());
+                        assertEquals(0, f.pools.get("orders", b.endpoint()).borrowed.get());
+                        return List.of(head, tail);
+                      } catch (RuntimeException | AssertionError failure) {
+                        cancelAndRelease(head);
+                        cancelAndRelease(tail);
+                        throw failure;
+                      }
+                    })
+                .get(2, TimeUnit.SECONDS);
+        var head = queued.get(0);
+        var tail = queued.get(1);
         var failure =
             assertThrows(ExecutionException.class, () -> head.future().get(2, TimeUnit.SECONDS));
         assertInstanceOf(UpstreamDispatcher.RequestDeadlineExceeded.class, failure.getCause());
@@ -135,7 +159,7 @@ class UpstreamDispatcherTest {
         assertEquals(b.endpoint(), tail.endpoint);
         lease.release(true);
       } finally {
-        cancelAndRelease(tail);
+        for (var ticket : queued) cancelAndRelease(ticket);
         held.release(true);
       }
       f.drained();
@@ -154,10 +178,27 @@ class UpstreamDispatcherTest {
       assertEquals(a.endpoint(), heldTicket.endpoint);
       UpstreamDispatcher.Ticket waiting = null;
       try {
-        for (int i = 0; i < 3; i++) f.health.failure(b.endpoint());
-        assertFalse(f.health.healthy(b.endpoint()));
-        waiting = f.dispatcher.acquire(spec, deadline());
-        ControlWatcherTest.await(() -> f.dispatcher.queued() == 1);
+        waiting =
+            f.group
+                .next()
+                .submit(
+                    () -> {
+                      // Establish unhealthy B and real FIFO membership in one coordinator task.
+                      for (int i = 0; i < 3; i++) f.health.failure(b.endpoint());
+                      assertFalse(f.health.healthy(b.endpoint()));
+                      var ticket = f.dispatcher.acquire(spec, deadline());
+                      try {
+                        assertTrue(ticket.queued);
+                        assertFalse(ticket.future().isDone());
+                        assertEquals(1, f.dispatcher.queued());
+                        assertEquals(1, f.dispatcher.reserved());
+                        return ticket;
+                      } catch (RuntimeException | AssertionError failure) {
+                        cancelAndRelease(ticket);
+                        throw failure;
+                      }
+                    })
+                .get(2, TimeUnit.SECONDS);
         ControlWatcherTest.await(
             () -> {
               f.health.refresh();
@@ -221,17 +262,57 @@ class UpstreamDispatcherTest {
       f.install(withB);
       var onlyA = service(10, a.endpoint());
       var held = f.dispatcher.acquire(onlyA, deadline()).future().get(2, TimeUnit.SECONDS);
-      var head = f.dispatcher.acquire(onlyA, deadline());
-      var tail = f.dispatcher.acquire(service(10, b.endpoint()), deadline());
+      var paused = new CountDownLatch(1);
+      var resume = new CountDownLatch(1);
+      f.group
+          .next()
+          .execute(
+              () -> {
+                paused.countDown();
+                try {
+                  if (!resume.await(5, TimeUnit.SECONDS))
+                    throw new AssertionError("test did not resume the dispatcher");
+                } catch (InterruptedException error) {
+                  Thread.currentThread().interrupt();
+                  throw new AssertionError(error);
+                }
+              });
+      UpstreamDispatcher.Ticket head = null, tail = null;
       try {
+        assertTrue(paused.await(2, TimeUnit.SECONDS));
+        head = f.dispatcher.acquire(onlyA, deadline());
+        tail = f.dispatcher.acquire(service(10, b.endpoint()), deadline());
         ControlWatcherTest.await(() -> f.dispatcher.queued() == 2);
+        assertFalse(head.queued, "aggregate gauge includes work not yet enqueued");
+        assertFalse(tail.queued, "tail is only in transit while its executor is paused");
+        resume.countDown();
+        var queuedHead = head;
+        var queuedTail = tail;
+        f.group
+            .next()
+            .submit(
+                () -> {
+                  // The gauge includes in-transit tickets; only the coordinator can prove FIFO
+                  // membership before config/health removal. B is idle behind the busy A head.
+                  assertTrue(queuedHead.queued);
+                  assertTrue(queuedTail.queued);
+                  assertFalse(queuedHead.future().isDone());
+                  assertFalse(queuedTail.future().isDone());
+                  assertEquals(2, f.dispatcher.queued());
+                  assertEquals(1, f.dispatcher.reserved());
+                  assertEquals(0, f.pools.get("orders", b.endpoint()).borrowed.get());
+                })
+            .get(2, TimeUnit.SECONDS);
         f.install(onlyA);
+        var retiring = tail;
         var failure =
-            assertThrows(ExecutionException.class, () -> tail.future().get(1, TimeUnit.SECONDS));
+            assertThrows(
+                ExecutionException.class, () -> retiring.future().get(1, TimeUnit.SECONDS));
         assertEquals("endpoint retired", failure.getCause().getMessage());
         assertFalse(head.future().isDone());
         assertEquals(0, b.requests.get());
       } finally {
+        resume.countDown();
         cancelAndRelease(head);
         cancelAndRelease(tail);
         held.release(true);

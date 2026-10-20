@@ -1,0 +1,686 @@
+verify	Java tests and packages	﻿2026-10-20T00:38:51.7131654Z ##[group]Run ./scripts/mvn.sh verify
+verify	Java tests and packages	2026-10-20T00:38:51.7132787Z [36;1m./scripts/mvn.sh verify[0m
+verify	Java tests and packages	2026-10-20T00:38:51.7383005Z shell: /usr/bin/bash -e {0}
+verify	Java tests and packages	2026-10-20T00:38:51.7383984Z ##[endgroup]
+verify	Java tests and packages	2026-10-20T00:38:51.8129091Z Unable to find image 'maven:3.9.16-eclipse-temurin-21-noble@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320' locally
+verify	Java tests and packages	2026-10-20T00:38:52.4778851Z docker.io/library/maven@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320: Pulling from library/maven
+verify	Java tests and packages	2026-10-20T00:38:52.7287696Z edd1ed89f0d4: Pulling fs layer
+verify	Java tests and packages	2026-10-20T00:38:52.7288534Z c5b9275bc0db: Pulling fs layer
+verify	Java tests and packages	2026-10-20T00:38:52.7288922Z 07bad0cccfa1: Pulling fs layer
+verify	Java tests and packages	2026-10-20T00:38:52.7289259Z f1408710f65c: Pulling fs layer
+verify	Java tests and packages	2026-10-20T00:38:52.7289572Z 49cf9009e0af: Pulling fs layer
+verify	Java tests and packages	2026-10-20T00:38:52.7289863Z bd0bb49686d3: Pulling fs layer
+verify	Java tests and packages	2026-10-20T00:38:52.7290244Z 1bf7f7b7d02f: Pulling fs layer
+verify	Java tests and packages	2026-10-20T00:38:52.7290517Z a466b9e11010: Pulling fs layer
+verify	Java tests and packages	2026-10-20T00:38:52.7290981Z 405aa165b3ac: Pulling fs layer
+verify	Java tests and packages	2026-10-20T00:38:52.7291256Z bd0bb49686d3: Waiting
+verify	Java tests and packages	2026-10-20T00:38:52.7291500Z 1bf7f7b7d02f: Waiting
+verify	Java tests and packages	2026-10-20T00:38:52.7291875Z a466b9e11010: Waiting
+verify	Java tests and packages	2026-10-20T00:38:52.7292132Z 405aa165b3ac: Waiting
+verify	Java tests and packages	2026-10-20T00:38:52.7292456Z f1408710f65c: Waiting
+verify	Java tests and packages	2026-10-20T00:38:52.7292739Z 49cf9009e0af: Waiting
+verify	Java tests and packages	2026-10-20T00:38:52.9624945Z c5b9275bc0db: Verifying Checksum
+verify	Java tests and packages	2026-10-20T00:38:52.9627943Z c5b9275bc0db: Download complete
+verify	Java tests and packages	2026-10-20T00:38:52.9773165Z edd1ed89f0d4: Verifying Checksum
+verify	Java tests and packages	2026-10-20T00:38:52.9774052Z edd1ed89f0d4: Download complete
+verify	Java tests and packages	2026-10-20T00:38:53.1477916Z f1408710f65c: Verifying Checksum
+verify	Java tests and packages	2026-10-20T00:38:53.1496375Z f1408710f65c: Download complete
+verify	Java tests and packages	2026-10-20T00:38:53.1498099Z 49cf9009e0af: Verifying Checksum
+verify	Java tests and packages	2026-10-20T00:38:53.1498917Z 49cf9009e0af: Download complete
+verify	Java tests and packages	2026-10-20T00:38:53.3172805Z 07bad0cccfa1: Download complete
+verify	Java tests and packages	2026-10-20T00:38:53.3556004Z 1bf7f7b7d02f: Verifying Checksum
+verify	Java tests and packages	2026-10-20T00:38:53.3556747Z 1bf7f7b7d02f: Download complete
+verify	Java tests and packages	2026-10-20T00:38:53.4035480Z bd0bb49686d3: Verifying Checksum
+verify	Java tests and packages	2026-10-20T00:38:53.4035969Z bd0bb49686d3: Download complete
+verify	Java tests and packages	2026-10-20T00:38:53.5000135Z a466b9e11010: Verifying Checksum
+verify	Java tests and packages	2026-10-20T00:38:53.5000990Z a466b9e11010: Download complete
+verify	Java tests and packages	2026-10-20T00:38:53.5260555Z 405aa165b3ac: Verifying Checksum
+verify	Java tests and packages	2026-10-20T00:38:53.5261015Z 405aa165b3ac: Download complete
+verify	Java tests and packages	2026-10-20T00:38:53.8660372Z edd1ed89f0d4: Pull complete
+verify	Java tests and packages	2026-10-20T00:39:01.9850821Z c5b9275bc0db: Pull complete
+verify	Java tests and packages	2026-10-20T00:39:04.7140347Z 07bad0cccfa1: Pull complete
+verify	Java tests and packages	2026-10-20T00:39:04.7220606Z f1408710f65c: Pull complete
+verify	Java tests and packages	2026-10-20T00:39:04.7334333Z 49cf9009e0af: Pull complete
+verify	Java tests and packages	2026-10-20T00:39:06.7558457Z bd0bb49686d3: Pull complete
+verify	Java tests and packages	2026-10-20T00:39:06.8808554Z 1bf7f7b7d02f: Pull complete
+verify	Java tests and packages	2026-10-20T00:39:06.8876934Z a466b9e11010: Pull complete
+verify	Java tests and packages	2026-10-20T00:39:06.9060265Z 405aa165b3ac: Pull complete
+verify	Java tests and packages	2026-10-20T00:39:06.9088620Z Digest: sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+verify	Java tests and packages	2026-10-20T00:39:06.9094495Z Status: Downloaded newer image for maven@sha256:99e61abcff91a9b1333463bd8451fb18495d6eba9250ac66a338b518f8278320
+verify	Java tests and packages	2026-10-20T00:39:08.2549095Z [INFO] Scanning for projects...
+verify	Java tests and packages	2026-10-20T00:39:10.8812695Z [INFO] ------------------------------------------------------------------------
+verify	Java tests and packages	2026-10-20T00:39:10.8828034Z [INFO] Detecting the operating system and CPU architecture
+verify	Java tests and packages	2026-10-20T00:39:10.8828571Z [INFO] ------------------------------------------------------------------------
+verify	Java tests and packages	2026-10-20T00:39:10.8828985Z [INFO] os.detected.name: linux
+verify	Java tests and packages	2026-10-20T00:39:10.8829341Z [INFO] os.detected.arch: x86_64
+verify	Java tests and packages	2026-10-20T00:39:10.8829684Z [INFO] os.detected.bitness: 64
+verify	Java tests and packages	2026-10-20T00:39:10.8829999Z [INFO] os.detected.version: 6.17
+verify	Java tests and packages	2026-10-20T00:39:10.8830341Z [INFO] os.detected.version.major: 6
+verify	Java tests and packages	2026-10-20T00:39:10.8830725Z [INFO] os.detected.version.minor: 17
+verify	Java tests and packages	2026-10-20T00:39:10.8831047Z [INFO] os.detected.release: ubuntu
+verify	Java tests and packages	2026-10-20T00:39:10.8831384Z [INFO] os.detected.release.version: 24.04
+verify	Java tests and packages	2026-10-20T00:39:10.8831755Z [INFO] os.detected.release.like.ubuntu: true
+verify	Java tests and packages	2026-10-20T00:39:10.8832811Z [INFO] os.detected.release.like.debian: true
+verify	Java tests and packages	2026-10-20T00:39:10.8833168Z [INFO] os.detected.classifier: linux-x86_64
+verify	Java tests and packages	2026-10-20T00:39:10.8849713Z [INFO] ------------------------------------------------------------------------
+verify	Java tests and packages	2026-10-20T00:39:10.8850333Z [INFO] Reactor Build Order:
+verify	Java tests and packages	2026-10-20T00:39:10.8851067Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:10.8861827Z [INFO] Raft KV and Gateway                                                [pom]
+verify	Java tests and packages	2026-10-20T00:39:10.8864753Z [INFO] api                                                                [jar]
+verify	Java tests and packages	2026-10-20T00:39:10.8865534Z [INFO] control-plane                                                      [jar]
+verify	Java tests and packages	2026-10-20T00:39:10.8866319Z [INFO] gateway                                                            [jar]
+verify	Java tests and packages	2026-10-20T00:39:10.8867004Z [INFO] cli                                                                [jar]
+verify	Java tests and packages	2026-10-20T00:39:10.8868778Z [INFO] demo-backend                                                       [jar]
+verify	Java tests and packages	2026-10-20T00:39:10.8870442Z [INFO] integration-tests                                                  [jar]
+verify	Java tests and packages	2026-10-20T00:39:10.8983689Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:10.8984614Z [INFO] -------------------< dev.kvgateway:raft-kv-gateway >--------------------
+verify	Java tests and packages	2026-10-20T00:39:10.8985464Z [INFO] Building Raft KV and Gateway 0.1.0-SNAPSHOT                        [1/7]
+verify	Java tests and packages	2026-10-20T00:39:10.8986103Z [INFO]   from pom.xml
+verify	Java tests and packages	2026-10-20T00:39:10.8986717Z [INFO] --------------------------------[ pom ]---------------------------------
+verify	Java tests and packages	2026-10-20T00:39:12.2748973Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:12.2749883Z [INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ raft-kv-gateway ---
+verify	Java tests and packages	2026-10-20T00:39:21.8301654Z [INFO] Installing /m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar to /workspace/target/original-dependencies/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar
+verify	Java tests and packages	2026-10-20T00:39:21.8339924Z [INFO] Installing /m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar to /workspace/target/original-dependencies/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
+verify	Java tests and packages	2026-10-20T00:39:21.8344197Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:21.8344932Z [INFO] --- exec:3.5.0:exec (archive-original-licenses) @ raft-kv-gateway ---
+verify	Java tests and packages	2026-10-20T00:39:22.8538984Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:22.8539473Z [INFO] --- dependency:3.9.0:list (dependency-inventory) @ raft-kv-gateway ---
+verify	Java tests and packages	2026-10-20T00:39:22.8623941Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:22.8624476Z [INFO] -------------------------< dev.kvgateway:api >--------------------------
+verify	Java tests and packages	2026-10-20T00:39:22.8625052Z [INFO] Building api 0.1.0-SNAPSHOT                                        [2/7]
+verify	Java tests and packages	2026-10-20T00:39:22.8625496Z [INFO]   from api/pom.xml
+verify	Java tests and packages	2026-10-20T00:39:22.8625857Z [INFO] --------------------------------[ jar ]---------------------------------
+verify	Java tests and packages	2026-10-20T00:39:25.3489228Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:25.3489656Z [INFO] --- protobuf:0.6.1:compile (default) @ api ---
+verify	Java tests and packages	2026-10-20T00:39:27.0918540Z [INFO] Compiling 1 proto file(s) to /workspace/api/target/generated-sources/protobuf/java
+verify	Java tests and packages	2026-10-20T00:39:27.1026439Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:27.1026863Z [INFO] --- protobuf:0.6.1:compile-custom (default) @ api ---
+verify	Java tests and packages	2026-10-20T00:39:27.3188958Z [INFO] Compiling 1 proto file(s) to /workspace/api/target/generated-sources/protobuf/grpc-java
+verify	Java tests and packages	2026-10-20T00:39:27.3476940Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:27.3477438Z [INFO] --- resources:3.4.0:resources (default-resources) @ api ---
+verify	Java tests and packages	2026-10-20T00:39:27.9399822Z [INFO] skip non existing resourceDirectory /workspace/api/src/main/resources
+verify	Java tests and packages	2026-10-20T00:39:27.9416621Z [INFO] Copying 13 resources from ../distribution/resources to target/classes
+verify	Java tests and packages	2026-10-20T00:39:27.9485212Z [INFO] Copying 1 resource from src/main/proto to target/classes
+verify	Java tests and packages	2026-10-20T00:39:27.9487139Z [INFO] Copying 1 resource from src/main/proto to target/classes
+verify	Java tests and packages	2026-10-20T00:39:27.9494550Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:27.9495286Z [INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ api ---
+verify	Java tests and packages	2026-10-20T00:39:28.1265314Z [INFO] Installing /m2/repository/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar to /workspace/api/target/original-dependencies/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1303344Z [INFO] Installing /m2/repository/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar to /workspace/api/target/original-dependencies/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1315483Z [INFO] Installing /m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar to /workspace/api/target/original-dependencies/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1328158Z [INFO] Installing /m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar to /workspace/api/target/original-dependencies/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1341604Z [INFO] Installing /m2/repository/com/google/errorprone/error_prone_annotations/2.18.0/error_prone_annotations-2.18.0.jar to /workspace/api/target/original-dependencies/com/google/errorprone/error_prone_annotations/2.18.0/error_prone_annotations-2.18.0.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1351167Z [INFO] Installing /m2/repository/com/google/guava/guava/32.0.1-jre/guava-32.0.1-jre.jar to /workspace/api/target/original-dependencies/com/google/guava/guava/32.0.1-jre/guava-32.0.1-jre.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1385062Z [INFO] Installing /m2/repository/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar to /workspace/api/target/original-dependencies/com/google/guava/failureaccess/1.0.1/failureaccess-1.0.1.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1395943Z [INFO] Installing /m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar to /workspace/api/target/original-dependencies/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1405457Z [INFO] Installing /m2/repository/org/checkerframework/checker-qual/3.33.0/checker-qual-3.33.0.jar to /workspace/api/target/original-dependencies/org/checkerframework/checker-qual/3.33.0/checker-qual-3.33.0.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1418280Z [INFO] Installing /m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar to /workspace/api/target/original-dependencies/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1428457Z [INFO] Installing /m2/repository/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar to /workspace/api/target/original-dependencies/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1438637Z [INFO] Installing /m2/repository/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar to /workspace/api/target/original-dependencies/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1450534Z [INFO] Installing /m2/repository/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar to /workspace/api/target/original-dependencies/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1478184Z [INFO] Installing /m2/repository/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar to /workspace/api/target/original-dependencies/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1487707Z [INFO] Installing /m2/repository/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar to /workspace/api/target/original-dependencies/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1619915Z [INFO] Installing /m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar to /workspace/api/target/original-dependencies/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1622259Z [INFO] Installing /m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar to /workspace/api/target/original-dependencies/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1639292Z [INFO] Installing /m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar to /workspace/api/target/original-dependencies/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1656402Z [INFO] Installing /m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar to /workspace/api/target/original-dependencies/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
+verify	Java tests and packages	2026-10-20T00:39:28.1674302Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:28.1679144Z [INFO] --- exec:3.5.0:exec (archive-original-licenses) @ api ---
+verify	Java tests and packages	2026-10-20T00:39:28.9059804Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:28.9060333Z [INFO] --- compiler:3.14.1:compile (default-compile) @ api ---
+verify	Java tests and packages	2026-10-20T00:39:29.6446656Z [INFO] Recompiling the module because of changed source code.
+verify	Java tests and packages	2026-10-20T00:39:29.6509364Z [INFO] Compiling 28 source files with javac [debug release 21] to target/classes
+verify	Java tests and packages	2026-10-20T00:39:31.2281882Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:31.2282423Z [INFO] --- resources:3.4.0:testResources (default-testResources) @ api ---
+verify	Java tests and packages	2026-10-20T00:39:31.2321263Z [INFO] skip non existing resourceDirectory /workspace/api/src/test/resources
+verify	Java tests and packages	2026-10-20T00:39:31.2322395Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:31.2323049Z [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ api ---
+verify	Java tests and packages	2026-10-20T00:39:31.2385184Z [INFO] Recompiling the module because of changed dependency.
+verify	Java tests and packages	2026-10-20T00:39:31.2390504Z [INFO] Compiling 2 source files with javac [debug release 21] to target/test-classes
+verify	Java tests and packages	2026-10-20T00:39:31.3823771Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:31.3824739Z [INFO] --- surefire:3.5.5:test (default-test) @ api ---
+verify	Java tests and packages	2026-10-20T00:39:32.4264986Z [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+verify	Java tests and packages	2026-10-20T00:39:32.8896576Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:32.8897017Z [INFO] -------------------------------------------------------
+verify	Java tests and packages	2026-10-20T00:39:32.8897411Z [INFO]  T E S T S
+verify	Java tests and packages	2026-10-20T00:39:32.8897951Z [INFO] -------------------------------------------------------
+verify	Java tests and packages	2026-10-20T00:39:33.2969675Z [INFO] Running dev.kvgateway.api.ServiceSpecsTest
+verify	Java tests and packages	2026-10-20T00:39:33.3719341Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.058 s -- in dev.kvgateway.api.ServiceSpecsTest
+verify	Java tests and packages	2026-10-20T00:39:33.3720186Z [INFO] Running dev.kvgateway.api.SettingsTest
+verify	Java tests and packages	2026-10-20T00:39:33.3830480Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.019 s -- in dev.kvgateway.api.SettingsTest
+verify	Java tests and packages	2026-10-20T00:39:33.4055481Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:33.4055901Z [INFO] Results:
+verify	Java tests and packages	2026-10-20T00:39:33.4056454Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:33.4059152Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
+verify	Java tests and packages	2026-10-20T00:39:33.4059779Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:33.4086578Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:33.4086999Z [INFO] --- dependency:3.9.0:list (dependency-inventory) @ api ---
+verify	Java tests and packages	2026-10-20T00:39:33.4359165Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:33.4364250Z [INFO] --- jar:3.5.0:jar (default-jar) @ api ---
+verify	Java tests and packages	2026-10-20T00:39:34.2379880Z [INFO] Building jar: /workspace/api/target/api-0.1.0-SNAPSHOT.jar
+verify	Java tests and packages	2026-10-20T00:39:34.2751051Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:34.2752225Z [INFO] --------------------< dev.kvgateway:control-plane >---------------------
+verify	Java tests and packages	2026-10-20T00:39:34.2753128Z [INFO] Building control-plane 0.1.0-SNAPSHOT                              [3/7]
+verify	Java tests and packages	2026-10-20T00:39:34.2753725Z [INFO]   from control-plane/pom.xml
+verify	Java tests and packages	2026-10-20T00:39:34.2754237Z [INFO] --------------------------------[ jar ]---------------------------------
+verify	Java tests and packages	2026-10-20T00:39:35.9075229Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:35.9075759Z [INFO] --- resources:3.4.0:resources (default-resources) @ control-plane ---
+verify	Java tests and packages	2026-10-20T00:39:35.9281224Z [INFO] skip non existing resourceDirectory /workspace/control-plane/src/main/resources
+verify	Java tests and packages	2026-10-20T00:39:35.9310029Z [INFO] Copying 13 resources from ../distribution/resources to target/classes
+verify	Java tests and packages	2026-10-20T00:39:35.9415148Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:35.9420906Z [INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ control-plane ---
+verify	Java tests and packages	2026-10-20T00:39:35.9448139Z [INFO] Installing /workspace/api/target/api-0.1.0-SNAPSHOT.jar to /workspace/control-plane/target/original-dependencies/dev/kvgateway/api/0.1.0-SNAPSHOT/api-0.1.0-SNAPSHOT.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9469180Z [INFO] Installing /m2/repository/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar to /workspace/control-plane/target/original-dependencies/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9485646Z [INFO] Installing /m2/repository/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar to /workspace/control-plane/target/original-dependencies/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9493294Z [INFO] Installing /m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar to /workspace/control-plane/target/original-dependencies/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9500988Z [INFO] Installing /m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar to /workspace/control-plane/target/original-dependencies/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9512431Z [INFO] Installing /m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar to /workspace/control-plane/target/original-dependencies/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9518668Z [INFO] Installing /m2/repository/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar to /workspace/control-plane/target/original-dependencies/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9531470Z [INFO] Installing /m2/repository/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar to /workspace/control-plane/target/original-dependencies/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9551093Z [INFO] Installing /m2/repository/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar to /workspace/control-plane/target/original-dependencies/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9570017Z [INFO] Installing /m2/repository/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar to /workspace/control-plane/target/original-dependencies/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9572259Z [INFO] Installing /m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar to /workspace/control-plane/target/original-dependencies/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9575259Z [INFO] Installing /m2/repository/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar to /workspace/control-plane/target/original-dependencies/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9646970Z [INFO] Installing /m2/repository/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar to /workspace/control-plane/target/original-dependencies/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9655656Z [INFO] Installing /m2/repository/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar to /workspace/control-plane/target/original-dependencies/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9669181Z [INFO] Installing /m2/repository/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar to /workspace/control-plane/target/original-dependencies/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9678279Z [INFO] Installing /m2/repository/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar to /workspace/control-plane/target/original-dependencies/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9686784Z [INFO] Installing /m2/repository/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar to /workspace/control-plane/target/original-dependencies/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9710236Z [INFO] Installing /m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar to /workspace/control-plane/target/original-dependencies/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9720479Z [INFO] Installing /m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar to /workspace/control-plane/target/original-dependencies/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9735771Z [INFO] Installing /m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar to /workspace/control-plane/target/original-dependencies/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9738786Z [INFO] Installing /m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar to /workspace/control-plane/target/original-dependencies/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9745173Z [INFO] Installing /m2/repository/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar to /workspace/control-plane/target/original-dependencies/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9753688Z [INFO] Installing /m2/repository/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar to /workspace/control-plane/target/original-dependencies/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9764911Z [INFO] Installing /m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar to /workspace/control-plane/target/original-dependencies/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9772997Z [INFO] Installing /m2/repository/org/apache/ratis/ratis-server/3.3.1/ratis-server-3.3.1.jar to /workspace/control-plane/target/original-dependencies/org/apache/ratis/ratis-server/3.3.1/ratis-server-3.3.1.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9786041Z [INFO] Installing /m2/repository/org/apache/ratis/ratis-thirdparty-misc/1.1.0/ratis-thirdparty-misc-1.1.0.jar to /workspace/control-plane/target/original-dependencies/org/apache/ratis/ratis-thirdparty-misc/1.1.0/ratis-thirdparty-misc-1.1.0.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9890882Z [INFO] Installing /m2/repository/org/apache/ratis/ratis-proto/3.3.1/ratis-proto-3.3.1.jar to /workspace/control-plane/target/original-dependencies/org/apache/ratis/ratis-proto/3.3.1/ratis-proto-3.3.1.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9910710Z [INFO] Installing /m2/repository/org/apache/ratis/ratis-common/3.3.1/ratis-common-3.3.1.jar to /workspace/control-plane/target/original-dependencies/org/apache/ratis/ratis-common/3.3.1/ratis-common-3.3.1.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9917890Z [INFO] Installing /m2/repository/org/apache/ratis/ratis-server-api/3.3.1/ratis-server-api-3.3.1.jar to /workspace/control-plane/target/original-dependencies/org/apache/ratis/ratis-server-api/3.3.1/ratis-server-api-3.3.1.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9927218Z [INFO] Installing /m2/repository/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar to /workspace/control-plane/target/original-dependencies/org/slf4j/slf4j-api/2.0.18/slf4j-api-2.0.18.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9937945Z [INFO] Installing /m2/repository/org/apache/ratis/ratis-metrics-api/3.3.1/ratis-metrics-api-3.3.1.jar to /workspace/control-plane/target/original-dependencies/org/apache/ratis/ratis-metrics-api/3.3.1/ratis-metrics-api-3.3.1.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9945949Z [INFO] Installing /m2/repository/org/apache/ratis/ratis-client/3.3.1/ratis-client-3.3.1.jar to /workspace/control-plane/target/original-dependencies/org/apache/ratis/ratis-client/3.3.1/ratis-client-3.3.1.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9957227Z [INFO] Installing /m2/repository/org/apache/ratis/ratis-grpc/3.3.1/ratis-grpc-3.3.1.jar to /workspace/control-plane/target/original-dependencies/org/apache/ratis/ratis-grpc/3.3.1/ratis-grpc-3.3.1.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9968641Z [INFO] Installing /m2/repository/org/apache/ratis/ratis-metrics-default/3.3.1/ratis-metrics-default-3.3.1.jar to /workspace/control-plane/target/original-dependencies/org/apache/ratis/ratis-metrics-default/3.3.1/ratis-metrics-default-3.3.1.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9991555Z [INFO] Installing /m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar to /workspace/control-plane/target/original-dependencies/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar
+verify	Java tests and packages	2026-10-20T00:39:35.9993232Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:35.9993832Z [INFO] --- exec:3.5.0:exec (archive-original-licenses) @ control-plane ---
+verify	Java tests and packages	2026-10-20T00:39:36.8077380Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:36.8077984Z [INFO] --- compiler:3.14.1:compile (default-compile) @ control-plane ---
+verify	Java tests and packages	2026-10-20T00:39:36.8383875Z [INFO] Recompiling the module because of changed dependency.
+verify	Java tests and packages	2026-10-20T00:39:36.8426785Z [INFO] Compiling 7 source files with javac [debug release 21] to target/classes
+verify	Java tests and packages	2026-10-20T00:39:37.1212631Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:37.1213465Z [INFO] --- resources:3.4.0:testResources (default-testResources) @ control-plane ---
+verify	Java tests and packages	2026-10-20T00:39:37.1241737Z [INFO] skip non existing resourceDirectory /workspace/control-plane/src/test/resources
+verify	Java tests and packages	2026-10-20T00:39:37.1242555Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:37.1244157Z [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ control-plane ---
+verify	Java tests and packages	2026-10-20T00:39:37.1293971Z [INFO] Recompiling the module because of changed dependency.
+verify	Java tests and packages	2026-10-20T00:39:37.1296099Z [INFO] Compiling 4 source files with javac [debug release 21] to target/test-classes
+verify	Java tests and packages	2026-10-20T00:39:37.3736804Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:37.3741074Z [INFO] --- surefire:3.5.5:test (default-test) @ control-plane ---
+verify	Java tests and packages	2026-10-20T00:39:37.4199289Z [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+verify	Java tests and packages	2026-10-20T00:39:37.4325884Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:39:37.4326761Z [INFO] -------------------------------------------------------
+verify	Java tests and packages	2026-10-20T00:39:37.4327402Z [INFO]  T E S T S
+verify	Java tests and packages	2026-10-20T00:39:37.4327860Z [INFO] -------------------------------------------------------
+verify	Java tests and packages	2026-10-20T00:39:37.8392213Z [INFO] Running dev.kvgateway.control.ConfigPublisherTest
+verify	Java tests and packages	2026-10-20T00:39:38.9113185Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.060 s -- in dev.kvgateway.control.ConfigPublisherTest
+verify	Java tests and packages	2026-10-20T00:39:38.9114069Z [INFO] Running dev.kvgateway.control.KvSnapshotTest
+verify	Java tests and packages	2026-10-20T00:39:38.9707683Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.063 s -- in dev.kvgateway.control.KvSnapshotTest
+verify	Java tests and packages	2026-10-20T00:39:38.9708356Z [INFO] Running dev.kvgateway.control.KvStoreTest
+verify	Java tests and packages	2026-10-20T00:39:39.0072035Z [main] WARN dev.kvgateway.control.KvStore - Configuration notification failed after state publication
+verify	Java tests and packages	2026-10-20T00:39:39.0075540Z java.lang.IllegalArgumentException: subscriber failed
+verify	Java tests and packages	2026-10-20T00:39:39.0082941Z 	at dev.kvgateway.control.KvStoreTest.lambda$notificationFailureCannotChangeCommittedOutcome$0(KvStoreTest.java:16)
+verify	Java tests and packages	2026-10-20T00:39:39.0083942Z 	at dev.kvgateway.control.KvStore.notifyChange(KvStore.java:18)
+verify	Java tests and packages	2026-10-20T00:39:39.0084687Z 	at dev.kvgateway.control.KvStore.apply(KvStore.java:105)
+verify	Java tests and packages	2026-10-20T00:39:39.0085504Z 	at dev.kvgateway.control.KvStoreTest.notificationFailureCannotChangeCommittedOutcome(KvStoreTest.java:25)
+verify	Java tests and packages	2026-10-20T00:39:39.0086544Z 	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+verify	Java tests and packages	2026-10-20T00:39:39.0087367Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+verify	Java tests and packages	2026-10-20T00:39:39.0092559Z 	at org.junit.platform.commons.util.ReflectionUtils.invokeMethod(ReflectionUtils.java:786)
+verify	Java tests and packages	2026-10-20T00:39:39.0093548Z 	at org.junit.platform.commons.support.ReflectionSupport.invokeMethod(ReflectionSupport.java:514)
+verify	Java tests and packages	2026-10-20T00:39:39.0094360Z 	at org.junit.jupiter.engine.execution.MethodInvocation.proceed(MethodInvocation.java:60)
+verify	Java tests and packages	2026-10-20T00:39:39.0095373Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$ValidatingInvocation.proceed(InvocationInterceptorChain.java:131)
+verify	Java tests and packages	2026-10-20T00:39:39.0096435Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.intercept(TimeoutExtension.java:161)
+verify	Java tests and packages	2026-10-20T00:39:39.0097372Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestableMethod(TimeoutExtension.java:152)
+verify	Java tests and packages	2026-10-20T00:39:39.0099053Z 	at org.junit.jupiter.engine.extension.TimeoutExtension.interceptTestMethod(TimeoutExtension.java:91)
+verify	Java tests and packages	2026-10-20T00:39:39.0100478Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker$ReflectiveInterceptorCall.lambda$ofVoidMethod$0(InterceptingExecutableInvoker.java:112)
+verify	Java tests and packages	2026-10-20T00:39:39.0101788Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.lambda$invoke$0(InterceptingExecutableInvoker.java:94)
+verify	Java tests and packages	2026-10-20T00:39:39.0103005Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain$InterceptedInvocation.proceed(InvocationInterceptorChain.java:106)
+verify	Java tests and packages	2026-10-20T00:39:39.0104293Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.proceed(InvocationInterceptorChain.java:64)
+verify	Java tests and packages	2026-10-20T00:39:39.0107378Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.chainAndInvoke(InvocationInterceptorChain.java:45)
+verify	Java tests and packages	2026-10-20T00:39:39.0108806Z 	at org.junit.jupiter.engine.execution.InvocationInterceptorChain.invoke(InvocationInterceptorChain.java:37)
+verify	Java tests and packages	2026-10-20T00:39:39.0109946Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:93)
+verify	Java tests and packages	2026-10-20T00:39:39.0111028Z 	at org.junit.jupiter.engine.execution.InterceptingExecutableInvoker.invoke(InterceptingExecutableInvoker.java:87)
+verify	Java tests and packages	2026-10-20T00:39:39.0112186Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.lambda$invokeTestMethod$4(TestMethodTestDescriptor.java:221)
+verify	Java tests and packages	2026-10-20T00:39:39.0113289Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+verify	Java tests and packages	2026-10-20T00:39:39.0114405Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.invokeTestMethod(TestMethodTestDescriptor.java:217)
+verify	Java tests and packages	2026-10-20T00:39:39.0115541Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:159)
+verify	Java tests and packages	2026-10-20T00:39:39.0116566Z 	at org.junit.jupiter.engine.descriptor.TestMethodTestDescriptor.execute(TestMethodTestDescriptor.java:70)
+verify	Java tests and packages	2026-10-20T00:39:39.0117724Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:157)
+verify	Java tests and packages	2026-10-20T00:39:39.0118840Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+verify	Java tests and packages	2026-10-20T00:39:39.0119874Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+verify	Java tests and packages	2026-10-20T00:39:39.0120757Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+verify	Java tests and packages	2026-10-20T00:39:39.0121639Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+verify	Java tests and packages	2026-10-20T00:39:39.0122663Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+verify	Java tests and packages	2026-10-20T00:39:39.0123600Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+verify	Java tests and packages	2026-10-20T00:39:39.0124549Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+verify	Java tests and packages	2026-10-20T00:39:39.0125324Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+verify	Java tests and packages	2026-10-20T00:39:39.0126322Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+verify	Java tests and packages	2026-10-20T00:39:39.0127775Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:161)
+verify	Java tests and packages	2026-10-20T00:39:39.0128708Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+verify	Java tests and packages	2026-10-20T00:39:39.0129675Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+verify	Java tests and packages	2026-10-20T00:39:39.0130556Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+verify	Java tests and packages	2026-10-20T00:39:39.0131239Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+verify	Java tests and packages	2026-10-20T00:39:39.0132043Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+verify	Java tests and packages	2026-10-20T00:39:39.0132749Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+verify	Java tests and packages	2026-10-20T00:39:39.0133308Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+verify	Java tests and packages	2026-10-20T00:39:39.0133744Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+verify	Java tests and packages	2026-10-20T00:39:39.0134374Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.invokeAll(SameThreadHierarchicalTestExecutorService.java:41)
+verify	Java tests and packages	2026-10-20T00:39:39.0135181Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$6(NodeTestTask.java:161)
+verify	Java tests and packages	2026-10-20T00:39:39.0150188Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+verify	Java tests and packages	2026-10-20T00:39:39.0151307Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$8(NodeTestTask.java:147)
+verify	Java tests and packages	2026-10-20T00:39:39.0152205Z 	at org.junit.platform.engine.support.hierarchical.Node.around(Node.java:137)
+verify	Java tests and packages	2026-10-20T00:39:39.0153096Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.lambda$executeRecursively$9(NodeTestTask.java:145)
+verify	Java tests and packages	2026-10-20T00:39:39.0154126Z 	at org.junit.platform.engine.support.hierarchical.ThrowableCollector.execute(ThrowableCollector.java:73)
+verify	Java tests and packages	2026-10-20T00:39:39.0155130Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.executeRecursively(NodeTestTask.java:144)
+verify	Java tests and packages	2026-10-20T00:39:39.0156072Z 	at org.junit.platform.engine.support.hierarchical.NodeTestTask.execute(NodeTestTask.java:101)
+verify	Java tests and packages	2026-10-20T00:39:39.0157343Z 	at org.junit.platform.engine.support.hierarchical.SameThreadHierarchicalTestExecutorService.submit(SameThreadHierarchicalTestExecutorService.java:35)
+verify	Java tests and packages	2026-10-20T00:39:39.0159131Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestExecutor.execute(HierarchicalTestExecutor.java:57)
+verify	Java tests and packages	2026-10-20T00:39:39.0160639Z 	at org.junit.platform.engine.support.hierarchical.HierarchicalTestEngine.execute(HierarchicalTestEngine.java:54)
+verify	Java tests and packages	2026-10-20T00:39:39.0162262Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.executeEngine(EngineExecutionOrchestrator.java:230)
+verify	Java tests and packages	2026-10-20T00:39:39.0163994Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.failOrExecuteEngine(EngineExecutionOrchestrator.java:204)
+verify	Java tests and packages	2026-10-20T00:39:39.0165765Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:172)
+verify	Java tests and packages	2026-10-20T00:39:39.0166972Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:101)
+verify	Java tests and packages	2026-10-20T00:39:39.0168227Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.lambda$execute$0(EngineExecutionOrchestrator.java:64)
+verify	Java tests and packages	2026-10-20T00:39:39.0171782Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.withInterceptedStreams(EngineExecutionOrchestrator.java:150)
+verify	Java tests and packages	2026-10-20T00:39:39.0173782Z 	at org.junit.platform.launcher.core.EngineExecutionOrchestrator.execute(EngineExecutionOrchestrator.java:63)
+verify	Java tests and packages	2026-10-20T00:39:39.0175587Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:109)
+verify	Java tests and packages	2026-10-20T00:39:39.0177338Z 	at org.junit.platform.launcher.core.DefaultLauncher.execute(DefaultLauncher.java:91)
+verify	Java tests and packages	2026-10-20T00:39:39.0179473Z 	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+verify	Java tests and packages	2026-10-20T00:39:39.0181848Z 	at org.junit.platform.launcher.core.InterceptingLauncher.lambda$execute$1(InterceptingLauncher.java:39)
+verify	Java tests and packages	2026-10-20T00:39:39.0184205Z 	at org.junit.platform.launcher.core.ClasspathAlignmentCheckingLauncherInterceptor.intercept(ClasspathAlignmentCheckingLauncherInterceptor.java:25)
+verify	Java tests and packages	2026-10-20T00:39:39.0185801Z 	at org.junit.platform.launcher.core.InterceptingLauncher.execute(InterceptingLauncher.java:38)
+verify	Java tests and packages	2026-10-20T00:39:39.0187268Z 	at org.junit.platform.launcher.core.DelegatingLauncher.execute(DelegatingLauncher.java:47)
+verify	Java tests and packages	2026-10-20T00:39:39.0188699Z 	at org.apache.maven.surefire.junitplatform.LauncherAdapter.executeWithoutCancellationToken(LauncherAdapter.java:60)
+verify	Java tests and packages	2026-10-20T00:39:39.0190111Z 	at org.apache.maven.surefire.junitplatform.LauncherAdapter.execute(LauncherAdapter.java:52)
+verify	Java tests and packages	2026-10-20T00:39:39.0191284Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.execute(JUnitPlatformProvider.java:203)
+verify	Java tests and packages	2026-10-20T00:39:39.0192151Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invokeAllTests(JUnitPlatformProvider.java:168)
+verify	Java tests and packages	2026-10-20T00:39:39.0200111Z 	at org.apache.maven.surefire.junitplatform.JUnitPlatformProvider.invoke(JUnitPlatformProvider.java:136)
+verify	Java tests and packages	2026-10-20T00:39:39.0201248Z 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+verify	Java tests and packages	2026-10-20T00:39:39.0202120Z 	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+verify	Java tests and packages	2026-10-20T00:39:39.0202960Z 	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+verify	Java tests and packages	2026-10-20T00:39:39.0203645Z 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+verify	Java tests and packages	2026-10-20T00:39:39.0247183Z [INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 s -- in dev.kvgateway.control.KvStoreTest
+verify	Java tests and packages	2026-10-20T00:39:39.0247901Z [INFO] Running dev.kvgateway.control.ControlClusterTest
+verify	Java tests and packages	2026-10-20T00:39:40.2832377Z Oct 20, 2026 12:39:40 AM org.apache.ratis.thirdparty.io.grpc.netty.TcpMetrics loadEpollInfo
+verify	Java tests and packages	2026-10-20T00:39:40.2833618Z INFO: Epoll available during static init of TcpMetrics:true
+verify	Java tests and packages	2026-10-20T00:39:42.7896193Z [n2@group-111111111111->n0-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n0-GrpcLogAppender is interrupted: java.lang.InterruptedException
+verify	Java tests and packages	2026-10-20T00:39:42.7898558Z [n2@group-111111111111->n1-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n1-GrpcLogAppender is interrupted: java.lang.InterruptedException
+verify	Java tests and packages	2026-10-20T00:39:42.7900343Z [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n2@group-111111111111->n0-GrpcLogAppender: Failed to resetClient for n0
+verify	Java tests and packages	2026-10-20T00:39:42.7901495Z org.apache.ratis.protocol.exceptions.AlreadyClosedException: n2 is already CLOSED
+verify	Java tests and packages	2026-10-20T00:39:42.7902297Z 	at org.apache.ratis.util.PeerProxyMap$PeerAndProxy.getProxy(PeerProxyMap.java:70)
+verify	Java tests and packages	2026-10-20T00:39:42.7903008Z 	at org.apache.ratis.util.PeerProxyMap.getProxy(PeerProxyMap.java:127)
+verify	Java tests and packages	2026-10-20T00:39:42.7903740Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.getClient(GrpcLogAppender.java:203)
+verify	Java tests and packages	2026-10-20T00:39:42.7904568Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.resetClient(GrpcLogAppender.java:208)
+verify	Java tests and packages	2026-10-20T00:39:42.7905384Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.access$800(GrpcLogAppender.java:71)
+verify	Java tests and packages	2026-10-20T00:39:42.7906328Z 	at org.apache.ratis.grpc.server.GrpcLogAppender$AppendLogResponseHandler.onCompleted(GrpcLogAppender.java:563)
+verify	Java tests and packages	2026-10-20T00:39:42.7907501Z 	at org.apache.ratis.thirdparty.io.grpc.stub.ClientCalls$StreamObserverToCallListenerAdapter.onClose(ClientCalls.java:579)
+verify	Java tests and packages	2026-10-20T00:39:42.7908824Z 	at org.apache.ratis.thirdparty.io.grpc.internal.DelayedClientCall$DelayedListener$3.run(DelayedClientCall.java:553)
+verify	Java tests and packages	2026-10-20T00:39:42.7910046Z 	at org.apache.ratis.thirdparty.io.grpc.internal.DelayedClientCall$DelayedListener.delayOrExecute(DelayedClientCall.java:482)
+verify	Java tests and packages	2026-10-20T00:39:42.7911211Z 	at org.apache.ratis.thirdparty.io.grpc.internal.DelayedClientCall$DelayedListener.onClose(DelayedClientCall.java:537)
+verify	Java tests and packages	2026-10-20T00:39:42.7912279Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:566)
+verify	Java tests and packages	2026-10-20T00:39:42.7913235Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.access$100(ClientCallImpl.java:72)
+verify	Java tests and packages	2026-10-20T00:39:42.7914387Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInternal(ClientCallImpl.java:734)
+verify	Java tests and packages	2026-10-20T00:39:42.7916334Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInContext(ClientCallImpl.java:715)
+verify	Java tests and packages	2026-10-20T00:39:42.7917873Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+verify	Java tests and packages	2026-10-20T00:39:42.7918827Z 	at org.apache.ratis.thirdparty.io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+verify	Java tests and packages	2026-10-20T00:39:42.7919767Z 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+verify	Java tests and packages	2026-10-20T00:39:42.7920587Z 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+verify	Java tests and packages	2026-10-20T00:39:42.7921226Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+verify	Java tests and packages	2026-10-20T00:39:43.9911005Z [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n2-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+verify	Java tests and packages	2026-10-20T00:39:43.9913295Z   Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: localhost/[0:0:0:0:0:0:0:1]:38801
+verify	Java tests and packages	2026-10-20T00:39:43.9914665Z   Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+verify	Java tests and packages	2026-10-20T00:39:43.9916057Z [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n2-GrpcLogAppender: Follower failed (request=null, errorCount=1); keep nextIndex (5) unchanged and retry.
+verify	Java tests and packages	2026-10-20T00:39:43.9918087Z [grpc-default-executor-3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n2-GrpcLogAppender: Follower failed (request=null, errorCount=3); keep nextIndex (6) unchanged and retry.
+verify	Java tests and packages	2026-10-20T00:39:43.9919879Z [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n2-GrpcLogAppender: Follower failed (request=null, errorCount=5); keep nextIndex (7) unchanged and retry.
+verify	Java tests and packages	2026-10-20T00:39:45.7939988Z [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n2-AppendLogResponseHandler: received INCONSISTENCY reply with nextIndex 5, errorCount=15, request=AppendEntriesRequest:cid=20517:HEARTBEAT 
+verify	Java tests and packages	2026-10-20T00:39:46.7954862Z [n0@group-111111111111->n2-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n2-GrpcLogAppender is interrupted: java.lang.InterruptedException
+verify	Java tests and packages	2026-10-20T00:39:46.7956131Z [n0@group-111111111111->n1-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n1-GrpcLogAppender is interrupted: java.lang.InterruptedException
+verify	Java tests and packages	2026-10-20T00:39:46.7957098Z [grpc-default-executor-3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n1-GrpcLogAppender: Failed to resetClient for n1
+verify	Java tests and packages	2026-10-20T00:39:46.7957895Z org.apache.ratis.protocol.exceptions.AlreadyClosedException: n0 is already CLOSED
+verify	Java tests and packages	2026-10-20T00:39:46.7958350Z 	at org.apache.ratis.util.PeerProxyMap$PeerAndProxy.getProxy(PeerProxyMap.java:70)
+verify	Java tests and packages	2026-10-20T00:39:46.7958773Z 	at org.apache.ratis.util.PeerProxyMap.getProxy(PeerProxyMap.java:127)
+verify	Java tests and packages	2026-10-20T00:39:46.7959186Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.getClient(GrpcLogAppender.java:203)
+verify	Java tests and packages	2026-10-20T00:39:46.7959651Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.resetClient(GrpcLogAppender.java:208)
+verify	Java tests and packages	2026-10-20T00:39:46.7960104Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.access$800(GrpcLogAppender.java:71)
+verify	Java tests and packages	2026-10-20T00:39:46.7960643Z 	at org.apache.ratis.grpc.server.GrpcLogAppender$AppendLogResponseHandler.onCompleted(GrpcLogAppender.java:563)
+verify	Java tests and packages	2026-10-20T00:39:46.7961291Z 	at org.apache.ratis.thirdparty.io.grpc.stub.ClientCalls$StreamObserverToCallListenerAdapter.onClose(ClientCalls.java:579)
+verify	Java tests and packages	2026-10-20T00:39:46.7961912Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:566)
+verify	Java tests and packages	2026-10-20T00:39:46.7962733Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.access$100(ClientCallImpl.java:72)
+verify	Java tests and packages	2026-10-20T00:39:46.7963522Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInternal(ClientCallImpl.java:734)
+verify	Java tests and packages	2026-10-20T00:39:46.7964285Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInContext(ClientCallImpl.java:715)
+verify	Java tests and packages	2026-10-20T00:39:46.7964915Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+verify	Java tests and packages	2026-10-20T00:39:46.7965449Z 	at org.apache.ratis.thirdparty.io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+verify	Java tests and packages	2026-10-20T00:39:46.7965980Z 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+verify	Java tests and packages	2026-10-20T00:39:46.7966468Z 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+verify	Java tests and packages	2026-10-20T00:39:46.7966851Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+verify	Java tests and packages	2026-10-20T00:39:46.7967379Z [grpc-default-executor-1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n2-GrpcLogAppender: Failed to resetClient for n2
+verify	Java tests and packages	2026-10-20T00:39:46.7968128Z org.apache.ratis.protocol.exceptions.AlreadyClosedException: n0 is already CLOSED
+verify	Java tests and packages	2026-10-20T00:39:46.7968584Z 	at org.apache.ratis.util.PeerProxyMap$PeerAndProxy.getProxy(PeerProxyMap.java:70)
+verify	Java tests and packages	2026-10-20T00:39:46.7968985Z 	at org.apache.ratis.util.PeerProxyMap.getProxy(PeerProxyMap.java:127)
+verify	Java tests and packages	2026-10-20T00:39:46.7969392Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.getClient(GrpcLogAppender.java:203)
+verify	Java tests and packages	2026-10-20T00:39:46.7969844Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.resetClient(GrpcLogAppender.java:208)
+verify	Java tests and packages	2026-10-20T00:39:46.7970287Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.access$800(GrpcLogAppender.java:71)
+verify	Java tests and packages	2026-10-20T00:39:46.7970805Z 	at org.apache.ratis.grpc.server.GrpcLogAppender$AppendLogResponseHandler.onCompleted(GrpcLogAppender.java:563)
+verify	Java tests and packages	2026-10-20T00:39:46.7971456Z 	at org.apache.ratis.thirdparty.io.grpc.stub.ClientCalls$StreamObserverToCallListenerAdapter.onClose(ClientCalls.java:579)
+verify	Java tests and packages	2026-10-20T00:39:46.7972078Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:566)
+verify	Java tests and packages	2026-10-20T00:39:46.7972628Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.access$100(ClientCallImpl.java:72)
+verify	Java tests and packages	2026-10-20T00:39:46.7973295Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInternal(ClientCallImpl.java:734)
+verify	Java tests and packages	2026-10-20T00:39:46.7974051Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInContext(ClientCallImpl.java:715)
+verify	Java tests and packages	2026-10-20T00:39:46.7974693Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+verify	Java tests and packages	2026-10-20T00:39:46.7975244Z 	at org.apache.ratis.thirdparty.io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+verify	Java tests and packages	2026-10-20T00:39:46.7975781Z 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+verify	Java tests and packages	2026-10-20T00:39:46.7976266Z 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+verify	Java tests and packages	2026-10-20T00:39:46.7976646Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+verify	Java tests and packages	2026-10-20T00:39:47.2962373Z [grpc-default-executor-1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+verify	Java tests and packages	2026-10-20T00:39:47.2964821Z   Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: localhost/[0:0:0:0:0:0:0:1]:44159
+verify	Java tests and packages	2026-10-20T00:39:47.2966395Z   Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+verify	Java tests and packages	2026-10-20T00:39:47.2984145Z [grpc-default-executor-1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=1); keep nextIndex (7) unchanged and retry.
+verify	Java tests and packages	2026-10-20T00:39:47.2986863Z [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=3); keep nextIndex (8) unchanged and retry.
+verify	Java tests and packages	2026-10-20T00:39:47.2989075Z [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=5); keep nextIndex (9) unchanged and retry.
+verify	Java tests and packages	2026-10-20T00:39:48.7981363Z [n1@group-111111111111->n0-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-GrpcLogAppender is interrupted: java.lang.InterruptedException: sleep interrupted
+verify	Java tests and packages	2026-10-20T00:39:48.7984098Z [n1@group-111111111111->n2-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n2-GrpcLogAppender is interrupted: java.lang.InterruptedException
+verify	Java tests and packages	2026-10-20T00:39:48.7985868Z [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n2-GrpcLogAppender: Failed to resetClient for n2
+verify	Java tests and packages	2026-10-20T00:39:48.7987185Z org.apache.ratis.protocol.exceptions.AlreadyClosedException: n1 is already CLOSED
+verify	Java tests and packages	2026-10-20T00:39:48.7988344Z 	at org.apache.ratis.util.PeerProxyMap$PeerAndProxy.getProxy(PeerProxyMap.java:70)
+verify	Java tests and packages	2026-10-20T00:39:48.7989193Z 	at org.apache.ratis.util.PeerProxyMap.getProxy(PeerProxyMap.java:127)
+verify	Java tests and packages	2026-10-20T00:39:48.7990067Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.getClient(GrpcLogAppender.java:203)
+verify	Java tests and packages	2026-10-20T00:39:48.7991198Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.resetClient(GrpcLogAppender.java:208)
+verify	Java tests and packages	2026-10-20T00:39:48.7992160Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.access$800(GrpcLogAppender.java:71)
+verify	Java tests and packages	2026-10-20T00:39:48.7993235Z 	at org.apache.ratis.grpc.server.GrpcLogAppender$AppendLogResponseHandler.onCompleted(GrpcLogAppender.java:563)
+verify	Java tests and packages	2026-10-20T00:39:48.7994577Z 	at org.apache.ratis.thirdparty.io.grpc.stub.ClientCalls$StreamObserverToCallListenerAdapter.onClose(ClientCalls.java:579)
+verify	Java tests and packages	2026-10-20T00:39:48.7995927Z 	at org.apache.ratis.thirdparty.io.grpc.internal.DelayedClientCall$DelayedListener$3.run(DelayedClientCall.java:553)
+verify	Java tests and packages	2026-10-20T00:39:48.7997299Z 	at org.apache.ratis.thirdparty.io.grpc.internal.DelayedClientCall$DelayedListener.delayOrExecute(DelayedClientCall.java:482)
+verify	Java tests and packages	2026-10-20T00:39:48.7998786Z 	at org.apache.ratis.thirdparty.io.grpc.internal.DelayedClientCall$DelayedListener.onClose(DelayedClientCall.java:537)
+verify	Java tests and packages	2026-10-20T00:39:48.8000041Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:566)
+verify	Java tests and packages	2026-10-20T00:39:48.8001161Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.access$100(ClientCallImpl.java:72)
+verify	Java tests and packages	2026-10-20T00:39:48.8002391Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInternal(ClientCallImpl.java:734)
+verify	Java tests and packages	2026-10-20T00:39:48.8003897Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInContext(ClientCallImpl.java:715)
+verify	Java tests and packages	2026-10-20T00:39:48.8005181Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+verify	Java tests and packages	2026-10-20T00:39:48.8006336Z 	at org.apache.ratis.thirdparty.io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+verify	Java tests and packages	2026-10-20T00:39:48.8007462Z 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+verify	Java tests and packages	2026-10-20T00:39:48.8008683Z 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+verify	Java tests and packages	2026-10-20T00:39:48.8009535Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+verify	Java tests and packages	2026-10-20T00:39:48.8010685Z [grpc-default-executor-2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n2-GrpcLogAppender: Failed to resetClient for n2
+verify	Java tests and packages	2026-10-20T00:39:48.8012398Z org.apache.ratis.protocol.exceptions.AlreadyClosedException: n1 is already CLOSED
+verify	Java tests and packages	2026-10-20T00:39:48.8013310Z 	at org.apache.ratis.util.PeerProxyMap$PeerAndProxy.getProxy(PeerProxyMap.java:70)
+verify	Java tests and packages	2026-10-20T00:39:48.8014401Z 	at org.apache.ratis.util.PeerProxyMap.getProxy(PeerProxyMap.java:127)
+verify	Java tests and packages	2026-10-20T00:39:48.8015290Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.getClient(GrpcLogAppender.java:203)
+verify	Java tests and packages	2026-10-20T00:39:48.8016290Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.resetClient(GrpcLogAppender.java:208)
+verify	Java tests and packages	2026-10-20T00:39:48.8017268Z 	at org.apache.ratis.grpc.server.GrpcLogAppender.access$800(GrpcLogAppender.java:71)
+verify	Java tests and packages	2026-10-20T00:39:48.8018488Z 	at org.apache.ratis.grpc.server.GrpcLogAppender$AppendLogResponseHandler.onCompleted(GrpcLogAppender.java:563)
+verify	Java tests and packages	2026-10-20T00:39:48.8019779Z 	at org.apache.ratis.thirdparty.io.grpc.stub.ClientCalls$StreamObserverToCallListenerAdapter.onClose(ClientCalls.java:579)
+verify	Java tests and packages	2026-10-20T00:39:48.8021107Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.closeObserver(ClientCallImpl.java:566)
+verify	Java tests and packages	2026-10-20T00:39:48.8022283Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl.access$100(ClientCallImpl.java:72)
+verify	Java tests and packages	2026-10-20T00:39:48.8023654Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInternal(ClientCallImpl.java:734)
+verify	Java tests and packages	2026-10-20T00:39:48.8024980Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ClientCallImpl$ClientStreamListenerImpl$1StreamClosed.runInContext(ClientCallImpl.java:715)
+verify	Java tests and packages	2026-10-20T00:39:48.8025774Z 	at org.apache.ratis.thirdparty.io.grpc.internal.ContextRunnable.run(ContextRunnable.java:37)
+verify	Java tests and packages	2026-10-20T00:39:48.8026462Z 	at org.apache.ratis.thirdparty.io.grpc.internal.SerializingExecutor.run(SerializingExecutor.java:133)
+verify	Java tests and packages	2026-10-20T00:39:48.8027169Z 	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144)
+verify	Java tests and packages	2026-10-20T00:39:48.8028092Z 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+verify	Java tests and packages	2026-10-20T00:39:48.8028836Z 	at java.base/java.lang.Thread.run(Thread.java:1583)
+verify	Java tests and packages	2026-10-20T00:39:48.9983867Z [timer4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n2-AppendLogResponseHandler: Failed appendEntries (Repeated 14 times in the last 5.001s): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+verify	Java tests and packages	2026-10-20T00:39:48.9985894Z   Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: localhost/[0:0:0:0:0:0:0:1]:38801
+verify	Java tests and packages	2026-10-20T00:39:48.9986851Z   Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+verify	Java tests and packages	2026-10-20T00:39:48.9987832Z [timer7] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n2-GrpcLogAppender: Follower failed (request=null, errorCount=2); keep nextIndex (5) unchanged and retry. (Repeated 2 times in the last 5.001s)
+verify	Java tests and packages	2026-10-20T00:39:48.9988964Z [timer1] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n2-GrpcLogAppender: Follower failed (request=null, errorCount=4); keep nextIndex (6) unchanged and retry. (Repeated 2 times in the last 5.000s)
+verify	Java tests and packages	2026-10-20T00:39:48.9990054Z [timer4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n0@group-111111111111->n2-GrpcLogAppender: Follower failed (request=null, errorCount=14); keep nextIndex (7) unchanged and retry. (Repeated 10 times in the last 5.000s)
+verify	Java tests and packages	2026-10-20T00:39:52.3035206Z [timer7] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-AppendLogResponseHandler: Failed appendEntries (Repeated 14 times in the last 5.000s): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+verify	Java tests and packages	2026-10-20T00:39:52.3036563Z   Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: localhost/[0:0:0:0:0:0:0:1]:44159
+verify	Java tests and packages	2026-10-20T00:39:52.3037873Z   Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+verify	Java tests and packages	2026-10-20T00:39:52.3038713Z [timer0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=2); keep nextIndex (7) unchanged and retry. (Repeated 2 times in the last 5.001s)
+verify	Java tests and packages	2026-10-20T00:39:52.3039991Z [timer2] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=4); keep nextIndex (8) unchanged and retry. (Repeated 2 times in the last 5.001s)
+verify	Java tests and packages	2026-10-20T00:39:52.3041105Z [timer7] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=14); keep nextIndex (9) unchanged and retry. (Repeated 10 times in the last 5.000s)
+verify	Java tests and packages	2026-10-20T00:39:53.3083421Z [grpc-default-executor-5] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-AppendLogResponseHandler: received INCONSISTENCY reply with nextIndex 7, errorCount=1, request=AppendEntriesRequest:cid=0:HEARTBEAT 
+verify	Java tests and packages	2026-10-20T00:39:55.8182886Z [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-AppendLogResponseHandler: Failed appendEntries: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: RST_STREAM closed stream. HTTP/2 error code: CANCEL
+verify	Java tests and packages	2026-10-20T00:39:55.8185468Z [grpc-default-executor-6] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - n0: APPEND_ENTRIES onError, lastRequest: null: org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+verify	Java tests and packages	2026-10-20T00:39:55.8187528Z [grpc-default-executor-0] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=1); keep nextIndex (632) unchanged and retry.
+verify	Java tests and packages	2026-10-20T00:39:55.8190266Z [grpc-default-executor-3] WARN org.apache.ratis.grpc.server.GrpcServerProtocolService - n0: APPEND_ENTRIES onError, lastRequest: n1->n0#600-t4,previous=(t:4, i:630),leaderCommit=623,initializing? false,entry=(t:4, i:631), first=(t:4, i:631), METADATAENTRY(c:622): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: CANCELLED: client cancelled
+verify	Java tests and packages	2026-10-20T00:39:58.3209713Z [timer5] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-AppendLogResponseHandler: received INCONSISTENCY reply with nextIndex 7, errorCount=2, request=null  (Repeated 2 times in the last 4.999s)
+verify	Java tests and packages	2026-10-20T00:39:59.8229420Z [n1@group-111111111111->n2-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n2-GrpcLogAppender is interrupted: java.lang.InterruptedException
+verify	Java tests and packages	2026-10-20T00:39:59.8230687Z [n1@group-111111111111->n0-GrpcLogAppender-LogAppenderDaemon] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-GrpcLogAppender is interrupted: java.lang.InterruptedException: sleep interrupted
+verify	Java tests and packages	2026-10-20T00:40:00.8244197Z [timer3] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-AppendLogResponseHandler: Failed appendEntries (Repeated 18 times in the last 5.000s): org.apache.ratis.thirdparty.io.grpc.StatusRuntimeException: UNAVAILABLE: io exception
+verify	Java tests and packages	2026-10-20T00:40:00.8245585Z   Caused by: org.apache.ratis.thirdparty.io.netty.channel.AbstractChannel$AnnotatedConnectException: finishConnect(..) failed with error(-111): Connection refused: localhost/[0:0:0:0:0:0:0:1]:44159
+verify	Java tests and packages	2026-10-20T00:40:00.8246364Z   Caused by: java.net.ConnectException: finishConnect(..) failed with error(-111): Connection refused
+verify	Java tests and packages	2026-10-20T00:40:00.8247237Z [timer4] WARN org.apache.ratis.grpc.server.GrpcLogAppender - n1@group-111111111111->n0-GrpcLogAppender: Follower failed (request=null, errorCount=18); keep nextIndex (632) unchanged and retry. (Repeated 18 times in the last 5.000s)
+verify	Java tests and packages	2026-10-20T00:40:03.8255670Z [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 24.81 s -- in dev.kvgateway.control.ControlClusterTest
+verify	Java tests and packages	2026-10-20T00:40:03.8598587Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:03.8599113Z [INFO] Results:
+verify	Java tests and packages	2026-10-20T00:40:03.8599513Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:03.8602278Z [INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0
+verify	Java tests and packages	2026-10-20T00:40:03.8603060Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:03.8623256Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:03.8623649Z [INFO] --- dependency:3.9.0:list (dependency-inventory) @ control-plane ---
+verify	Java tests and packages	2026-10-20T00:40:03.8966502Z [INFO] Can't extract module name from ratis-metrics-default-3.3.1.jar: ratis.metrics.default: Invalid module name: 'default' is not a Java identifier
+verify	Java tests and packages	2026-10-20T00:40:03.8970023Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:03.8970679Z [INFO] --- jar:3.5.0:jar (default-jar) @ control-plane ---
+verify	Java tests and packages	2026-10-20T00:40:03.9979294Z [INFO] Building jar: /workspace/control-plane/target/control-plane.jar
+verify	Java tests and packages	2026-10-20T00:40:04.0224889Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:04.0225723Z [INFO] --- shade:3.6.1:shade (default) @ control-plane ---
+verify	Java tests and packages	2026-10-20T00:40:07.7092519Z [WARNING] protobuf-java-3.25.9.jar, ratis-thirdparty-misc-1.1.0.jar define 11 overlapping resources: 
+verify	Java tests and packages	2026-10-20T00:40:07.7093072Z [WARNING]   - google/protobuf/any.proto
+verify	Java tests and packages	2026-10-20T00:40:07.7093317Z [WARNING]   - google/protobuf/api.proto
+verify	Java tests and packages	2026-10-20T00:40:07.7093578Z [WARNING]   - google/protobuf/descriptor.proto
+verify	Java tests and packages	2026-10-20T00:40:07.7093832Z [WARNING]   - google/protobuf/duration.proto
+verify	Java tests and packages	2026-10-20T00:40:07.7094124Z [WARNING]   - google/protobuf/empty.proto
+verify	Java tests and packages	2026-10-20T00:40:07.7094409Z [WARNING]   - google/protobuf/field_mask.proto
+verify	Java tests and packages	2026-10-20T00:40:07.7094671Z [WARNING]   - google/protobuf/source_context.proto
+verify	Java tests and packages	2026-10-20T00:40:07.7094916Z [WARNING]   - google/protobuf/struct.proto
+verify	Java tests and packages	2026-10-20T00:40:07.7095154Z [WARNING]   - google/protobuf/timestamp.proto
+verify	Java tests and packages	2026-10-20T00:40:07.7095387Z [WARNING]   - google/protobuf/type.proto
+verify	Java tests and packages	2026-10-20T00:40:07.7100458Z [WARNING]   - 1 more...
+verify	Java tests and packages	2026-10-20T00:40:07.7103921Z [WARNING] animal-sniffer-annotations-1.27.jar, annotations-4.1.1.4.jar, api-0.1.0-SNAPSHOT.jar, control-plane.jar, error_prone_annotations-2.50.0.jar, failureaccess-1.0.3.jar, grpc-api-1.85.0.jar, grpc-context-1.85.0.jar, grpc-core-1.85.0.jar, grpc-netty-shaded-1.85.0.jar, grpc-protobuf-1.85.0.jar, grpc-protobuf-lite-1.85.0.jar, grpc-stub-1.85.0.jar, grpc-util-1.85.0.jar, gson-2.8.9.jar, guava-33.6.0-android.jar, j2objc-annotations-2.8.jar, javax.annotation-api-1.3.2.jar, jspecify-1.0.0.jar, jsr305-3.0.2.jar, listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar, perfmark-api-0.27.0.jar, proto-google-common-protos-2.64.1.jar, protobuf-java-3.25.9.jar, protobuf-java-util-3.25.9.jar, ratis-client-3.3.1.jar, ratis-common-3.3.1.jar, ratis-grpc-3.3.1.jar, ratis-metrics-api-3.3.1.jar, ratis-metrics-default-3.3.1.jar, ratis-proto-3.3.1.jar, ratis-server-3.3.1.jar, ratis-server-api-3.3.1.jar, ratis-thirdparty-misc-1.1.0.jar, slf4j-api-2.0.18.jar, slf4j-simple-2.0.17.jar define 1 overlapping resource: 
+verify	Java tests and packages	2026-10-20T00:40:07.7106681Z [WARNING]   - META-INF/MANIFEST.MF
+verify	Java tests and packages	2026-10-20T00:40:07.7107019Z [WARNING] api-0.1.0-SNAPSHOT.jar, control-plane.jar define 26 overlapping resources: 
+verify	Java tests and packages	2026-10-20T00:40:07.7107398Z [WARNING]   - META-INF/third-party/Apache-2.0-LICENSE.txt
+verify	Java tests and packages	2026-10-20T00:40:07.7107893Z [WARNING]   - META-INF/third-party/animal-sniffer-1.27-LICENSE.txt
+verify	Java tests and packages	2026-10-20T00:40:07.7108250Z [WARNING]   - META-INF/third-party/error-prone-v2.50.0-COPYING.txt
+verify	Java tests and packages	2026-10-20T00:40:07.7108582Z [WARNING]   - META-INF/third-party/gson-gson-parent-2.8.9-LICENSE.txt
+verify	Java tests and packages	2026-10-20T00:40:07.7108902Z [WARNING]   - META-INF/third-party/guava-v33.6.0-LICENSE.txt
+verify	Java tests and packages	2026-10-20T00:40:07.7109179Z [WARNING]   - META-INF/third-party/index.json
+verify	Java tests and packages	2026-10-20T00:40:07.7109446Z [WARNING]   - META-INF/third-party/j2objc-2.8-LICENSE.txt
+verify	Java tests and packages	2026-10-20T00:40:07.7109746Z [WARNING]   - META-INF/third-party/netty-4.2.19.Final-LICENSE.txt
+verify	Java tests and packages	2026-10-20T00:40:07.7110062Z [WARNING]   - META-INF/third-party/netty-4.2.19.Final-NOTICE.txt
+verify	Java tests and packages	2026-10-20T00:40:07.7110632Z [WARNING]   - META-INF/third-party/originals/com_google_api_grpc_proto-google-common-protos_2.64.1_proto-google-common-protos-2.64.1.jar.licenses.zip
+verify	Java tests and packages	2026-10-20T00:40:07.7111374Z [WARNING]   - 16 more...
+verify	Java tests and packages	2026-10-20T00:40:07.7111724Z [WARNING] jspecify-1.0.0.jar, ratis-thirdparty-misc-1.1.0.jar define 5 overlapping class and resource: 
+verify	Java tests and packages	2026-10-20T00:40:07.7112462Z [WARNING]   - META-INF/versions/9/OSGI-INF/MANIFEST.MF
+verify	Java tests and packages	2026-10-20T00:40:07.7112834Z [WARNING]   - org.jspecify.annotations.NonNull
+verify	Java tests and packages	2026-10-20T00:40:07.7113184Z [WARNING]   - org.jspecify.annotations.NullMarked
+verify	Java tests and packages	2026-10-20T00:40:07.7113547Z [WARNING]   - org.jspecify.annotations.NullUnmarked
+verify	Java tests and packages	2026-10-20T00:40:07.7113924Z [WARNING]   - org.jspecify.annotations.Nullable
+verify	Java tests and packages	2026-10-20T00:40:07.7115055Z [WARNING] ratis-client-3.3.1.jar, ratis-common-3.3.1.jar, ratis-grpc-3.3.1.jar, ratis-metrics-api-3.3.1.jar, ratis-metrics-default-3.3.1.jar, ratis-proto-3.3.1.jar, ratis-server-3.3.1.jar, ratis-server-api-3.3.1.jar define 1 overlapping resource: 
+verify	Java tests and packages	2026-10-20T00:40:07.7116097Z [WARNING]   - ratis-version.properties
+verify	Java tests and packages	2026-10-20T00:40:07.7116566Z [WARNING] gson-2.8.9.jar, ratis-thirdparty-misc-1.1.0.jar define 2 overlapping resources: 
+verify	Java tests and packages	2026-10-20T00:40:07.7117133Z [WARNING]   - META-INF/maven/com.google.code.gson/gson/pom.properties
+verify	Java tests and packages	2026-10-20T00:40:07.7117751Z [WARNING]   - META-INF/maven/com.google.code.gson/gson/pom.xml
+verify	Java tests and packages	2026-10-20T00:40:07.7118174Z [WARNING] failureaccess-1.0.3.jar, ratis-thirdparty-misc-1.1.0.jar define 2 overlapping resources: 
+verify	Java tests and packages	2026-10-20T00:40:07.7118613Z [WARNING]   - META-INF/maven/com.google.guava/failureaccess/pom.properties
+verify	Java tests and packages	2026-10-20T00:40:07.7118959Z [WARNING]   - META-INF/maven/com.google.guava/failureaccess/pom.xml
+verify	Java tests and packages	2026-10-20T00:40:07.7119373Z [WARNING] grpc-netty-shaded-1.85.0.jar, ratis-thirdparty-misc-1.1.0.jar define 1 overlapping classes: 
+verify	Java tests and packages	2026-10-20T00:40:07.7119761Z [WARNING]   - META-INF.versions.11.module-info
+verify	Java tests and packages	2026-10-20T00:40:07.7120368Z [WARNING] error_prone_annotations-2.50.0.jar, failureaccess-1.0.3.jar, jspecify-1.0.0.jar, ratis-thirdparty-misc-1.1.0.jar, slf4j-api-2.0.18.jar, slf4j-simple-2.0.17.jar define 1 overlapping classes: 
+verify	Java tests and packages	2026-10-20T00:40:07.7120973Z [WARNING]   - META-INF.versions.9.module-info
+verify	Java tests and packages	2026-10-20T00:40:07.7121771Z [WARNING] ratis-client-3.3.1.jar, ratis-common-3.3.1.jar, ratis-grpc-3.3.1.jar, ratis-metrics-api-3.3.1.jar, ratis-metrics-default-3.3.1.jar, ratis-proto-3.3.1.jar, ratis-server-3.3.1.jar, ratis-server-api-3.3.1.jar, ratis-thirdparty-misc-1.1.0.jar define 1 overlapping resource: 
+verify	Java tests and packages	2026-10-20T00:40:07.7122560Z [WARNING]   - META-INF/DEPENDENCIES
+verify	Java tests and packages	2026-10-20T00:40:07.7123038Z [WARNING] listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar, ratis-thirdparty-misc-1.1.0.jar define 2 overlapping resources: 
+verify	Java tests and packages	2026-10-20T00:40:07.7123598Z [WARNING]   - META-INF/maven/com.google.guava/listenablefuture/pom.properties
+verify	Java tests and packages	2026-10-20T00:40:07.7123956Z [WARNING]   - META-INF/maven/com.google.guava/listenablefuture/pom.xml
+verify	Java tests and packages	2026-10-20T00:40:07.7124372Z [WARNING] guava-33.6.0-android.jar, ratis-thirdparty-misc-1.1.0.jar define 2 overlapping resources: 
+verify	Java tests and packages	2026-10-20T00:40:07.7124789Z [WARNING]   - META-INF/maven/com.google.guava/guava/pom.properties
+verify	Java tests and packages	2026-10-20T00:40:07.7125101Z [WARNING]   - META-INF/maven/com.google.guava/guava/pom.xml
+verify	Java tests and packages	2026-10-20T00:40:07.7125527Z [WARNING] annotations-4.1.1.4.jar, ratis-thirdparty-misc-1.1.0.jar define 4 overlapping classes and resources: 
+verify	Java tests and packages	2026-10-20T00:40:07.7125989Z [WARNING]   - META-INF/maven/com.google.android/annotations/pom.properties
+verify	Java tests and packages	2026-10-20T00:40:07.7126325Z [WARNING]   - META-INF/maven/com.google.android/annotations/pom.xml
+verify	Java tests and packages	2026-10-20T00:40:07.7126616Z [WARNING]   - android.annotation.SuppressLint
+verify	Java tests and packages	2026-10-20T00:40:07.7126865Z [WARNING]   - android.annotation.TargetApi
+verify	Java tests and packages	2026-10-20T00:40:07.7127136Z [WARNING] maven-shade-plugin has detected that some files are
+verify	Java tests and packages	2026-10-20T00:40:07.7127458Z [WARNING] present in two or more JARs. When this happens, only one
+verify	Java tests and packages	2026-10-20T00:40:07.7127876Z [WARNING] single version of the file is copied to the uber jar.
+verify	Java tests and packages	2026-10-20T00:40:07.7128225Z [WARNING] Usually this is not harmful and you can skip these warnings,
+verify	Java tests and packages	2026-10-20T00:40:07.7128554Z [WARNING] otherwise try to manually exclude artifacts based on
+verify	Java tests and packages	2026-10-20T00:40:07.7129341Z [WARNING] mvn dependency:tree -Ddetail=true and the above output.
+verify	Java tests and packages	2026-10-20T00:40:07.7129917Z [WARNING] See https://maven.apache.org/plugins/maven-shade-plugin/
+verify	Java tests and packages	2026-10-20T00:40:07.7322323Z [INFO] Replacing original artifact with shaded artifact.
+verify	Java tests and packages	2026-10-20T00:40:07.7325689Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:07.7326617Z [INFO] -----------------------< dev.kvgateway:gateway >------------------------
+verify	Java tests and packages	2026-10-20T00:40:07.7327230Z [INFO] Building gateway 0.1.0-SNAPSHOT                                    [4/7]
+verify	Java tests and packages	2026-10-20T00:40:07.7327811Z [INFO]   from gateway/pom.xml
+verify	Java tests and packages	2026-10-20T00:40:07.7328218Z [INFO] --------------------------------[ jar ]---------------------------------
+verify	Java tests and packages	2026-10-20T00:40:08.4813565Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:08.4814090Z [INFO] --- resources:3.4.0:resources (default-resources) @ gateway ---
+verify	Java tests and packages	2026-10-20T00:40:08.4831302Z [INFO] skip non existing resourceDirectory /workspace/gateway/src/main/resources
+verify	Java tests and packages	2026-10-20T00:40:08.4839582Z [INFO] Copying 13 resources from ../distribution/resources to target/classes
+verify	Java tests and packages	2026-10-20T00:40:08.4856082Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:08.4861539Z [INFO] --- dependency:3.9.0:copy-dependencies (copy-original-dependencies) @ gateway ---
+verify	Java tests and packages	2026-10-20T00:40:08.4873676Z [INFO] Installing /workspace/api/target/api-0.1.0-SNAPSHOT.jar to /workspace/gateway/target/original-dependencies/dev/kvgateway/api/0.1.0-SNAPSHOT/api-0.1.0-SNAPSHOT.jar
+verify	Java tests and packages	2026-10-20T00:40:08.4890754Z [INFO] Installing /m2/repository/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar to /workspace/gateway/target/original-dependencies/com/google/protobuf/protobuf-java/3.25.9/protobuf-java-3.25.9.jar
+verify	Java tests and packages	2026-10-20T00:40:08.4911542Z [INFO] Installing /m2/repository/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar to /workspace/gateway/target/original-dependencies/com/google/protobuf/protobuf-java-util/3.25.9/protobuf-java-util-3.25.9.jar
+verify	Java tests and packages	2026-10-20T00:40:08.4918889Z [INFO] Installing /m2/repository/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar to /workspace/gateway/target/original-dependencies/com/google/code/findbugs/jsr305/3.0.2/jsr305-3.0.2.jar
+verify	Java tests and packages	2026-10-20T00:40:08.4928532Z [INFO] Installing /m2/repository/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar to /workspace/gateway/target/original-dependencies/com/google/code/gson/gson/2.8.9/gson-2.8.9.jar
+verify	Java tests and packages	2026-10-20T00:40:08.4938720Z [INFO] Installing /m2/repository/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar to /workspace/gateway/target/original-dependencies/com/google/j2objc/j2objc-annotations/2.8/j2objc-annotations-2.8.jar
+verify	Java tests and packages	2026-10-20T00:40:08.4947156Z [INFO] Installing /m2/repository/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar to /workspace/gateway/target/original-dependencies/io/grpc/grpc-protobuf/1.85.0/grpc-protobuf-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:40:08.4960480Z [INFO] Installing /m2/repository/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar to /workspace/gateway/target/original-dependencies/com/google/api/grpc/proto-google-common-protos/2.64.1/proto-google-common-protos-2.64.1.jar
+verify	Java tests and packages	2026-10-20T00:40:08.4983204Z [INFO] Installing /m2/repository/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar to /workspace/gateway/target/original-dependencies/io/grpc/grpc-protobuf-lite/1.85.0/grpc-protobuf-lite-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:40:08.4990119Z [INFO] Installing /m2/repository/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar to /workspace/gateway/target/original-dependencies/io/grpc/grpc-stub/1.85.0/grpc-stub-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:40:08.4999006Z [INFO] Installing /m2/repository/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar to /workspace/gateway/target/original-dependencies/javax/annotation/javax.annotation-api/1.3.2/javax.annotation-api-1.3.2.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5008663Z [INFO] Installing /m2/repository/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar to /workspace/gateway/target/original-dependencies/io/grpc/grpc-netty-shaded/1.85.0/grpc-netty-shaded-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5074403Z [INFO] Installing /m2/repository/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar to /workspace/gateway/target/original-dependencies/io/grpc/grpc-util/1.85.0/grpc-util-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5080724Z [INFO] Installing /m2/repository/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar to /workspace/gateway/target/original-dependencies/io/grpc/grpc-core/1.85.0/grpc-core-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5090037Z [INFO] Installing /m2/repository/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar to /workspace/gateway/target/original-dependencies/com/google/android/annotations/4.1.1.4/annotations-4.1.1.4.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5096874Z [INFO] Installing /m2/repository/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar to /workspace/gateway/target/original-dependencies/io/grpc/grpc-context/1.85.0/grpc-context-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5103078Z [INFO] Installing /m2/repository/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar to /workspace/gateway/target/original-dependencies/com/google/guava/guava/33.6.0-android/guava-33.6.0-android.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5123547Z [INFO] Installing /m2/repository/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar to /workspace/gateway/target/original-dependencies/com/google/guava/failureaccess/1.0.3/failureaccess-1.0.3.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5130848Z [INFO] Installing /m2/repository/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar to /workspace/gateway/target/original-dependencies/com/google/guava/listenablefuture/9999.0-empty-to-avoid-conflict-with-guava/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5136610Z [INFO] Installing /m2/repository/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar to /workspace/gateway/target/original-dependencies/org/jspecify/jspecify/1.0.0/jspecify-1.0.0.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5143711Z [INFO] Installing /m2/repository/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar to /workspace/gateway/target/original-dependencies/com/google/errorprone/error_prone_annotations/2.50.0/error_prone_annotations-2.50.0.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5151334Z [INFO] Installing /m2/repository/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar to /workspace/gateway/target/original-dependencies/io/perfmark/perfmark-api/0.27.0/perfmark-api-0.27.0.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5158021Z [INFO] Installing /m2/repository/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar to /workspace/gateway/target/original-dependencies/io/grpc/grpc-api/1.85.0/grpc-api-1.85.0.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5166596Z [INFO] Installing /m2/repository/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar to /workspace/gateway/target/original-dependencies/org/codehaus/mojo/animal-sniffer-annotations/1.27/animal-sniffer-annotations-1.27.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5173268Z [INFO] Installing /m2/repository/io/netty/netty-codec-http/4.2.19.Final/netty-codec-http-4.2.19.Final.jar to /workspace/gateway/target/original-dependencies/io/netty/netty-codec-http/4.2.19.Final/netty-codec-http-4.2.19.Final.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5184693Z [INFO] Installing /m2/repository/io/netty/netty-common/4.2.19.Final/netty-common-4.2.19.Final.jar to /workspace/gateway/target/original-dependencies/io/netty/netty-common/4.2.19.Final/netty-common-4.2.19.Final.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5197224Z [INFO] Installing /m2/repository/io/netty/netty-buffer/4.2.19.Final/netty-buffer-4.2.19.Final.jar to /workspace/gateway/target/original-dependencies/io/netty/netty-buffer/4.2.19.Final/netty-buffer-4.2.19.Final.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5208302Z [INFO] Installing /m2/repository/io/netty/netty-codec-base/4.2.19.Final/netty-codec-base-4.2.19.Final.jar to /workspace/gateway/target/original-dependencies/io/netty/netty-codec-base/4.2.19.Final/netty-codec-base-4.2.19.Final.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5222057Z [INFO] Installing /m2/repository/io/netty/netty-codec-compression/4.2.19.Final/netty-codec-compression-4.2.19.Final.jar to /workspace/gateway/target/original-dependencies/io/netty/netty-codec-compression/4.2.19.Final/netty-codec-compression-4.2.19.Final.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5228488Z [INFO] Installing /m2/repository/io/netty/netty-transport/4.2.19.Final/netty-transport-4.2.19.Final.jar to /workspace/gateway/target/original-dependencies/io/netty/netty-transport/4.2.19.Final/netty-transport-4.2.19.Final.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5241799Z [INFO] Installing /m2/repository/io/netty/netty-resolver/4.2.19.Final/netty-resolver-4.2.19.Final.jar to /workspace/gateway/target/original-dependencies/io/netty/netty-resolver/4.2.19.Final/netty-resolver-4.2.19.Final.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5249165Z [INFO] Installing /m2/repository/io/netty/netty-handler/4.2.19.Final/netty-handler-4.2.19.Final.jar to /workspace/gateway/target/original-dependencies/io/netty/netty-handler/4.2.19.Final/netty-handler-4.2.19.Final.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5259502Z [INFO] Installing /m2/repository/io/netty/netty-transport-native-unix-common/4.2.19.Final/netty-transport-native-unix-common-4.2.19.Final.jar to /workspace/gateway/target/original-dependencies/io/netty/netty-transport-native-unix-common/4.2.19.Final/netty-transport-native-unix-common-4.2.19.Final.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5266152Z [INFO] Installing /m2/repository/io/netty/netty-resolver-dns/4.2.19.Final/netty-resolver-dns-4.2.19.Final.jar to /workspace/gateway/target/original-dependencies/io/netty/netty-resolver-dns/4.2.19.Final/netty-resolver-dns-4.2.19.Final.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5274255Z [INFO] Installing /m2/repository/io/netty/netty-codec-dns/4.2.19.Final/netty-codec-dns-4.2.19.Final.jar to /workspace/gateway/target/original-dependencies/io/netty/netty-codec-dns/4.2.19.Final/netty-codec-dns-4.2.19.Final.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5281448Z [INFO] Installing /m2/repository/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar to /workspace/gateway/target/original-dependencies/org/slf4j/slf4j-simple/2.0.17/slf4j-simple-2.0.17.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5288995Z [INFO] Installing /m2/repository/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar to /workspace/gateway/target/original-dependencies/org/slf4j/slf4j-api/2.0.17/slf4j-api-2.0.17.jar
+verify	Java tests and packages	2026-10-20T00:40:08.5295549Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:08.5296136Z [INFO] --- exec:3.5.0:exec (archive-original-licenses) @ gateway ---
+verify	Java tests and packages	2026-10-20T00:40:09.3352693Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:09.3356675Z [INFO] --- compiler:3.14.1:compile (default-compile) @ gateway ---
+verify	Java tests and packages	2026-10-20T00:40:09.3389882Z [INFO] Recompiling the module because of changed dependency.
+verify	Java tests and packages	2026-10-20T00:40:09.3401939Z [INFO] Compiling 15 source files with javac [debug release 21] to target/classes
+verify	Java tests and packages	2026-10-20T00:40:09.7030268Z [INFO] /workspace/gateway/src/main/java/dev/kvgateway/gateway/GatewayServer.java: /workspace/gateway/src/main/java/dev/kvgateway/gateway/GatewayServer.java uses or overrides a deprecated API.
+verify	Java tests and packages	2026-10-20T00:40:09.7032124Z [INFO] /workspace/gateway/src/main/java/dev/kvgateway/gateway/GatewayServer.java: Recompile with -Xlint:deprecation for details.
+verify	Java tests and packages	2026-10-20T00:40:09.7033126Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:09.7033830Z [INFO] --- resources:3.4.0:testResources (default-testResources) @ gateway ---
+verify	Java tests and packages	2026-10-20T00:40:09.7054477Z [INFO] skip non existing resourceDirectory /workspace/gateway/src/test/resources
+verify	Java tests and packages	2026-10-20T00:40:09.7058018Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:09.7058965Z [INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ gateway ---
+verify	Java tests and packages	2026-10-20T00:40:09.7103235Z [INFO] Recompiling the module because of changed dependency.
+verify	Java tests and packages	2026-10-20T00:40:09.7105507Z [INFO] Compiling 9 source files with javac [debug release 21] to target/test-classes
+verify	Java tests and packages	2026-10-20T00:40:10.0234017Z [INFO] /workspace/gateway/src/test/java/dev/kvgateway/gateway/EndpointPoolTest.java: Some input files use or override a deprecated API.
+verify	Java tests and packages	2026-10-20T00:40:10.0235969Z [INFO] /workspace/gateway/src/test/java/dev/kvgateway/gateway/EndpointPoolTest.java: Recompile with -Xlint:deprecation for details.
+verify	Java tests and packages	2026-10-20T00:40:10.0242814Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:10.0243447Z [INFO] --- surefire:3.5.5:test (default-test) @ gateway ---
+verify	Java tests and packages	2026-10-20T00:40:10.0284443Z [INFO] Using auto detected provider org.apache.maven.surefire.junitplatform.JUnitPlatformProvider
+verify	Java tests and packages	2026-10-20T00:40:10.0330107Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:10.0331220Z [INFO] -------------------------------------------------------
+verify	Java tests and packages	2026-10-20T00:40:10.0332903Z [INFO]  T E S T S
+verify	Java tests and packages	2026-10-20T00:40:10.0338784Z [INFO] -------------------------------------------------------
+verify	Java tests and packages	2026-10-20T00:40:10.5773076Z [INFO] Running dev.kvgateway.gateway.GatewayHttpTest
+verify	Java tests and packages	2026-10-20T00:40:12.2866282Z Oct 20, 2026 12:40:12 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+verify	Java tests and packages	2026-10-20T00:40:12.2868534Z WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:34751 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=80519]
+verify	Java tests and packages	2026-10-20T00:40:12.6224828Z Oct 20, 2026 12:40:12 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+verify	Java tests and packages	2026-10-20T00:40:12.6225917Z WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:42839 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=10195]
+verify	Java tests and packages	2026-10-20T00:40:12.6226999Z Oct 20, 2026 12:40:12 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+verify	Java tests and packages	2026-10-20T00:40:12.6228333Z WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:42839 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=9264]
+verify	Java tests and packages	2026-10-20T00:40:12.6244303Z Oct 20, 2026 12:40:12 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+verify	Java tests and packages	2026-10-20T00:40:12.6245723Z WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:42839 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=7051]
+verify	Java tests and packages	2026-10-20T00:40:12.6246751Z Oct 20, 2026 12:40:12 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+verify	Java tests and packages	2026-10-20T00:40:12.6248010Z WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:42839 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=0, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=4646]
+verify	Java tests and packages	2026-10-20T00:40:12.7881182Z [INFO] Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.211 s -- in dev.kvgateway.gateway.GatewayHttpTest
+verify	Java tests and packages	2026-10-20T00:40:12.7887002Z [INFO] Running dev.kvgateway.gateway.GatewayDispatchTest
+verify	Java tests and packages	2026-10-20T00:40:12.9228296Z Oct 20, 2026 12:40:12 AM dev.kvgateway.gateway.GatewayMetrics poolFailure
+verify	Java tests and packages	2026-10-20T00:40:12.9229376Z WARNING: pool_acquire_failure reason=pool_retired endpoint=127.0.0.1:34865 causeClass=java.lang.IllegalStateException causeMessage=endpoint retired state=Failure[cause=java.lang.IllegalStateException: endpoint retired, acquired=0, borrowed=1, waiting=0, releasing=0, limit=1, retired=true, elapsedNanos=13891]
+verify	Java tests and packages	2026-10-20T00:40:17.0822408Z [INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.291 s -- in dev.kvgateway.gateway.GatewayDispatchTest
+verify	Java tests and packages	2026-10-20T00:40:17.0823445Z [INFO] Running dev.kvgateway.gateway.UpstreamDispatcherTest
+verify	Java tests and packages	2026-10-20T00:40:17.6852270Z [ERROR] Tests run: 7, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.599 s <<< FAILURE! -- in dev.kvgateway.gateway.UpstreamDispatcherTest
+verify	Java tests and packages	2026-10-20T00:40:17.6855041Z [ERROR] dev.kvgateway.gateway.UpstreamDispatcherTest.retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead -- Time elapsed: 0.029 s <<< FAILURE!
+verify	Java tests and packages	2026-10-20T00:40:17.6868578Z org.opentest4j.AssertionFailedError: expected: <endpoint retired> but was: <no_healthy_endpoint>
+verify	Java tests and packages	2026-10-20T00:40:17.6869718Z 	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+verify	Java tests and packages	2026-10-20T00:40:17.6871181Z 	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+verify	Java tests and packages	2026-10-20T00:40:17.6872511Z 	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+verify	Java tests and packages	2026-10-20T00:40:17.6873405Z 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+verify	Java tests and packages	2026-10-20T00:40:17.6874141Z 	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:177)
+verify	Java tests and packages	2026-10-20T00:40:17.6874817Z 	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1145)
+verify	Java tests and packages	2026-10-20T00:40:17.6875974Z 	at dev.kvgateway.gateway.UpstreamDispatcherTest.retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead(UpstreamDispatcherTest.java:231)
+verify	Java tests and packages	2026-10-20T00:40:17.6877108Z 	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+verify	Java tests and packages	2026-10-20T00:40:17.6877795Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+verify	Java tests and packages	2026-10-20T00:40:17.6878293Z 	at java.base/java.util.ArrayList.forEach(ArrayList.java:1596)
+verify	Java tests and packages	2026-10-20T00:40:17.6878625Z 
+verify	Java tests and packages	2026-10-20T00:40:17.6878831Z [INFO] Running dev.kvgateway.gateway.RouteManagerTest
+verify	Java tests and packages	2026-10-20T00:40:17.6900529Z [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in dev.kvgateway.gateway.RouteManagerTest
+verify	Java tests and packages	2026-10-20T00:40:17.6901338Z [INFO] Running dev.kvgateway.gateway.EndpointPoolTest
+verify	Java tests and packages	2026-10-20T00:40:17.9617362Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.273 s -- in dev.kvgateway.gateway.EndpointPoolTest
+verify	Java tests and packages	2026-10-20T00:40:17.9618379Z [INFO] Running dev.kvgateway.gateway.HealthMonitorTest
+verify	Java tests and packages	2026-10-20T00:40:17.9680473Z [INFO] Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 s -- in dev.kvgateway.gateway.HealthMonitorTest
+verify	Java tests and packages	2026-10-20T00:40:17.9681296Z [INFO] Running dev.kvgateway.gateway.ResourceBudgetTest
+verify	Java tests and packages	2026-10-20T00:40:17.9749726Z [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.005 s -- in dev.kvgateway.gateway.ResourceBudgetTest
+verify	Java tests and packages	2026-10-20T00:40:17.9750697Z [INFO] Running dev.kvgateway.gateway.ControlWatcherTest
+verify	Java tests and packages	2026-10-20T00:40:18.2667349Z [INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.295 s -- in dev.kvgateway.gateway.ControlWatcherTest
+verify	Java tests and packages	2026-10-20T00:40:18.5938267Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:18.5938727Z [INFO] Results:
+verify	Java tests and packages	2026-10-20T00:40:18.5938982Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:18.5940168Z [ERROR] Failures: 
+verify	Java tests and packages	2026-10-20T00:40:18.5940891Z [ERROR]   UpstreamDispatcherTest.retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead:231 expected: <endpoint retired> but was: <no_healthy_endpoint>
+verify	Java tests and packages	2026-10-20T00:40:18.5941513Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:18.5941717Z [ERROR] Tests run: 39, Failures: 1, Errors: 0, Skipped: 0
+verify	Java tests and packages	2026-10-20T00:40:18.5941968Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:18.5952177Z [INFO] ------------------------------------------------------------------------
+verify	Java tests and packages	2026-10-20T00:40:18.5952577Z [INFO] Reactor Summary for Raft KV and Gateway 0.1.0-SNAPSHOT:
+verify	Java tests and packages	2026-10-20T00:40:18.5952844Z [INFO] 
+verify	Java tests and packages	2026-10-20T00:40:18.5955038Z [INFO] Raft KV and Gateway ................................ SUCCESS [ 11.965 s]
+verify	Java tests and packages	2026-10-20T00:40:18.5959308Z [INFO] api ................................................ SUCCESS [ 11.411 s]
+verify	Java tests and packages	2026-10-20T00:40:18.5960070Z [INFO] control-plane ...................................... SUCCESS [ 33.460 s]
+verify	Java tests and packages	2026-10-20T00:40:18.5960616Z [INFO] gateway ............................................ FAILURE [ 10.862 s]
+verify	Java tests and packages	2026-10-20T00:40:18.5962465Z [INFO] cli ................................................ SKIPPED
+verify	Java tests and packages	2026-10-20T00:40:18.5962949Z [INFO] demo-backend ....................................... SKIPPED
+verify	Java tests and packages	2026-10-20T00:40:18.5963455Z [INFO] integration-tests .................................. SKIPPED
+verify	Java tests and packages	2026-10-20T00:40:18.5963928Z [INFO] ------------------------------------------------------------------------
+verify	Java tests and packages	2026-10-20T00:40:18.5964210Z [INFO] BUILD FAILURE
+verify	Java tests and packages	2026-10-20T00:40:18.5964446Z [INFO] ------------------------------------------------------------------------
+verify	Java tests and packages	2026-10-20T00:40:18.5964725Z [INFO] Total time:  01:10 min
+verify	Java tests and packages	2026-10-20T00:40:18.5965154Z [INFO] Finished at: 2026-10-20T00:40:18Z
+verify	Java tests and packages	2026-10-20T00:40:18.5965430Z [INFO] ------------------------------------------------------------------------
+verify	Java tests and packages	2026-10-20T00:40:18.5969261Z [ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:3.5.5:test (default-test) on project gateway: There are test failures.
+verify	Java tests and packages	2026-10-20T00:40:18.5970542Z [ERROR] 
+verify	Java tests and packages	2026-10-20T00:40:18.5971771Z [ERROR] See /workspace/gateway/target/surefire-reports for the individual test results.
+verify	Java tests and packages	2026-10-20T00:40:18.5972564Z [ERROR] See dump files (if any exist) [date].dump, [date]-jvmRun[N].dump and [date].dumpstream.
+verify	Java tests and packages	2026-10-20T00:40:18.5973104Z [ERROR] -> [Help 1]
+verify	Java tests and packages	2026-10-20T00:40:18.5973413Z [ERROR] 
+verify	Java tests and packages	2026-10-20T00:40:18.5973846Z [ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+verify	Java tests and packages	2026-10-20T00:40:18.5974453Z [ERROR] Re-run Maven using the -X switch to enable full debug logging.
+verify	Java tests and packages	2026-10-20T00:40:18.5974903Z [ERROR] 
+verify	Java tests and packages	2026-10-20T00:40:18.5975439Z [ERROR] For more information about the errors and possible solutions, please read the following articles:
+verify	Java tests and packages	2026-10-20T00:40:18.5976301Z [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+verify	Java tests and packages	2026-10-20T00:40:18.5976890Z [ERROR] 
+verify	Java tests and packages	2026-10-20T00:40:18.5977357Z [ERROR] After correcting the problems, you can resume the build with the command
+verify	Java tests and packages	2026-10-20T00:40:18.5978095Z [ERROR]   mvn <args> -rf :gateway
+verify	Java tests and packages	2026-10-20T00:40:19.0915703Z ##[error]Process completed with exit code 1.

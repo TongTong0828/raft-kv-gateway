@@ -1,0 +1,18 @@
+Additional liveness-test precondition strengthening
+
+This is a test-only coverage correction found during review of the retirement CI fix. Neither case produced a demonstrated production failure; the old tests could pass without reaching the specific waiting state they intended to verify.
+
+Expiry case: the old fixture installed the expanded A+B pool/health set after creating a 400 ms A-only head. If that asynchronous installation consumed the deadline, the head could already have expired before the B-capable tail joined the FIFO. A later successful B lease would not prove that head expiry woke an already queued tail. The corrected test installs and awaits healthy A+B first, then holds an A-only lease. A single coordinator task creates the A-only head and A+B tail and asserts both Ticket.queued flags, both unfinished futures, two queued tickets, one reserved slot and zero borrowed B leases before returning them. Only then does the test await the exact RequestDeadlineExceeded failure and require the tail's B endpoint. No intervening route installation consumes the deadline.
+
+Recovery case: the old queued()==1 observation could include an in-transit ticket. B could recover before that ticket actually entered the FIFO, allowing direct dispatch without exercising the health-transition wakeup. The corrected test performs three B health failures, verifies unhealthy B, acquires the ticket and asserts actual queued/pending ownership inside one coordinator task. That task returns the waiting ticket before the test refreshes health. The original B-endpoint assertion remains, while the held A lease is not returned until cleanup.
+
+Both task-local assertion paths cancel/release their created tickets if validation fails; ordinary finally cleanup is retained. No production test hook, hard sleep, gateway algorithm, timer, limit or response contract changed. The retirement test's exact endpoint-retired assertion and coordinator-membership proof remain intact.
+
+Validation artifacts:
+- ci-liveness-before.java: pre-strengthening source (already contained the retirement CI fix).
+- ci-liveness-green.java: final normal single-Test source.
+- ci-liveness-repeated.java: temporary RepeatedTest(20) source for each of the two cases.
+- ci-liveness-repeated-green.log and ci-liveness-40-junit.xml: 40 tests total, zero failures/errors/skips; test time 10.08 s.
+- ci-liveness-full-verify.log: final full reactor verification completed with exit 0 and BUILD SUCCESS in 59.388 s. The 16 fresh JUnit XML files total 66 tests with zero failures, errors or skips.
+
+The temporary repetition annotations were restored to normal @Test before final full verification. Only UpstreamDispatcherTest.java is changed; application production source remains unchanged. The earlier ci-retirement-full-verify.log remains a passing pre-strengthening run, not the final evidence for these stronger preconditions.

@@ -1,0 +1,33 @@
+# Burst follow-up CI evidence
+
+The first CI run after publication, [39348864304](https://github.com/TongTong0828/raft-kv-gateway/actions/runs/39348864304), failed Java verification at source `e8e060c6870b76b3eb235bcf3b322cc4aadfafe7`. This separate package preserves that failed trial, its deterministic investigation, test-only synchronization corrections and completed local verification. The original [burst evidence package](../burst-local-v1/README.md), including its 294-file checksum set and unsuccessful trials, remains unchanged.
+
+The [failed-step log](ci-first-failed.txt) and [original failing JUnit report](ci-first-artifacts/verification-39348864304/gateway/target/surefire-reports/TEST-dev.kvgateway.gateway.UpstreamDispatcherTest.xml) report one failure in `UpstreamDispatcherTest.retiringANonHeadRevisionFailsItWithoutWaitingForAnUnrelatedBusyHead`: expected `endpoint retired`, received `no_healthy_endpoint`. All 14 downloaded CI JUnit XML files are preserved byte for byte under `ci-first-artifacts`, including passing suites completed before the build stopped. That original workflow remains failed.
+
+## Retirement test synchronization
+
+The queued gauge counts both in-transit tickets and tickets already in the dispatcher FIFO. The original test waited for a gauge value, then removed an endpoint without proving FIFO membership. A ticket still in transit can legitimately observe no healthy endpoint when processed afterward; a ticket already queued follows the retirement outcome the test intended to exercise.
+
+The [deterministic RED snapshot](retirement-diagnosis/ci-retirement-red.java) pauses the coordinator, acquires head and tail tickets, confirms a queued gauge of two while both membership flags are false, and removes the endpoint before resuming. The [RED log](retirement-diagnosis/ci-retirement-red.log) records the same expected-retired/actual-no-healthy assertion failure: one test, one expected failure, zero errors. This reproduces a permitted ordering and the invalid synchronization precondition; the original CI failure itself did not capture its complete scheduling order.
+
+The [corrected snapshot](retirement-diagnosis/ci-retirement-green.java) resumes the coordinator and uses a task on that same coordinator to verify actual head/tail membership before configuration and health removal. Both futures must remain unfinished, the queued count must be two, the held reservation one, and the idle endpoint's borrowed count zero. Assertions for the exact retirement cause, blocked unrelated head, zero backend requests and complete cleanup remain. The [original source](retirement-diagnosis/ci-retirement-before.java) and [diagnosis](retirement-diagnosis/ci-retirement-diagnosis.txt) are retained.
+
+The temporary [50-repeat source](retirement-diagnosis/ci-retirement-repeated.java), [GREEN log](retirement-diagnosis/ci-retirement-repeated-green.log) and [JUnit report](retirement-diagnosis/ci-retirement-50-junit.xml) record **50 passing retirement repetitions**, with zero failures, errors or skips. These are repetitions in one test process, not 50 independent CI runs. The [full retirement-only verification](retirement-diagnosis/ci-retirement-full-verify.log) also completed successfully before the additional liveness preconditions below were strengthened. It is retained separately and is not the final verification record for those later changes.
+
+## Health recovery and head expiry preconditions
+
+Review found two further tests could pass without proving the intended waiting state. This was a coverage correction, not a demonstrated production failure. The [diagnosis](liveness-diagnosis/ci-liveness-diagnosis.txt), [before snapshot](liveness-diagnosis/ci-liveness-before.java) and [final normal-test snapshot](liveness-diagnosis/ci-liveness-green.java) retain the changes.
+
+The expiry test installs and awaits the healthy endpoint set before creating its short-deadline head. A coordinator task creates the head and tail and verifies both are queued and unfinished, with the held reservation and idle peer ownership intact. The test then requires the exact deadline failure and successful tail dispatch to that idle peer. The recovery test marks the peer unhealthy, creates its ticket and proves queued ownership on the coordinator before refreshing health. It retains the expected endpoint assertion and keeps the other lease held until cleanup. Neither test uses a production hook or hard sleep.
+
+The temporary [repeated source](liveness-diagnosis/ci-liveness-repeated.java), [GREEN log](liveness-diagnosis/ci-liveness-repeated-green.log) and [JUnit report](liveness-diagnosis/ci-liveness-40-junit.xml) record **20 expiry and 20 health-recovery repetitions**, 40 total, with zero failures, errors or skips. Both annotations were restored to normal `@Test` before final verification, as was the retirement test.
+
+## Final local verification and source scope
+
+The [final full-reactor log](liveness-diagnosis/ci-liveness-full-verify.log) completed with exit code zero and `BUILD SUCCESS` in **59.388 seconds**. The 16 fresh JUnit XML files under `final-junit`, organized by module, total **66 tests, zero failures, zero errors and zero skips**. The [JUnit summary](final-junit-summary.json) identifies each copied suite and its counts. The final `UpstreamDispatcherTest.java` matched the retained normal-test [source snapshot](liveness-diagnosis/ci-liveness-green.java) when this package was assembled.
+
+The [runtime-source proof](ci-runtime-source-trees.json) records identical production `src/main` tree identities for all five application modules at measured source `e3ae41cd03e60d11a883c7970ef688a7448f129e` and publication source `e8e060c6870b76b3eb235bcf3b322cc4aadfafe7`, with no working-tree production-source difference. The correction changes test synchronization and coverage, not the dispatcher algorithm, deadlines, limits, ownership contract or benchmark workload. Previously measured trials retain their actual source commits and are not relabeled to the follow-up commit. This package adds no throughput measurement or AWS deployment claim.
+
+The push publishing the correction triggers the next CI workflow. Its live result is available on the [CI workflow page](https://github.com/TongTong0828/raft-kv-gateway/actions/workflows/ci.yml). The completed local validation above is distinct from that remote workflow result; no later CI pass is asserted here.
+
+[SHA256SUMS](SHA256SUMS) covers every file in this follow-up package except the checksum file itself. Verify it from this directory with `shasum -a 256 -c SHA256SUMS`. The first failed CI log/artifacts, deterministic RED evidence, temporary repetition sources and both full-verification stages are preserved separately.
