@@ -42,5 +42,9 @@ jobs:
             work/k6/httpext-tests.jsonl
             work/k6/provenance-tests.log
             work/k6/image.json
-            **/target/surefire-reports/*.xml
+            api/target/surefire-reports/*.xml
+            control-plane/target/surefire-reports/*.xml
+            gateway/target/surefire-reports/*.xml
+            cli/target/surefire-reports/*.xml
+            integration-tests/target/surefire-reports/*.xml
           if-no-files-found: ignore
